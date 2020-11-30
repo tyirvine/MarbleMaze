@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Finish : MonoBehaviour
 {
-      public Transform destination;
+    public Transform destination;
     public float distance = 1f;
+
     void Start()
     {
 
@@ -16,7 +17,7 @@ public class Finish : MonoBehaviour
     {
         if(Vector3.Distance(transform.position, destination.position) <= distance)
         {
-            Debug.Log("HERE");
+            Debug.Log("You Have Beat the Level");
         }
     }
 }
