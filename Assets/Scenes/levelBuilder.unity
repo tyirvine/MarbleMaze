@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 1641343520}
   - component: {fileID: 1641343519}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: Board
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -325,7 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ff4cbe09204324897c2bd2d2817601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardWidth: 5
+  boardWidth: 10
   boardHeight: 5
   cornerPiece: {fileID: 4155747518113276956, guid: 8f96b70f9f6404c92a879440ee14e5a2,
     type: 3}
@@ -333,8 +333,13 @@ MonoBehaviour:
     type: 3}
   centerPiece: {fileID: 5129310743961286027, guid: 12291b0bf0d3f4c13a64f01bf6bb49bd,
     type: 3}
-  tileScale: 1
+  cornerWall: {fileID: 8492709466045052509, guid: a970f851a2d57432cb8cb34f7d0ab10b,
+    type: 3}
+  tileScale: 5
   tileHeight: 0
+  wallHeight: 0
+  cornerWallOffsetX: 2
+  cornerWallOffsetZ: 2
 --- !u!4 &1641343520
 Transform:
   m_ObjectHideFlags: 0

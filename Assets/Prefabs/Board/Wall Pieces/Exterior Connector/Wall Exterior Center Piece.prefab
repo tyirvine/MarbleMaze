@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 2552010448032596265, guid: d6eee68ed7773466a96fdd122186081f,
         type: 3}
       propertyPath: m_Name
-      value: Base Wall Connector Exterior Piece
+      value: Wall Exterior Center Piece
       objectReference: {fileID: 0}
     - target: {fileID: 6344989843446846826, guid: d6eee68ed7773466a96fdd122186081f,
         type: 3}

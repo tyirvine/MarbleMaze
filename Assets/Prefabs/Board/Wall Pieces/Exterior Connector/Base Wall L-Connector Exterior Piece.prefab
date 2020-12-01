@@ -117,6 +117,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base Wall L-Connector Exterior Piece
       objectReference: {fileID: 0}
+    - target: {fileID: 6522222031241883194, guid: cfeacfc78631148b7a27450228551781,
+        type: 3}
+      propertyPath: m_TagString
+      value: gameTile
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfeacfc78631148b7a27450228551781, type: 3}
 --- !u!1 &8492709466045052509 stripped
