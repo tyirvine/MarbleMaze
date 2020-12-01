@@ -15,9 +15,14 @@ public class buildBoard : MonoBehaviour
     public GameObject cornerPiece;
     public GameObject sidePiece;
     public GameObject centerPiece;
+    public GameObject cornerWall;
 
     public float tileScale = 1f;                    //alter this if the board tile model scale changes. it will affect the spacing between tiles
     public float tileHeight = 0f;                   //the Y height of the tiles.
+    public float wallHeight = 1f;                   //the additional height of the wall, this will be added to the tileHeight
+
+    public float cornerWallOffsetX = 2f;            //the corner wall pieces need to move to the outside of the floor squares, this will enable that movement
+    public float cornerWallOffsetZ = 2f;            
 
     //the following lines are references to be used in the datagrid to represent the appropriate tiles
     const int lowerRightCornerPieceIndex = 1;
@@ -87,6 +92,9 @@ public class buildBoard : MonoBehaviour
                     case lowerLeftCornerPieceIndex:
                         tempTile = Instantiate(cornerPiece, new Vector3(i * tileScale, tileHeight, ii * tileScale), Quaternion.identity);
                         tempTile.transform.Rotate(new Vector3(-90, 0, -90));
+                        tempTile = Instantiate(cornerWall, new Vector3(i * tileScale-cornerWallOffsetX, tileHeight+wallHeight, ii * tileScale-cornerWallOffsetZ), Quaternion.identity);
+                        tempTile.transform.Rotate(new Vector3(-90, 0, -180));
+
                         break;
                     case lowerRightCornerPieceIndex:
                         tempTile = Instantiate(cornerPiece, new Vector3(i * tileScale, tileHeight, ii * tileScale), Quaternion.identity);
