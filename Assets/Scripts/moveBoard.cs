@@ -8,8 +8,6 @@ public class moveBoard : MonoBehaviour {
 	public float turnSpeed = 25f;
 
 	void FixedUpdate() {
-		//transform.rotation = Quaternion.Euler(transform.rotation.x, 0f, transform.rotation.z);
-
 		//These two move on the Z-Axis
 		if (Input.GetKey(KeyCode.UpArrow))
 			transform.Rotate(Vector3.back, turnSpeed * Time.deltaTime);
@@ -23,6 +21,10 @@ public class moveBoard : MonoBehaviour {
 
 		if (Input.GetKey(KeyCode.RightArrow))
 			transform.Rotate(Vector3.left, turnSpeed * Time.deltaTime);
+	}
+
+	void Update() {
+		transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
 	}
 
 }
