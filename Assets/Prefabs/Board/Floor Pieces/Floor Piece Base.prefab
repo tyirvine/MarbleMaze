@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5577193033156469116}
   m_Layer: 0
   m_Name: Floor Piece Base
-  m_TagString: Untagged
+  m_TagString: gameTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

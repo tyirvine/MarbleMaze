@@ -94,33 +94,44 @@ public class buildBoard : MonoBehaviour
                         tempTile.transform.Rotate(new Vector3(-90, 0, -90));
                         tempTile = Instantiate(cornerWall, new Vector3(i * tileScale-cornerWallOffsetX, tileHeight+wallHeight, ii * tileScale-cornerWallOffsetZ), Quaternion.identity);
                         tempTile.transform.Rotate(new Vector3(-90, 0, -180));
-
                         break;
+
                     case lowerRightCornerPieceIndex:
                         tempTile = Instantiate(cornerPiece, new Vector3(i * tileScale, tileHeight, ii * tileScale), Quaternion.identity);
                         tempTile.transform.Rotate(new Vector3(-90, 0, 180));
+                        tempTile = Instantiate(cornerWall, new Vector3(i * tileScale + cornerWallOffsetX, tileHeight + wallHeight, ii * tileScale - cornerWallOffsetZ), Quaternion.identity);
+                        tempTile.transform.Rotate(new Vector3(-90, 0, -270));
                         break;
+
                     case upperRightCornerPieceIndex:
                         tempTile = Instantiate(cornerPiece, new Vector3(i * tileScale, tileHeight, ii * tileScale), Quaternion.identity);
                         tempTile.transform.Rotate(new Vector3(-90, 0, 90));
+                        tempTile = Instantiate(cornerWall, new Vector3(i * tileScale + cornerWallOffsetX, tileHeight + wallHeight, ii * tileScale + cornerWallOffsetZ), Quaternion.identity);
+                        tempTile.transform.Rotate(new Vector3(-90, 0, 0));
                         break;
+
                     case upperLeftCornerPieceIndex:
                         tempTile = Instantiate(cornerPiece, new Vector3(i * tileScale, tileHeight, ii * tileScale), Quaternion.identity);
                         tempTile.transform.Rotate(new Vector3(-90, 0, 0));
+                        tempTile = Instantiate(cornerWall, new Vector3(i * tileScale - cornerWallOffsetX, tileHeight + wallHeight, ii * tileScale + cornerWallOffsetZ), Quaternion.identity);
+                        tempTile.transform.Rotate(new Vector3(-90, 0, -90));
                         break;
 
                     case leftSidePieceIndex:
                         tempTile = Instantiate(sidePiece, new Vector3(i * tileScale, tileHeight, ii * tileScale), Quaternion.identity);
                         tempTile.transform.Rotate(new Vector3(-90, 0, 90));
                         break;
+
                     case rightSidePieceIndex:
                         tempTile = Instantiate(sidePiece, new Vector3(i * tileScale, tileHeight, ii * tileScale), Quaternion.identity);
                         tempTile.transform.Rotate(new Vector3(-90, 0, -90));
                         break;
+
                     case topSidePieceIndex:
                         tempTile = Instantiate(sidePiece, new Vector3(i * tileScale, tileHeight, ii * tileScale), Quaternion.identity);
                         tempTile.transform.Rotate(new Vector3(-90, 0, -180));
                         break;
+
                     case bottomSidePieceIndex:
                         tempTile = Instantiate(sidePiece, new Vector3(i * tileScale, tileHeight, ii * tileScale), Quaternion.identity);
                         tempTile.transform.Rotate(new Vector3(-90, 0, 0));
@@ -139,6 +150,16 @@ public class buildBoard : MonoBehaviour
                 }
             }
         }
+    }
+
+    void GroupTilesToParent()
+    {
+        GameObject[] tiles = GameObject.FindGameObjectsWithTag("gameTile");
+        foreach(GameObject tile in tiles)
+        {
+            tile.transform.SetParent(transform);
+        }
+
     }
 
     // Update is called once per frame

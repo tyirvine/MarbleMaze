@@ -18,6 +18,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Center Floor Piece
       objectReference: {fileID: 0}
+    - target: {fileID: 3777904707617469692, guid: 769ec66ef42474658be88536f1df2bb5,
+        type: 3}
+      propertyPath: m_TagString
+      value: gameTile
+      objectReference: {fileID: 0}
     - target: {fileID: 7237565801233788837, guid: 769ec66ef42474658be88536f1df2bb5,
         type: 3}
       propertyPath: m_LocalPosition.x
