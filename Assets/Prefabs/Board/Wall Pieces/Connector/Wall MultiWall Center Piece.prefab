@@ -71,13 +71,12 @@ PrefabInstance:
     - target: {fileID: 2020557965847111947, guid: da6aa3b38de67468ab6ac30dd4c56029,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8223766559978531670, guid: da6aa3b38de67468ab6ac30dd4c56029,
         type: 3}
       propertyPath: m_Name
       value: Wall MultiWall Center Piece
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2020557965847111947, guid: da6aa3b38de67468ab6ac30dd4c56029, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da6aa3b38de67468ab6ac30dd4c56029, type: 3}

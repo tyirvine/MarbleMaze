@@ -1,44 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!65 &6135461215535814571
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3668784814955558181}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0.5}
---- !u!65 &8752769452635781948
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3668784814955558181}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 4, z: 1}
-  m_Center: {x: 0, y: 2.5, z: 0.5}
---- !u!65 &7366237055450780694
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3668784814955558181}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4, y: 1, z: 1}
-  m_Center: {x: -2.5, y: 0, z: 0.5}
 --- !u!1001 &5131304333437272952
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109,13 +70,7 @@ PrefabInstance:
     - target: {fileID: 8492709466045052509, guid: a970f851a2d57432cb8cb34f7d0ab10b,
         type: 3}
       propertyPath: m_Name
-      value: Base Wall L-Connector Exterior Piece Variant
+      value: Wall L-Connector Exterior Piece
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a970f851a2d57432cb8cb34f7d0ab10b, type: 3}
---- !u!1 &3668784814955558181 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8492709466045052509, guid: a970f851a2d57432cb8cb34f7d0ab10b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5131304333437272952}
-  m_PrefabAsset: {fileID: 0}
