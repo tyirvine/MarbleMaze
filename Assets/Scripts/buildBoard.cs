@@ -45,7 +45,7 @@ public class buildBoard : MonoBehaviour
         boardData = new int[boardWidth, boardHeight];
         BuildBoardData();
         InstantiateBoard();
-
+        GroupTilesToParent();
     }
 
     void BuildBoardData()
