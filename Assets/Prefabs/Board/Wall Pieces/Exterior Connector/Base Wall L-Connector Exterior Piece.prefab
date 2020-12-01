@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!65 &-5871803280286599923
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8492709466045052509}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 1, z: 1}
+  m_Center: {x: -2.5, y: 0, z: 0.5}
+--- !u!65 &-5323791970662599224
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8492709466045052509}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0.5}
+--- !u!65 &-1084522246618536866
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8492709466045052509}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 4, z: 1}
+  m_Center: {x: 0, y: 2.5, z: 0.5}
+--- !u!1001 &3413653900246407271
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1892356563077937349, guid: cfeacfc78631148b7a27450228551781,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442348750420310649, guid: cfeacfc78631148b7a27450228551781,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442348750420310649, guid: cfeacfc78631148b7a27450228551781,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442348750420310649, guid: cfeacfc78631148b7a27450228551781,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442348750420310649, guid: cfeacfc78631148b7a27450228551781,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442348750420310649, guid: cfeacfc78631148b7a27450228551781,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442348750420310649, guid: cfeacfc78631148b7a27450228551781,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442348750420310649, guid: cfeacfc78631148b7a27450228551781,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442348750420310649, guid: cfeacfc78631148b7a27450228551781,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442348750420310649, guid: cfeacfc78631148b7a27450228551781,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442348750420310649, guid: cfeacfc78631148b7a27450228551781,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2442348750420310649, guid: cfeacfc78631148b7a27450228551781,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4333750601387259410, guid: cfeacfc78631148b7a27450228551781,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -9154261099648904574, guid: c4c4432f9ff4f4e3b97203aa0d48a4a6,
+        type: 3}
+    - target: {fileID: 6522222031241883194, guid: cfeacfc78631148b7a27450228551781,
+        type: 3}
+      propertyPath: m_Name
+      value: Base Wall L-Connector Exterior Piece
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cfeacfc78631148b7a27450228551781, type: 3}
+--- !u!1 &8492709466045052509 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6522222031241883194, guid: cfeacfc78631148b7a27450228551781,
+    type: 3}
+  m_PrefabInstance: {fileID: 3413653900246407271}
+  m_PrefabAsset: {fileID: 0}
