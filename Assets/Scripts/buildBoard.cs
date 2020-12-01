@@ -72,22 +72,22 @@ public class buildBoard : MonoBehaviour {
 
 
 	void InstantiateBoard() {
+		// Just a temporary GameObject placeholder used to set the rotation of each tile instantiated.
 		GameObject tempTile;
+		/// <summary>Simplifies instantiation of tiles. Position is where the tile will be instantiated.
+		/// X & Z are the x & z components of the rotation of each tile.</summary>
+		void TileInstantiation(GameObject piece, Vector3 position, float x, float z) {
+			tempTile = Instantiate(piece, position, Quaternion.identity);
+			tempTile.transform.Rotate(new Vector3(x, 0f, z));
+		}
+
+
 		for (int i = 0; i < boardWidth; i++) {
 			for (int ii = 0; ii < boardHeight; ii++) {
-
-				/// <summary>Simplifies instantiation of tiles. Position is where the tile will be instantiated.
-				/// X & Z are the x & z components of the rotation of each tile.</summary>
-				void TileInstantiation(GameObject piece, Vector3 position, float x, float z) {
-					tempTile = Instantiate(piece, position, Quaternion.identity);
-					tempTile.transform.Rotate(new Vector3(x, 0f, z));
-				}
 
 				// Some commonly used position types
 				Vector3 positionStandard = new Vector3(i * tileScale, tileHeight, ii * tileScale);
 				Vector3 positionOffsetZ(float xOffset, float zOffset) => new Vector3(i * tileScale + xOffset, tileHeight + wallHeight, ii * tileScale + zOffset);
-
-
 
 				switch (boardData[i, ii]) {
 				// Corners
