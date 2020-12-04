@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PathManager : MonoBehaviour {
@@ -23,8 +24,8 @@ public class PathManager : MonoBehaviour {
 		public Vector3Int bottomLeft;
 		public Vector3Int bottomRight;
 
-		public GameObject startPointObject;
-		public GameObject endPointObject;
+		public Vector3Int startPointNode;
+		public Vector3Int endPointNode;
 	}
 
 	/// <summary>Contains all grid positions in an easy to use object.</summary>
@@ -90,14 +91,114 @@ public class PathManager : MonoBehaviour {
 			return new Vector3Int((int)spawnPointX, parentYPosition, (int)spawnPointZ);
 		}
 
-		/// Spawn both start flags and end flags and assign them both to the <see cref="gridPoints"/> object.
-		gridPoints.startPointObject = Instantiate(startFlag, SpawnStartEndFlag(FlagAreas.Start), Quaternion.identity);
-		gridPoints.endPointObject = Instantiate(endFlag, SpawnStartEndFlag(FlagAreas.End), Quaternion.identity);
+		// Assign the start and end point node positions
+		gridPoints.startPointNode = SpawnStartEndFlag(FlagAreas.Start);
+		gridPoints.endPointNode = SpawnStartEndFlag(FlagAreas.End);
+
+		// Spawn both start flags and end flags
+		Instantiate(startFlag, gridPoints.startPointNode, Quaternion.identity);
+		Instantiate(endFlag, gridPoints.endPointNode, Quaternion.identity);
+	}
+
+
+	// Node object to keep track of path cost
+	public class NodeObject {
+		public Vector3Int position;
+		/// <summary>Distance from the starting node.</summary>
+		public int gCost;
+		/// <summary>Distance from the end node.</summary>
+		public int hCost;
+		/// <summary>G cost + H cost.</summary>
+		public int fCost;
+
+		/// <summary>Finds the distance between the current node and the starting node.</summary>
+		public void FindGCost(GridPoints gridPoints) {
+			gCost = (int)(position - gridPoints.startPointNode).magnitude;
+		}
+		/// <summary>Finds the distance between the current node and the end node.</summary>
+		public void FindHCost(GridPoints gridPoints) {
+			hCost = (int)(position - gridPoints.endPointNode).magnitude;
+		}
+		/// <summary>Calculates the G cost + H cost.</summary>
+		public void FindFCost() {
+			fCost = gCost + hCost;
+		}
+
+		public NodeObject(Vector3Int position, int gCost, int hCost, int fCost) {
+			this.position = position;
+			this.gCost = gCost;
+			this.hCost = hCost;
+			this.fCost = fCost;
+		}
+	}
+
+
+	/// <summary>This handles the creation of a path from the start point to the end point!</summary>
+	void GeneratePath() {
+		// Ensure point is within the grid bounds
+		List<NodeObject> openNodes = new List<NodeObject>();
+		List<NodeObject> closedNodes = new List<NodeObject>();
+
+		// Add the start node to the open points list
+		openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0));
+
+		// This object contains the current node being investigated
+		NodeObject currentNode;
+
+		while (true) {
+			// Find node with the lowest f_cost, remove it from the open nodes and add it to the closed nodes
+			currentNode = (NodeObject)openNodes.OrderByDescending(node => node.fCost).Take(1);
+			openNodes.Remove(currentNode);
+			closedNodes.Add(currentNode);
+
+			// Check to see if the current node position is equal to the end or target node's position
+			if (currentNode.position == gridPoints.endPointNode) {
+				return;
+			}
+
+			// Find the current node's neighbours
+			/// Below is which index corresponds to which neighbour
+			///				(-x)
+			///				0
+			///	(-z)	3		1	(+z)
+			///				2
+			///				(+x)
+			NodeObject[] neighbourNodes = new NodeObject[4];
+
+			/// <summary>Simplify finding node position.</summary>
+			Vector3Int FindNodePosition(int xOffset, int zOffset) {
+				Vector3Int referencePosition = currentNode.position;
+				return new Vector3Int(referencePosition.x + xOffset, parentYPosition, referencePosition.z + zOffset);
+			}
+
+			// Assign all neighbour node positions
+			neighbourNodes[0].position = FindNodePosition(-1, 0);
+			neighbourNodes[1].position = FindNodePosition(0, 1);
+			neighbourNodes[2].position = FindNodePosition(1, 0);
+			neighbourNodes[3].position = FindNodePosition(0, -1);
+
+			// Loop through all neighbours
+			foreach (NodeObject node in neighbourNodes) {
+				// Checks to see if the current neighbour node being investigated is in the closedNodes list
+				if (closedNodes.Contains(node))
+					// If it is then skip this loop iteration and move to the next neighbour node
+					continue;
+				// Otherwise continue to investigate this neighbour node
+
+#warning I stopped working here - Ty
+
+			}
+
+			// This is a temporary emergency brake on the while loop just so it doesn't spin out of control
+			return;
+		}
+
 	}
 
 
 	// Start is called before the first frame update
 	void Start() {
 		ConstructGrid();
+		GeneratePath();
 	}
 }
