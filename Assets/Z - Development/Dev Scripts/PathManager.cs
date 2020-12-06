@@ -1,17 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
+using Random = UnityEngine.Random;
 
 public class PathManager : MonoBehaviour {
 	// These are half lengths so they can be used as a product of a (1/2) division
+	[Header("Grid Size")]
 	[Range(10, 100)] public int gridXSizeHalfLength = 50;
 	[Range(10, 100)] public int gridZSizeHalfLength = 50;
 
 	/// <summary>Reference to y position of the parent. Used to ensure grid positions are all at the same y position.</summary>
 	public int parentYPosition = 0;
 
+	/// <summary>How long the grid should appear drawn for. This int gets casted as a float automatically.</summary>
+	[Header("Draw Time")]
+	[Range(0, 100)] public int gridDrawDuration = 10;
+
 	// Empties that acts as markers
+	[Header("Object References")]
 	public GameObject pathFlag;
 	public GameObject startFlag;
 	public GameObject endFlag;
@@ -55,7 +65,7 @@ public class PathManager : MonoBehaviour {
 		gridPoints.bottomRight = ReturnGridPoint(gridXSizeHalfLength, gridZSizeHalfLength);
 
 		// Duration needs to be specified, otherwise a line will only be drawn for one frame
-		void DrawGridLine(Vector3Int start, Vector3Int end) => Debug.DrawLine(start, end, color: Color.white, duration: 10f);
+		void DrawGridLine(Vector3Int start, Vector3Int end) => Debug.DrawLine(start, end, color: Color.white, duration: gridDrawDuration);
 		// Draw a rectangle of the grid
 		DrawGridLine(gridPoints.topLeft, gridPoints.topRight);
 		DrawGridLine(gridPoints.topRight, gridPoints.bottomRight);
@@ -111,16 +121,14 @@ public class PathManager : MonoBehaviour {
 		/// <summary>G cost + H cost.</summary>
 		public int fCost;
 
-		/// <summary>Finds the distance between the current node and the starting node.</summary>
-		public void FindGCost(GridPoints gridPoints) {
-			gCost = (int)(position - gridPoints.startPointNode).magnitude;
-		}
-		/// <summary>Finds the distance between the current node and the end node.</summary>
-		public void FindHCost(GridPoints gridPoints) {
-			hCost = (int)(position - gridPoints.endPointNode).magnitude;
-		}
+		public NodeObject parent;
+
 		/// <summary>Calculates the G cost + H cost.</summary>
-		public void FindFCost() {
+		public void AssignFCost(GridPoints gridPoints) {
+			// Finds the distance between the current node and the starting node.
+			gCost = (int)(position - gridPoints.startPointNode).magnitude;
+			// Finds the distance between the current node and the end node.
+			hCost = (int)(position - gridPoints.endPointNode).magnitude;
 			fCost = gCost + hCost;
 		}
 
@@ -135,9 +143,11 @@ public class PathManager : MonoBehaviour {
 
 	/// <summary>This handles the creation of a path from the start point to the end point!</summary>
 	void GeneratePath() {
-		// Ensure point is within the grid bounds
+		/// For an explination on what these node lists mean please visit ⤵
+		/// https://www.notion.so/scriptobit/Environment-Path-Generation-a5304e8f37474efa98809a03f0e26074
 		List<NodeObject> openNodes = new List<NodeObject>();
 		List<NodeObject> closedNodes = new List<NodeObject>();
+		List<NodeObject> pathNodes = new List<NodeObject>();
 
 		// Add the start node to the open points list
 		openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0));
@@ -145,14 +155,60 @@ public class PathManager : MonoBehaviour {
 		// This object contains the current node being investigated
 		NodeObject currentNode;
 
+		/// <summary>Check to see if a position is within the grid bounds or not.</summary>
+		bool CheckIfInGridBounds(Vector3Int position) {
+			GridPoints grid = gridPoints;
+			if ((position.z < grid.topRight.z && position.z > grid.bottomLeft.z) && (position.x < grid.bottomLeft.x && position.x > grid.topRight.x))
+				return true;
+			else
+				return false;
+		}
+
+		/// <summary>Check to see if the new path to specified node is shorter than the previously stored path.</summary>
+		bool IsNewPathShorter(NodeObject newNode) {
+			// This finds our stored node by searching through the open nodes list based on position
+			NodeObject storedNode = openNodes.Find(nodes => nodes.position == newNode.position);
+			newNode.AssignFCost(gridPoints);
+			// Then check to see if the stored node's fcost is higher than the new node's
+			if (newNode.fCost < storedNode.fCost) {
+				return true;
+			} else
+				return false;
+		}
+
+		/// <summary>This back tracks from the current node to find the starting node, making a path.</summary>
+		void RetracePath(NodeObject lastNode) {
+			NodeObject traceNode = lastNode;
+			while (traceNode.position != gridPoints.startPointNode) {
+				pathNodes.Add(traceNode);
+				traceNode = traceNode.parent;
+			}
+			// Reverse the list because we started tracing from the end
+			pathNodes.Reverse();
+			// Instantiate desired object
+			foreach (NodeObject node in pathNodes)
+				Instantiate(pathFlag, node.position, Quaternion.identity);
+		}
+
+		// TODO: Remove this, it's just for testing
+		long loopStartTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+
+		// This loops until a path is generated from the start node to the end node
 		while (true) {
 			// Find node with the lowest f_cost, remove it from the open nodes and add it to the closed nodes
-			currentNode = (NodeObject)openNodes.OrderByDescending(node => node.fCost).Take(1);
+			int lowestFCost = openNodes.Min(nodes => nodes.fCost);
+			currentNode = openNodes.First(nodes => nodes.fCost == lowestFCost);
 			openNodes.Remove(currentNode);
 			closedNodes.Add(currentNode);
 
 			// Check to see if the current node position is equal to the end or target node's position
 			if (currentNode.position == gridPoints.endPointNode) {
+				// TODO: Remove this, it's just for testing --- ⤵
+				long currentTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+				Debug.Log("Path found in " + (currentTime - loopStartTime) + "ms!");
+				// -------------------------------------------- ⤴
+				RetracePath(currentNode);
 				return;
 			}
 
@@ -164,6 +220,9 @@ public class PathManager : MonoBehaviour {
 			///				2
 			///				(+x)
 			NodeObject[] neighbourNodes = new NodeObject[4];
+			// Initializing the array with empty nodeobjects
+			for (int i = 0; i < neighbourNodes.Length; i++)
+				neighbourNodes[i] = new NodeObject(Vector3Int.zero, 0, 0, 0);
 
 			/// <summary>Simplify finding node position.</summary>
 			Vector3Int FindNodePosition(int xOffset, int zOffset) {
@@ -179,20 +238,20 @@ public class PathManager : MonoBehaviour {
 
 			// Loop through all neighbours
 			foreach (NodeObject node in neighbourNodes) {
-				// Checks to see if the current neighbour node being investigated is in the closedNodes list
-				if (closedNodes.Contains(node))
+				// Checks to see if the current neighbour node being investigated is in the closedNodes list or traversable
+				if (closedNodes.Any(nodes => nodes.position == node.position) || !CheckIfInGridBounds(node.position))
 					// If it is then skip this loop iteration and move to the next neighbour node
 					continue;
-				// Otherwise continue to investigate this neighbour node
-
-#warning I stopped working here - Ty
-
+				// Otherwise check to see if the node is in the open list or if the new path to the node is shorter than the stored path
+				if (!openNodes.Any(nodes => nodes.position == node.position) || (IsNewPathShorter(node))) {
+					node.AssignFCost(gridPoints);
+					node.parent = currentNode;
+					// If the node is not found in the open nodes list then add it
+					if (!openNodes.Any(nodes => nodes.position == node.position))
+						openNodes.Add(node);
+				}
 			}
-
-			// This is a temporary emergency brake on the while loop just so it doesn't spin out of control
-			return;
 		}
-
 	}
 
 

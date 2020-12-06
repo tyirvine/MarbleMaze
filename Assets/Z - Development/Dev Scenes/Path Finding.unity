@@ -164,8 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bbdeb670c0a461f9fece1ea3408a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridXSizeHalfLength: 30
-  gridZSizeHalfLength: 65
+  gridXSizeHalfLength: 25
+  gridZSizeHalfLength: 25
   parentYPosition: 0
   pathFlag: {fileID: 6344987324550275196, guid: 682118e13740245f7914fc3b0b6627d8,
     type: 3}
