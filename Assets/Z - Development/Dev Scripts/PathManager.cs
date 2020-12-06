@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
+using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using Random = UnityEngine.Random;
@@ -12,6 +14,8 @@ public class PathManager : MonoBehaviour {
 	[Header("Grid Size")]
 	[Range(10, 100)] public int gridXSizeHalfLength = 50;
 	[Range(10, 100)] public int gridZSizeHalfLength = 50;
+	/// <summary>This dictates how much of the grid area should be start node spawnable area.</summary>
+	[Range(0f, 0.2f)] public float startAreaPercentage = 0.1f;
 
 	/// <summary>Reference to y position of the parent. Used to ensure grid positions are all at the same y position.</summary>
 	public int parentYPosition = 0;
@@ -48,7 +52,6 @@ public class PathManager : MonoBehaviour {
 	}
 
 
-
 	/// <summary>Sets the grid's origin point and draws an outline of it. Then it spawns both the start and end point objects and assigns them to <see cref="gridPoints"/>.</summary>
 	void ConstructGrid() {
 		// Find the origin grid position by inverting the gridX and gridZ lengths
@@ -72,9 +75,7 @@ public class PathManager : MonoBehaviour {
 		DrawGridLine(gridPoints.bottomRight, gridPoints.bottomLeft);
 		DrawGridLine(gridPoints.bottomLeft, gridPoints.topLeft);
 
-
 		// Finds size of either the start or end point spawn area
-		Vector3Int SpawnStartEndFlag(FlagAreas flag) {
 			Vector3 SpawnAreaMin;
 			Vector3 SpawnAreaMax;
 
@@ -88,7 +89,7 @@ public class PathManager : MonoBehaviour {
 			// Grab the maximum and minimum values of the spawn area specified by the flag chosen
 			if (flag == FlagAreas.Start) {
 				SpawnAreaMin = gridPoints.bottomLeft;
-				SpawnAreaMax = FindGridAreaMaxMin(gridPoints.topRight, 0.2f);
+				SpawnAreaMax = FindGridAreaMaxMin(gridPoints.topRight, startAreaPercentage);
 			} else {
 				SpawnAreaMin = FindGridAreaMaxMin(gridPoints.bottomRight, 0.6f);
 				SpawnAreaMax = gridPoints.topRight;
@@ -110,7 +111,6 @@ public class PathManager : MonoBehaviour {
 		Instantiate(endFlag, gridPoints.endPointNode, Quaternion.identity);
 	}
 
-
 	// Node object to keep track of path cost
 	public class NodeObject {
 		public Vector3Int position;
@@ -126,9 +126,9 @@ public class PathManager : MonoBehaviour {
 		/// <summary>Calculates the G cost + H cost.</summary>
 		public void AssignFCost(GridPoints gridPoints) {
 			// Finds the distance between the current node and the starting node.
-			gCost = (int)(position - gridPoints.startPointNode).magnitude;
+			gCost = (gridPoints.startPointNode - position).sqrMagnitude;
 			// Finds the distance between the current node and the end node.
-			hCost = (int)(position - gridPoints.endPointNode).magnitude;
+			hCost = (gridPoints.currentEndPoint - position).sqrMagnitude;
 			fCost = gCost + hCost;
 		}
 
@@ -139,7 +139,6 @@ public class PathManager : MonoBehaviour {
 			this.fCost = fCost;
 		}
 	}
-
 
 	/// <summary>This handles the creation of a path from the start point to the end point!</summary>
 	void GeneratePath() {
@@ -165,12 +164,12 @@ public class PathManager : MonoBehaviour {
 		}
 
 		/// <summary>Check to see if the new path to specified node is shorter than the previously stored path.</summary>
-		bool IsNewPathShorter(NodeObject newNode) {
+		bool IsNewPathLonger(NodeObject newNode) {
 			// This finds our stored node by searching through the open nodes list based on position
 			NodeObject storedNode = openNodes.Find(nodes => nodes.position == newNode.position);
 			newNode.AssignFCost(gridPoints);
 			// Then check to see if the stored node's fcost is higher than the new node's
-			if (newNode.fCost < storedNode.fCost) {
+			if (newNode.fCost > storedNode.fCost) {
 				return true;
 			} else
 				return false;
@@ -180,7 +179,7 @@ public class PathManager : MonoBehaviour {
 		void RetracePath(NodeObject lastNode) {
 			NodeObject traceNode = lastNode;
 			while (traceNode.position != gridPoints.startPointNode) {
-				pathNodes.Add(traceNode);
+				if (traceNode.position != gridPoints.currentEndPoint) pathNodes.Add(traceNode);
 				traceNode = traceNode.parent;
 			}
 			// Reverse the list because we started tracing from the end
@@ -193,12 +192,11 @@ public class PathManager : MonoBehaviour {
 		// TODO: Remove this, it's just for testing
 		long loopStartTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-
 		// This loops until a path is generated from the start node to the end node
 		while (true) {
 			// Find node with the lowest f_cost, remove it from the open nodes and add it to the closed nodes
-			int lowestFCost = openNodes.Min(nodes => nodes.fCost);
-			currentNode = openNodes.First(nodes => nodes.fCost == lowestFCost);
+			int highestFCost = openNodes.Max(nodes => nodes.fCost);
+			currentNode = openNodes.First(nodes => nodes.fCost == highestFCost);
 			openNodes.Remove(currentNode);
 			closedNodes.Add(currentNode);
 
@@ -221,8 +219,7 @@ public class PathManager : MonoBehaviour {
 			///				(+x)
 			NodeObject[] neighbourNodes = new NodeObject[4];
 			// Initializing the array with empty nodeobjects
-			for (int i = 0; i < neighbourNodes.Length; i++)
-				neighbourNodes[i] = new NodeObject(Vector3Int.zero, 0, 0, 0);
+			for (int i = 0; i < neighbourNodes.Length; i++) neighbourNodes[i] = new NodeObject(Vector3Int.zero, 0, 0, 0);
 
 			/// <summary>Simplify finding node position.</summary>
 			Vector3Int FindNodePosition(int xOffset, int zOffset) {
@@ -238,12 +235,12 @@ public class PathManager : MonoBehaviour {
 
 			// Loop through all neighbours
 			foreach (NodeObject node in neighbourNodes) {
-				// Checks to see if the current neighbour node being investigated is in the closedNodes list or traversable
+				// Checks to see if the current neighbour node being investigated is in the closedNodes list or is traversable
 				if (closedNodes.Any(nodes => nodes.position == node.position) || !CheckIfInGridBounds(node.position))
 					// If it is then skip this loop iteration and move to the next neighbour node
 					continue;
 				// Otherwise check to see if the node is in the open list or if the new path to the node is shorter than the stored path
-				if (!openNodes.Any(nodes => nodes.position == node.position) || (IsNewPathShorter(node))) {
+				if (!openNodes.Any(nodes => nodes.position == node.position) || (IsNewPathLonger(node))) {
 					node.AssignFCost(gridPoints);
 					node.parent = currentNode;
 					// If the node is not found in the open nodes list then add it
@@ -253,7 +250,6 @@ public class PathManager : MonoBehaviour {
 			}
 		}
 	}
-
 
 	// Start is called before the first frame update
 	void Start() {
