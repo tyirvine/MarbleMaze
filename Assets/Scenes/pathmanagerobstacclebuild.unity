@@ -153,8 +153,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleManager: {fileID: 149708484}
   placeObstacles: {fileID: 1551298789}
-  gridXSizeHalfLength: 40
-  gridZSizeHalfLength: 40
+  gridXSizeHalfLength: 10
+  gridZSizeHalfLength: 10
+  gridScale: {x: 5, y: 0, z: 5}
   startAreaPercentage: 0.1
   parentYPosition: 0
   gridDrawDuration: 10
@@ -165,6 +166,7 @@ MonoBehaviour:
   endFlag: {fileID: 8970112326771813452, guid: 9d2ef472102d34f9aa6dbbbc1ab42c5a, type: 3}
   originFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
+  didPathGenerate: 0
 --- !u!4 &149708483
 Transform:
   m_ObjectHideFlags: 0
@@ -194,6 +196,8 @@ MonoBehaviour:
   pathManager: {fileID: 149708482}
   obstaclePositions: []
   obstacleCoveragePercentage: 0.25
+  gridArea: 0
+  gridScale: {x: 5, y: 0, z: 5}
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
 --- !u!1 &1064959594

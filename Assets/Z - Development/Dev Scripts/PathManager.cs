@@ -22,6 +22,8 @@ public class PathManager : MonoBehaviour {
 	[Range(10, 100)] public int gridXSizeHalfLength = 50;
 	[Range(10, 100)] public int gridZSizeHalfLength = 50;
 
+	public Vector3Int gridScale; //scaling for the placement of objects on the grid
+
 	/// <summary>This dictates how much of the grid area should be start node spawnable area.</summary>
 	[Range(0f, 0.2f)] public float startAreaPercentage = 0.1f;
 
@@ -126,7 +128,7 @@ public class PathManager : MonoBehaviour {
 	void ConstructGrid() {
 		// Find the origin grid position by inverting the gridX and gridZ lengths
 		Vector3 originGridPosition = new Vector3Int(-gridXSizeHalfLength, parentYPosition, -gridZSizeHalfLength);
-		Instantiate(originFlag, originGridPosition, Quaternion.identity);
+		Instantiate(originFlag, Vector3.Scale(gridScale,originGridPosition), Quaternion.identity);
 
 		// Simplifies grid position definitions, parent
 		Vector3Int ReturnGridPoint(int x, int z) => new Vector3Int(x, parentYPosition, z);
@@ -225,7 +227,7 @@ public class PathManager : MonoBehaviour {
 				// All checks are successful so the flag can be spawned!
 				if (flag == FlagAreas.Start) gridPoints.startPointNode = possibleSpawn;
 				if (flag == FlagAreas.End) gridPoints.endPointNode = possibleSpawn;
-				Instantiate(flagObject, possibleSpawn, Quaternion.identity);
+				Instantiate(flagObject, Vector3.Scale(gridScale, possibleSpawn), Quaternion.identity);
 				// Makes itself a placed point to avoid overlap with other points
 				gridPoints.placedPoints.Add(possibleSpawn);
 				return;
@@ -283,7 +285,7 @@ public class PathManager : MonoBehaviour {
 			pathNodes.Reverse();
 			// Instantiate desired object
 			foreach (NodeObject node in pathNodes)
-				Instantiate(pathFlag, node.position, Quaternion.identity);
+				Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
 		}
 
 		/// <summary>This checks to see if the point collides with any non-pathable positions.</summary>

@@ -15,6 +15,7 @@ public class ObstacleManager : MonoBehaviour {
 
 	// Total grid area
 	public int gridArea;
+	public Vector3Int gridScale;
 
 	// Empties that acts as markers
 	[Header("Object References")]
@@ -50,7 +51,7 @@ public class ObstacleManager : MonoBehaviour {
 				// Check to make sure this position isn't already taken
 				if (!obstaclePositions.Contains(currentObstaclePosition)) {
 					obstaclePositions.Add(currentObstaclePosition);
-					Instantiate(obstacleFlag, currentObstaclePosition, Quaternion.identity);
+					Instantiate(obstacleFlag, Vector3.Scale(gridScale, currentObstaclePosition), Quaternion.identity);
 					break;
 				}
 			}
