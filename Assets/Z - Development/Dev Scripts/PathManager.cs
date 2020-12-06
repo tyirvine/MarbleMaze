@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
-using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEditorInternal;
 using UnityEngine;
@@ -16,7 +15,7 @@ public class PathManager : MonoBehaviour {
 	public ObstacleManager obstacleManager;
 
 	// Reference to the level builder to create the physical level
-	public PlaceObstacles placeObstacles; 
+	public PlaceObstacles placeObstacles;
 
 	// These are half lengths so they can be used as a product of a (1/2) division
 	[Header("Grid Size")]
@@ -75,8 +74,7 @@ public class PathManager : MonoBehaviour {
 
 	/// <summary>Ensures anything that needs to be reset gets reset.</summary>
 	void Initialize() {
-		gridPoints = new GridPoints();
-		gridPoints.placedPoints = new List<Vector3Int>();
+		gridPoints = new GridPoints { placedPoints = new List<Vector3Int>() };
 		didPathGenerate = false;
 
 		// Obstacle manager
@@ -128,7 +126,7 @@ public class PathManager : MonoBehaviour {
 	void ConstructGrid() {
 		// Find the origin grid position by inverting the gridX and gridZ lengths
 		Vector3 originGridPosition = new Vector3Int(-gridXSizeHalfLength, parentYPosition, -gridZSizeHalfLength);
-		GameObject originPoint = Instantiate(originFlag, originGridPosition, Quaternion.identity);
+		Instantiate(originFlag, originGridPosition, Quaternion.identity);
 
 		// Simplifies grid position definitions, parent
 		Vector3Int ReturnGridPoint(int x, int z) => new Vector3Int(x, parentYPosition, z);
@@ -380,7 +378,6 @@ public class PathManager : MonoBehaviour {
 		// Build the grid and spawn the obstacles
 		ConstructGrid();
 		obstacleManager.GenerateObstacleMap();
-<<<<<<< Updated upstream
 
 		// This catch is looking for a `No sequence` error that can occur when the path can't go from start to finish
 		try {
@@ -399,10 +396,10 @@ public class PathManager : MonoBehaviour {
 	// Start is called before the first frame update
 	void Start() {
 		ConstructPathStack();
-=======
-		placeObstacles.BuildObstacles();				//added by bubzy to build level from obstacle data
-		GeneratePath();
->>>>>>> Stashed changes
+
+		// Added by bubzy to build level from obstacle data
+		placeObstacles.BuildObstacles();
+
 	}
 }
 
