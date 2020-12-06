@@ -15,6 +15,9 @@ public class PathManager : MonoBehaviour {
 	// Reference to the obstacle manager for linking up the obstacle position list and generating obstacle maps
 	public ObstacleManager obstacleManager;
 
+	// Reference to the level builder to create the physical level
+	public PlaceObstacles placeObstacles; 
+
 	// These are half lengths so they can be used as a product of a (1/2) division
 	[Header("Grid Size")]
 	[Range(10, 100)] public int gridXSizeHalfLength = 50;
@@ -377,6 +380,7 @@ public class PathManager : MonoBehaviour {
 		// Build the grid and spawn the obstacles
 		ConstructGrid();
 		obstacleManager.GenerateObstacleMap();
+<<<<<<< Updated upstream
 
 		// This catch is looking for a `No sequence` error that can occur when the path can't go from start to finish
 		try {
@@ -395,6 +399,10 @@ public class PathManager : MonoBehaviour {
 	// Start is called before the first frame update
 	void Start() {
 		ConstructPathStack();
+=======
+		placeObstacles.BuildObstacles();				//added by bubzy to build level from obstacle data
+		GeneratePath();
+>>>>>>> Stashed changes
 	}
 }
 

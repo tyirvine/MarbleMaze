@@ -21,6 +21,9 @@ public class buildBoard : MonoBehaviour {
 	public float cornerWallOffsetX = 2f;            //the corner wall pieces need to move to the outside of the floor squares, this will enable that movement
 	public float cornerWallOffsetZ = 2f;
 
+	public float boardOffsetX = -2.5f;
+	public float boardOffsetZ = -0.5f;				//to allow for discrepancy between path generation and board instantiation.
+
 	//the following lines are references to be used in the datagrid to represent the appropriate tiles
 	const int lowerRightCornerPieceIndex = 1;
 	const int lowerLeftCornerPieceIndex = 2;
@@ -153,6 +156,7 @@ public class buildBoard : MonoBehaviour {
 			rigidbody.isKinematic = true;
 			tile.transform.SetParent(transform);
 		}
+		transform.position = new Vector3(boardOffsetX, 0, boardOffsetZ);
 	}
 }
 
