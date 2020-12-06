@@ -14,7 +14,7 @@ public class ObstacleManager : MonoBehaviour {
 	[Range(0.1f, 1f)] public float obstacleCoveragePercentage = 0.25f;
 
 	// Total grid area
-	public int gridArea;
+	[HideInInspector] public int gridArea;
 	public Vector3Int gridScale;
 
 	// Empties that acts as markers

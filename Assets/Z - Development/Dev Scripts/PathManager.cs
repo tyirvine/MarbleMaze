@@ -19,8 +19,8 @@ public class PathManager : MonoBehaviour {
 
 	// These are half lengths so they can be used as a product of a (1/2) division
 	[Header("Grid Size")]
-	[Range(10, 100)] public int gridXSizeHalfLength = 50;
-	[Range(10, 100)] public int gridZSizeHalfLength = 50;
+	[Range(3, 100)] public int gridXSizeHalfLength = 50;
+	[Range(3, 100)] public int gridZSizeHalfLength = 50;
 
 	public Vector3Int gridScale; //scaling for the placement of objects on the grid
 
@@ -43,7 +43,7 @@ public class PathManager : MonoBehaviour {
 
 
 	/// <summary>Use this to determine if a path has been succesfully generated or not.</summary>
-	public bool didPathGenerate;
+	[HideInInspector] public bool didPathGenerate;
 
 	/// <summary> Use this object to define grid positions.</summary>
 	public struct GridPoints {
@@ -128,7 +128,7 @@ public class PathManager : MonoBehaviour {
 	void ConstructGrid() {
 		// Find the origin grid position by inverting the gridX and gridZ lengths
 		Vector3 originGridPosition = new Vector3Int(-gridXSizeHalfLength, parentYPosition, -gridZSizeHalfLength);
-		Instantiate(originFlag, Vector3.Scale(gridScale,originGridPosition), Quaternion.identity);
+		Instantiate(originFlag, Vector3.Scale(gridScale, originGridPosition), Quaternion.identity);
 
 		// Simplifies grid position definitions, parent
 		Vector3Int ReturnGridPoint(int x, int z) => new Vector3Int(x, parentYPosition, z);
