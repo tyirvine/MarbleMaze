@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6213876491380585083}
   m_Layer: 0
   m_Name: Base Flag
-  m_TagString: Untagged
+  m_TagString: Flag
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -13,6 +13,9 @@ public class ObstacleManager : MonoBehaviour {
 	/// <summary>Determines the percentage of area the obstacles will cover.</summary>
 	[Range(0.1f, 1f)] public float obstacleCoveragePercentage = 0.25f;
 
+	// Total grid area
+	public int gridArea;
+
 	// Empties that acts as markers
 	[Header("Object References")]
 	public GameObject obstacleFlag;
@@ -20,7 +23,7 @@ public class ObstacleManager : MonoBehaviour {
 
 	public void GenerateObstacleMap() {
 		// Find out grid size
-		int gridArea = (pathManager.gridXSizeHalfLength * 2) * (pathManager.gridZSizeHalfLength * 2);
+		gridArea = (pathManager.gridXSizeHalfLength * 2) * (pathManager.gridZSizeHalfLength * 2);
 		int obstacleCount = (int)(gridArea * obstacleCoveragePercentage);
 
 		// Spawn specified amount of obstacles using the total area of the grid. FlagAreas.Grid ensures the entire grid is used.

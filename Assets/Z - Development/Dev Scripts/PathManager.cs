@@ -38,6 +38,9 @@ public class PathManager : MonoBehaviour {
 	public GameObject originFlag;
 
 
+	/// <summary>Use this to determine if a path has been succesfully generated or not.</summary>
+	public bool didPathGenerate;
+
 	/// <summary> Use this object to define grid positions.</summary>
 	public struct GridPoints {
 		// TODO: These need to be renamed to coincide with the axes
@@ -49,6 +52,9 @@ public class PathManager : MonoBehaviour {
 
 		public Vector3Int startPointNode;
 		public Vector3Int endPointNode;
+
+		/// <summary>Use this to store the start and end points.</summary>
+		public List<Vector3Int> placedPoints;
 	}
 
 	/// <summary>Contains all grid positions in an easy to use object.</summary>
@@ -62,6 +68,18 @@ public class PathManager : MonoBehaviour {
 	}
 
 
+
+
+	/// <summary>Ensures anything that needs to be reset gets reset.</summary>
+	void Initialize() {
+		gridPoints = new GridPoints();
+		gridPoints.placedPoints = new List<Vector3Int>();
+		didPathGenerate = false;
+
+		// Obstacle manager
+		obstacleManager.obstaclePositions = new List<Vector3Int>();
+		obstacleManager.gridArea = 0;
+	}
 
 
 	/// <summary>Simplifies spawning a point in a specified area.</summary>
@@ -179,23 +197,16 @@ public class PathManager : MonoBehaviour {
 
 	/// <summary>This spawns the start and end points by making sure they have ample room and aren't colliding.</summary>
 	void SpawnStartOrEnd(FlagAreas flag, GameObject flagObject) {
-		int tempCounter = 0;
+		/// <summary>This keeps track of the loop and will fire off a warning to reset the obstacle gen if it's taking too long.</summary>
+		int loopCounter = 0;
 		// Loop through until a valid spawn point is found
-		while (tempCounter < 1000) {
-			tempCounter++;
+		while (loopCounter <= obstacleManager.gridArea) {
 			// Generate spawn point based on area
 			Vector3Int possibleSpawn = SpawnPointInArea(FlagAreas.Grid);
 			// Check to see if the possible spawn is colliding with the obstacle positions
-			if (!obstacleManager.obstaclePositions.Contains(possibleSpawn)) {
+			if (!obstacleManager.obstaclePositions.Contains(possibleSpawn) && !gridPoints.placedPoints.Contains(possibleSpawn)) {
 				// Find all neighbours of the possible spawn point
 				Vector3Int[] possibleSpawnNeighbours = new Vector3Int[] {
-					// Diagonals
-					FindNodePosition(-1, 1, position: possibleSpawn),
-					FindNodePosition(1, 1, position: possibleSpawn),
-					FindNodePosition(1, -1, position: possibleSpawn),
-					FindNodePosition(-1, -1, position: possibleSpawn),
-
-					// Non-diagonals
 					FindNodePosition(-1, 0, position: possibleSpawn),
 					FindNodePosition(0, 1, position: possibleSpawn),
 					FindNodePosition(1, 0, position: possibleSpawn),
@@ -203,8 +214,9 @@ public class PathManager : MonoBehaviour {
 				};
 
 				// Verifies that the neighbouring positions are also not colliding with obstacle positions
+				// if a collision is detected it breaks out of the loop so it can try another spawn point
 				foreach (Vector3Int neighbour in possibleSpawnNeighbours) {
-					if (obstacleManager.obstaclePositions.Contains(neighbour))
+					if (obstacleManager.obstaclePositions.Contains(neighbour) || gridPoints.placedPoints.Contains(neighbour))
 						goto EndOfLoop;
 					else
 						continue;
@@ -213,10 +225,18 @@ public class PathManager : MonoBehaviour {
 				if (flag == FlagAreas.Start) gridPoints.startPointNode = possibleSpawn;
 				if (flag == FlagAreas.End) gridPoints.endPointNode = possibleSpawn;
 				Instantiate(flagObject, possibleSpawn, Quaternion.identity);
+				// Makes itself a placed point to avoid overlap with other points
+				gridPoints.placedPoints.Add(possibleSpawn);
 				return;
 			}
 		// The goto jumps to here
 		EndOfLoop:;
+
+			// If loop is close to firing tell the obstacle builder to rebuild
+			if (loopCounter < obstacleManager.gridArea) {
+				didPathGenerate = false;
+			} else
+				loopCounter++;
 		}
 	}
 
@@ -294,6 +314,7 @@ public class PathManager : MonoBehaviour {
 				Debug.Log("Path found in " + (currentTime - loopStartTime) + "ms!");
 				// -------------------------------------------- ⤴
 				RetracePath(currentNode);
+				didPathGenerate = true;
 				return;
 			}
 
@@ -336,11 +357,44 @@ public class PathManager : MonoBehaviour {
 
 
 
-	// Start is called before the first frame update
-	void Start() {
+
+	/// <summary>This will spawn the grid, obstacle positions, and path positions. It checks to make sure the path is valid,
+	/// if it detects that the path is not valid it reruns, starting at RestartLoop. Usually it only takes one rerun
+	/// to generate a valid path.</summary>
+	void ConstructPathStack() {
+		// A bool switch to see if an error was caught on the try carch
+		bool errorCaught = false;
+
+	// Restart from here
+	RestartLoop:;
+		// Initialize
+		Initialize();
+		GameObject[] flags;
+		// Destroy all flags first
+		flags = GameObject.FindGameObjectsWithTag("Flag");
+		foreach (GameObject flag in flags) GameObject.Destroy(flag);
+
+		// Build the grid and spawn the obstacles
 		ConstructGrid();
 		obstacleManager.GenerateObstacleMap();
-		GeneratePath();
+
+		// This catch is looking for a `No sequence` error that can occur when the path can't go from start to finish
+		try {
+			GeneratePath();
+		} catch {
+			Debug.LogWarning("Error caught - Loop Reset");
+			errorCaught = true;
+			goto RestartLoop;
+		}
+		// A valid path has been generated!
+		if (errorCaught) Debug.LogWarning("Error resolved - Loop Completed");
+	}
+
+
+
+	// Start is called before the first frame update
+	void Start() {
+		ConstructPathStack();
 	}
 }
 

@@ -135,7 +135,7 @@ GameObject:
   m_Layer: 0
   m_Name: PathManager
   m_TagString: Untagged
-  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -178,6 +178,7 @@ MonoBehaviour:
   endFlag: {fileID: 8970112326771813452, guid: 9d2ef472102d34f9aa6dbbbc1ab42c5a, type: 3}
   originFlag: {fileID: 933866898380758605, guid: 71c3f498d45534d118eb2a055ac439e0,
     type: 3}
+  didPathGenerate: 0
 --- !u!114 &982076543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathManager: {fileID: 982076542}
-  obstacleCoveragePercentage: 0.25
+  obstaclePositions: []
+  obstacleCoveragePercentage: 0.714
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
