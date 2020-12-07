@@ -5,31 +5,28 @@ using UnityEngine;
 public class ballTest : MonoBehaviour
 {
     // Start is called before the first frame update
-    Rigidbody rigidbody;
-    AudioSource audio;
+    
+    
     void Start()
     {
-        rigidbody = gameObject.GetComponent<Rigidbody>();
-        audio = gameObject.GetComponent<AudioSource>();
-        
+    
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(rigidbody.velocity.magnitude >0)
+        if(GetComponent<Rigidbody>().velocity.magnitude >0)
         {
             Debug.Log("Moving");
-            if (!audio.isPlaying)
+            if (!GetComponent<AudioSource>().isPlaying)
             {
-                audio.Play();
-                
+                GetComponent<AudioSource>().Play();
             }
-            audio.volume = rigidbody.velocity.magnitude/20f;
+            GetComponent<AudioSource>().volume = GetComponent<Rigidbody>().velocity.magnitude/20f;
         }
         else
         {
-            audio.Pause();
+            GetComponent<AudioSource>().Pause();
         }
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - pathObstacle
   - boardManager
   - startPosition
+  - wallTile
   layers:
   - Default
   - TransparentFX

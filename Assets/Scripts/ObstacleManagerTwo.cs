@@ -68,7 +68,14 @@ public class ObstacleManagerTwo : MonoBehaviour
 		}
 	}
 
-	public void checkExtendedNeighbour() // corner creator, may have to write seperate functions for different shapes
+	/// <summary>
+	/// Check Adjacent nodes to see if they fulfil the parameters, the 2 first variables are the positive test and the second 2 should be negative to create an obstacle
+	/// </summary>
+	/// <param name="verticalPositionOutside"></param>
+	/// <param name="horizontalPositionOutside">this value is typically 0 but we can leave it as a variable, could make for interesting results?</param>
+	/// <param name="verticalPositionInside"></param>
+	/// <param name="horizontalPositionInside">this value is typically 0 but we can leave it as a variable, could make for interesting results?</param>
+	public void BuildCorner(int verticalPositionOutside, int horizontalPositionOutside, int verticalPositionInside, int horizontalPositionInside) // corner creator, may have to write seperate functions for different shapes
     {
 		int currentCount = 0;
 		int failCount = 0;
@@ -82,14 +89,14 @@ public class ObstacleManagerTwo : MonoBehaviour
 			//et voila, corners. kinda. in the most horrible way i cound manage :D
 			Vector3Int[] currentObstacleNeighbourPositions = new Vector3Int[]
 			{				
-					pathManager.FindNodePosition(2, 0, position: currentObstaclePosition),
-					pathManager.FindNodePosition(0, 2, position: currentObstaclePosition),
+					pathManager.FindNodePosition(verticalPositionOutside, horizontalPositionOutside, position: currentObstaclePosition),
+					pathManager.FindNodePosition(horizontalPositionOutside, verticalPositionOutside, position: currentObstaclePosition),
 			};
 			
 			Vector3Int[] currentObstacleNeighbourPositionsEmpty = new Vector3Int[]
 			{
-					pathManager.FindNodePosition(1, 0, position: currentObstaclePosition),
-					pathManager.FindNodePosition(0, 1, position: currentObstaclePosition),
+					pathManager.FindNodePosition(verticalPositionInside, horizontalPositionInside, position: currentObstaclePosition),
+					pathManager.FindNodePosition(horizontalPositionInside, verticalPositionInside, position: currentObstaclePosition),
 			};
 
 			//			-2		 2		 2

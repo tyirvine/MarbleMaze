@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[RequireComponent(typeof(MeshFilter))]
+[RequireComponent(typeof(MeshRenderer))]
 public class buildBoard : MonoBehaviour {
 	//size of the gameBoard
 	int boardWidth = 5;
@@ -179,6 +180,40 @@ public class buildBoard : MonoBehaviour {
 	public void GroupTilesToParent() {
 		GameObject[] tiles = GameObject.FindGameObjectsWithTag("gameTile");
 		foreach (GameObject tile in tiles) {
+			if (!globalStaticVariables.Instance.renderBoardAsSingleMesh)
+			{
+				tile.AddComponent<Rigidbody>();
+				Rigidbody rigidbody = tile.GetComponent<Rigidbody>();
+				rigidbody.useGravity = false;
+				rigidbody.isKinematic = true;
+				tile.GetComponent<Collider>().material = slippyMaterial;
+			}
+			tile.transform.SetParent(transform);
+		}
+		if (globalStaticVariables.Instance.renderBoardAsSingleMesh)
+		{
+			MeshFilter[] meshfilters = GetComponentsInChildren<MeshFilter>();
+			CombineInstance[] combine = new CombineInstance[meshfilters.Length];
+
+			int i = 0;
+			while (i < meshfilters.Length)
+			{
+				combine[i].mesh = meshfilters[i].sharedMesh;
+				combine[i].transform = meshfilters[i].transform.localToWorldMatrix;
+				meshfilters[i].gameObject.SetActive(false);
+				i++;
+			}
+			transform.GetComponent<MeshFilter>().mesh = new Mesh();
+			transform.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
+			transform.gameObject.SetActive(true);
+			transform.GetComponent<MeshCollider>().sharedMesh = transform.GetComponent<MeshFilter>().mesh;
+			transform.GetComponent<MeshCollider>().material = slippyMaterial;
+		}
+
+		//		transform.position = new Vector3(boardOffsetX, -0.5f, boardOffsetZ);
+		GameObject[] wallTiles = GameObject.FindGameObjectsWithTag("wallTile");
+		foreach (GameObject tile in wallTiles)
+		{
 			tile.AddComponent<Rigidbody>();
 			Rigidbody rigidbody = tile.GetComponent<Rigidbody>();
 			rigidbody.useGravity = false;
@@ -186,7 +221,6 @@ public class buildBoard : MonoBehaviour {
 			tile.GetComponent<Collider>().material = slippyMaterial;
 			tile.transform.SetParent(transform);
 		}
-//		transform.position = new Vector3(boardOffsetX, -0.5f, boardOffsetZ);
 	}
 }
 

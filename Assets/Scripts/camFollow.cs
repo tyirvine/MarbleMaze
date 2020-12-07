@@ -9,11 +9,20 @@ public class camFollow : MonoBehaviour
 
     public float smoothSpeed = 0.125f;
 
+    private void Start()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
     void FixedUpdate ()
     {
-        Vector3 desiredPosition = target.position + offset; 
-        Vector3 smoothPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-        transform.position = smoothPosition;
+        if(target == null)
+        {
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+     //   Vector3 desiredPosition = target.position + offset; 
+      //  Vector3 smoothPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+       // transform.position = smoothPosition;
 
         transform.LookAt(target);
     }

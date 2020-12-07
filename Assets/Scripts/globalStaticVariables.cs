@@ -13,6 +13,10 @@ public class globalStaticVariables : MonoBehaviour
     [Header("Debug Mode")]
     public bool debugMode;
 
+
+    [Header("Experimental")]
+    public bool renderBoardAsSingleMesh = false;
+
     [Header("Grid Size")]
     [Range(3, 100)] public int gridXSizeHalfLength = 50;
     [Range(3, 100)] public int gridZSizeHalfLength = 50;
