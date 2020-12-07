@@ -186,15 +186,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 149708481}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efa9654f631974526a371afcbe258072, type: 3}
+  m_Script: {fileID: 11500000, guid: f410257a7c41c5d4eb323d0842ac0cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pathManager: {fileID: 149708482}
+  numberOfCornerShapes: 10
   obstaclePositions: []
-  obstacleCoveragePercentage: 0.25
+  obstacleCoveragePercentage: 0.169
   gridArea: 0
-  gridScale: {x: 1, y: 0, z: 1}
+  gridScale: {x: 0, y: 0, z: 0}
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
+    type: 3}
+  tempObstacleFlag: {fileID: 5673366656059487557, guid: d03869115b317974eba6ca14c04253c6,
     type: 3}
 --- !u!1 &1064959594
 GameObject:
@@ -272,8 +275,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1064959594}
-  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 10, z: -20}
+  m_LocalRotation: {x: -0.24672864, y: 0.004901861, z: -0.0014131597, w: -0.9690712}
+  m_LocalPosition: {x: -1.939957, y: 22.438744, z: -21.651983}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -312,7 +315,7 @@ MonoBehaviour:
   GlobalScale: {x: 1, y: 0, z: 1}
   debugMode: 0
   gridXSizeHalfLength: 20
-  gridZSizeHalfLength: 10
+  gridZSizeHalfLength: 20
 --- !u!4 &1491803048
 Transform:
   m_ObjectHideFlags: 0
@@ -387,6 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ff4cbe09204324897c2bd2d2817601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slippyMaterial: {fileID: 13400000, guid: 35406b1b538cd4ba3a4784058e9beba4, type: 2}
   cornerPiece: {fileID: 5673366656059487557, guid: 6928380f7b7823b4bbfae72a993a7939,
     type: 3}
   sidePiece: {fileID: 5673366656059487557, guid: 6928380f7b7823b4bbfae72a993a7939,

@@ -8,6 +8,7 @@ public class buildBoard : MonoBehaviour {
 	int boardWidth = 5;
 	int boardHeight = 5;
 
+	public PhysicMaterial slippyMaterial;
 	public GameObject cornerPiece;
 	public GameObject sidePiece;
 	public GameObject centerPiece;
@@ -182,6 +183,7 @@ public class buildBoard : MonoBehaviour {
 			Rigidbody rigidbody = tile.GetComponent<Rigidbody>();
 			rigidbody.useGravity = false;
 			rigidbody.isKinematic = true;
+			tile.GetComponent<Collider>().material = slippyMaterial;
 			tile.transform.SetParent(transform);
 		}
 //		transform.position = new Vector3(boardOffsetX, -0.5f, boardOffsetZ);

@@ -12,8 +12,8 @@ using Random = UnityEngine.Random;
 
 public class PathManager : MonoBehaviour {
 	// Reference to the obstacle manager for linking up the obstacle position list and generating obstacle maps
-	public ObstacleManager obstacleManager;
-
+	//public ObstacleManager obstacleManager;
+	public ObstacleManagerTwo obstacleManager;
 
 
 	// These are half lengths so they can be used as a product of a (1/2) division *******now handled by globalStaticVariables
@@ -219,7 +219,8 @@ public class PathManager : MonoBehaviour {
 					FindNodePosition(-1, 0, position: possibleSpawn),
 					FindNodePosition(0, 1, position: possibleSpawn),
 					FindNodePosition(1, 0, position: possibleSpawn),
-					FindNodePosition(0, -1, position: possibleSpawn)
+					FindNodePosition(0, -1, position: possibleSpawn),					
+					
 				};
 
 				// Verifies that the neighbouring positions are also not colliding with obstacle positions
@@ -386,6 +387,7 @@ public class PathManager : MonoBehaviour {
 		// Build the grid and spawn the obstacles
 		ConstructGrid();
 		obstacleManager.GenerateObstacleMap();
+		obstacleManager.checkExtendedNeighbour();
 
 		// This catch is looking for a `No sequence` error that can occur when the path can't go from start to finish
 		try {

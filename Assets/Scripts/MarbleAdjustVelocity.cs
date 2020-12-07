@@ -16,10 +16,14 @@ public class MarbleAdjustVelocity : MonoBehaviour {
 		//marbleRigidbody.maxAngularVelocity = maxAngularVelocity;
 		// This decides whether or not to stop doing physics calculations on the rigidbody
 		marbleRigidbody.sleepThreshold = sleepThreshold;
+		
 		Debug.Log(marbleRigidbody.velocity.y.ToString());
-		if (marbleRigidbody.angularVelocity.y > 0)
-        {
-			marbleRigidbody.velocity = new Vector3(marbleRigidbody.velocity.x, 0, marbleRigidbody.velocity.z);
-        }
+		
+	}
+
+    private void FixedUpdate()
+    {
+	
+
 	}
 }
