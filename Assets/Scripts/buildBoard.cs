@@ -51,6 +51,7 @@ public class buildBoard : MonoBehaviour {
 		//transform.position = new Vector3(((boardWidth / 2) * tileScale)-tileScale/2, 0, (boardHeight / 2) * tileScale);
 		//transform.position = new Vector3(0, 0, 0);
 		
+		//do some weird magic because the board is bigger than the generated path "because walls"
 		boardWidth = globalStaticVariables.Instance.gridXSizeHalfLength*2+1;
 		boardHeight = globalStaticVariables.Instance.gridZSizeHalfLength*2+1;
 		boardData = new int[boardWidth, boardHeight];
