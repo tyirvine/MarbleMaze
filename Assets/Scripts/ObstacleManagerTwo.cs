@@ -98,6 +98,7 @@ public class ObstacleManagerTwo : MonoBehaviour
 			//			-2		-1		 2
 			//			-2		-2		 2
 			// this is how i have visualised it, possibly not the way it is working, the numbers may have to be juggled a little
+			// this code creates a |_ shaped corner, to create _| or the inverse of the two, alternative functions may be required.
 
 			
 
@@ -132,4 +133,6 @@ public class ObstacleManagerTwo : MonoBehaviour
             }
 		}
     }
+
+
 }
