@@ -152,10 +152,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleManager: {fileID: 149708484}
-  placeObstacles: {fileID: 1551298789}
-  gridXSizeHalfLength: 10
-  gridZSizeHalfLength: 10
-  gridScale: {x: 5, y: 0, z: 5}
   startAreaPercentage: 0.1
   parentYPosition: 0
   gridDrawDuration: 10
@@ -197,7 +193,7 @@ MonoBehaviour:
   obstaclePositions: []
   obstacleCoveragePercentage: 0.25
   gridArea: 0
-  gridScale: {x: 5, y: 0, z: 5}
+  gridScale: {x: 1, y: 0, z: 1}
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
 --- !u!1 &1064959594
@@ -276,12 +272,60 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1064959594}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
+  m_LocalPosition: {x: 0, y: 10, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+--- !u!1 &1491803046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1491803048}
+  - component: {fileID: 1491803047}
+  m_Layer: 0
+  m_Name: globalStaticValues
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1491803047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491803046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd19444a3e29a14428e0ea6c806eab16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0
+  GlobalScale: {x: 1, y: 0, z: 1}
+  debugMode: 0
+  gridXSizeHalfLength: 20
+  gridZSizeHalfLength: 10
+--- !u!4 &1491803048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491803046}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 49.568455, y: -38.04262, z: -40.32205}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1551298788
 GameObject:
@@ -294,9 +338,10 @@ GameObject:
   - component: {fileID: 1551298790}
   - component: {fileID: 1551298789}
   - component: {fileID: 1551298791}
+  - component: {fileID: 1551298792}
   m_Layer: 0
   m_Name: BoardManager
-  m_TagString: Untagged
+  m_TagString: boardManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -313,8 +358,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b63f07eb18001240a720ba346378731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacleObject: {fileID: 854784844625072497, guid: 96d164bbd4d0a404eb6af94f6cf614da,
+  obstacleObject: {fileID: 5673366656059487557, guid: 3794c995162ce494c924349b7f1dde22,
     type: 3}
+  yHeight: 1
 --- !u!4 &1551298790
 Transform:
   m_ObjectHideFlags: 0
@@ -341,25 +387,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03ff4cbe09204324897c2bd2d2817601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardWidth: 20
-  boardHeight: 20
-  cornerPiece: {fileID: 4155747518113276956, guid: 8f96b70f9f6404c92a879440ee14e5a2,
+  cornerPiece: {fileID: 5673366656059487557, guid: 6928380f7b7823b4bbfae72a993a7939,
     type: 3}
-  sidePiece: {fileID: 7576747748778966961, guid: ade4263c4484b44d4a29a1e54cd01c69,
+  sidePiece: {fileID: 5673366656059487557, guid: 6928380f7b7823b4bbfae72a993a7939,
     type: 3}
-  centerPiece: {fileID: 5129310743961286027, guid: 12291b0bf0d3f4c13a64f01bf6bb49bd,
+  centerPiece: {fileID: 5673366656059487557, guid: 6928380f7b7823b4bbfae72a993a7939,
     type: 3}
-  cornerWall: {fileID: 3668784814955558181, guid: 5933d9339419b4c5795da7e28261c293,
+  cornerWall: {fileID: 5673366656059487557, guid: db2f14776d9c4d0458997bc981b3a749,
     type: 3}
-  sideWall: {fileID: 1628664427290325485, guid: f3055af37de804ffcb40efb534427b80,
+  sideWall: {fileID: 5673366656059487557, guid: db2f14776d9c4d0458997bc981b3a749,
     type: 3}
-  tileScale: 5
+  player: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18, type: 3}
+  placeObstacles: {fileID: 1551298789}
   tileHeight: 0
-  wallHeight: 0
-  cornerWallOffsetX: 2
-  cornerWallOffsetZ: 2
-  boardOffsetX: -2.5
-  boardOffsetZ: -0.5
+  wallHeight: 1
+--- !u!114 &1551298792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551298788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dd7ef057ab8e416caf3353d58319813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnSpeed: 40
 --- !u!1 &1728901658
 GameObject:
   m_ObjectHideFlags: 0

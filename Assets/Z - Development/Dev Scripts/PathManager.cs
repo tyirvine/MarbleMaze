@@ -14,15 +14,16 @@ public class PathManager : MonoBehaviour {
 	// Reference to the obstacle manager for linking up the obstacle position list and generating obstacle maps
 	public ObstacleManager obstacleManager;
 
-	// Reference to the level builder to create the physical level
-	public PlaceObstacles placeObstacles;
 
-	// These are half lengths so they can be used as a product of a (1/2) division
-	[Header("Grid Size")]
-	[Range(3, 100)] public int gridXSizeHalfLength = 50;
-	[Range(3, 100)] public int gridZSizeHalfLength = 50;
 
-	public Vector3Int gridScale; //scaling for the placement of objects on the grid
+	// These are half lengths so they can be used as a product of a (1/2) division *******now handled by globalStaticVariables
+	//[Header("Grid Size")]
+	//[Range(3, 100)] public int gridXSizeHalfLength = 50;
+	//[Range(3, 100)] public int gridZSizeHalfLength = 50;
+	int gridXSizeHalfLength;
+	int gridZSizeHalfLength;
+
+	Vector3 gridScale; //scaling for the placement of objects on the grid
 
 	/// <summary>This dictates how much of the grid area should be start node spawnable area.</summary>
 	[Range(0f, 0.2f)] public float startAreaPercentage = 0.1f;
@@ -40,6 +41,7 @@ public class PathManager : MonoBehaviour {
 	public GameObject startFlag;
 	public GameObject endFlag;
 	public GameObject originFlag;
+
 
 
 	/// <summary>Use this to determine if a path has been succesfully generated or not.</summary>
@@ -128,7 +130,11 @@ public class PathManager : MonoBehaviour {
 	void ConstructGrid() {
 		// Find the origin grid position by inverting the gridX and gridZ lengths
 		Vector3 originGridPosition = new Vector3Int(-gridXSizeHalfLength, parentYPosition, -gridZSizeHalfLength);
-		Instantiate(originFlag, Vector3.Scale(gridScale, originGridPosition), Quaternion.identity);
+
+		if (globalStaticVariables.Instance.debugMode)
+		{
+			Instantiate(originFlag, Vector3.Scale(gridScale, originGridPosition), Quaternion.identity);
+		}
 
 		// Simplifies grid position definitions, parent
 		Vector3Int ReturnGridPoint(int x, int z) => new Vector3Int(x, parentYPosition, z);
@@ -395,13 +401,15 @@ public class PathManager : MonoBehaviour {
 
 
 
-	// Start is called before the first frame update
+	// Start is called before the first frame updates
 	void Start() {
+		//grab parameters from global variables
+		gridXSizeHalfLength = globalStaticVariables.Instance.gridXSizeHalfLength;
+		gridZSizeHalfLength = globalStaticVariables.Instance.gridZSizeHalfLength;
+		gridScale = globalStaticVariables.Instance.GlobalScale;
+
+
 		ConstructPathStack();
-
-		// Added by bubzy to build level from obstacle data
-		placeObstacles.BuildObstacles();
-
 	}
 }
 

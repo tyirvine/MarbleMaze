@@ -7,6 +7,8 @@ TagManager:
   - Flag
   - gameTile
   - pathObstacle
+  - boardManager
+  - startPosition
   layers:
   - Default
   - TransparentFX

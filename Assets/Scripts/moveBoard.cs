@@ -8,6 +8,7 @@ public class moveBoard : MonoBehaviour {
 	public float turnSpeed = 25f;
 
 	void FixedUpdate() {
+		/*
 		//These two move on the Z-Axis
 		if (Input.GetKey(KeyCode.UpArrow))
 			transform.Rotate(Vector3.back, turnSpeed * Time.deltaTime);
@@ -21,6 +22,12 @@ public class moveBoard : MonoBehaviour {
 
 		if (Input.GetKey(KeyCode.RightArrow))
 			transform.Rotate(Vector3.left, turnSpeed * Time.deltaTime);
+		*/
+
+		
+        
+			transform.Rotate(Vector3.back, Input.GetAxis("Horizontal") * turnSpeed * Time.deltaTime);
+			transform.Rotate(Vector3.right, Input.GetAxis("Vertical") * turnSpeed * Time.deltaTime);
 	}
 
 	void Update() {
