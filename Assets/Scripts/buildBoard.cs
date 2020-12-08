@@ -106,10 +106,11 @@ public class buildBoard : MonoBehaviour {
 		GameObject tempTile;
 		/// <summary>Simplifies instantiation of tiles. Position is where the tile will be instantiated.
 		/// X & Z are the x & z components of the rotation of each tile.</summary>
-		void TileInstantiation(GameObject piece, Vector3 position, float x, float y,float z) {
-			tempTile = Instantiate(piece, position, Quaternion.identity);
-			tempTile.transform.Rotate(new Vector3(x, y, z));
+		void TileInstantiation(GameObject piece, Vector3 position,Quaternion rotation) {
+			tempTile = Instantiate(piece, position, rotation);
+			//tempTile.transform.Rotate(new Vector3(x, y, z));
 		}
+		
 
 
 		for (int i = 0; i < boardWidth; i++) {
@@ -123,50 +124,45 @@ public class buildBoard : MonoBehaviour {
 				switch (boardData[i, ii]) {
 				// Corners
 				case lowerLeftCornerPieceIndex:
-					TileInstantiation(cornerPiece, positionStandard, -90, 0, -90);
-						TileInstantiation(sideWall, new Vector3(0, wallHeight, 0) + positionStandard, 0, 0, 0);
+					TileInstantiation(cornerPiece, positionStandard, cornerPiece.transform.rotation);
+						TileInstantiation(sideWall, new Vector3(0, wallHeight, 0) + positionStandard, cornerPiece.transform.rotation);
 						break;
 				case lowerRightCornerPieceIndex:
-					TileInstantiation(cornerPiece, positionStandard, -90, 0, 180);
-						TileInstantiation(sideWall, new Vector3(0, wallHeight, 0) + positionStandard, 0, 0, 0);
+						TileInstantiation(cornerPiece, positionStandard, cornerPiece.transform.rotation);
+						TileInstantiation(sideWall, new Vector3(0, wallHeight, 0) + positionStandard, cornerPiece.transform.rotation);
 						break;
 				case upperRightCornerPieceIndex:
-					TileInstantiation(cornerPiece, positionStandard, -90, 0, 90);
-						TileInstantiation(sideWall, new Vector3(0, wallHeight, 0) + positionStandard, 0, 0, 0);
+						TileInstantiation(cornerPiece, positionStandard, cornerPiece.transform.rotation);
+						TileInstantiation(sideWall, new Vector3(0, wallHeight, 0) + positionStandard, cornerPiece.transform.rotation);
 						break;
 				case upperLeftCornerPieceIndex:
-					TileInstantiation(cornerPiece, positionStandard, -90, 0, 0);
-						//TileInstantiation(sideWall, new Vector3(0,wallHeight,0)+ positionStandard, 0, 0, 0);  //left in to show previous code, otherwise redundant
-						TileInstantiation(sideWall, new Vector3(0, wallHeight, 0) + positionStandard, 0, 0, 0);
+						TileInstantiation(cornerPiece, positionStandard, cornerPiece.transform.rotation);
+						TileInstantiation(sideWall, new Vector3(0, wallHeight, 0) + positionStandard, cornerPiece.transform.rotation);
 						break;
 
 
 				// Sides
 				case leftSidePieceIndex:
-					TileInstantiation(sidePiece, positionStandard, -90, 0, 90);
-						// TileInstantiation(sideWall, positionStandard + new Vector3(-1.5f,0.5f,0), 0,-90, 0);
-						TileInstantiation(sideWall, new Vector3(0,wallHeight,0)+ positionStandard, 0, 0, 0);
+						TileInstantiation(sidePiece, positionStandard, sidePiece.transform.rotation);
+						TileInstantiation(sideWall, new Vector3(0,wallHeight,0)+ positionStandard, sidePiece.transform.rotation);
 						break;
 				case rightSidePieceIndex:
-					TileInstantiation(sidePiece, positionStandard, -90, 0, -90);
-						//	TileInstantiation(sideWall, positionStandard + new Vector3(1.5f, 0.5f, 0), 0, 90, 0);
-						TileInstantiation(sideWall, new Vector3(0, wallHeight, 0) + positionStandard, 0, 0, 0);
+						TileInstantiation(sidePiece, positionStandard, sidePiece.transform.rotation);
+						TileInstantiation(sideWall, new Vector3(0, wallHeight, 0) + positionStandard, sidePiece.transform.rotation);
 						break;
 				case topSidePieceIndex:
-					TileInstantiation(sidePiece, positionStandard, -90, 0, -180);
-						TileInstantiation(sideWall, new Vector3(0, wallHeight, 0) + positionStandard, 0, 0, 0);
-						//	TileInstantiation(sideWall, positionStandard + new Vector3(0, 0.5f, 1.5f), 0, 0, 0); 
+						TileInstantiation(sidePiece, positionStandard, sidePiece.transform.rotation);
+						TileInstantiation(sideWall, new Vector3(0, wallHeight, 0) + positionStandard, sidePiece.transform.rotation);
 						break;
 				case bottomSidePieceIndex:
-						TileInstantiation(sidePiece, positionStandard, -90, 0, 0);
-						TileInstantiation(sideWall, new Vector3(0, wallHeight, 0) + positionStandard, 0, 0, 0);
-						//TileInstantiation(sideWall, positionStandard + new Vector3(0, 0.5f, -1.5f), 0, -180, 0);
+						TileInstantiation(sidePiece, positionStandard, sidePiece.transform.rotation);
+						TileInstantiation(sideWall, new Vector3(0, wallHeight, 0) + positionStandard, sidePiece.transform.rotation);
 						break;
 
 
 				// Centers
 				case centerPieceIndex:
-					TileInstantiation(centerPiece, positionStandard, -90, 0, 0);
+					TileInstantiation(centerPiece, positionStandard, centerPiece.transform.rotation);
 					break;
 
 

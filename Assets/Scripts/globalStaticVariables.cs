@@ -17,6 +17,12 @@ public class globalStaticVariables : MonoBehaviour
     [Header("Experimental")]
     public bool renderBoardAsSingleMesh = false;
 
+
+    [Header("Quality Settings")]
+    [Tooltip("not sure how this affects framrate in editor")]
+    
+    public bool vSync = false;
+
     [Header("Grid Size")]
     [Range(3, 100)] public int gridXSizeHalfLength = 50;
     [Range(3, 100)] public int gridZSizeHalfLength = 50;
@@ -43,7 +49,10 @@ public class globalStaticVariables : MonoBehaviour
 
     void Start()
     {
-      
+      if(vSync)
+        {
+            QualitySettings.vSyncCount = 4;
+        }
     }
 
     // Update is called once per frame
