@@ -2,30 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlobalStaticVariables : MonoBehaviour {
+namespace GlobalStaticVariables {
 
-	public static GlobalStaticVariables Instance { get; private set; }
+	public class DebugSettings : MonoBehaviour {
+		// This is a way to make all the other variables in this class static
+		//public static DebugSettings Instance { get; private set; }
 
-	public int Value;
-	public Vector3 GlobalScale;
+		// What does 'Value' mean? - Ty
+		public static int Value;
 
-	[Header("Debug Mode")]
-	public bool debugMode;
+		/// <summary>This ensures that all game world objects share the same scale.</summary>
+		public static Vector3 globalScale = new Vector3(1f, 1f, 1f);
 
-	[Header("Grid Size")]
-	[Range(3, 100)] public int gridXSizeHalfLength = 50;
-	[Range(3, 100)] public int gridZSizeHalfLength = 50;
+		/// <summary>Used to activate debugging within the project.</summary>
+		[Header("Debug Mode")]
+		public static bool debugModeSwitch = false;
 
-	public void Awake() {
-		if (Instance == null) {
-			Instance = this;
-			DontDestroyOnLoad(gameObject);
-		} else {
-			Destroy(gameObject);
-		}
-	}
+		// What does this do? - Ty
+		//public void Awake() {
+		//	if (Instance == null) {
+		//		Instance = this;
+		//		DontDestroyOnLoad(gameObject);
+		//	} else {
+		//		Destroy(gameObject);
+		//	}
+		//}
 
-	public void callBuild() {
+		//public void CallBuild() {
 
+		//}
 	}
 }

@@ -8,22 +8,20 @@ using UnityEditor.Experimental.GraphView;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+using GlobalStaticVariables;
 using Random = UnityEngine.Random;
 
 public class PathManager : MonoBehaviour {
 	// Reference to the obstacle manager for linking up the obstacle position list and generating obstacle maps
 	public ObstacleManager obstacleManager;
 
+	// These are half lengths so they can be used as a product of a (1/2) division
+	[Header("Grid Size")]
+	[Range(5, 100)] public int gridXSizeHalfLength = 50;
+	[Range(5, 100)] public int gridZSizeHalfLength = 50;
 
-
-	// These are half lengths so they can be used as a product of a (1/2) division *******now handled by globalStaticVariables
-	//[Header("Grid Size")]
-	//[Range(3, 100)] public int gridXSizeHalfLength = 50;
-	//[Range(3, 100)] public int gridZSizeHalfLength = 50;
-	int gridXSizeHalfLength;
-	int gridZSizeHalfLength;
-
-	Vector3 gridScale; //scaling for the placement of objects on the grid
+	// Scaling for the placement of objects on the grid
+	Vector3 gridScale;
 
 	/// <summary>This dictates how much of the grid area should be start node spawnable area.</summary>
 	[Range(0f, 0.2f)] public float startAreaPercentage = 0.1f;
@@ -131,8 +129,7 @@ public class PathManager : MonoBehaviour {
 		// Find the origin grid position by inverting the gridX and gridZ lengths
 		Vector3 originGridPosition = new Vector3Int(-gridXSizeHalfLength, parentYPosition, -gridZSizeHalfLength);
 
-		if (GlobalStaticVariables.Instance.debugMode)
-		{
+		if (DebugSettings.debugModeSwitch) {
 			Instantiate(originFlag, Vector3.Scale(gridScale, originGridPosition), Quaternion.identity);
 		}
 
@@ -268,6 +265,7 @@ public class PathManager : MonoBehaviour {
 		// This object contains the current node being investigated
 		NodeObject currentNode;
 
+
 		/// <summary>Check to see if the new path to specified node is shorter than the previously stored path.</summary>
 		bool IsNewPathLonger(NodeObject newNode) {
 			// This finds our stored node by searching through the open nodes list based on position
@@ -305,11 +303,16 @@ public class PathManager : MonoBehaviour {
 				return false;
 		}
 
+
 		// TODO: Remove this, it's just for testing
 		long loopStartTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
+		// Loop Emergency Break
+		int loopEmergencyBrake = 0;
+		int loopEmergencyBrakeCap = 5000;
+
 		// This loops until a path is generated from the start node to the end node
-		while (true) {
+		while (loopEmergencyBrake < loopEmergencyBrakeCap) {
 			// Find node with the lowest f_cost, remove it from the open nodes and add it to the closed nodes
 			int highestFCost = openNodes.Max(nodes => nodes.fCost);
 			currentNode = openNodes.First(nodes => nodes.fCost == highestFCost);
@@ -341,9 +344,6 @@ public class PathManager : MonoBehaviour {
 			new NodeObject(FindNodePosition(1, 0, currentNode: currentNode), 0, 0, 0),
 			new NodeObject(FindNodePosition(0, -1, currentNode: currentNode), 0, 0, 0)
 			};
-			// Initializing the array with empty nodeobjects
-			//for (int i = 0; i < neighbourNodes.Length; i++) neighbourNodes[i] = new NodeObject(Vector3Int.zero, 0, 0, 0);
-
 
 			// Loop through all neighbours
 			foreach (NodeObject node in neighbourNodes) {
@@ -360,7 +360,11 @@ public class PathManager : MonoBehaviour {
 						openNodes.Add(node);
 				}
 			}
+			// Acts as an emergency break for this loop
+			loopEmergencyBrake++;
 		}
+		// Reports if this loop is functioning correctly or not
+		if (loopEmergencyBrake > loopEmergencyBrakeCap) Debug.LogError("Path generation loop broken");
 	}
 
 
@@ -403,12 +407,10 @@ public class PathManager : MonoBehaviour {
 
 	// Start is called before the first frame updates
 	void Start() {
-		//grab parameters from global variables
-		gridXSizeHalfLength = GlobalStaticVariables.Instance.gridXSizeHalfLength;
-		gridZSizeHalfLength = GlobalStaticVariables.Instance.gridZSizeHalfLength;
-		gridScale = GlobalStaticVariables.Instance.GlobalScale;
+		// Grab parameters from global variables
+		gridScale = DebugSettings.globalScale;
 
-
+		// Executes the entire path stack
 		ConstructPathStack();
 	}
 }

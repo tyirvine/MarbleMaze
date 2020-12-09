@@ -21,7 +21,7 @@ PrefabInstance:
     - target: {fileID: 6213876491380585080, guid: e832a001ca16f48d489fb3c0f9c6a7de,
         type: 3}
       propertyPath: m_TagString
-      value: startPosition
+      value: Flag
       objectReference: {fileID: 0}
     - target: {fileID: 6213876491380585083, guid: e832a001ca16f48d489fb3c0f9c6a7de,
         type: 3}

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using GlobalStaticVariables;
 using UnityEngine;
 
 
@@ -7,6 +8,8 @@ public class BoardBuild : MonoBehaviour {
 	//size of the gameBoard
 	int boardWidth = 5;
 	int boardHeight = 5;
+
+	public PathManager pathManager;
 
 	public GameObject cornerPiece;
 	public GameObject sidePiece;
@@ -51,8 +54,8 @@ public class BoardBuild : MonoBehaviour {
 		//transform.position = new Vector3(((boardWidth / 2) * tileScale)-tileScale/2, 0, (boardHeight / 2) * tileScale);
 		//transform.position = new Vector3(0, 0, 0);
 
-		boardWidth = GlobalStaticVariables.Instance.gridXSizeHalfLength * 2 + 1;
-		boardHeight = GlobalStaticVariables.Instance.gridZSizeHalfLength * 2 + 1;
+		boardWidth = pathManager.gridXSizeHalfLength * 2 + 1;
+		boardHeight = pathManager.gridZSizeHalfLength * 2 + 1;
 		boardData = new int[boardWidth, boardHeight];
 
 		BuildBoardData();
@@ -112,7 +115,7 @@ public class BoardBuild : MonoBehaviour {
 			for (int ii = 0; ii < boardHeight; ii++) {
 
 				// Some commonly used position types
-				Vector3 positionStandard = Vector3.Scale(new Vector3(i - boardWidth / 2, tileHeight, ii - boardHeight / 2), GlobalStaticVariables.Instance.GlobalScale);
+				Vector3 positionStandard = Vector3.Scale(new Vector3(i - boardWidth / 2, tileHeight, ii - boardHeight / 2), DebugSettings.globalScale);
 
 				//Vector3 positionOffsetZ(float xOffset, float zOffset) => new Vector3(i * tileScale + xOffset, tileHeight + wallHeight, ii * tileScale + zOffset);
 
