@@ -131,7 +131,7 @@ public class PathManager : MonoBehaviour {
 		// Find the origin grid position by inverting the gridX and gridZ lengths
 		Vector3 originGridPosition = new Vector3Int(-gridXSizeHalfLength, parentYPosition, -gridZSizeHalfLength);
 
-		if (globalStaticVariables.Instance.debugMode)
+		if (GlobalStaticVariables.Instance.debugMode)
 		{
 			Instantiate(originFlag, Vector3.Scale(gridScale, originGridPosition), Quaternion.identity);
 		}
@@ -404,9 +404,9 @@ public class PathManager : MonoBehaviour {
 	// Start is called before the first frame updates
 	void Start() {
 		//grab parameters from global variables
-		gridXSizeHalfLength = globalStaticVariables.Instance.gridXSizeHalfLength;
-		gridZSizeHalfLength = globalStaticVariables.Instance.gridZSizeHalfLength;
-		gridScale = globalStaticVariables.Instance.GlobalScale;
+		gridXSizeHalfLength = GlobalStaticVariables.Instance.gridXSizeHalfLength;
+		gridZSizeHalfLength = GlobalStaticVariables.Instance.gridZSizeHalfLength;
+		gridScale = GlobalStaticVariables.Instance.GlobalScale;
 
 
 		ConstructPathStack();

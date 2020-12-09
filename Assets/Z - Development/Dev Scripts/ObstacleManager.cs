@@ -24,7 +24,7 @@ public class ObstacleManager : MonoBehaviour {
 
 	public void GenerateObstacleMap() {
 		// Find out grid size
-		gridArea = (globalStaticVariables.Instance.gridXSizeHalfLength * 2) * (globalStaticVariables.Instance.gridZSizeHalfLength * 2);
+		gridArea = (GlobalStaticVariables.Instance.gridXSizeHalfLength * 2) * (GlobalStaticVariables.Instance.gridZSizeHalfLength * 2);
 		int obstacleCount = (int)(gridArea * obstacleCoveragePercentage);
 
 		// Spawn specified amount of obstacles using the total area of the grid. FlagAreas.Grid ensures the entire grid is used.
@@ -51,7 +51,7 @@ public class ObstacleManager : MonoBehaviour {
 				// Check to make sure this position isn't already taken
 				if (!obstaclePositions.Contains(currentObstaclePosition)) {
 					obstaclePositions.Add(currentObstaclePosition);
-					Instantiate(obstacleFlag, Vector3.Scale(globalStaticVariables.Instance.GlobalScale, currentObstaclePosition), Quaternion.identity);
+					Instantiate(obstacleFlag, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, currentObstaclePosition), Quaternion.identity);
 					break;
 				}
 			}

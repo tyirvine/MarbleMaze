@@ -11,7 +11,7 @@ public class PlaceObstacles : MonoBehaviour {
 		GameObject[] obstacles = GameObject.FindGameObjectsWithTag("pathObstacle");
 		foreach (GameObject obstacle in obstacles) {
 			Instantiate(obstacleObject, new Vector3(0,yHeight,0)+obstacle.transform.position, obstacleObject.transform.rotation);
-			if (!globalStaticVariables.Instance.debugMode)
+			if (!GlobalStaticVariables.Instance.debugMode)
 			{
 				Destroy(obstacle);
 			}
