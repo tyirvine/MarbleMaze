@@ -406,10 +406,10 @@ public class PathManager : MonoBehaviour {
 		
 		//added by bubzy to build corners 
 		obstacleManager.BuildCorner(2,0,1,0);
-		obstacleManager.BuildCorner(-2,0,-1,0);
-		obstacleManager.BuildCorner(-2, 0, 1, 0);
-		obstacleManager.BuildCorner(2, 0, -1, 0);
-
+	    //obstacleManager.BuildCorner(-2,0,-1,0);
+		//obstacleManager.BuildCorner(-2, 0, 1, 0);
+		//obstacleManager.BuildCorner(2, 0, -1, 0);
+		obstacleManager.CheckPositions();
 
 		// This catch is looking for a `No sequence` error that can occur when the path can't go from start to finish
 		try {
@@ -434,6 +434,7 @@ public class PathManager : MonoBehaviour {
 
 
 		ConstructPathStack();
+		
 	}
 }
 

@@ -190,14 +190,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathManager: {fileID: 149708482}
-  numberOfCornerShapes: 0
+  numberOfCornerShapes: 1
   obstaclePositions: []
-  obstacleCoveragePercentage: 0.1
+  obstacleCoveragePercentage: 0.258
   gridArea: 0
   gridScale: {x: 0, y: 0, z: 0}
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
-  tempObstacleFlag: {fileID: 5673366656059487557, guid: d03869115b317974eba6ca14c04253c6,
+  tempObstacleFlag: {fileID: 5673366656059487557, guid: 6928380f7b7823b4bbfae72a993a7939,
     type: 3}
 --- !u!1 &977785004
 GameObject:
@@ -420,8 +420,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1064959594}
-  m_LocalRotation: {x: -0.24672864, y: 0.004901861, z: -0.0014131597, w: -0.9690712}
-  m_LocalPosition: {x: -1.939957, y: 13.28, z: -21.651983}
+  m_LocalRotation: {x: 0.69209653, y: -0.0032482394, z: 0.0031144107, w: 0.721791}
+  m_LocalPosition: {x: -0.4535476, y: 19.078182, z: -0.29742208}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -607,7 +607,6 @@ GameObject:
   - component: {fileID: 1551298793}
   - component: {fileID: 1551298795}
   - component: {fileID: 1551298796}
-  - component: {fileID: 1551298797}
   m_Layer: 0
   m_Name: BoardManager
   m_TagString: boardManager
@@ -627,7 +626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b63f07eb18001240a720ba346378731, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacleObject: {fileID: 5673366656059487557, guid: d03869115b317974eba6ca14c04253c6,
+  obstacleObject: {fileID: 5673366656059487557, guid: 6928380f7b7823b4bbfae72a993a7939,
     type: 3}
   yHeight: 1
 --- !u!4 &1551298790
@@ -668,7 +667,7 @@ MonoBehaviour:
   sideWall: {fileID: 854784844625072497, guid: 96d164bbd4d0a404eb6af94f6cf614da, type: 3}
   player: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18, type: 3}
   placeObstacles: {fileID: 1551298789}
-  tileHeight: -50
+  tileHeight: 0
   wallHeight: 1
 --- !u!114 &1551298792
 MonoBehaviour:
@@ -760,20 +759,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1551298797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1551298788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4de013ba3689f174e87f9d7ccb365ceb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  updateInterval: 0.5
-  guiText: {fileID: 977785006}
 --- !u!1 &1728901658
 GameObject:
   m_ObjectHideFlags: 0
