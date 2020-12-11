@@ -17,9 +17,6 @@ public class ObstacleManager : MonoBehaviour {
 	// Total grid area
 	[HideInInspector] public int gridArea;
 
-	// Scaling for the placement of objects on the grid
-	public Vector3Int gridScale;
-
 	// Empties that acts as markers
 	[Header("Object References")]
 	public GameObject obstacleFlag;
@@ -36,10 +33,16 @@ public class ObstacleManager : MonoBehaviour {
 				Vector3Int currentObstaclePosition = pathManager.SpawnPointInArea(PathManager.FlagAreas.Grid);
 				// Find neighbouring points off current position
 				Vector3Int[] currentObstacleNeighbourPositions = new Vector3Int[] {
+					// Diagonals - 1st level
 					pathManager.FindNodePosition(-1, 1, position: currentObstaclePosition),
 					pathManager.FindNodePosition(1, 1, position: currentObstaclePosition),
 					pathManager.FindNodePosition(1, -1, position: currentObstaclePosition),
-					pathManager.FindNodePosition(-1, -1, position: currentObstaclePosition)
+					pathManager.FindNodePosition(-1, -1, position: currentObstaclePosition),
+					// Diagonals - 2nd level
+					pathManager.FindNodePosition(-2, 2, position: currentObstaclePosition),
+					pathManager.FindNodePosition(2, 2, position: currentObstaclePosition),
+					pathManager.FindNodePosition(2, -2, position: currentObstaclePosition),
+					pathManager.FindNodePosition(-2, -2, position: currentObstaclePosition),
 				};
 
 				// Iterate through all of the neighbours to make sure no diagonals are found
