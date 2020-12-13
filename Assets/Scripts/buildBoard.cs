@@ -48,11 +48,12 @@ public class buildBoard : MonoBehaviour {
 
 
 	void Start() {
+		globalStaticVariables.Instance.debugLog.Add("Started buildBoard.cs      Time Executed : " + Time.deltaTime.ToString());
 		//assuming we are going to use this gameobject as the "board"
 
 		//transform.position = new Vector3(((boardWidth / 2) * tileScale)-tileScale/2, 0, (boardHeight / 2) * tileScale);
 		//transform.position = new Vector3(0, 0, 0);
-		
+
 		//do some weird magic because the board is bigger than the generated path "because walls"
 		boardWidth = globalStaticVariables.Instance.gridXSizeHalfLength*2+1;
 		boardHeight = globalStaticVariables.Instance.gridZSizeHalfLength*2+1;

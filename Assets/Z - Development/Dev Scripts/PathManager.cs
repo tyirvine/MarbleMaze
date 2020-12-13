@@ -14,6 +14,7 @@ public class PathManager : MonoBehaviour {
 	// Reference to the obstacle manager for linking up the obstacle position list and generating obstacle maps
 	//public ObstacleManager obstacleManager;
 	public ObstacleManagerTwo obstacleManager;
+	//public ShapeManager shapeManager;
 
 
 	// These are half lengths so they can be used as a product of a (1/2) division *******now handled by globalStaticVariables
@@ -396,16 +397,19 @@ public class PathManager : MonoBehaviour {
 		// Initialize
 		Initialize();
 		GameObject[] flags;
+		GameObject[] obstacleFlags;
 		// Destroy all flags first
 		flags = GameObject.FindGameObjectsWithTag("Flag");
 		foreach (GameObject flag in flags) GameObject.Destroy(flag);
+		obstacleFlags = GameObject.FindGameObjectsWithTag("pathObstacle");
+		foreach (GameObject flag in obstacleFlags) GameObject.Destroy(flag);
 
 		// Build the grid and spawn the obstacles
 		ConstructGrid();
 		obstacleManager.GenerateObstacleMap();
 		
 		//added by bubzy to build corners 
-		obstacleManager.BuildCorner(2,0,1,0);
+		//obstacleManager.BuildCorner(2,0,1,0);
 	    //obstacleManager.BuildCorner(-2,0,-1,0);
 		//obstacleManager.BuildCorner(-2, 0, 1, 0);
 		//obstacleManager.BuildCorner(2, 0, -1, 0);
@@ -421,12 +425,17 @@ public class PathManager : MonoBehaviour {
 		}
 		// A valid path has been generated!
 		if (errorCaught) Debug.LogWarning("Error resolved - Loop Completed");
+		Debug.Log("1");
+		//	GameObject.FindGameObjectWithTag("shapeManager").GetComponent<ShapeManager>().gameObject.SetActive(true); //heckShapesAgainstObstacles();
+		//Instantiate(shapeManager, transform.position, Quaternion.identity);
+
 	}
 
 
 
 	// Start is called before the first frame updates
 	void Start() {
+		globalStaticVariables.Instance.debugLog.Add("Started pathManager.cs      Time Executed : " + Time.deltaTime.ToString());
 		//grab parameters from global variables
 		gridXSizeHalfLength = globalStaticVariables.Instance.gridXSizeHalfLength;
 		gridZSizeHalfLength = globalStaticVariables.Instance.gridZSizeHalfLength;

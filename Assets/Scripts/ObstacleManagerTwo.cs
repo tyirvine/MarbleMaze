@@ -73,7 +73,11 @@ public class ObstacleManagerTwo : MonoBehaviour
 				}
 			}
 			EndOfLoop:;
+			
 		}
+		Debug.Log("6");
+
+		globalStaticVariables.Instance.obstacleGenerationComplete = true;
 	}
 
 	/// <summary>
