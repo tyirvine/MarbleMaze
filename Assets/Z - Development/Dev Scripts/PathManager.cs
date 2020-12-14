@@ -107,93 +107,6 @@ public class PathManager : MonoBehaviour {
 	}
 
 
-	/// <summary>Provides the origin position with enough information to either spawn objects or adjust rotation.</summary>
-	public class PlacementDetectionObject {
-		// Points on the grid that are relevant to the origin
-		public List<Vector3Int> detectedPoints;
-
-		// The origin node's rotation
-		public Quaternion originRotation;
-
-		// TODO: Probable shape
-
-		//public PlacementDetectionObject(List<Vector3Int> detectedPoints, Quaternion originRotation) {
-		//	this.detectedPoints = detectedPoints;
-		//	this.originRotation = originRotation;
-		//}
-	}
-
-	/// <summary>All possible shapes placement detection could detect.</summary>
-	public enum PlacementShapes {
-		LPiece,
-		TPiece,
-		CenterPiece,
-		EndCap
-	}
-
-	/// <summary>This functions takes in a node, uses it as an origin, and discovers any other nodes surronding that node.
-	/// Please see this <see href="https://www.notion.so/scriptobit/Obstacle-Generation-ee85701ad22c4553af3dee18dc76ad00#ccbb6a0306cc4ab599b3a739112974be">Notion page</see>
-	/// for more information.</summary>
-	public PlacementDetectionObject PlacementDetection(Vector3Int origin, List<Vector3Int> detectionTarget) {
-		// Detected target positions
-		List<Vector3Int> targetPositions = new List<Vector3Int>();
-
-		// Neighbours of the origin point
-		Vector3Int[] originNeighbours = FindNodeNeighbours(origin);
-
-		// Detected shape and rotation
-		PlacementShapes detectedShape;
-		int detectedRotation;
-
-		// Now check each origin neighbour to see if it collides against the detection target
-		foreach (Vector3Int position in originNeighbours) {
-			// If so, add it to the detcted positions list
-			if (detectionTarget.Contains(position)) {
-				targetPositions.Add(position);
-			}
-		}
-
-		/// Now detect which shape the origin point is a part of. <see cref="targetPositions"/> does not count the origin point.
-		/// <summary>Simplify a check to <see cref="targetPositions"/>
-		/// 0 = Top
-		/// 1 = Right
-		/// 2 = Bottom
-		/// 3 = Left
-		/// </summary>
-		bool CheckTargetPosition(int neighbourIndex) => targetPositions.Contains(originNeighbours[neighbourIndex]);
-
-		// T Piece
-		if (targetPositions.Count == 3) {
-			detectedShape = PlacementShapes.TPiece;
-		}
-
-		// L Piece or Center Piece
-		else if (targetPositions.Count == 2) {
-			// Check Center Piece in all rotations
-			if (CheckTargetPosition(0) && CheckTargetPosition(2)) {
-				detectedShape = PlacementShapes.CenterPiece;
-			} else if (CheckTargetPosition(1) && CheckTargetPosition(3)) {
-				detectedShape = PlacementShapes.CenterPiece;
-			}
-
-			// Check L Piece in all rotations
-			//else if (CheckTargetPosition()) {
-			//	detectedShape = PlacementShapes.LPiece;
-			//}
-
-
-			//
-		}
-
-		// End Cap
-		else if (targetPositions.Count == 1) {
-			detectedShape = PlacementShapes.EndCap;
-		}
-
-		return new PlacementDetectionObject();
-	}
-
-
 
 	// =========================================
 	// Phase 1: Construct the grid
@@ -441,30 +354,6 @@ public class PathManager : MonoBehaviour {
 			return isPathable;
 		}
 
-		/// <summary>Checks to see if a point has enough clearance or not to spawn a path node.</summary>
-		bool CheckIfPathHasClearance(Vector3Int position) {
-			bool isPathable = false;
-
-			// Find all the neighbour positions like so → https://www.notion.so/scriptobit/Environment-Path-Generation-a5304e8f37474efa98809a03f0e26074#3e3bee59993b40c585dc6a44ea603c00
-			Vector3Int[] positionClearanceNeighbours = new Vector3Int[] {
-				position,
-				FindNodePosition(-1, 0, position),
-				FindNodePosition(-1, 1, position),
-				FindNodePosition(0, 1, position),
-			};
-
-			// Check each neighbour to see if it's pathable
-			foreach (Vector3Int neighbour in positionClearanceNeighbours) {
-				if (!obstacleManager.obstaclePositions.Contains(neighbour))
-					isPathable = true;
-				else {
-					return false;
-				}
-			}
-
-			return isPathable;
-		}
-
 
 		// TODO: Remove this, it's just for testing
 		long loopStartTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -472,8 +361,6 @@ public class PathManager : MonoBehaviour {
 		// Loop Emergency Break
 		int loopEmergencyBrake = 0;
 		int loopEmergencyBrakeCap = 5000;
-
-
 
 
 		// This loops until a path is generated from the start node to the end node
@@ -536,12 +423,8 @@ public class PathManager : MonoBehaviour {
 
 
 	// =========================================
-	// Phase 3: Manipulate path width
+	// Phase 3: Construct Everything
 	// =========================================
-
-	void ManipulatePathWidth() {
-
-	}
 
 	/// <summary>This will spawn the grid, obstacle positions, and path positions. It checks to make sure the path is valid,
 	/// if it detects that the path is not valid it reruns, starting at RestartLoop. Usually it only takes one rerun
