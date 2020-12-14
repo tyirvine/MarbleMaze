@@ -132,7 +132,6 @@ GameObject:
   - component: {fileID: 982076541}
   - component: {fileID: 982076542}
   - component: {fileID: 982076543}
-  - component: {fileID: 982076544}
   m_Layer: 0
   m_Name: PathManager
   m_TagString: Untagged
@@ -167,7 +166,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleManager: {fileID: 982076543}
-  placeObstacles: {fileID: 982076544}
   gridXSizeHalfLength: 10
   gridZSizeHalfLength: 10
   startAreaPercentage: 0.1
@@ -195,21 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathManager: {fileID: 982076542}
   obstaclePositions: []
-  obstacleCoveragePercentage: 0.714
+  obstacleCoveragePercentage: 0.666
   gridArea: 0
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
-    type: 3}
---- !u!114 &982076544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 982076540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b63f07eb18001240a720ba346378731, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstacleObject: {fileID: 854784844625072497, guid: 96d164bbd4d0a404eb6af94f6cf614da,
     type: 3}
