@@ -20,6 +20,8 @@ public class ObstacleManager : MonoBehaviour {
 	[Header("Object References")]
 	public GameObject obstacleFlag;
 
+	[Header("Spawning Options")]
+	public bool spawnDiagonals = false;
 
 	public void GenerateObstacleMap() {
 		// Find out grid size
@@ -46,11 +48,14 @@ public class ObstacleManager : MonoBehaviour {
 
 				// Iterate through all of the neighbours to make sure no diagonals are found
 				// If a diagonal position is filled break the entire loop, otherwise continue
-				foreach (Vector3Int neighbour in currentObstacleNeighbourPositions) {
-					if (obstaclePositions.Contains(neighbour))
-						goto EndOfLoop;
-					else
-						continue;
+				if (!spawnDiagonals)
+				{
+						foreach (Vector3Int neighbour in currentObstacleNeighbourPositions) {
+						if (obstaclePositions.Contains(neighbour))
+								goto EndOfLoop;
+							else
+								continue;
+						}
 				}
 
 				// Check to make sure this position isn't already taken
