@@ -41,7 +41,7 @@ public class ShapeManager : MonoBehaviour
     private void Update()
     {
         //run this after everything else
-        if(!completedChecks && globalStaticVariables.Instance.obstacleGenerationComplete)
+        if(!completedChecks && GlobalStaticVariables.Instance.obstacleGenerationComplete)
         {
             checkShapes();
             completedChecks = true;
@@ -73,10 +73,10 @@ public class ShapeManager : MonoBehaviour
         int count = 0;
         foreach(ShapeTemplate shape in shapes)
         {
-            for (int i = -globalStaticVariables.Instance.gridXSizeHalfLength; i < globalStaticVariables.Instance.gridXSizeHalfLength; i++)
+            for (int i = -GlobalStaticVariables.Instance.gridXSizeHalfLength; i < GlobalStaticVariables.Instance.gridXSizeHalfLength; i++)
             {
 
-                for (int j = -globalStaticVariables.Instance.gridZSizeHalfLength; j < globalStaticVariables.Instance.gridZSizeHalfLength; j++)
+                for (int j = -GlobalStaticVariables.Instance.gridZSizeHalfLength; j < GlobalStaticVariables.Instance.gridZSizeHalfLength; j++)
                 {
                     //move the shape to the new position in the grid
                     shape.shape.transform.position = new Vector3(i, 0, j);

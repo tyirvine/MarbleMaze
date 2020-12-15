@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using GlobalStaticVariables;
 using UnityEngine;
 
 public class PlaceObstacles : MonoBehaviour {
@@ -15,7 +14,7 @@ public class PlaceObstacles : MonoBehaviour {
 
 		foreach (GameObject obstacle in obstacles) {
 			Instantiate(obstacleObject, new Vector3(0, yHeight, 0) + obstacle.transform.position, obstacleObject.transform.rotation);
-			if (!DebugSettings.debugModeSwitch) {
+			if (!GlobalStaticVariables.Instance.debugMode) {
 				Destroy(obstacle);
 			}
 		}

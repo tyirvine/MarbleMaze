@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
-using GlobalStaticVariables;
 
 public class ObstacleManager : MonoBehaviour {
 	// Link up to the path manager to grab the grid sizing.
@@ -57,7 +56,7 @@ public class ObstacleManager : MonoBehaviour {
 				// Check to make sure this position isn't already taken
 				if (!obstaclePositions.Contains(currentObstaclePosition)) {
 					obstaclePositions.Add(currentObstaclePosition);
-					Instantiate(obstacleFlag, Vector3.Scale(DebugSettings.globalScale, currentObstaclePosition), Quaternion.identity);
+					Instantiate(obstacleFlag, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, currentObstaclePosition), Quaternion.identity);
 					break;
 				}
 			}

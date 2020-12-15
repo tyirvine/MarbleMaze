@@ -48,15 +48,15 @@ public class buildBoard : MonoBehaviour {
 
 
 	void Start() {
-		globalStaticVariables.Instance.debugLog.Add("Started buildBoard.cs      Time Executed : " + Time.deltaTime.ToString());
+		GlobalStaticVariables.Instance.debugLog.Add("Started buildBoard.cs      Time Executed : " + Time.deltaTime.ToString());
 		//assuming we are going to use this gameobject as the "board"
 
 		//transform.position = new Vector3(((boardWidth / 2) * tileScale)-tileScale/2, 0, (boardHeight / 2) * tileScale);
 		//transform.position = new Vector3(0, 0, 0);
 
 		//do some weird magic because the board is bigger than the generated path "because walls"
-		boardWidth = globalStaticVariables.Instance.gridXSizeHalfLength*2+1;
-		boardHeight = globalStaticVariables.Instance.gridZSizeHalfLength*2+1;
+		boardWidth = GlobalStaticVariables.Instance.gridXSizeHalfLength*2+1;
+		boardHeight = GlobalStaticVariables.Instance.gridZSizeHalfLength*2+1;
 		boardData = new int[boardWidth, boardHeight];
 		
 		BuildBoardData();
@@ -118,7 +118,7 @@ public class buildBoard : MonoBehaviour {
 			for (int ii = 0; ii < boardHeight; ii++) {
 
 				// Some commonly used position types
-				Vector3 positionStandard = Vector3.Scale(new Vector3(i-boardWidth/2, tileHeight, ii-boardHeight/2),globalStaticVariables.Instance.GlobalScale);
+				Vector3 positionStandard = Vector3.Scale(new Vector3(i-boardWidth/2, tileHeight, ii-boardHeight/2),GlobalStaticVariables.Instance.GlobalScale);
 
 				//Vector3 positionOffsetZ(float xOffset, float zOffset) => new Vector3(i * tileScale + xOffset, tileHeight + wallHeight, ii * tileScale + zOffset);
 
@@ -177,7 +177,7 @@ public class buildBoard : MonoBehaviour {
 	public void GroupTilesToParent() {
 		GameObject[] tiles = GameObject.FindGameObjectsWithTag("gameTile");
 		foreach (GameObject tile in tiles) {
-			if (!globalStaticVariables.Instance.renderBoardAsSingleMesh)
+			if (!GlobalStaticVariables.Instance.renderBoardAsSingleMesh)
 			{
 				tile.AddComponent<Rigidbody>();
 				Rigidbody rigidbody = tile.GetComponent<Rigidbody>();
@@ -187,7 +187,7 @@ public class buildBoard : MonoBehaviour {
 			}
 			tile.transform.SetParent(transform);
 		}
-		if (globalStaticVariables.Instance.renderBoardAsSingleMesh)
+		if (GlobalStaticVariables.Instance.renderBoardAsSingleMesh)
 		{
 			MeshFilter[] meshfilters = GetComponentsInChildren<MeshFilter>();
 			CombineInstance[] combine = new CombineInstance[meshfilters.Length];

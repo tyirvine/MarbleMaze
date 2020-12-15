@@ -8,7 +8,6 @@ using UnityEditor.Experimental.GraphView;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
-using GlobalStaticVariables;
 using Random = UnityEngine.Random;
 
 public class PathManager : MonoBehaviour {
@@ -167,7 +166,7 @@ public class PathManager : MonoBehaviour {
 		// Find the origin grid position by inverting the gridX and gridZ lengths
 		Vector3 originGridPosition = new Vector3Int(-gridXSizeHalfLength, parentYPosition, -gridZSizeHalfLength);
 
-		if (DebugSettings.debugModeSwitch) {
+		if (GlobalStaticVariables.Instance.debugMode) {
 			Instantiate(originFlag, Vector3.Scale(gridScale, originGridPosition), Quaternion.identity);
 		}
 
@@ -236,18 +235,6 @@ public class PathManager : MonoBehaviour {
 	}
 
 
-
-	/// <summary>added by bubzy to build a small "Cage" around the start and end positions.  </summary>
-	void BuildCage(Vector3Int position)
-    {
-		Instantiate(obstacleManager.tempObstacleFlag, position + new Vector3Int(0, 1, 1),Quaternion.identity);
-		Instantiate(obstacleManager.tempObstacleFlag, position + new Vector3Int(1, 1, 0), Quaternion.identity);
-		Instantiate(obstacleManager.tempObstacleFlag, position + new Vector3Int(-1, 1, 0), Quaternion.identity);
-		obstacleManager.obstaclePositions.Add(position + new Vector3Int(0, 0, 1));
-		obstacleManager.obstaclePositions.Add(position + new Vector3Int(1, 0, 0));
-		obstacleManager.obstaclePositions.Add(position + new Vector3Int(-1, 0, 0));
-	}
-
 	/// <summary>This spawns the start and end points by making sure they have ample room and aren't colliding.</summary>
 	void SpawnStartOrEnd(FlagAreas flag, GameObject flagObject) {
 		/// <summary>This keeps track of the loop and will fire off a warning to reset the obstacle gen if it's taking too long.</summary>
@@ -264,8 +251,8 @@ public class PathManager : MonoBehaviour {
 					FindNodePosition(-1, 0, position: possibleSpawn),
 					FindNodePosition(0, 1, position: possibleSpawn),
 					FindNodePosition(1, 0, position: possibleSpawn),
-					FindNodePosition(0, -1, position: possibleSpawn),					
-					
+					FindNodePosition(0, -1, position: possibleSpawn),
+
 				};
 
 				// Verifies that the neighbouring positions are also not colliding with obstacle positions
@@ -281,11 +268,9 @@ public class PathManager : MonoBehaviour {
 				if (flag == FlagAreas.End) gridPoints.endPointNode = possibleSpawn;
 				Instantiate(flagObject, Vector3.Scale(gridScale, possibleSpawn), Quaternion.identity);
 
-				
+
 				// Makes itself a placed point to avoid overlap with other points
 				gridPoints.placedPoints.Add(possibleSpawn);
-
-				BuildCage(possibleSpawn); //added by bubzy 07/12
 
 				return;
 			}
@@ -465,13 +450,6 @@ public class PathManager : MonoBehaviour {
 		// Build the grid and spawn the obstacles
 		ConstructGrid();
 		obstacleManager.GenerateObstacleMap();
-		
-		//added by bubzy to build corners 
-		//obstacleManager.BuildCorner(2,0,1,0);
-	    //obstacleManager.BuildCorner(-2,0,-1,0);
-		//obstacleManager.BuildCorner(-2, 0, 1, 0);
-		//obstacleManager.BuildCorner(2, 0, -1, 0);
-		obstacleManager.CheckPositions();
 
 		// This catch is looking for a `No sequence` error that can occur when the path can't go from start to finish
 		try {
@@ -494,14 +472,14 @@ public class PathManager : MonoBehaviour {
 	// Start is called before the first frame updates
 	void Start() {
 		// TODO This needs to be changed to comparing two timestamps
-		globalStaticVariables.Instance.debugLog.Add("Started pathManager.cs      Time Executed : " + Time.deltaTime.ToString());
+		GlobalStaticVariables.Instance.debugLog.Add("Started pathManager.cs      Time Executed : " + Time.deltaTime.ToString());
 
 		// Grab parameters from global variables
-		gridScale = DebugSettings.globalScale;
+		gridScale = GlobalStaticVariables.Instance.GlobalScale;
 
 		// Executes the entire path stack
 		ConstructPathStack();
-		
+
 	}
 }
 
