@@ -479,7 +479,7 @@ public class PathManager : MonoBehaviour {
 
 		// Executes the entire path stack
 		ConstructPathStack();
-
+		GlobalStaticVariables.Instance.obstacleGenerationComplete = true;
 	}
 }
 

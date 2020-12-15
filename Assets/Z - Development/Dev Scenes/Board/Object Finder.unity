@@ -235,9 +235,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleManager: {fileID: 1217518607}
+  gridXSizeHalfLength: 20
+  gridZSizeHalfLength: 20
   startAreaPercentage: 0.1
   parentYPosition: 0
-  gridDrawDuration: 10
+  gridDrawDuration: 11
   pathFlag: {fileID: 6344987324550275196, guid: 682118e13740245f7914fc3b0b6627d8,
     type: 3}
   startFlag: {fileID: 4014911049134122452, guid: 9d670d60e092d47a099802f4d445f0c9,
@@ -269,20 +271,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1217518604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f410257a7c41c5d4eb323d0842ac0cf5, type: 3}
+  m_Script: {fileID: 11500000, guid: efa9654f631974526a371afcbe258072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pathManager: {fileID: 1217518605}
-  numberOfCornerShapes: 0
   obstaclePositions: []
-  obstacleCoveragePercentage: 0.4
+  obstacleCoveragePercentage: 0.183
   gridArea: 0
-  gridScale: {x: 0, y: 0, z: 0}
-  obstacleHeight: 0
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
-  tempObstacleFlag: {fileID: 8970112326771813452, guid: 9d2ef472102d34f9aa6dbbbc1ab42c5a,
-    type: 3}
+  spawnDiagonals: 0
 --- !u!1 &1400405322
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,14 +311,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Value: 0
-  GlobalScale: {x: 1, y: 0, z: 1}
+  GlobalScale: {x: 1, y: 1, z: 1}
   debugLog: []
-  debugMode: 1
+  debugMode: 0
   renderBoardAsSingleMesh: 0
   obstacleGenerationComplete: 0
   vSync: 0
-  gridXSizeHalfLength: 10
-  gridZSizeHalfLength: 10
+  gridXSizeHalfLength: 50
+  gridZSizeHalfLength: 50
 --- !u!4 &1400405324
 Transform:
   m_ObjectHideFlags: 0
