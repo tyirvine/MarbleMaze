@@ -1,0 +1,96 @@
+{
+    "name": "BoardActionControls",
+    "maps": [
+        {
+            "name": "KeyboardControls",
+            "id": "57681eb8-3f40-4162-bc28-22a43c84a408",
+            "actions": [
+                {
+                    "name": "Tilt_X",
+                    "type": "Button",
+                    "id": "a61dd4a7-cab0-4160-a8ac-4ce68c20f22a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Tilt_Z",
+                    "type": "Button",
+                    "id": "d67e31c9-cdb6-4f68-aa4f-9e7cf8f2d2c4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "TiltX",
+                    "id": "6b2eac2b-c3bf-487a-b630-312aab5a9e16",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilt_X",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "ee971225-9c9a-43fc-877a-3dcf89813b3d",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilt_X",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "e9d638da-6e85-4184-bb3c-383daccebb4b",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilt_X",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "TiltZ",
+                    "id": "c8cd389f-95b2-4908-b00b-55f3f0a1d660",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilt_Z",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "352e0800-b8fc-461d-92b3-933503172823",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilt_Z",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "00ab0ab6-a462-4564-8704-965dfca2fb8d",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilt_Z",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
