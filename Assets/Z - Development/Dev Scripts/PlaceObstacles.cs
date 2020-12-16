@@ -17,6 +17,7 @@ public class PlaceObstacles : MonoBehaviour {
 			if (!GlobalStaticVariables.Instance.debugMode) {
 				Destroy(obstacle);
 			}
+			
 		}
 	}
 }

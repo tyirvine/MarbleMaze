@@ -12,8 +12,9 @@ public class GlobalStaticVariables : MonoBehaviour {
 
 	public List<string> debugLog = new List<string>();
 
-	[Header("Debug Mode")]
+	[Header("Debug Options")]
 	public bool debugMode;
+	public bool collectFlags;
 
 	[Header("Experimental")]
 	public bool renderBoardAsSingleMesh = false;
@@ -29,17 +30,12 @@ public class GlobalStaticVariables : MonoBehaviour {
 	[Range(3, 100)] public int gridZSizeHalfLength = 50;
 
 
-	// Not sure what this does - Ty
-	public void CallBuild() {
 
-	}
 
-	// This function fills in the debug log file? - Ty
+	// This function fills in the debug log file? - Ty   Yep. - bubzy
 	private void OnApplicationQuit() {
 		Debug.Log("Quitting");
 		string fileName = Path.Combine(Application.streamingAssetsPath, "Debug.log");
-		//FileStream fs = new FileStream(fileName,FileMode.Create);
-		//fs.Write(debugLog.ToString());
 		StreamWriter writer = new StreamWriter(fileName, true);
 		foreach (string str in debugLog) {
 			writer.WriteLine(str);
