@@ -215,6 +215,7 @@ GameObject:
   - component: {fileID: 1217518606}
   - component: {fileID: 1217518605}
   - component: {fileID: 1217518607}
+  - component: {fileID: 1217518608}
   m_Layer: 0
   m_Name: pathManager
   m_TagString: Untagged
@@ -281,6 +282,29 @@ MonoBehaviour:
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
   spawnDiagonals: 0
+--- !u!114 &1217518608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1217518604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955eb84a1d918e944a478aefab69e4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shapes:
+  - shape: {fileID: 5520149041154882132, guid: f864b5cab5b875d4dad4227f6aac3a8d, type: 3}
+    model: {fileID: 1074434095352500213, guid: e375c334ce49b1846aa8e3eedaacc02d, type: 3}
+    currentPosition: {x: 0, y: 0, z: 0}
+    unitCount: 4
+    allowedGaps: 0
+  - shape: {fileID: 3866103534992603355, guid: 66c35f2ec87eeb04982b9f196ee0fedc, type: 3}
+    model: {fileID: 5420822967365422863, guid: d06a2ed4e7ead4c43a625a0c4d1b0d49, type: 3}
+    currentPosition: {x: 0, y: 0, z: 0}
+    unitCount: 4
+    allowedGaps: 1
 --- !u!1 &1400405322
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,5 +577,6 @@ PrefabInstance:
       propertyPath: shapes.Array.data[1].allowedGaps
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3746580412093330927, guid: a3ba8a4ebba3e844682ee30dbee2abf2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a3ba8a4ebba3e844682ee30dbee2abf2, type: 3}

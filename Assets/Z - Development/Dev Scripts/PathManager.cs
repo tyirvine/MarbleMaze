@@ -480,6 +480,17 @@ public class PathManager : MonoBehaviour {
 		// Executes the entire path stack
 		ConstructPathStack();
 		GlobalStaticVariables.Instance.obstacleGenerationComplete = true;
+		if(GlobalStaticVariables.Instance.collectFlags)
+		{
+			GameObject[] flags = GameObject.FindGameObjectsWithTag("Flag");
+			GameObject flagParent = new GameObject();
+
+			foreach(GameObject flag in flags)
+			{
+				flag.transform.SetParent(flagParent.transform);
+			}
+		}
+	
 	}
 }
 
