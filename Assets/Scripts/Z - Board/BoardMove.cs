@@ -36,7 +36,7 @@ public class BoardMove : MonoBehaviour {
 	}
 
 	void Update() {
+		// This prevents the board from rotating on the y-axis
 		transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
 	}
-
 }
