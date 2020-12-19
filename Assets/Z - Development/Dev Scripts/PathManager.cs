@@ -440,6 +440,9 @@ public class PathManager : MonoBehaviour {
 		// TODO: Remove this, it's just for testing
 		long loopStartTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
+		// Calculate desired path length
+		int desiredPathLength = (int)(desiredPathLengthPercentage * Mathf.Sqrt(Mathf.Pow(gridXSizeHalfLength * 2, 2) + Mathf.Pow(gridZSizeHalfLength * 2, 2)));
+
 	// Restart from here
 	RestartLoop:;
 		// Initialize
@@ -458,16 +461,17 @@ public class PathManager : MonoBehaviour {
 
 		// This catch is looking for a `No sequence` error that can occur when the path can't go from start to finish
 		try {
+			// Generates the entire path
 			GeneratePath();
-
-			// Calculate desired path length
-			int desiredPathLength = (int)(desiredPathLengthPercentage * ((gridXSizeHalfLength * 2) + (gridZSizeHalfLength * 2)));
 			// Ensure path length is valid, if not throw exception to engage the catch
 			if (pathLength < desiredPathLength) {
+				// Shorten path length with each loop iteration
+				desiredPathLength--;
 				Debug.LogAssertion("Path did not meet desired length.");
 				throw new Exception();
 			} else
 				Debug.Log("Path was " + pathLength + " units long and the desired path length was " + desiredPathLength + " units long.");
+
 		} catch {
 			Debug.LogWarning("Error caught - Loop Reset");
 			errorCaught = true;

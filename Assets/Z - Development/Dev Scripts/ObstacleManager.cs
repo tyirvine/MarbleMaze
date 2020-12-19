@@ -44,18 +44,27 @@ public class ObstacleManager : MonoBehaviour {
 					pathManager.FindNodePosition(2, 2, position: currentObstaclePosition),
 					pathManager.FindNodePosition(2, -2, position: currentObstaclePosition),
 					pathManager.FindNodePosition(-2, -2, position: currentObstaclePosition),
+					// Adjacents - Top
+					pathManager.FindNodePosition(-1, -2, position: currentObstaclePosition),
+					pathManager.FindNodePosition(-2, -1, position: currentObstaclePosition),
+					pathManager.FindNodePosition(-2, 1, position: currentObstaclePosition),
+					pathManager.FindNodePosition(-1, 2, position: currentObstaclePosition),
+					// Adjacents - Bottom
+					pathManager.FindNodePosition(1, -2, position: currentObstaclePosition),
+					pathManager.FindNodePosition(2, -1, position: currentObstaclePosition),
+					pathManager.FindNodePosition(2, 1, position: currentObstaclePosition),
+					pathManager.FindNodePosition(1, 2, position: currentObstaclePosition),
 				};
 
 				// Iterate through all of the neighbours to make sure no diagonals are found
 				// If a diagonal position is filled break the entire loop, otherwise continue
-				if (!spawnDiagonals)
-				{
-						foreach (Vector3Int neighbour in currentObstacleNeighbourPositions) {
+				if (!spawnDiagonals) {
+					foreach (Vector3Int neighbour in currentObstacleNeighbourPositions) {
 						if (obstaclePositions.Contains(neighbour))
-								goto EndOfLoop;
-							else
-								continue;
-						}
+							goto EndOfLoop;
+						else
+							continue;
+					}
 				}
 
 				// Check to make sure this position isn't already taken
