@@ -166,8 +166,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleManager: {fileID: 982076543}
-  gridXSizeHalfLength: 10
-  gridZSizeHalfLength: 10
+  gridXSizeHalfLength: 5
+  gridZSizeHalfLength: 5
   startAreaPercentage: 0.1
   parentYPosition: 0
   gridDrawDuration: 100
@@ -178,6 +178,7 @@ MonoBehaviour:
   endFlag: {fileID: 8970112326771813452, guid: 9d2ef472102d34f9aa6dbbbc1ab42c5a, type: 3}
   originFlag: {fileID: 933866898380758605, guid: 71c3f498d45534d118eb2a055ac439e0,
     type: 3}
+  desiredPathLength: 10
   didPathGenerate: 0
 --- !u!114 &982076543
 MonoBehaviour:
@@ -193,10 +194,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathManager: {fileID: 982076542}
   obstaclePositions: []
-  obstacleCoveragePercentage: 0.666
+  obstacleCoveragePercentage: 0.4
   gridArea: 0
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
+  spawnDiagonals: 0
 --- !u!1 &1648830592
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,6 +232,7 @@ MonoBehaviour:
   GlobalScale: {x: 1, y: 1, z: 1}
   debugLog: []
   debugMode: 0
+  collectFlags: 0
   renderBoardAsSingleMesh: 0
   obstacleGenerationComplete: 0
   vSync: 0

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using UnityEditor.Experimental.GraphView;
+using UnityEditor.PackageManager;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
@@ -16,8 +17,8 @@ public class PathManager : MonoBehaviour {
 
 	// These are half lengths so they can be used as a product of a (1/2) division
 	[Header("Grid Size")]
-	[Range(5, 100)] public int gridXSizeHalfLength = 50;
-	[Range(5, 100)] public int gridZSizeHalfLength = 50;
+	[Range(5, 100)] public int gridXSizeHalfLength = 10;
+	[Range(5, 100)] public int gridZSizeHalfLength = 10;
 
 	// Scaling for the placement of objects on the grid
 	Vector3 gridScale;
@@ -38,6 +39,13 @@ public class PathManager : MonoBehaviour {
 	public GameObject startFlag;
 	public GameObject endFlag;
 	public GameObject originFlag;
+
+	// Decides how long the path itself should be, measured in integral units.
+	[Header("Path Length %")]
+	[Range(0.1f, 1.0f)] public float desiredPathLengthPercentage = 0.1f;
+
+	/// <summary>Keeps track of the overall length of the path. Used to generate a new path if it is too short.</summary>
+	private int pathLength = 0;
 
 
 	/// <summary>Use this to determine if a path has been succesfully generated or not.</summary>
@@ -115,6 +123,7 @@ public class PathManager : MonoBehaviour {
 	void Initialize() {
 		gridPoints = new GridPoints { placedPoints = new List<Vector3Int>() };
 		didPathGenerate = false;
+		pathLength = 0;
 
 		// Obstacle manager
 		obstacleManager.obstaclePositions = new List<Vector3Int>();
@@ -326,8 +335,9 @@ public class PathManager : MonoBehaviour {
 				if (traceNode.position != gridPoints.endPointNode) pathNodes.Add(traceNode);
 				traceNode = traceNode.parent;
 			}
-			// Reverse the list because we started tracing from the end
+			// Reverse the list because we started tracing from the end, and calculate the path's length
 			pathNodes.Reverse();
+			pathLength = pathNodes.Count();
 			// Instantiate desired object
 			foreach (NodeObject node in pathNodes)
 				Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
@@ -356,10 +366,6 @@ public class PathManager : MonoBehaviour {
 			return isPathable;
 		}
 
-
-		// TODO: Remove this, it's just for testing
-		long loopStartTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-
 		// Loop Emergency Break
 		int loopEmergencyBrake = 0;
 		int loopEmergencyBrakeCap = 5000;
@@ -375,10 +381,6 @@ public class PathManager : MonoBehaviour {
 
 			// Check to see if the current node position is equal to the end or target node's position
 			if (currentNode.position == gridPoints.endPointNode) {
-				// TODO: Remove this, it's just for testing --- ⤵
-				long currentTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-				Debug.Log("Path found in " + (currentTime - loopStartTime) + "ms!");
-				// -------------------------------------------- ⤴
 				RetracePath(currentNode);
 				didPathGenerate = true;
 				return;
@@ -435,6 +437,9 @@ public class PathManager : MonoBehaviour {
 		// A bool switch to see if an error was caught on the try carch
 		bool errorCaught = false;
 
+		// TODO: Remove this, it's just for testing
+		long loopStartTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
 	// Restart from here
 	RestartLoop:;
 		// Initialize
@@ -454,14 +459,29 @@ public class PathManager : MonoBehaviour {
 		// This catch is looking for a `No sequence` error that can occur when the path can't go from start to finish
 		try {
 			GeneratePath();
+
+			// Calculate desired path length
+			int desiredPathLength = (int)(desiredPathLengthPercentage * ((gridXSizeHalfLength * 2) + (gridZSizeHalfLength * 2)));
+			// Ensure path length is valid, if not throw exception to engage the catch
+			if (pathLength < desiredPathLength) {
+				Debug.LogAssertion("Path did not meet desired length.");
+				throw new Exception();
+			} else
+				Debug.Log("Path was " + pathLength + " units long and the desired path length was " + desiredPathLength + " units long.");
 		} catch {
 			Debug.LogWarning("Error caught - Loop Reset");
 			errorCaught = true;
 			goto RestartLoop;
 		}
 		// A valid path has been generated!
-		if (errorCaught) Debug.LogWarning("Error resolved - Loop Completed");
-		Debug.Log("1");
+		if (errorCaught) Debug.Log("Error resolved - Loop Completed!");
+
+		// TODO: Remove this, it's just for testing --- ⤵
+		long currentTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+		Debug.Log("Path found in " + (currentTime - loopStartTime) + "ms!");
+		// -------------------------------------------- ⤴
+
+		// TODO Decide whether or not this is needed
 		//	GameObject.FindGameObjectWithTag("shapeManager").GetComponent<ShapeManager>().gameObject.SetActive(true); //heckShapesAgainstObstacles();
 		//Instantiate(shapeManager, transform.position, Quaternion.identity);
 
@@ -480,17 +500,17 @@ public class PathManager : MonoBehaviour {
 		// Executes the entire path stack
 		ConstructPathStack();
 		GlobalStaticVariables.Instance.obstacleGenerationComplete = true;
-		if(GlobalStaticVariables.Instance.collectFlags)
-		{
+
+		// Collects all the flags in the scene and parents them
+		if (GlobalStaticVariables.Instance.collectFlags) {
 			GameObject[] flags = GameObject.FindGameObjectsWithTag("Flag");
 			GameObject flagParent = new GameObject();
 
-			foreach(GameObject flag in flags)
-			{
+			foreach (GameObject flag in flags) {
 				flag.transform.SetParent(flagParent.transform);
 			}
 		}
-	
+
 	}
 }
 
