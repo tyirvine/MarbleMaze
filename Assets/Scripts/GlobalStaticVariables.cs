@@ -46,8 +46,7 @@ public class GlobalStaticVariables : MonoBehaviour {
 
 	// Runs before start
 	public void Awake() {
-		string fileName = Path.Combine(Application.streamingAssetsPath, "Debug.log");
-		File.Delete(fileName);
+	
 		if (Instance == null) {
 			Instance = this;
 			DontDestroyOnLoad(gameObject);
@@ -58,10 +57,17 @@ public class GlobalStaticVariables : MonoBehaviour {
 
 	// Start is called before the first frame update
 	void Start() {
+		if(!Directory.Exists(Application.streamingAssetsPath))
+        {
+			Directory.CreateDirectory(Application.streamingAssetsPath);
+				
+        }
+			string fileName = Path.Combine(Application.streamingAssetsPath, "Debug.log");
+			File.Delete(fileName);
 		if (vSync) {
 			QualitySettings.vSyncCount = 4;
 		}
-		debugLog.Add("TEST STRING");
+		debugLog.Add("Debug Log for "+System.DateTime.Now.ToString());
 
 	}
 }
