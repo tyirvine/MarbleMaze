@@ -5,7 +5,11 @@ using System.IO;
 
 public class GlobalStaticVariables : MonoBehaviour {
 
+	// This allows all the variables and functions within this class to be static when this class is used as an object!
 	public static GlobalStaticVariables Instance { get; private set; }
+
+	// Region just lets you collapse the code
+	#region ============ Global Static Variables Settings Start ⤵ ================
 
 	public int Value;
 	public Vector3 GlobalScale = new Vector3(1f, 1f, 1f);
@@ -29,12 +33,14 @@ public class GlobalStaticVariables : MonoBehaviour {
 	[Range(3, 100)] public int gridXSizeHalfLength = 50;
 	[Range(3, 100)] public int gridZSizeHalfLength = 50;
 
+	#endregion ============ Global Static Variables Settings End ⤴ ================
 
 
 
-	// This function fills in the debug log file? - Ty   Yep. - bubzy
+	// This function writes to the debug log file? - Ty
+	// Yep. - bubzy
 	private void OnApplicationQuit() {
-		Debug.Log("Quitting");
+		Debug.Log("Quitting...");
 		string fileName = Path.Combine(Application.streamingAssetsPath, "Debug.log");
 		StreamWriter writer = new StreamWriter(fileName, true);
 		foreach (string str in debugLog) {
@@ -43,10 +49,9 @@ public class GlobalStaticVariables : MonoBehaviour {
 		writer.Close();
 	}
 
-
 	// Runs before start
 	public void Awake() {
-	
+		// What does this do? - Ty
 		if (Instance == null) {
 			Instance = this;
 			DontDestroyOnLoad(gameObject);
@@ -57,17 +62,19 @@ public class GlobalStaticVariables : MonoBehaviour {
 
 	// Start is called before the first frame update
 	void Start() {
-		if(!Directory.Exists(Application.streamingAssetsPath))
-        {
+		// Creates a directory for the debug log if it doesn't exist
+		if (!Directory.Exists(Application.streamingAssetsPath)) {
 			Directory.CreateDirectory(Application.streamingAssetsPath);
-				
-        }
-			string fileName = Path.Combine(Application.streamingAssetsPath, "Debug.log");
-			File.Delete(fileName);
-		if (vSync) {
-			QualitySettings.vSyncCount = 4;
 		}
-		debugLog.Add("Debug Log for "+System.DateTime.Now.ToString());
 
+		// What does this do? - Ty | You can delete this comment
+		string fileName = Path.Combine(Application.streamingAssetsPath, "Debug.log");
+		File.Delete(fileName);
+
+		// Enables V-Sync!
+		if (vSync) QualitySettings.vSyncCount = 4;
+
+		// Creates the debug log's timestamp
+		debugLog.Add("Debug Log for " + System.DateTime.Now.ToString());
 	}
 }
