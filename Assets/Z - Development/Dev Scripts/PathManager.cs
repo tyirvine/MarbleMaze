@@ -76,9 +76,9 @@ public class PathManager : MonoBehaviour {
     /// <code>
     ///	<br/>
     ///.............(+z) <br/>
+    ///.............+1 <br/>
+    ///..(-x)..-1........+1...(+x) <br/>
     ///.............-1 <br/>
-    ///..(-x)..-1........1...(+x) <br/>
-    ///..............1 <br/>
     ///.............(-z) <br/>
     ///</code>
     /// </summary>
@@ -214,6 +214,7 @@ public class PathManager : MonoBehaviour {
 
     /// <summary>This spawns the start and end points by making sure they have ample room and aren't colliding.</summary>
     void SpawnStartOrEnd(FlagAreas flag, GameObject flagObject) {
+        // TODO: This function needs to be cleaned up, it's no longer dealing with obstacles
         /// <summary>This keeps track of the loop and will fire off a warning to reset the obstacle gen if it's taking too long.</summary>
         int loopCounter = 0;
         // Loop through until a valid spawn point is found
@@ -229,7 +230,21 @@ public class PathManager : MonoBehaviour {
                     FindNodePosition(0, 1, position: possibleSpawn),
                     FindNodePosition(1, 0, position: possibleSpawn),
                     FindNodePosition(0, -1, position: possibleSpawn),
-
+					// Non-diagonals - 2nd Level
+					FindNodePosition(-2, 0, position: possibleSpawn),
+                    FindNodePosition(0, 2, position: possibleSpawn),
+                    FindNodePosition(2, 0, position: possibleSpawn),
+                    FindNodePosition(0, -2, position: possibleSpawn),
+					// Diagonals
+					FindNodePosition(-1, 1, position: possibleSpawn),
+                    FindNodePosition(1, 1, position: possibleSpawn),
+                    FindNodePosition(1, -1, position: possibleSpawn),
+                    FindNodePosition(-1, -1, position: possibleSpawn),
+					// Diagonals - 2nd Level
+					FindNodePosition(-2, 2, position: possibleSpawn),
+                    FindNodePosition(2, 2, position: possibleSpawn),
+                    FindNodePosition(2, -2, position: possibleSpawn),
+                    FindNodePosition(-2, -2, position: possibleSpawn),
                 };
 
                 // Verifies that the neighbouring positions are also not colliding with obstacle positions
@@ -295,7 +310,7 @@ public class PathManager : MonoBehaviour {
                 Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
         }
 
-        // TODO: Increase path spacing
+        // TODO: Remove this when obstacle manager is reorganized
         /// <summary>This checks to see if the point collides with any non-pathable positions.</summary>
         bool IsPathable(NodeObject node) {
             Vector3Int[] positionClearanceNeighbours = new Vector3Int[] {
@@ -361,10 +376,10 @@ public class PathManager : MonoBehaviour {
             ///				(-z)
             // Assign all neighbour node positions
             NodeObject[] neighbourNodes = new NodeObject[] {
-            new NodeObject(FindNodePosition(-1, 0, currentNode: currentNode), 0, 0, 0),
-            new NodeObject(FindNodePosition(0, 1, currentNode: currentNode), 0, 0, 0),
-            new NodeObject(FindNodePosition(1, 0, currentNode: currentNode), 0, 0, 0),
-            new NodeObject(FindNodePosition(0, -1, currentNode: currentNode), 0, 0, 0)
+            new NodeObject(FindNodePosition(-2, 0, currentNode: currentNode), 0, 0, 0),
+            new NodeObject(FindNodePosition(0, 2, currentNode: currentNode), 0, 0, 0),
+            new NodeObject(FindNodePosition(2, 0, currentNode: currentNode), 0, 0, 0),
+            new NodeObject(FindNodePosition(0, -2, currentNode: currentNode), 0, 0, 0)
             };
 
             // Loop through all neighbours
