@@ -1,2 +1,8 @@
-Started pathManager.cs      Time Executed : 0.02
-Debug Log for 2020-12-20 9:32:38 PM
+========================================================
+
+2020-12-21 12:12:56 PM  –  DEBUG LOG START
+
+========================================================
+
+[12:12:56.8483290] Started PathManager.cs
+[12:12:56.8675880] Finished PathManager.cs - Path found in 20ms!

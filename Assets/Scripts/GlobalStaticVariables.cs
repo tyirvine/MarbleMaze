@@ -47,6 +47,11 @@ public class GlobalStaticVariables : MonoBehaviour {
         writer.Close();
     }
 
+    /// <summary>This function formats a log to the debug.log file into a [Timestamp + Log] format.</summary>
+    public void DebugLogEntry(string log) {
+        debugLog.Add("[" + System.DateTime.Now.TimeOfDay.ToString() + "]" + " " + log);
+    }
+
     // Runs before start
     public void Awake() {
         // What does this do? - Ty
@@ -56,10 +61,7 @@ public class GlobalStaticVariables : MonoBehaviour {
         } else {
             Destroy(gameObject);
         }
-    }
 
-    // Start is called before the first frame update
-    void Start() {
         // Creates a directory for the debug log if it doesn't exist
         if (!Directory.Exists(Application.streamingAssetsPath)) {
             Directory.CreateDirectory(Application.streamingAssetsPath);
@@ -72,7 +74,12 @@ public class GlobalStaticVariables : MonoBehaviour {
         // Enables V-Sync!
         if (vSync) QualitySettings.vSyncCount = 4;
 
-        // Creates the debug log's timestamp
-        debugLog.Add("Debug Log for " + System.DateTime.Now.ToString());
+        // Creates the debug log's start timestamp
+        debugLog.Add("========================================================");
+        debugLog.Add("");
+        debugLog.Add(System.DateTime.Now.ToString() + "  –  " + "DEBUG LOG START");
+        debugLog.Add("");
+        debugLog.Add("========================================================");
+        debugLog.Add("");
     }
 }

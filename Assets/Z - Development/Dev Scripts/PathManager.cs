@@ -40,15 +40,11 @@ public class PathManager : MonoBehaviour {
     /// <summary>Creates a randomized path if enabled.</summary>
     public bool isPathWacky = false;
 
-    /// <summary>Keeps track of the overall length of the path. Used to generate a new path if it is too short.</summary>
-    private int pathLength = 0;
-
     /// <summary>Use this to determine if a path has been succesfully generated or not.</summary>
     [HideInInspector] public bool didPathGenerate;
 
     /// <summary> Use this object to define grid positions.</summary>
     public struct GridPoints {
-        // TODO: These need to be renamed to coincide with the axes
         // Grid corners
         public Vector3Int topLeft;
         public Vector3Int topRight;
@@ -79,11 +75,11 @@ public class PathManager : MonoBehaviour {
     /// <summary>Simplify finding node position.
     /// <code>
     ///	<br/>
-    ///.............(-x) <br/>
+    ///.............(+z) <br/>
     ///.............-1 <br/>
-    ///..(-z)..-1........1...(+z) <br/>
+    ///..(-x)..-1........1...(+x) <br/>
     ///..............1 <br/>
-    ///.............(+x) <br/>
+    ///.............(-z) <br/>
     ///</code>
     /// </summary>
     public Vector3Int FindNodePosition(int xOffset, int zOffset, [Optional] Vector3Int position, NodeObject currentNode = null) {
@@ -111,7 +107,6 @@ public class PathManager : MonoBehaviour {
     void Initialize() {
         gridPoints = new GridPoints { placedPoints = new List<Vector3Int>() };
         didPathGenerate = false;
-        pathLength = 0;
 
         // Obstacle manager
         obstacleManager.obstaclePositions = new List<Vector3Int>();
@@ -127,26 +122,26 @@ public class PathManager : MonoBehaviour {
         // Simplifies finding a spawn area's max and min Vector3s
         Vector3 FindGridAreaMaxMin(Vector3Int referencePoint, float percentMarker) {
             // Grabs the entire domain length of the grid regardless of the grid point's signum
-            int domain = Mathf.Abs(gridPoints.topLeft.z) + Mathf.Abs(gridPoints.topRight.z);
+            int domain = Mathf.Abs(gridPoints.bottomLeft.z) + Mathf.Abs(gridPoints.topLeft.z);
             // Makes sure to offset the Vector3.z by the topLeft.z value in order to respect the domain
-            return new Vector3(referencePoint.x, 0f, (float)(domain * percentMarker - Mathf.Abs(gridPoints.topLeft.z)));
+            return new Vector3(referencePoint.x, 0f, (float)(domain * percentMarker - Mathf.Abs(gridPoints.bottomLeft.z)));
         }
 
         // Grab the maximum and minimum values of the spawn area specified by the flag chosen
         if (flag == FlagAreas.Start) {
-            SpawnAreaMin = gridPoints.bottomLeft;
-            SpawnAreaMax = FindGridAreaMaxMin(gridPoints.topRight, startAreaPercentage);
+            SpawnAreaMin = gridPoints.bottomRight;
+            SpawnAreaMax = FindGridAreaMaxMin(gridPoints.topLeft, startAreaPercentage);
         }
         // Spawns just for the end area
         else if (flag == FlagAreas.End) {
             float remainingArea = 1f - (startAreaPercentage * 2);
-            SpawnAreaMin = FindGridAreaMaxMin(gridPoints.bottomRight, remainingArea);
-            SpawnAreaMax = gridPoints.topRight;
+            SpawnAreaMin = FindGridAreaMaxMin(gridPoints.topRight, remainingArea);
+            SpawnAreaMax = gridPoints.topLeft;
         }
         // Spawns for the entire grid area
         else {
-            SpawnAreaMin = gridPoints.bottomLeft;
-            SpawnAreaMax = gridPoints.topRight;
+            SpawnAreaMin = gridPoints.bottomRight;
+            SpawnAreaMax = gridPoints.topLeft;
         }
 
         // Grab random values based on spawn area's min and max points
@@ -169,18 +164,18 @@ public class PathManager : MonoBehaviour {
         Vector3Int ReturnGridPoint(int x, int z) => new Vector3Int(x, parentYPosition, z);
 
         // Define grid positions
-        gridPoints.topLeft = ReturnGridPoint(-gridXSizeHalfLength, -gridZSizeHalfLength);
-        gridPoints.topRight = ReturnGridPoint(-gridXSizeHalfLength, gridZSizeHalfLength);
-        gridPoints.bottomLeft = ReturnGridPoint(gridXSizeHalfLength, -gridZSizeHalfLength);
-        gridPoints.bottomRight = ReturnGridPoint(gridXSizeHalfLength, gridZSizeHalfLength);
+        gridPoints.bottomLeft = ReturnGridPoint(-gridXSizeHalfLength, -gridZSizeHalfLength);
+        gridPoints.topLeft = ReturnGridPoint(-gridXSizeHalfLength, gridZSizeHalfLength);
+        gridPoints.bottomRight = ReturnGridPoint(gridXSizeHalfLength, -gridZSizeHalfLength);
+        gridPoints.topRight = ReturnGridPoint(gridXSizeHalfLength, gridZSizeHalfLength);
 
         // Duration needs to be specified, otherwise a line will only be drawn for one frame
         void DrawGridLine(Vector3Int start, Vector3Int end) => Debug.DrawLine(start, end, color: Color.white, duration: gridDrawDuration);
         // Draw a rectangle of the grid
+        DrawGridLine(gridPoints.bottomLeft, gridPoints.topLeft);
         DrawGridLine(gridPoints.topLeft, gridPoints.topRight);
         DrawGridLine(gridPoints.topRight, gridPoints.bottomRight);
         DrawGridLine(gridPoints.bottomRight, gridPoints.bottomLeft);
-        DrawGridLine(gridPoints.bottomLeft, gridPoints.topLeft);
     }
 
     // =========================================
@@ -211,7 +206,7 @@ public class PathManager : MonoBehaviour {
     /// <summary>Check to see if a position is within the grid bounds or not.</summary>
     public bool CheckIfInGridBounds(Vector3Int position) {
         GridPoints grid = gridPoints;
-        if ((position.z < grid.topRight.z && position.z > grid.bottomLeft.z) && (position.x < grid.bottomLeft.x && position.x > grid.topRight.x))
+        if ((position.z < grid.topLeft.z && position.z > grid.bottomRight.z) && (position.x < grid.bottomRight.x && position.x > grid.topLeft.x))
             return true;
         else
             return false;
@@ -295,12 +290,12 @@ public class PathManager : MonoBehaviour {
             }
             // Reverse the list because we started tracing from the end, and calculate the path's length
             pathNodes.Reverse();
-            pathLength = pathNodes.Count();
             // Instantiate desired object
             foreach (NodeObject node in pathNodes)
                 Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
         }
 
+        // TODO: Increase path spacing
         /// <summary>This checks to see if the point collides with any non-pathable positions.</summary>
         bool IsPathable(NodeObject node) {
             Vector3Int[] positionClearanceNeighbours = new Vector3Int[] {
@@ -359,11 +354,11 @@ public class PathManager : MonoBehaviour {
 
             // Find the current node's neighbours
             /// Below is which index corresponds to which neighbour
-            ///				(-x)
+            ///				(+z)
             ///				0
-            ///	(-z)	3		1	(+z)
+            ///	(-x)	3		1	(+x)
             ///				2
-            ///				(+x)
+            ///				(-z)
             // Assign all neighbour node positions
             NodeObject[] neighbourNodes = new NodeObject[] {
             new NodeObject(FindNodePosition(-1, 0, currentNode: currentNode), 0, 0, 0),
@@ -408,12 +403,6 @@ public class PathManager : MonoBehaviour {
         // A bool switch to see if an error was caught on the try carch
         bool errorCaught = false;
 
-        // TODO: Remove this, it's just for testing
-        long loopStartTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-
-        // Calculate desired path length
-        int desiredPathLength = (int)(desiredPathLengthPercentage * Mathf.Sqrt(Mathf.Pow(gridXSizeHalfLength * 2, 2) + Mathf.Pow(gridZSizeHalfLength * 2, 2)));
-
     // Restart from here
     RestartLoop:;
         // Initialize
@@ -434,17 +423,6 @@ public class PathManager : MonoBehaviour {
         try {
             // Generates the entire path
             GeneratePath();
-            // TODO: I'm pretty sure we can remove all of this stuff because we're always getting the proper path length
-            #region Can be removed ⤵
-            // Ensure path length is valid, if not throw exception to engage the catch
-            if (pathLength < desiredPathLength) {
-                // Shorten path length with each loop iteration
-                desiredPathLength--;
-                Debug.LogAssertion("Path did not meet desired length.");
-                throw new Exception();
-            } else
-                Debug.Log("Path was " + pathLength + " units long and the desired path length was " + desiredPathLength + " units long.");
-            #endregion ⤴
         } catch {
             Debug.LogWarning("Error caught - Loop Reset");
             errorCaught = true;
@@ -453,12 +431,7 @@ public class PathManager : MonoBehaviour {
         // A valid path has been generated!
         if (errorCaught) Debug.Log("Error resolved - Loop Completed!");
 
-        // TODO: Remove this, it's just for testing --- ⤵
-        long currentTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-        Debug.Log("Path found in " + (currentTime - loopStartTime) + "ms!");
-        // -------------------------------------------- ⤴
-
-        // TODO Decide whether or not this is needed
+        // TODO: Do we need this? - Ty @bubzy-coding
         //	GameObject.FindGameObjectWithTag("shapeManager").GetComponent<ShapeManager>().gameObject.SetActive(true); //heckShapesAgainstObstacles();
         //Instantiate(shapeManager, transform.position, Quaternion.identity);
 
@@ -466,8 +439,10 @@ public class PathManager : MonoBehaviour {
 
     // Start is called before the first frame updates
     void Start() {
-        // TODO This needs to be changed to comparing two timestamps
-        GlobalStaticVariables.Instance.debugLog.Add("Started pathManager.cs      Time Executed : " + Time.deltaTime.ToString());
+#if UNITY_EDITOR
+        long loopStartTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        GlobalStaticVariables.Instance.DebugLogEntry("Started PathManager.cs");
+#endif
 
         // Grab parameters from global variables
         gridScale = GlobalStaticVariables.Instance.GlobalScale;
@@ -475,6 +450,13 @@ public class PathManager : MonoBehaviour {
         // Executes the entire path stack
         ConstructPathStack();
         GlobalStaticVariables.Instance.obstacleGenerationComplete = true;
+
+#if UNITY_EDITOR
+        long currentTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        string currentTimeLog = "Path found in " + (currentTime - loopStartTime) + "ms!";
+        GlobalStaticVariables.Instance.DebugLogEntry("Finished PathManager.cs - " + currentTimeLog);
+        Debug.Log(currentTimeLog);
+#endif
 
         // Collects all the flags in the scene and parents them
         if (GlobalStaticVariables.Instance.collectFlags) {

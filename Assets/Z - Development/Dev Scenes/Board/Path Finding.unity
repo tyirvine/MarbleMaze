@@ -179,7 +179,7 @@ MonoBehaviour:
   originFlag: {fileID: 933866898380758605, guid: 71c3f498d45534d118eb2a055ac439e0,
     type: 3}
   desiredPathLengthPercentage: 1
-  isPathWacky: 1
+  isPathWacky: 0
   didPathGenerate: 0
 --- !u!114 &982076543
 MonoBehaviour:
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathManager: {fileID: 982076542}
   obstacleCoveragePercentage: 0.5
-  spawnObstacles: 0
+  spawnObstacles: 1
   gridArea: 0
   obstaclePositions: []
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
