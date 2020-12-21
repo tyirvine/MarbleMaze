@@ -34,6 +34,9 @@ public class PathManager : MonoBehaviour {
     public GameObject endFlag;
     public GameObject originFlag;
 
+
+    public List<NodeObject> fullGrid = new List<NodeObject>();
+
     // Decides how long the path itself should be, measured in integral units.
     [Header("Path Settings")]
     [Range(0.1f, 1.0f)] public float desiredPathLengthPercentage = 0.1f;
@@ -184,6 +187,9 @@ public class PathManager : MonoBehaviour {
 
     // Node object to keep track of path cost
     public class NodeObject {
+
+        public bool walkable = false;
+
         public Vector3Int position;
         /// <summary>Distance from the starting node.</summary>
         public int gCost;
@@ -196,11 +202,19 @@ public class PathManager : MonoBehaviour {
         public NodeObject parent;
 
         // Initializer
-        public NodeObject(Vector3Int position, int gCost, int hCost, int fCost) {
+        public NodeObject(Vector3Int position, int gCost, int hCost, int fCost,bool _walkable) {
             this.position = position;
             this.gCost = gCost;
             this.hCost = hCost;
+            walkable = _walkable;
         }
+
+        public bool checkPosition(Vector3Int otherPos)
+        {
+            if(position == otherPos)            {                return true;            }
+            return false;
+        }
+
     }
 
     /// <summary>Check to see if a position is within the grid bounds or not.</summary>
@@ -289,7 +303,7 @@ public class PathManager : MonoBehaviour {
         List<NodeObject> pathNodes = new List<NodeObject>();
 
         // Add the start node to the open points list
-        openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0));
+        openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0,false));
 
         // This object contains the current node being investigated
         NodeObject currentNode;
@@ -306,8 +320,8 @@ public class PathManager : MonoBehaviour {
             // Reverse the list because we started tracing from the end, and calculate the path's length
             pathNodes.Reverse();
             // Instantiate desired object
-            foreach (NodeObject node in pathNodes)
-                Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
+          //  foreach (NodeObject node in pathNodes)
+            //    Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
         }
 
         // TODO: Remove this when obstacle manager is reorganized
@@ -363,6 +377,7 @@ public class PathManager : MonoBehaviour {
             // Check to see if the current node position is equal to the end or target node's position
             if (currentNode.position == gridPoints.endPointNode) {
                 RetracePath(currentNode);
+                fullGrid.AddRange(pathNodes); //add all pathnodes to the full grid
                 didPathGenerate = true;
                 return;
             }
@@ -376,10 +391,10 @@ public class PathManager : MonoBehaviour {
             ///				(-z)
             // Assign all neighbour node positions
             NodeObject[] neighbourNodes = new NodeObject[] {
-            new NodeObject(FindNodePosition(-2, 0, currentNode: currentNode), 0, 0, 0),
-            new NodeObject(FindNodePosition(0, 2, currentNode: currentNode), 0, 0, 0),
-            new NodeObject(FindNodePosition(2, 0, currentNode: currentNode), 0, 0, 0),
-            new NodeObject(FindNodePosition(0, -2, currentNode: currentNode), 0, 0, 0)
+            new NodeObject(FindNodePosition(-2, 0, currentNode: currentNode), 0, 0, 0,false),
+            new NodeObject(FindNodePosition(0, 2, currentNode: currentNode), 0, 0, 0,false),
+            new NodeObject(FindNodePosition(2, 0, currentNode: currentNode), 0, 0, 0,false),
+            new NodeObject(FindNodePosition(0, -2, currentNode: currentNode), 0, 0, 0,false)
             };
 
             // Loop through all neighbours
@@ -393,11 +408,16 @@ public class PathManager : MonoBehaviour {
                 // Otherwise check to see if the node is in the open list or if the new path to the node is shorter than the stored path
                 if (newNeighbourMovementCost < node.gCost || !openNodes.Any(nodes => nodes.position == node.position)) {
                     node.gCost = newNeighbourMovementCost;
-                    node.hCost = GetDistance(node, new NodeObject(gridPoints.endPointNode, 0, 0, 0));
+                    node.hCost = GetDistance(node, new NodeObject(gridPoints.endPointNode, 0, 0, 0,false));
                     node.parent = currentNode;
                     // If the node is not found in the open nodes list then add it
                     if (!openNodes.Any(nodes => nodes.position == node.position))
+                    {
+                        //@bubzy added here to try and work out which nodes are walkable and not in a full grid of obstacles
+                        node.walkable = true;
+
                         openNodes.Add(node);
+                    }
                 }
             }
             // Acts as an emergency break for this loop
@@ -465,6 +485,7 @@ public class PathManager : MonoBehaviour {
         // Executes the entire path stack
         ConstructPathStack();
         GlobalStaticVariables.Instance.obstacleGenerationComplete = true;
+        BuildFullGrid();
 
 #if UNITY_EDITOR
         long currentTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -483,5 +504,64 @@ public class PathManager : MonoBehaviour {
             }
         }
 
+    }
+
+    //create a list of nodes the size of the whole grid and leave out the path nodes
+    void BuildFul2lGrid()
+    {
+        //starting with a list of nodes that already contains the path nodes
+        List<NodeObject> tempObjects = new List<NodeObject>();
+        tempObjects.AddRange(fullGrid);
+
+        for(int x = 1; x < gridXSizeHalfLength*2;x++)
+        {
+            for (int y = 1; y < gridZSizeHalfLength*2; y++)
+            {
+                NodeObject node = new NodeObject(new Vector3Int(-gridXSizeHalfLength + x, 0, -gridZSizeHalfLength + y), 0, 0, 0, false);
+                tempObjects.Add(node);
+                foreach (NodeObject nodeObject in fullGrid)
+                    {
+                        if(nodeObject.position == new Vector3Int(-gridXSizeHalfLength + x, 0, -gridZSizeHalfLength + y))
+                        {
+                        tempObjects.Remove(node);                            
+                        }
+                    }
+
+            }
+        }
+
+        fullGrid = tempObjects;
+
+        foreach(NodeObject node in fullGrid)
+        {
+            if(node.walkable)
+                Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
+            else
+                Instantiate(obstacleManager.obstacleFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
+        }
+    
+    }
+
+    void BuildFullGrid()
+    {
+        for(int x = 1; x < gridXSizeHalfLength*2; x++)
+        {
+            for(int y = 1; y<gridXSizeHalfLength*2; y++)
+            {
+                if(!fullGrid.Any(s => s.position == (new Vector3Int(-gridXSizeHalfLength + x, 0, -gridZSizeHalfLength + y))))
+                {
+
+                fullGrid.Add(new NodeObject(new Vector3Int(-gridXSizeHalfLength + x, 0, -gridZSizeHalfLength + y), 0, 0, 0, false));
+                }
+            }
+        }
+
+        foreach (NodeObject node in fullGrid)
+        {
+            if (node.walkable)
+                Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
+            else
+                Instantiate(obstacleManager.obstacleFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
+        }
     }
 }
