@@ -195,7 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathManager: {fileID: 982076542}
   obstacleCoveragePercentage: 0.5
-  spawnObstacles: 1
+  spawnObstacles: 0
   gridArea: 0
   obstaclePositions: []
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
