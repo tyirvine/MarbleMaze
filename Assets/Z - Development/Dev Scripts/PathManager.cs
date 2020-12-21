@@ -507,42 +507,7 @@ public class PathManager : MonoBehaviour {
     }
 
     //create a list of nodes the size of the whole grid and leave out the path nodes
-    void BuildFul2lGrid()
-    {
-        //starting with a list of nodes that already contains the path nodes
-        List<NodeObject> tempObjects = new List<NodeObject>();
-        tempObjects.AddRange(fullGrid);
-
-        for(int x = 1; x < gridXSizeHalfLength*2;x++)
-        {
-            for (int y = 1; y < gridZSizeHalfLength*2; y++)
-            {
-                NodeObject node = new NodeObject(new Vector3Int(-gridXSizeHalfLength + x, 0, -gridZSizeHalfLength + y), 0, 0, 0, false);
-                tempObjects.Add(node);
-                foreach (NodeObject nodeObject in fullGrid)
-                    {
-                        if(nodeObject.position == new Vector3Int(-gridXSizeHalfLength + x, 0, -gridZSizeHalfLength + y))
-                        {
-                        tempObjects.Remove(node);                            
-                        }
-                    }
-
-            }
-        }
-
-        fullGrid = tempObjects;
-
-        foreach(NodeObject node in fullGrid)
-        {
-            if(node.walkable)
-                Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
-            else
-                Instantiate(obstacleManager.obstacleFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
-        }
-    
-    }
-
-    void BuildFullGrid()
+      void BuildFullGrid()
     {
         for(int x = 1; x < gridXSizeHalfLength*2; x++)
         {
