@@ -169,11 +169,10 @@ MonoBehaviour:
   gridXSizeHalfLength: 10
   gridZSizeHalfLength: 10
   startAreaPercentage: 0.1
-  parentYPosition: 0
-  bufferDivision: 1
+  cornerLengthDivider: 2
   desiredPathLengthPercentage: 1
   isPathWacky: 1
-  wackiness: 1
+  wackiness: 10
   pathFlag: {fileID: 6344987324550275196, guid: 682118e13740245f7914fc3b0b6627d8,
     type: 3}
   startFlag: {fileID: 4014911049134122452, guid: 9d670d60e092d47a099802f4d445f0c9,
@@ -183,6 +182,7 @@ MonoBehaviour:
     type: 3}
   obstacleManager: {fileID: 982076543}
   didPathGenerate: 0
+  parentYPosition: 0
 --- !u!114 &982076543
 MonoBehaviour:
   m_ObjectHideFlags: 0
