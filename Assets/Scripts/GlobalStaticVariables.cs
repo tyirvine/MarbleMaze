@@ -23,6 +23,7 @@ public class GlobalStaticVariables : MonoBehaviour {
     [Header("Experimental")]
     public bool renderBoardAsSingleMesh = false;
     public bool obstacleGenerationComplete = false;
+    public bool pathGenerationComplete = false;
 
     [Header("Quality Settings")]
     [Tooltip("not sure how this affects framrate in editor")]

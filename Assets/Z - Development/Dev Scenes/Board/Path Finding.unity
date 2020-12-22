@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 982076543}
   m_Layer: 0
   m_Name: PathManager
-  m_TagString: Untagged
+  m_TagString: PathManager
   m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -234,7 +234,7 @@ MonoBehaviour:
   GlobalScale: {x: 1, y: 1, z: 1}
   debugLog: []
   debugMode: 0
-  collectFlags: 0
+  collectFlags: 1
   renderBoardAsSingleMesh: 0
   obstacleGenerationComplete: 0
   vSync: 0

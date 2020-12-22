@@ -36,6 +36,8 @@ public class PathManager : MonoBehaviour {
 
 
     public List<NodeObject> fullGrid = new List<NodeObject>();
+    public List<NodeObject> simplePath = new List<NodeObject>();
+
 
     // Decides how long the path itself should be, measured in integral units.
     [Header("Path Settings")]
@@ -185,37 +187,7 @@ public class PathManager : MonoBehaviour {
     // Phase 2: Generate the path
     // =========================================
 
-    // Node object to keep track of path cost
-    public class NodeObject {
-
-        public bool walkable = false;
-
-        public Vector3Int position;
-        /// <summary>Distance from the starting node.</summary>
-        public int gCost;
-        /// <summary>Distance from the end node.</summary>
-        public int hCost;
-        /// <summary>G cost + H cost.</summary>
-        public int fCost { get => gCost + hCost; }
-
-        /// <summary>This is the parent node this node is linked to. Use this to back trace a path from the end to the start.</summary>
-        public NodeObject parent;
-
-        // Initializer
-        public NodeObject(Vector3Int position, int gCost, int hCost, int fCost,bool _walkable) {
-            this.position = position;
-            this.gCost = gCost;
-            this.hCost = hCost;
-            walkable = _walkable;
-        }
-
-        public bool checkPosition(Vector3Int otherPos)
-        {
-            if(position == otherPos)            {                return true;            }
-            return false;
-        }
-
-    }
+   
 
     /// <summary>Check to see if a position is within the grid bounds or not.</summary>
     public bool CheckIfInGridBounds(Vector3Int position) {
@@ -238,8 +210,25 @@ public class PathManager : MonoBehaviour {
             // Check to see if the possible spawn is colliding with the obstacle positions
             if (!obstacleManager.obstaclePositions.Contains(possibleSpawn) && !gridPoints.placedPoints.Contains(possibleSpawn)) {
                 // Find all neighbours of the possible spawn point
-                Vector3Int[] possibleSpawnNeighbours = new Vector3Int[] {
-					// Non-diagonals
+
+                //Vector3Int[] possibleSpawnNeighbours = new Vector3Int[16];
+                List<Vector3Int> possibleSpawnNeighbours = new List<Vector3Int>();
+                for(int x = -2; x <=2; x++)
+                {
+                    for(int y = -2; y<=2; y++)
+                    {
+                        if(x!=0 && y!=0)
+                        {
+                            possibleSpawnNeighbours.Add(FindNodePosition(x, y, position: possibleSpawn));                            
+                        }
+                    }
+                }
+                //Shortened this function - Bubzy
+
+
+                /*Vector3Int[] possibleSpawnNeighbours = new Vector3Int[] {
+                    
+                    // Non-diagonals
 					FindNodePosition(-1, 0, position: possibleSpawn),
                     FindNodePosition(0, 1, position: possibleSpawn),
                     FindNodePosition(1, 0, position: possibleSpawn),
@@ -259,7 +248,7 @@ public class PathManager : MonoBehaviour {
                     FindNodePosition(2, 2, position: possibleSpawn),
                     FindNodePosition(2, -2, position: possibleSpawn),
                     FindNodePosition(-2, -2, position: possibleSpawn),
-                };
+                };*/
 
                 // Verifies that the neighbouring positions are also not colliding with obstacle positions
                 // if a collision is detected it breaks out of the loop so it can try another spawn point
@@ -340,6 +329,7 @@ public class PathManager : MonoBehaviour {
                 if (CheckIfInGridBounds(position))
                     if (!obstacleManager.obstaclePositions.Contains(position))
                         isPathable = true;
+                        
                     else
                         return false;
                 else
@@ -377,7 +367,10 @@ public class PathManager : MonoBehaviour {
             // Check to see if the current node position is equal to the end or target node's position
             if (currentNode.position == gridPoints.endPointNode) {
                 RetracePath(currentNode);
+                
                 fullGrid.AddRange(pathNodes); //add all pathnodes to the full grid
+                simplePath.AddRange(pathNodes);
+
                 didPathGenerate = true;
                 return;
             }
@@ -410,12 +403,14 @@ public class PathManager : MonoBehaviour {
                     node.gCost = newNeighbourMovementCost;
                     node.hCost = GetDistance(node, new NodeObject(gridPoints.endPointNode, 0, 0, 0,false));
                     node.parent = currentNode;
+                    
+                    //@bubzy added here to try and work out which nodes are walkable and not in a full grid of obstacles
+                    node.walkable = true;
+
                     // If the node is not found in the open nodes list then add it
                     if (!openNodes.Any(nodes => nodes.position == node.position))
                     {
-                        //@bubzy added here to try and work out which nodes are walkable and not in a full grid of obstacles
-                        node.walkable = true;
-
+                        
                         openNodes.Add(node);
                     }
                 }
@@ -485,7 +480,9 @@ public class PathManager : MonoBehaviour {
         // Executes the entire path stack
         ConstructPathStack();
         GlobalStaticVariables.Instance.obstacleGenerationComplete = true;
-        BuildFullGrid();
+        //BuildFullGrid();
+        BuildWall();
+        GlobalStaticVariables.Instance.pathGenerationComplete = true;
 
 #if UNITY_EDITOR
         long currentTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -522,6 +519,36 @@ public class PathManager : MonoBehaviour {
         }
 
         foreach (NodeObject node in fullGrid)
+        {
+            if (node.walkable)
+                Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
+            else
+                Instantiate(obstacleManager.obstacleFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
+        }
+    }
+
+    void BuildWall() // experiment
+    {
+        List<NodeObject> tempNodes = new List<NodeObject>();
+        tempNodes.AddRange(simplePath);
+        foreach (NodeObject node in simplePath)
+        {
+            Vector3Int[] checkNeighbours = new Vector3Int[] {
+
+                node.position - new Vector3Int(-1, 0, 0),
+                node.position - new Vector3Int(1, 0, 0),
+                node.position - new Vector3Int(0, 0, 1),
+                node.position - new Vector3Int(0, 0, -1)
+            };
+            foreach(Vector3Int nPos in checkNeighbours)
+            {
+                if(!simplePath.Any(s => s.position == nPos))
+                {
+                    tempNodes.Add(new NodeObject(nPos, 0, 0, 0, false));
+                }
+            }
+        }
+        foreach (NodeObject node in tempNodes)
         {
             if (node.walkable)
                 Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);

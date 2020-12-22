@@ -61,7 +61,7 @@ public class buildBoard : MonoBehaviour {
 		
 		BuildBoardData();
 		InstantiateBoard();
-		placeObstacles.BuildObstacles();
+		
 		GroupTilesToParent(); //called from pathmanager instead
 		placePlayer();
 

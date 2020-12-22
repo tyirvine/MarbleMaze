@@ -11,6 +11,7 @@ TagManager:
   - startPosition
   - wallTile
   - shapeManager
+  - PathManager
   layers:
   - Default
   - TransparentFX
