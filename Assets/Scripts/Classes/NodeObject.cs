@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 // Node object to keep track of path cost
-public class NodeObject
-{
+public class NodeObject {
 
     public bool walkable = false;
 
@@ -20,13 +17,11 @@ public class NodeObject
     public NodeObject parent;
 
     // Initializer
-    public NodeObject(Vector3Int position, int gCost, int hCost, int fCost, bool _walkable)
-    {
+    public NodeObject(Vector3Int position, int gCost, int hCost, int fCost, bool _walkable) {
         this.position = position;
         this.gCost = gCost;
         this.hCost = hCost;
         walkable = _walkable;
     }
-
 
 }

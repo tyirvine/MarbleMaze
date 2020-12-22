@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public class PathManager : MonoBehaviour {
-    // Reference to the obstacle manager for linking up the obstacle position list and generating obstacle maps
-    public ObstacleManager obstacleManager;
 
     // These are half lengths so they can be used as a product of a (1/2) division
-    [Header("Grid Size")]
+    [Header("Grid Settings")]
     [Range(5, 100)] public int gridXSizeHalfLength = 10;
     [Range(5, 100)] public int gridZSizeHalfLength = 10;
 
@@ -24,9 +21,11 @@ public class PathManager : MonoBehaviour {
     /// <summary>Reference to y position of the parent. Used to ensure grid positions are all at the same y position.</summary>
     public int parentYPosition = 0;
 
-    /// <summary>How long the grid should appear drawn for. This int gets casted as a float automatically.</summary>
-    [Header("Draw Time")]
-    [Range(0, 100)] public int gridDrawDuration = 10;
+    // Decides how long the path itself should be, measured in integral units.
+    [Header("Path Settings")]
+    [Range(0.1f, 1.0f)] public float desiredPathLengthPercentage = 0.1f;
+    /// <summary>Creates a randomized path if enabled.</summary>
+    public bool isPathWacky = false;
 
     // Empties that acts as markers
     [Header("Object References")]
@@ -35,17 +34,22 @@ public class PathManager : MonoBehaviour {
     public GameObject endFlag;
     public GameObject originFlag;
 
-    public List<NodeObject> fullGrid = new List<NodeObject>();
-    public List<NodeObject> simplePath = new List<NodeObject>();
-
-    // Decides how long the path itself should be, measured in integral units.
-    [Header("Path Settings")]
-    [Range(0.1f, 1.0f)] public float desiredPathLengthPercentage = 0.1f;
-    /// <summary>Creates a randomized path if enabled.</summary>
-    public bool isPathWacky = false;
+    // Reference to the obstacle manager for linking up the obstacle position list and generating obstacle maps
+    [Header("Script References")]
+    public ObstacleManager obstacleManager;
 
     /// <summary>Use this to determine if a path has been succesfully generated or not.</summary>
     [HideInInspector] public bool didPathGenerate;
+
+    /// <summary>How long the grid should appear drawn for. This int gets casted as a float automatically.</summary>
+    int gridDrawDuration = 1000;
+
+    /// For an explination on what these node lists mean please visit ⤵
+    /// https://www.notion.so/scriptobit/Environment-Path-Generation-a5304e8f37474efa98809a03f0e26074
+    public List<NodeObject> openNodes = new List<NodeObject>();
+    public List<NodeObject> closedNodes = new List<NodeObject>();
+    public List<NodeObject> pathNodes = new List<NodeObject>();
+    public List<NodeObject> clearanceNodes = new List<NodeObject>();
 
     /// <summary> Use this object to define grid positions.</summary>
     public struct GridPoints {
@@ -129,6 +133,11 @@ public class PathManager : MonoBehaviour {
     void Initialize() {
         gridPoints = new GridPoints { placedPoints = new List<Vector3Int>() };
         didPathGenerate = false;
+
+        openNodes = new List<NodeObject>();
+        closedNodes = new List<NodeObject>();
+        pathNodes = new List<NodeObject>();
+        clearanceNodes = new List<NodeObject>();
 
         // Obstacle manager
         obstacleManager.obstaclePositions = new List<Vector3Int>();
@@ -228,41 +237,13 @@ public class PathManager : MonoBehaviour {
 
                 //Vector3Int[] possibleSpawnNeighbours = new Vector3Int[16];
                 List<Vector3Int> possibleSpawnNeighbours = new List<Vector3Int>();
-                for(int x = -2; x <=2; x++)
-                {
-                    for(int y = -2; y<=2; y++)
-                    {
-                        if(x!=0 && y!=0)
-                        {
-                            possibleSpawnNeighbours.Add(FindNodePosition(x, y, position: possibleSpawn));                            
+                for (int x = -2; x <= 2; x++) {
+                    for (int y = -2; y <= 2; y++) {
+                        if (x != 0 && y != 0) {
+                            possibleSpawnNeighbours.Add(FindNodePosition(x, y, position: possibleSpawn));
                         }
                     }
                 }
-                //Shortened this function - Bubzy
-
-                /*Vector3Int[] possibleSpawnNeighbours = new Vector3Int[] {
-                    
-                    // Non-diagonals
-					FindNodePosition(-1, 0, position: possibleSpawn),
-                    FindNodePosition(0, 1, position: possibleSpawn),
-                    FindNodePosition(1, 0, position: possibleSpawn),
-                    FindNodePosition(0, -1, position: possibleSpawn),
-					// Non-diagonals - 2nd Level
-					FindNodePosition(-2, 0, position: possibleSpawn),
-                    FindNodePosition(0, 2, position: possibleSpawn),
-                    FindNodePosition(2, 0, position: possibleSpawn),
-                    FindNodePosition(0, -2, position: possibleSpawn),
-					// Diagonals
-					FindNodePosition(-1, 1, position: possibleSpawn),
-                    FindNodePosition(1, 1, position: possibleSpawn),
-                    FindNodePosition(1, -1, position: possibleSpawn),
-                    FindNodePosition(-1, -1, position: possibleSpawn),
-					// Diagonals - 2nd Level
-					FindNodePosition(-2, 2, position: possibleSpawn),
-                    FindNodePosition(2, 2, position: possibleSpawn),
-                    FindNodePosition(2, -2, position: possibleSpawn),
-                    FindNodePosition(-2, -2, position: possibleSpawn),
-                };*/
 
                 // Verifies that the neighbouring positions are also not colliding with obstacle positions
                 // if a collision is detected it breaks out of the loop so it can try another spawn point
@@ -299,15 +280,8 @@ public class PathManager : MonoBehaviour {
         SpawnStartOrEnd(FlagAreas.Start, startFlag);
         SpawnStartOrEnd(FlagAreas.End, endFlag);
 
-        /// For an explination on what these node lists mean please visit ⤵
-        /// https://www.notion.so/scriptobit/Environment-Path-Generation-a5304e8f37474efa98809a03f0e26074
-        List<NodeObject> openNodes = new List<NodeObject>();
-        List<NodeObject> closedNodes = new List<NodeObject>();
-        List<NodeObject> pathNodes = new List<NodeObject>();
-        List<NodeObject> clearanceNodes = new List<NodeObject>();
-
         // Add the start node to the open points list
-        openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0,false));
+        openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, false));
 
         // This object contains the current node being investigated
         NodeObject currentNode;
@@ -332,9 +306,20 @@ public class PathManager : MonoBehaviour {
             }
             // Reverse the list because we started tracing from the end, and calculate the path's length
             pathNodes.Reverse();
+
+            // Setup an extra list so the for loop doesn't grow ↴
+            NodeObject[] pathNodesClearance = pathNodes.ToArray();
+            // Add in clearance nodes to path nodes
+            foreach (NodeObject node in pathNodesClearance) {
+                Vector3Int[] clearancePositions = FindClearanceNodes(node.position);
+                foreach (Vector3Int position in clearancePositions)
+                    pathNodes.Add(new NodeObject(position, 0, 0, 0, true));
+            }
+
             // Instantiate desired object
-          //  foreach (NodeObject node in pathNodes)
-            //    Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
+            foreach (NodeObject node in pathNodes) {
+                Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
+            }
         }
 
         /// <summary>This checks to see if the point collides with any non-pathable positions.</summary>
@@ -434,15 +419,11 @@ public class PathManager : MonoBehaviour {
             // Add clearance neighbours as well
             Vector3Int[] clearanceNeighbours = FindClearanceNodes(currentNode.position);
             foreach (Vector3Int position in clearanceNeighbours)
-                closedNodes.Add(new NodeObject(position, 0, 0, 0));
+                closedNodes.Add(new NodeObject(position, 0, 0, 0, false));
 
             // Check to see if the current node position is equal to the end or target node's position
             if (currentNode.position == gridPoints.endPointNode) {
                 RetracePath(currentNode);
-                
-                fullGrid.AddRange(pathNodes); //add all pathnodes to the full grid
-                simplePath.AddRange(pathNodes);
-
                 didPathGenerate = true;
                 return;
             }
@@ -473,16 +454,15 @@ public class PathManager : MonoBehaviour {
                 // Otherwise check to see if the node is in the open list or if the new path to the node is shorter than the stored path
                 if (newNeighbourMovementCost < node.gCost || !openNodes.Any(nodes => nodes.position == node.position)) {
                     node.gCost = newNeighbourMovementCost;
-                    node.hCost = GetDistance(node, new NodeObject(gridPoints.endPointNode, 0, 0, 0,false));
+                    node.hCost = GetDistance(node, new NodeObject(gridPoints.endPointNode, 0, 0, 0, false));
                     node.parent = currentNode;
-                    
+
                     //@bubzy added here to try and work out which nodes are walkable and not in a full grid of obstacles
                     node.walkable = true;
 
                     // If the node is not found in the open nodes list then add it
-                    if (!openNodes.Any(nodes => nodes.position == node.position))
-                    {
-                        
+                    if (!openNodes.Any(nodes => nodes.position == node.position)) {
+
                         openNodes.Add(node);
                     }
                 }
@@ -510,21 +490,18 @@ public class PathManager : MonoBehaviour {
         // Initialize
         Initialize();
         GameObject[] flags;
-        GameObject[] obstacleFlags;
         // Destroy all flags first
         flags = GameObject.FindGameObjectsWithTag("Flag");
         foreach (GameObject flag in flags) GameObject.Destroy(flag);
-        obstacleFlags = GameObject.FindGameObjectsWithTag("pathObstacle");
-        foreach (GameObject flag in obstacleFlags) GameObject.Destroy(flag);
 
         // Build the grid and spawn the obstacles
         ConstructGrid();
-        obstacleManager.GenerateObstacleMap();
 
         // This catch is looking for a `No sequence` error that can occur when the path can't go from start to finish
         try {
             // Generates the entire path
             GeneratePath();
+            obstacleManager.ObstaclePicker();
         } catch {
             Debug.LogWarning("Error caught - Loop Reset");
             errorCaught = true;
@@ -551,9 +528,6 @@ public class PathManager : MonoBehaviour {
 
         // Executes the entire path stack
         ConstructPathStack();
-        GlobalStaticVariables.Instance.obstacleGenerationComplete = true;
-        //BuildFullGrid();
-        BuildWall();
         GlobalStaticVariables.Instance.pathGenerationComplete = true;
 
 #if UNITY_EDITOR
@@ -575,64 +549,6 @@ public class PathManager : MonoBehaviour {
 
     }
 
-    //create a list of nodes the size of the whole grid and leave out the path nodes
-      void BuildFullGrid()
-    {
-        for(int x = 1; x < gridXSizeHalfLength*2; x++)
-        {
-            for(int y = 1; y<gridXSizeHalfLength*2; y++)
-            {
-                if(!fullGrid.Any(s => s.position == (new Vector3Int(-gridXSizeHalfLength + x, 0, -gridZSizeHalfLength + y))))
-                {
-
-                fullGrid.Add(new NodeObject(new Vector3Int(-gridXSizeHalfLength + x, 0, -gridZSizeHalfLength + y), 0, 0, 0, false));
-                }
-            }
-        }
-
-        foreach (NodeObject node in fullGrid)
-        {
-            if (node.walkable)
-                Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
-            else
-                Instantiate(obstacleManager.obstacleFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
-        }
-    }
-
-    void BuildWall() // experiment
-    {
-        List<NodeObject> tempNodes = new List<NodeObject>();
-        //add the start and end points as nodes so that they are included in the walls
-        tempNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, true));
-        tempNodes.Add(new NodeObject(gridPoints.endPointNode, 0, 0, 0, true));
-
-        //add the generated path to the list
-        tempNodes.AddRange(simplePath);
-
-        //check through positions -1,0 1,0 0,1 0,-1 to see if there is anything present. if not, make a new node in that position and make it unwalkable
-        foreach (NodeObject node in simplePath) {
-            Vector3Int[] checkNeighbours = new Vector3Int[] {
-
-                node.position - new Vector3Int(-1, 0, 0),
-                node.position - new Vector3Int(1, 0, 0),
-                node.position - new Vector3Int(0, 0, 1),
-                node.position - new Vector3Int(0, 0, -1)
-            };
-            foreach (Vector3Int nPos in checkNeighbours) {
-                if (!simplePath.Any(s => s.position == nPos)) {
-                    tempNodes.Add(new NodeObject(nPos, 0, 0, 0, false));
-                }
-            }
-        }
-
-        //visualisation of the list.
-        foreach (NodeObject node in tempNodes) {
-            if (node.walkable)
-                Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
-            else
-                Instantiate(obstacleManager.obstacleFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
-        }
-    }
     // TODO: Delete this - this is only for testing
     bool constructPath = false;
     void Update() {

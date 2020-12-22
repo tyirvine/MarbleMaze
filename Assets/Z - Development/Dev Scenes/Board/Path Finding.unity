@@ -194,14 +194,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa9654f631974526a371afcbe258072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathManager: {fileID: 982076542}
   obstacleCoveragePercentage: 0.5
   spawnObstacles: 0
-  gridArea: 0
-  obstaclePositions: []
+  spawnDiagonals: 0
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
-  spawnDiagonals: 0
+  pathManager: {fileID: 982076542}
+  gridArea: 0
+  obstaclePositions: []
 --- !u!114 &982076544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,9 +282,10 @@ MonoBehaviour:
   GlobalScale: {x: 1, y: 1, z: 1}
   debugLog: []
   debugMode: 0
-  collectFlags: 1
+  collectFlags: 0
   renderBoardAsSingleMesh: 0
   obstacleGenerationComplete: 0
+  pathGenerationComplete: 0
   vSync: 0
   gridXSizeHalfLength: 50
   gridZSizeHalfLength: 50
