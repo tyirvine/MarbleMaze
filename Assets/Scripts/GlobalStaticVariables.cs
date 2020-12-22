@@ -54,7 +54,7 @@ public class GlobalStaticVariables : MonoBehaviour {
 
     // Runs before start
     public void Awake() {
-        // What does this do? - Ty
+        // This allows the gsv to persist between scenes
         if (Instance == null) {
             Instance = this;
             DontDestroyOnLoad(gameObject);
