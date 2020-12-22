@@ -166,12 +166,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bbdeb670c0a461f9fece1ea3408a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacleManager: {fileID: 982076543}
   gridXSizeHalfLength: 10
   gridZSizeHalfLength: 10
   startAreaPercentage: 0.1
   parentYPosition: 0
-  gridDrawDuration: 100
+  bufferDivision: 1
+  desiredPathLengthPercentage: 1
+  isPathWacky: 1
+  wackiness: 1
   pathFlag: {fileID: 6344987324550275196, guid: 682118e13740245f7914fc3b0b6627d8,
     type: 3}
   startFlag: {fileID: 4014911049134122452, guid: 9d670d60e092d47a099802f4d445f0c9,
@@ -179,8 +181,7 @@ MonoBehaviour:
   endFlag: {fileID: 8970112326771813452, guid: 9d2ef472102d34f9aa6dbbbc1ab42c5a, type: 3}
   originFlag: {fileID: 933866898380758605, guid: 71c3f498d45534d118eb2a055ac439e0,
     type: 3}
-  desiredPathLengthPercentage: 1
-  isPathWacky: 1
+  obstacleManager: {fileID: 982076543}
   didPathGenerate: 0
 --- !u!114 &982076543
 MonoBehaviour:

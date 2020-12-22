@@ -21,11 +21,17 @@ public class PathManager : MonoBehaviour {
     /// <summary>Reference to y position of the parent. Used to ensure grid positions are all at the same y position.</summary>
     public int parentYPosition = 0;
 
+    [Header("Start/End point settings")]
+    [Range(1, 6)] public int bufferDivision;
+
     // Decides how long the path itself should be, measured in integral units.
     [Header("Path Settings")]
     [Range(0.1f, 1.0f)] public float desiredPathLengthPercentage = 0.1f;
+    
     /// <summary>Creates a randomized path if enabled.</summary>
+    [Header("Path Manipulation")]
     public bool isPathWacky = false;
+    [Range(1, 40)] public int wackiness;
 
     // Empties that acts as markers
     [Header("Object References")]
@@ -68,6 +74,11 @@ public class PathManager : MonoBehaviour {
 
     /// <summary>Contains all grid positions in an easy to use object.</summary>
     public GridPoints gridPoints;
+
+
+    //a buffer to stop start and endpoints spawning too close to each other;
+    
+
 
     /// <summary>An object that contains which corner and position it's at.</summary>
     public class CornerNode {
@@ -222,7 +233,7 @@ public class PathManager : MonoBehaviour {
             return false;
     }
 
-    /// <summary>This spawns the start and end points by making sure they have ample room and aren't colliding.</summary>
+  /*  /// <summary>This spawns the start and end points by making sure they have ample room and aren't colliding.</summary>
     void SpawnStartOrEnd(FlagAreas flag, GameObject flagObject) {
         // TODO: This function needs to be cleaned up, it's no longer dealing with obstacles
         /// <summary>This keeps track of the loop and will fire off a warning to reset the obstacle gen if it's taking too long.</summary>
@@ -234,8 +245,7 @@ public class PathManager : MonoBehaviour {
             // Check to see if the possible spawn is colliding with the obstacle positions
             if (!obstacleManager.obstaclePositions.Contains(possibleSpawn) && !gridPoints.placedPoints.Contains(possibleSpawn)) {
                 // Find all neighbours of the possible spawn point
-
-                //Vector3Int[] possibleSpawnNeighbours = new Vector3Int[16];
+                
                 List<Vector3Int> possibleSpawnNeighbours = new List<Vector3Int>();
                 for (int x = -2; x <= 2; x++) {
                     for (int y = -2; y <= 2; y++) {
@@ -273,13 +283,52 @@ public class PathManager : MonoBehaviour {
                 loopCounter++;
         }
     }
+    */
+
+    //create start and end nodes, ensure that they spawn apart in seperate quadrants of the grid
+    //divide grid: top left - 0, top right - 1, bottom left - 2, bottom right - 3. make a function to randomly pick one for the start and ensure that the diagonally opposite contains the end.
+    void AltStartEnd()
+    {
+        int startEndBuffer = 0;
+        //leave a gap at 1/4 of the size of a quadrant. this does reduce the amount of space available to a start/end point
+        if (gridXSizeHalfLength < gridZSizeHalfLength)      {            startEndBuffer = (int)(gridXSizeHalfLength / bufferDivision);        }
+        else                                                {            startEndBuffer = (int)(gridZSizeHalfLength / bufferDivision);        }
+
+        int startQuad = Mathf.RoundToInt(Random.Range(0, 4));
+        Vector3Int startPosition = new Vector3Int();
+        Vector3Int endPosition = new Vector3Int();
+        switch (startQuad)
+        {
+            case 0:             //top left
+                startPosition    = new Vector3Int(Random.Range(-gridXSizeHalfLength, startEndBuffer), 0, Random.Range(startEndBuffer, gridZSizeHalfLength));
+                endPosition      = new Vector3Int(Random.Range(startEndBuffer, gridXSizeHalfLength), 0, Random.Range(-gridZSizeHalfLength, startEndBuffer));
+                break;
+            case 1:             //top right
+                startPosition    = new Vector3Int(Random.Range(startEndBuffer, gridXSizeHalfLength), 0, Random.Range(startEndBuffer, gridZSizeHalfLength));
+                endPosition      = new Vector3Int(Random.Range(-gridXSizeHalfLength, startEndBuffer), 0, Random.Range(-gridZSizeHalfLength, startEndBuffer));
+                
+                break;
+            case 2:             //bottom left
+                startPosition    = new Vector3Int(Random.Range(-gridXSizeHalfLength, startEndBuffer), 0, Random.Range(-gridZSizeHalfLength, startEndBuffer));
+                endPosition      = new Vector3Int(Random.Range(startEndBuffer, gridXSizeHalfLength), 0, Random.Range(startEndBuffer, gridZSizeHalfLength));
+                break;
+            case 3:             //bottom right
+                startPosition    = new Vector3Int(Random.Range(startEndBuffer, gridXSizeHalfLength), 0, Random.Range(-gridZSizeHalfLength, startEndBuffer));
+                endPosition      = new Vector3Int(Random.Range(-gridXSizeHalfLength, startEndBuffer), 0, Random.Range(startEndBuffer, gridZSizeHalfLength));
+                break;
+        }
+
+        gridPoints.startPointNode = startPosition;
+        gridPoints.endPointNode = endPosition;
+        
+    }
 
     /// <summary>This handles the creation of a path from the start point to the end point!</summary>
     void GeneratePath() {
         // Spawn start and end points
-        SpawnStartOrEnd(FlagAreas.Start, startFlag);
-        SpawnStartOrEnd(FlagAreas.End, endFlag);
-
+        //SpawnStartOrEnd(FlagAreas.Start, startFlag);
+        //SpawnStartOrEnd(FlagAreas.End, endFlag);
+        AltStartEnd();
         // Add the start node to the open points list
         openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, false));
 
@@ -400,8 +449,8 @@ public class PathManager : MonoBehaviour {
                 return 14 * dstX + 10 * (dstZ - dstX);
             }
             // and here?
-            if (dstX > dstZ) return Random.Range(1, 30) * dstZ + 10 * (dstX - dstZ);
-            return Random.Range(1, 30) * dstX + 10 * (dstZ - dstX);
+            if (dstX > dstZ) return Random.Range(1, wackiness) * dstZ + 10 * (dstX - dstZ);
+            return Random.Range(1, wackiness) * dstX + 10 * (dstZ - dstX);
         }
 
         // Loop Emergency Break
@@ -525,7 +574,7 @@ public class PathManager : MonoBehaviour {
 
         // Grab parameters from global variables
         gridScale = GlobalStaticVariables.Instance.GlobalScale;
-
+        
         // Executes the entire path stack
         ConstructPathStack();
         GlobalStaticVariables.Instance.pathGenerationComplete = true;
