@@ -41,6 +41,14 @@ public class @BoardActionControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Debug"",
+                    ""type"": ""Value"",
+                    ""id"": ""78eb1acc-f31b-4785-9635-c7eaa11e16df"",
+                    ""expectedControlType"": ""Digital"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -164,6 +172,17 @@ public class @BoardActionControls : IInputActionCollection, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""976a43ff-9d35-4d4d-b407-3dffb7594e83"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Debug"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -187,6 +206,7 @@ public class @BoardActionControls : IInputActionCollection, IDisposable
         m_Board_Tilt_X = m_Board.FindAction("Tilt_X", throwIfNotFound: true);
         m_Board_Tilt_Z = m_Board.FindAction("Tilt_Z", throwIfNotFound: true);
         m_Board_Move = m_Board.FindAction("Move", throwIfNotFound: true);
+        m_Board_Debug = m_Board.FindAction("Debug", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -239,6 +259,7 @@ public class @BoardActionControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Board_Tilt_X;
     private readonly InputAction m_Board_Tilt_Z;
     private readonly InputAction m_Board_Move;
+    private readonly InputAction m_Board_Debug;
     public struct BoardActions
     {
         private @BoardActionControls m_Wrapper;
@@ -246,6 +267,7 @@ public class @BoardActionControls : IInputActionCollection, IDisposable
         public InputAction @Tilt_X => m_Wrapper.m_Board_Tilt_X;
         public InputAction @Tilt_Z => m_Wrapper.m_Board_Tilt_Z;
         public InputAction @Move => m_Wrapper.m_Board_Move;
+        public InputAction @Debug => m_Wrapper.m_Board_Debug;
         public InputActionMap Get() { return m_Wrapper.m_Board; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -264,6 +286,9 @@ public class @BoardActionControls : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_BoardActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_BoardActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_BoardActionsCallbackInterface.OnMove;
+                @Debug.started -= m_Wrapper.m_BoardActionsCallbackInterface.OnDebug;
+                @Debug.performed -= m_Wrapper.m_BoardActionsCallbackInterface.OnDebug;
+                @Debug.canceled -= m_Wrapper.m_BoardActionsCallbackInterface.OnDebug;
             }
             m_Wrapper.m_BoardActionsCallbackInterface = instance;
             if (instance != null)
@@ -277,6 +302,9 @@ public class @BoardActionControls : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @Debug.started += instance.OnDebug;
+                @Debug.performed += instance.OnDebug;
+                @Debug.canceled += instance.OnDebug;
             }
         }
     }
@@ -295,5 +323,6 @@ public class @BoardActionControls : IInputActionCollection, IDisposable
         void OnTilt_X(InputAction.CallbackContext context);
         void OnTilt_Z(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+        void OnDebug(InputAction.CallbackContext context);
     }
 }

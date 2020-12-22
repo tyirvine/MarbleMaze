@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public class PathManager : MonoBehaviour {
@@ -34,10 +35,8 @@ public class PathManager : MonoBehaviour {
     public GameObject endFlag;
     public GameObject originFlag;
 
-
     public List<NodeObject> fullGrid = new List<NodeObject>();
     public List<NodeObject> simplePath = new List<NodeObject>();
-
 
     // Decides how long the path itself should be, measured in integral units.
     [Header("Path Settings")]
@@ -66,11 +65,29 @@ public class PathManager : MonoBehaviour {
     /// <summary>Contains all grid positions in an easy to use object.</summary>
     public GridPoints gridPoints;
 
+    /// <summary>An object that contains which corner and position it's at.</summary>
+    public class CornerNode {
+        public Vector3Int position;
+        public Corner corner;
+        public CornerNode(Vector3Int position, Corner corner) {
+            this.position = position;
+            this.corner = corner;
+        }
+    }
+
     // For determining whether or not to spawn the start or end point. Helps with readability
     public enum FlagAreas {
         Start,
         End,
         Grid
+    }
+
+    // Used to determine which corner
+    public enum Corner {
+        TopLeft,
+        TopRight,
+        BottomLeft,
+        BottomRight
     }
 
     // =========================================
@@ -187,8 +204,6 @@ public class PathManager : MonoBehaviour {
     // Phase 2: Generate the path
     // =========================================
 
-   
-
     /// <summary>Check to see if a position is within the grid bounds or not.</summary>
     public bool CheckIfInGridBounds(Vector3Int position) {
         GridPoints grid = gridPoints;
@@ -224,7 +239,6 @@ public class PathManager : MonoBehaviour {
                     }
                 }
                 //Shortened this function - Bubzy
-
 
                 /*Vector3Int[] possibleSpawnNeighbours = new Vector3Int[] {
                     
@@ -290,12 +304,22 @@ public class PathManager : MonoBehaviour {
         List<NodeObject> openNodes = new List<NodeObject>();
         List<NodeObject> closedNodes = new List<NodeObject>();
         List<NodeObject> pathNodes = new List<NodeObject>();
+        List<NodeObject> clearanceNodes = new List<NodeObject>();
 
         // Add the start node to the open points list
         openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0,false));
 
         // This object contains the current node being investigated
         NodeObject currentNode;
+
+        /// <summary>Finds all the clearance nodes for the provided position. Top, top right, and right side.</summary>
+        Vector3Int[] FindClearanceNodes(Vector3Int position) {
+            return new Vector3Int[] {
+                FindNodePosition(0, 1, position),
+                FindNodePosition(1, 1, position),
+                FindNodePosition(1, 0, position)
+            };
+        }
 
         /// <summary>This back tracks from the current node to find the starting node, making a path.</summary>
         void RetracePath(NodeObject lastNode) {
@@ -313,27 +337,70 @@ public class PathManager : MonoBehaviour {
             //    Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
         }
 
-        // TODO: Remove this when obstacle manager is reorganized
         /// <summary>This checks to see if the point collides with any non-pathable positions.</summary>
         bool IsPathable(NodeObject node) {
-            Vector3Int[] positionClearanceNeighbours = new Vector3Int[] {
-                node.position,
-                FindNodePosition(0, 1, node.position),
-                FindNodePosition(1, 1, node.position),
-                FindNodePosition(1, 0, node.position)
-            };
-
+            // Grab clearance neighbours to provided position
+            Vector3Int[] positionClearanceNeighbours = FindClearanceNodes(node.position);
             bool isPathable = false;
 
+            // Grab corner positions
+            CornerNode[] pathNodeCorners = new CornerNode[] {
+                new CornerNode(FindNodePosition(-1, -1, node.position), Corner.BottomLeft),
+                new CornerNode(FindNodePosition(-1, 1, positionClearanceNeighbours[0]), Corner.TopLeft),
+                new CornerNode(FindNodePosition(1, 1, positionClearanceNeighbours[1]), Corner.TopRight),
+                new CornerNode(FindNodePosition(1, -1, positionClearanceNeighbours[2]), Corner.BottomRight)
+            };
+
+            // Start by making sure the point is within the grid bounds
             foreach (Vector3Int position in positionClearanceNeighbours)
                 if (CheckIfInGridBounds(position))
-                    if (!obstacleManager.obstaclePositions.Contains(position))
-                        isPathable = true;
-                        
-                    else
-                        return false;
+                    isPathable = true;
                 else
                     return false;
+
+            // Checks a corner node's neighbours
+            bool ContainsAdjacentNodes(Corner corner, Vector3Int position) {
+                Vector3Int adjacentOne = Vector3Int.zero;
+                Vector3Int adjacentTwo = Vector3Int.zero;
+
+                // Finds adjacent corner positions depending on corner
+                switch (corner) {
+                    case Corner.TopLeft:
+                        adjacentOne = FindNodePosition(0, -1, position);
+                        adjacentTwo = FindNodePosition(1, 0, position);
+                        break;
+                    case Corner.TopRight:
+                        adjacentOne = FindNodePosition(-1, 0, position);
+                        adjacentTwo = FindNodePosition(0, -1, position);
+                        break;
+                    case Corner.BottomLeft:
+                        adjacentOne = FindNodePosition(0, 1, position);
+                        adjacentTwo = FindNodePosition(1, 0, position);
+                        break;
+                    case Corner.BottomRight:
+                        adjacentOne = FindNodePosition(-1, 0, position);
+                        adjacentTwo = FindNodePosition(0, 1, position);
+                        break;
+                }
+
+                // Checks to see if closed nodes contains either of the adjacent nodes
+                if (closedNodes.Any(nodes => nodes.position == adjacentOne) || closedNodes.Any(nodes => nodes.position == adjacentTwo))
+                    return true;
+                // Otherwise that means we found a diagonal so...
+                else
+                    return false;
+            }
+
+            // Then check each corner to make sure it's not a diagonal pinch
+            foreach (CornerNode cornerNode in pathNodeCorners)
+                if (closedNodes.Any(nodes => nodes.position == cornerNode.position)) {
+                    // If it does contain a node on the corner, then it checks for adjacents
+                    if (!ContainsAdjacentNodes(cornerNode.corner, cornerNode.position))
+                        return false;
+                    else
+                        isPathable = true;
+                } else
+                    isPathable = true;
 
             return isPathable;
         }
@@ -363,6 +430,11 @@ public class PathManager : MonoBehaviour {
             currentNode = openNodes.First(nodes => nodes.fCost == highestFCost);
             openNodes.Remove(currentNode);
             closedNodes.Add(currentNode);
+
+            // Add clearance neighbours as well
+            Vector3Int[] clearanceNeighbours = FindClearanceNodes(currentNode.position);
+            foreach (Vector3Int position in clearanceNeighbours)
+                closedNodes.Add(new NodeObject(position, 0, 0, 0));
 
             // Check to see if the current node position is equal to the end or target node's position
             if (currentNode.position == gridPoints.endPointNode) {
@@ -533,14 +605,12 @@ public class PathManager : MonoBehaviour {
         //add the start and end points as nodes so that they are included in the walls
         tempNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, true));
         tempNodes.Add(new NodeObject(gridPoints.endPointNode, 0, 0, 0, true));
-        
+
         //add the generated path to the list
         tempNodes.AddRange(simplePath);
 
-
         //check through positions -1,0 1,0 0,1 0,-1 to see if there is anything present. if not, make a new node in that position and make it unwalkable
-        foreach (NodeObject node in simplePath)
-        {
+        foreach (NodeObject node in simplePath) {
             Vector3Int[] checkNeighbours = new Vector3Int[] {
 
                 node.position - new Vector3Int(-1, 0, 0),
@@ -548,22 +618,31 @@ public class PathManager : MonoBehaviour {
                 node.position - new Vector3Int(0, 0, 1),
                 node.position - new Vector3Int(0, 0, -1)
             };
-            foreach(Vector3Int nPos in checkNeighbours)
-            {
-                if(!simplePath.Any(s => s.position == nPos))
-                {
+            foreach (Vector3Int nPos in checkNeighbours) {
+                if (!simplePath.Any(s => s.position == nPos)) {
                     tempNodes.Add(new NodeObject(nPos, 0, 0, 0, false));
                 }
             }
         }
 
         //visualisation of the list.
-        foreach (NodeObject node in tempNodes)
-        {
+        foreach (NodeObject node in tempNodes) {
             if (node.walkable)
                 Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
             else
                 Instantiate(obstacleManager.obstacleFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
         }
+    }
+    // TODO: Delete this - this is only for testing
+    bool constructPath = false;
+    void Update() {
+        if (constructPath) {
+            ConstructPathStack();
+            constructPath = false;
+        }
+    }
+
+    public void OnDebug() {
+        constructPath = true;
     }
 }
