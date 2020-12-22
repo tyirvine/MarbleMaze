@@ -35,7 +35,6 @@ public class PathManager : MonoBehaviour {
     public GameObject pathFlag;
     public GameObject startFlag;
     public GameObject endFlag;
-    public GameObject originFlag;
 
     // Reference to the obstacle manager for linking up the obstacle position list and generating obstacle maps
     [Header("Script References")]
@@ -295,7 +294,7 @@ public class PathManager : MonoBehaviour {
 
         // This function simplifies picking out a random position within a corner
         Vector3Int PickOutCornerPosition(int xMinDirection, int xMaxDirection, int zMinDirection, int zMaxDirection) {
-            return new Vector3Int(Random.Range(xMinDirection, xMaxDirection), parentYPosition, Random.Range(zMinDirection, zMaxDirection));
+            return new Vector3Int(GlobalStaticVariables.Instance.RandomEven(xMinDirection, xMaxDirection), parentYPosition, GlobalStaticVariables.Instance.RandomEven(zMinDirection, zMaxDirection));
         }
 
         /// This is a function that calculates the corner length's position in world space.
@@ -313,10 +312,6 @@ public class PathManager : MonoBehaviour {
         Vector3Int TopRight() => PickOutCornerPosition(FindCornerLengthPosition(1, true), gridPoints.topRight.x, FindCornerLengthPosition(1, false), gridPoints.topRight.z);
         Vector3Int BottomLeft() => PickOutCornerPosition(gridPoints.bottomLeft.x, FindCornerLengthPosition(-1, true), FindCornerLengthPosition(-1, false), gridPoints.bottomLeft.z);
         Vector3Int BottomRight() => PickOutCornerPosition(FindCornerLengthPosition(1, true), gridPoints.bottomRight.x, gridPoints.bottomRight.z, FindCornerLengthPosition(-1, false));
-        // Vector3Int TopLeft() => PickOutCornerPosition(-gridXSizeHalfLength, -cornerLength, cornerLength, gridZSizeHalfLength);
-        // Vector3Int TopRight() => PickOutCornerPosition(cornerLength, gridXSizeHalfLength, cornerLength, gridZSizeHalfLength);
-        // Vector3Int BottomLeft() => PickOutCornerPosition(-gridXSizeHalfLength, -cornerLength, -cornerLength, -gridZSizeHalfLength);
-        // Vector3Int BottomRight() => PickOutCornerPosition(cornerLength, gridXSizeHalfLength, -gridZSizeHalfLength, -cornerLength);
 
         // Randomly pick out a corner to start at
         int startQuad = Mathf.RoundToInt(Random.Range(0, 4));

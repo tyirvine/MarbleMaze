@@ -166,8 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bbdeb670c0a461f9fece1ea3408a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridXSizeHalfLength: 10
-  gridZSizeHalfLength: 10
+  gridXSizeHalfLength: 20
+  gridZSizeHalfLength: 30
   startAreaPercentage: 0.1
   cornerLengthDivider: 2
   desiredPathLengthPercentage: 1
@@ -178,11 +178,8 @@ MonoBehaviour:
   startFlag: {fileID: 4014911049134122452, guid: 9d670d60e092d47a099802f4d445f0c9,
     type: 3}
   endFlag: {fileID: 8970112326771813452, guid: 9d2ef472102d34f9aa6dbbbc1ab42c5a, type: 3}
-  originFlag: {fileID: 933866898380758605, guid: 71c3f498d45534d118eb2a055ac439e0,
-    type: 3}
   obstacleManager: {fileID: 982076543}
   didPathGenerate: 0
-  parentYPosition: 0
 --- !u!114 &982076543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleCoveragePercentage: 0.5
-  spawnObstacles: 0
+  spawnObstacles: 3
   spawnDiagonals: 0
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}

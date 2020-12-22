@@ -36,6 +36,11 @@ public class GlobalStaticVariables : MonoBehaviour {
 
     #endregion ============ Global Static Variables Settings End ⤴ ================
 
+    /// <summary> Picks out random number </summary>
+    public int RandomEven(int min, int max) {
+        return Random.Range(min / 2, max / 2) * 2;
+    }
+
     // This function writes to the debug log file? - Ty
     // Yep. - bubzy
     private void OnApplicationQuit() {
