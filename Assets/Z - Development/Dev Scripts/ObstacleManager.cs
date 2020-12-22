@@ -122,9 +122,6 @@ public class ObstacleManager : MonoBehaviour {
         tempNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, true));
         tempNodes.Add(new NodeObject(gridPoints.endPointNode, 0, 0, 0, true));
 
-        //add the generated path to the list
-        tempNodes.AddRange(pathManager.pathNodes);
-
         //check through positions -1,0 1,0 0,1 0,-1 to see if there is anything present. if not, make a new node in that position and make it unwalkable
         foreach (NodeObject node in simplePath) {
             Vector3Int[] checkNeighbours = pathManager.FindNodeNeighbours(node.position);
