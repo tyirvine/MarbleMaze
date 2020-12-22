@@ -530,7 +530,15 @@ public class PathManager : MonoBehaviour {
     void BuildWall() // experiment
     {
         List<NodeObject> tempNodes = new List<NodeObject>();
+        //add the start and end points as nodes so that they are included in the walls
+        tempNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, true));
+        tempNodes.Add(new NodeObject(gridPoints.endPointNode, 0, 0, 0, true));
+        
+        //add the generated path to the list
         tempNodes.AddRange(simplePath);
+
+
+        //check through positions -1,0 1,0 0,1 0,-1 to see if there is anything present. if not, make a new node in that position and make it unwalkable
         foreach (NodeObject node in simplePath)
         {
             Vector3Int[] checkNeighbours = new Vector3Int[] {
@@ -548,6 +556,8 @@ public class PathManager : MonoBehaviour {
                 }
             }
         }
+
+        //visualisation of the list.
         foreach (NodeObject node in tempNodes)
         {
             if (node.walkable)
