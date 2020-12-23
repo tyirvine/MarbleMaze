@@ -121,6 +121,98 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &779078610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 779078612}
+  - component: {fileID: 779078611}
+  m_Layer: 0
+  m_Name: Directional Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &779078611
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779078610}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 1
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &779078612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779078610}
+  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalPosition: {x: 99, y: 99, z: 99}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &982076540
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,6 +225,7 @@ GameObject:
   - component: {fileID: 982076542}
   - component: {fileID: 982076543}
   - component: {fileID: 982076544}
+  - component: {fileID: 982076545}
   m_Layer: 0
   m_Name: PathManager
   m_TagString: PathManager
@@ -166,8 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bbdeb670c0a461f9fece1ea3408a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridXSizeHalfLength: 20
-  gridZSizeHalfLength: 30
+  gridXSizeHalfLength: 21
+  gridZSizeHalfLength: 25
   startAreaPercentage: 0.1
   cornerLengthDivider: 2
   desiredPathLengthPercentage: 1
@@ -193,6 +286,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacleCoveragePercentage: 0.5
+  wallCube: {fileID: 8635483451534611262, guid: c6cbbf5c7209c3943842a60e4635fa89,
+    type: 3}
+  floorCube: {fileID: 5732835324053856667, guid: 7698a531a27a03744b5d2404cf274da2,
+    type: 3}
   spawnObstacles: 3
   spawnDiagonals: 0
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
@@ -247,6 +344,57 @@ MonoBehaviour:
   m_DefaultActionMap: Board
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &982076545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982076540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955eb84a1d918e944a478aefab69e4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shapes:
+  - shape: {fileID: 6391143614473373824, guid: a0e2b8579bc971c419352e087d37acb6, type: 3}
+    model: {fileID: 692993567064736562, guid: 58862c1988870654c9bf32fd8df4aec4, type: 3}
+    currentPosition: {x: 0, y: 0, z: 0}
+    unitCount: 4
+    allowedGaps: 0
+    includeInBuild: 1
+  - shape: {fileID: 6391143614473373824, guid: 308a9d963522bd4419182e3c59a8b972, type: 3}
+    model: {fileID: 692993567064736562, guid: 370d06bfca61b6c4eb244f5dd46b25d9, type: 3}
+    currentPosition: {x: 0, y: 0, z: 0}
+    unitCount: 4
+    allowedGaps: 0
+    includeInBuild: 1
+  - shape: {fileID: 5520149041154882132, guid: f4de702234db5e140b9b8c3ff5a774dc, type: 3}
+    model: {fileID: 1414435072253065291, guid: e6150fb9e893ade4186e8262ca1bc15d, type: 3}
+    currentPosition: {x: 0, y: 0, z: 0}
+    unitCount: 3
+    allowedGaps: 0
+    includeInBuild: 1
+  - shape: {fileID: 5520149041154882132, guid: ccf4d40b2615b7742b13a29b5eeeb0b0, type: 3}
+    model: {fileID: 1414435072253065291, guid: 5c7820dc313061542a03a4a79795a3d2, type: 3}
+    currentPosition: {x: 0, y: 0, z: 0}
+    unitCount: 3
+    allowedGaps: 0
+    includeInBuild: 1
+  - shape: {fileID: 5520149041154882132, guid: 345bfa0c5703c8a4fb726cb402a173eb, type: 3}
+    model: {fileID: 1414435072253065291, guid: 9ce4fc56f6ab3da429f5e4e12d5d20bb, type: 3}
+    currentPosition: {x: 0, y: 0, z: 0}
+    unitCount: 3
+    allowedGaps: 0
+    includeInBuild: 1
+  - shape: {fileID: 2341339139694139497, guid: 097611774ba41aa49a66995354cede90, type: 3}
+    model: {fileID: 8635483451534611262, guid: c6cbbf5c7209c3943842a60e4635fa89, type: 3}
+    currentPosition: {x: 0, y: 0, z: 0}
+    unitCount: 1
+    allowedGaps: 0
+    includeInBuild: 1
+  placedFlag: {fileID: 5067837514786296250, guid: 6d83849ab24a86a48a65fa47a8a89069,
+    type: 3}
 --- !u!1 &1648830592
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +428,7 @@ MonoBehaviour:
   GlobalScale: {x: 1, y: 1, z: 1}
   debugLog: []
   debugMode: 0
-  collectFlags: 0
+  collectFlags: 1
   renderBoardAsSingleMesh: 0
   obstacleGenerationComplete: 0
   pathGenerationComplete: 0

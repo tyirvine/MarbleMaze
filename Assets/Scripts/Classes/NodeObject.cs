@@ -13,6 +13,7 @@ public class NodeObject {
     /// <summary>G cost + H cost.</summary>
     public int fCost { get => gCost + hCost; }
 
+    public int cornerOrientation;
     /// <summary>This is the parent node this node is linked to. Use this to back trace a path from the end to the start.</summary>
     public NodeObject parent;
 
@@ -22,6 +23,14 @@ public class NodeObject {
         this.gCost = gCost;
         this.hCost = hCost;
         walkable = _walkable;
+    }
+    public NodeObject(Vector3Int position, int gCost, int hCost, int fCost, bool _walkable, int _orientation)
+    {
+        this.position = position;
+        this.gCost = gCost;
+        this.hCost = hCost;
+        walkable = _walkable;
+        cornerOrientation = _orientation;
     }
 
 }

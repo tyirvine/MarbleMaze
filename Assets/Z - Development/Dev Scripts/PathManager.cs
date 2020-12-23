@@ -125,15 +125,37 @@ public class PathManager : MonoBehaviour {
     }
 
     /// <summary>Simplifies finding the neighbour positions of a node.</summary>
-    public Vector3Int[] FindNodeNeighbours(Vector3Int position) {
-        return new Vector3Int[] {
-					// Non-diagonals
+    /// <example>mode 1 is diagonals, mode 2 is non diagonals</example>
+    public Vector3Int[] FindNodeNeighbours(Vector3Int position, int mode)
+    {
+        switch (mode)
+        {
+            case 1:
+
+                return new Vector3Int[] {
+					// diagonals
 					FindNodePosition(-1, 0, position),
                     FindNodePosition(0, 1, position),
                     FindNodePosition(1, 0, position),
-                    FindNodePosition(0, -1, position)
-        };
+                    FindNodePosition(0, -1, position),
+
+                    FindNodePosition(-1, 1, position),
+                    FindNodePosition(1, 1, position),
+                    FindNodePosition(-1, -1, position),
+                    FindNodePosition(1, -1, position),
+                   };
+            case 2:
+                return new Vector3Int[] {
+					// non diagonals
+					FindNodePosition(-1, 0, position),
+                    FindNodePosition(0, 1, position),
+                    FindNodePosition(1, 0, position),
+                    FindNodePosition(0, -1, position),
+                   };
+        }
+        return null;
     }
+
 
     // =========================================
     // Phase 1: Construct the grid
@@ -558,7 +580,14 @@ public class PathManager : MonoBehaviour {
         // Destroy all flags first
         flags = GameObject.FindGameObjectsWithTag("Flag");
         foreach (GameObject flag in flags) GameObject.Destroy(flag);
+        GameObject[] walls = GameObject.FindGameObjectsWithTag("wallTile");
+        foreach(GameObject wall in walls)
+        {
+            Destroy(wall);
+        }
+        
 
+        
         // Build the grid and spawn the obstacles
         ConstructGrid();
 
