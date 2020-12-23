@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9071308344790058181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9071308344790058177}
+  - component: {fileID: 9071308344790058176}
+  - component: {fileID: 9071308344790058183}
+  - component: {fileID: 9071308344790058182}
+  - component: {fileID: 9071308344790058178}
+  m_Layer: 0
+  m_Name: Board Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9071308344790058177
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9071308344790058181}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.2709785, y: 22.18702, z: 35.535633}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9071308344790058176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9071308344790058181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71bbdeb670c0a461f9fece1ea3408a63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleManager: {fileID: 9071308344790058183}
+  gridXSizeHalfLength: 10
+  gridZSizeHalfLength: 10
+  startAreaPercentage: 0.1
+  parentYPosition: 0
+  gridDrawDuration: 10
+  pathFlag: {fileID: 6344987324550275196, guid: 682118e13740245f7914fc3b0b6627d8,
+    type: 3}
+  startFlag: {fileID: 4014911049134122452, guid: 9d670d60e092d47a099802f4d445f0c9,
+    type: 3}
+  endFlag: {fileID: 8970112326771813452, guid: 9d2ef472102d34f9aa6dbbbc1ab42c5a, type: 3}
+  originFlag: {fileID: 933866898380758605, guid: 71c3f498d45534d118eb2a055ac439e0,
+    type: 3}
+  didPathGenerate: 0
+--- !u!114 &9071308344790058183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9071308344790058181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa9654f631974526a371afcbe258072, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathManager: {fileID: 9071308344790058176}
+  obstaclePositions: []
+  obstacleCoveragePercentage: 0.25
+  gridArea: 0
+  obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
+    type: 3}
+  spawnDiagonals: 0
+--- !u!114 &9071308344790058182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9071308344790058181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955eb84a1d918e944a478aefab69e4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shapes:
+  - shape: {fileID: 3866103534992603355, guid: 66c35f2ec87eeb04982b9f196ee0fedc, type: 3}
+    model: {fileID: 5420822967365422863, guid: d06a2ed4e7ead4c43a625a0c4d1b0d49, type: 3}
+    currentPosition: {x: 0, y: 0, z: 0}
+    unitCount: 4
+    allowedGaps: 0
+--- !u!114 &9071308344790058178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9071308344790058181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd19444a3e29a14428e0ea6c806eab16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0
+  GlobalScale: {x: 1, y: 1, z: 1}
+  debugLog: []
+  debugMode: 0
+  collectFlags: 1
+  renderBoardAsSingleMesh: 0
+  obstacleGenerationComplete: 0
+  vSync: 0
+  gridXSizeHalfLength: 50
+  gridZSizeHalfLength: 50
