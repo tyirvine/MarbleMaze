@@ -146,61 +146,9 @@ public class ObstacleManager : MonoBehaviour
             if (!node.walkable)
                 Instantiate(obstacleFlag, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, node.position), Quaternion.identity);
         }
-        GlobalStaticVariables.Instance.obstacleGenerationComplete = true;
+      //  GlobalStaticVariables.Instance.obstacleGenerationComplete = true;
     }
-    public void BuildwWall()
-    {
-
-        PathManager.GridPoints gridPoints = pathManager.gridPoints;
-        List<NodeObject> simplePath = new List<NodeObject>();//;= pathManager.pathNodes;
-
-        //add the start and end points as nodes so that they are included in the walls
-        //add the generated path to the list
-        tempNodes.AddRange(pathManager.pathNodes);
-        tempNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, true));
-        tempNodes.Add(new NodeObject(gridPoints.endPointNode, 0, 0, 0, true));
-        simplePath.AddRange(tempNodes);
-        Debug.Log("SimplePath Length : " + simplePath.Count);
-        Debug.Log("TempNodes Length : " + tempNodes.Count);
-
-        //check through positions -1,0 1,0 0,1 0,-1 to see if there is anything present. if not, make a new node in that position and make it unwalkable
-        foreach (NodeObject node in simplePath)
-        {
-
-            Vector3Int[] checkNeighbours = pathManager.FindNodeNeighbours(node.position, 1);//mode 1 diagonal, mode 2 non diagonal
-            int countTest = 0;
-            foreach (Vector3Int position in checkNeighbours)
-            {
-                Debug.Log("Node Position : " + node.position + " Neighbour Position : " + position);
-                if (simplePath.Any(nodes => nodes.position != position))
-                {
-                    tempNodes.Add(new NodeObject(position, 0, 0, 0, false));
-                    countTest++;
-                }
-                Debug.Log("COunt test : " + countTest);
-            }
-        }
-        foreach (NodeObject node in pathManager.pathNodes)
-        {
-            if (tempNodes.Contains(node))
-            {
-                tempNodes.Remove(node);
-            }
-        }
-        GlobalStaticVariables.Instance.obstacleGenerationComplete = true;
-        //visualisation of the list.
-        foreach (NodeObject node in tempNodes)
-        {
-            if (!node.walkable)
-            {
-                Instantiate(wallCube, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, node.position), Quaternion.identity);
-            }
-            else
-            {
-                Instantiate(floorCube, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, node.position), Quaternion.identity);
-            }
-        }
-    }
+   
     /// <summary>Picks which obstacle type to spawn.</summary>
     public void ObstaclePicker()
     {

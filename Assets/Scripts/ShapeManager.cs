@@ -67,41 +67,44 @@ public class ShapeManager : MonoBehaviour
                         int checkme = 0;
                         foreach (Transform child in shape.shape.transform)
                         {
-                            checkme++;
+                            if (!killChild)
+                            {
+                                checkme++;
 
-                            //    Debug.Log(shape.shape.transform.position + "<parent position " + child.position + " <Child Position " + pathNodes[i].position + "<pathnodes Position " + child.tag );
-                            //does the list contain the position of the child? if it does mark it on another list as a constructable object
-                            if (checkUnitAgainstList(child.position, pathNodes[i]) && child.tag == ("shapeInvalid"))
-                            {
-                                Debug.Log("invalid shape at : " + shape.shape.transform.position + "<Parent Position>" + child.position + " <Child Position> " + pathNodes[i].position + "<pathnodes Position");
-                                killChild = true;
-                            }
-                            else if (checkUnitAgainstList(child.position, pathNodes[i]) && child.tag != ("shapeInvalid"))
-                            {
-
-                                count++;
-                                //   Debug.Log("COUNT " + count);
-                            }
-                            //have we got as many positive hits from the object list as the reference number of units in this shape
-                            if (count == shape.unitCount - shape.allowedGaps && !killChild && checkme == shape.shape.transform.childCount)
-                            {
-                                //add all of the child positions to the list of confirmed shapes
-                                //NOTE : this will have to be more detailed later, perhaps store only the parent position and instantiate a model of the shape in its place,
-                                //or different lists for different shapes. anyway the position can be stored in multiple ways so we can work it out.
-                                Instantiate(shape.model, shape.shape.transform.position, shape.model.transform.rotation);
-                                shapesMade++;
-                                foreach (Transform childPos in shape.shape.transform)
+                                //    Debug.Log(shape.shape.transform.position + "<parent position " + child.position + " <Child Position " + pathNodes[i].position + "<pathnodes Position " + child.tag );
+                                //does the list contain the position of the child? if it does mark it on another list as a constructable object
+                                if (checkUnitAgainstList(child.position, pathNodes[i]) && child.tag == ("shapeInvalid"))
                                 {
-                                    // Instantiate(GetComponent<ObstacleManager>().wallCube, childPos.position + new Vector3(0, -1, 0), Quaternion.identity);
-                                    if (childPos.tag != "shapeInvalid")
+                                    Debug.Log("invalid shape at : " + shape.shape.transform.position + "<Parent Position>" + child.position + " <Child Position> " + pathNodes[i].position + "<pathnodes Position");
+                                    killChild = true;
+                                }
+                                else if (checkUnitAgainstList(child.position, pathNodes[i]) && child.tag != ("shapeInvalid"))
+                                {
+
+                                    count++;
+                                    //   Debug.Log("COUNT " + count);
+                                }
+                                //have we got as many positive hits from the object list as the reference number of units in this shape
+                                if (count == shape.unitCount - shape.allowedGaps && !killChild && checkme == shape.shape.transform.childCount)
+                                {
+                                    //add all of the child positions to the list of confirmed shapes
+                                    //NOTE : this will have to be more detailed later, perhaps store only the parent position and instantiate a model of the shape in its place,
+                                    //or different lists for different shapes. anyway the position can be stored in multiple ways so we can work it out.
+                                    Instantiate(shape.model, shape.shape.transform.position, shape.model.transform.rotation);
+                                    shapesMade++;
+                                    foreach (Transform childPos in shape.shape.transform)
                                     {
-                                        placedNodes.Add(new NodeObject(Vector3Int.FloorToInt(childPos.position), 0, 0, 0, false));
-                                      //  pathNodes.RemoveAll(nodes => nodes.position == child.position);
+                                        // Instantiate(GetComponent<ObstacleManager>().wallCube, childPos.position + new Vector3(0, -1, 0), Quaternion.identity);
+                                        if (childPos.tag != "shapeInvalid")
+                                        {
+                                            placedNodes.Add(new NodeObject(Vector3Int.FloorToInt(childPos.position), 0, 0, 0, false));
+                                            //  pathNodes.RemoveAll(nodes => nodes.position == child.position);
+                                        }
+                                        // obstacleCount--;
+
                                     }
-                                   // obstacleCount--;
 
                                 }
-
                             }
                         }
                     }
