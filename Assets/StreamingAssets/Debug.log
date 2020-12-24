@@ -1,8 +1,8 @@
 ========================================================
 
-24/12/2020 00:44:00  –  DEBUG LOG START
+24/12/2020 02:36:21  –  DEBUG LOG START
 
 ========================================================
 
-[00:44:00.9103312] Started PathManager.cs
-[00:44:01.9136867] Finished PathManager.cs - Path found in 1003ms!
+[02:36:21.4120070] Started PathManager.cs
+[02:36:21.4748384] Finished PathManager.cs - Path found in 63ms!

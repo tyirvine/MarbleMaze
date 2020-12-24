@@ -142,7 +142,7 @@ public class ObstacleManager : MonoBehaviour
         foreach (NodeObject node in tempNodes)
         {
             if (!node.walkable)
-                Instantiate(obstacleFlag, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, node.position), Quaternion.identity);
+                Instantiate(obstacleFlag, node.position, Quaternion.identity);
         }
         GlobalStaticVariables.Instance.obstacleGenerationComplete = true;
     }
