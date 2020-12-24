@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 [Serializable]
 public class ShapeTemplate
@@ -11,115 +12,115 @@ public class ShapeTemplate
     [Tooltip("Insert the premade shape here, in the default orientation")]
     public GameObject shape;
     public GameObject model;
-    //public Vector3Int currentPosition;
-    public int unitCount; //how many squares to make this object?
-    //public int allowedGaps = 0; //how many gaps are allowed? (THIS WILL AFFECT LEVEL TRAVERSAL AS IT DOESNT CARE ABOUT A PATH CURRENTLY!!!!!!!!)
+    public int unitCount;               //how many Units make this object
     public bool includeInBuild = true;
 }
 
+///create a class to store each child point in a shape, this can be done from the child transform, but this method is a little tidier
+///as it doesnt rely on checking a transform.tag each time. 
+public class ShapePoints
+{
+    public Vector3 position;
+    public bool invalid;
+}
 
 public class ShapeManager : MonoBehaviour
 {
     public ShapeTemplate[] shapes;
+    //completed checks can be removed once we have the execution order sorted and this script runs in the correct sequence.
     bool completedChecks = false;
-    List<NodeObject> pathNodes = new List<NodeObject>();
-    List<Vector3Int> obstacles;
-    public GameObject placedFlag;
-    private void Update() { if (!completedChecks && GlobalStaticVariables.Instance.obstacleGenerationComplete) { CheckShapes();  } }
+    
+    [Header("Draw Flags of obstacle positions")]
+    public bool spawnFlags = false; 
+    public GameObject obstacleFlag;
+    
+    //update this once execution order is complete, this is an awful method for executing scripts :D
+    private void Update() { if (!completedChecks && GlobalStaticVariables.Instance.obstacleGenerationComplete) { CheckShapes(); } }
 
-   
+
     void CheckShapes()
     {
-        
+        List<NodeObject> pathNodes = new List<NodeObject>();
         completedChecks = true;
         pathNodes.AddRange(gameObject.GetComponent<ObstacleManager>().tempNodes);
         List<Vector3> placedPositions = new List<Vector3>();
         List<Vector3> nodePositions = new List<Vector3>();
-        //List<Vector3> pathPositions = new List<Vector3>();
-
-        ///<summary>Check the input Vector 3 against 2 position lists to ensure theres no clash</summary>
-        bool CheckForInvalidShape(Vector3 position) 
-        {
-            if (nodePositions.Contains(position)  || placedPositions.Contains(position))
-            {
-                
-                return true;  //the position is in one of the lists, therefore it is not a valid placement position
-            } 
-            else            
-            {
-                return false;           
-            }
-        }
-
+               
         // assign the unwalkable pathNodes to nodePositions and the walkable pathNodes to pathPositions
         for (int i = 0; i < pathNodes.Count; i++)
-        {   
-            if (!pathNodes[i].walkable)            
-            {                
-                nodePositions.Add(pathNodes[i].position);
-                
-            }
-            else                                        
-            {                
-             //   pathPositions.Add(pathNodes[i].position);            
-            }        
-        }
-        
-
-        foreach(ShapeTemplate currentShape in shapes) // iterate through all the shapes
         {
-            
-            
-            
+            if (!pathNodes[i].walkable)
+            {
+                nodePositions.Add(pathNodes[i].position);
+                if (spawnFlags)
+                {
+                    Instantiate(obstacleFlag, pathNodes[i].position, Quaternion.identity);
+                }
+            }
+        }
+
+        foreach (ShapeTemplate currentShape in shapes) // iterate through all the shapes
+        {
             if (currentShape.includeInBuild) //only build the shapes that are selected in the inspector
             {
-                int checkedAllChildren = currentShape.shape.transform.childCount; //keep track of how many children need to be checked in total, this avoids a false positive
+            ShapePoints[] thisShape = new ShapePoints[currentShape.shape.transform.childCount]; //build and initialise an array to store the object points
+            for(int x = 0; x < thisShape.Length; x++) { thisShape[x] = new ShapePoints(); }
+            
+             int checkedAllChildren = currentShape.shape.transform.childCount;  //keep track of how many children need to be checked in total, this avoids a false positive
 
-                foreach (Vector3 nodePosition in nodePositions)
+                foreach (Vector3 nodePosition in nodePositions) 
                 {
-                    int currentChildChecks = 0;
-                    bool killChild = false;
-                    int count = 0;
-                    currentShape.shape.transform.position = nodePosition;
-                    
-                    if (!placedPositions.Contains(nodePosition)) //check that there isnt already an obstacle placed at this location
+                    if (!placedPositions.Contains(nodePosition))                //dont check positions that already have a valid object placed on them.
                     {
-                        
-             //           Debug.Log("Running : " + checkedAllChildren.ToString() + " checks on " + currentShape.shape.name);
-                        foreach (Transform child in currentShape.shape.transform)
+                        int currentChildChecks = 0;                             //reset the checking variables
+                        int count = 0;                                        
+                        currentShape.shape.transform.position = nodePosition;   //move the check shape to the next nodePosition
+
+                        int j = 0;                                              //this little bit sucks, but it avoids checking obstacle tags later
+                        foreach (Transform pos in currentShape.shape.transform)
                         {
-                            
-                            if (child.CompareTag("shapeInvalid") && CheckForInvalidShape(child.position))
+                            thisShape[j].position = pos.position;
+                            if (pos.CompareTag("shapeInvalid"))
                             {
-             //                   Debug.Log("Kill : Reached check #" + currentChildChecks + " on shape " + currentShape.shape.name);
-                                killChild = true;
-                                count = 0;
-                                currentChildChecks = 0;
-                                break;                                
+                                thisShape[j].invalid = true;
                             }
-                            if (nodePositions.Contains(child.position) && !placedPositions.Contains(child.position) && !child.CompareTag("shapeInvalid"))
-                                {
-                                    count++;
-                                }
-                                currentChildChecks++;
+                            else
+                            {
+                                thisShape[j].invalid = false;
+                            }
+                            j++;
+                        }                                                       //end of sucking
+
+                        //check all children in the current shape, if they are of the invalid type (the object is not in a placeable position) then move on to the next shape
+                        for (int i = 0; i < checkedAllChildren; i++)
+                        {
+                            //if the shape is an invalid shape, and the position of it is also a position within the nodePositions generated by obstacle manager then break
+                            if (thisShape[i].invalid)
+                            {
+                                if (nodePositions.Contains(Vector3Int.RoundToInt(thisShape[i].position))) { break; }
+                            }
+                            //if the shape is a valid position, the node is a valid placement position and there hasnt already been an object placed in its spot, then increment the counter
+                            if (!thisShape[i].invalid && nodePositions.Contains(thisShape[i].position) && !placedPositions.Contains(thisShape[i].position))
+                            {
+                                count++;
+                            }
+                            //keep track of how many children have been checked, this is important because you can have a false postive if only the valid children are checked and not the invalid too.
+                            currentChildChecks++;
+                        }
+
+                        //ok, so have we had enough positive hits(count) and have we checked all of the children, including the invalid ones? if so, make the object. 
+                        if (count == currentShape.unitCount && currentChildChecks == checkedAllChildren)
+                        {
+                            GameObject shapeModel = Instantiate(currentShape.model, currentShape.shape.transform.position, currentShape.model.transform.rotation);
+                            //add each child shape to the placedPositions list to avoid anything being placed on top of them
+                            foreach (ShapePoints shape in thisShape)
+                            {
+                                if (!shape.invalid) { placedPositions.Add(shape.position); }
                             }
                         }
-                        
-                            if (count == currentShape.unitCount && currentChildChecks == checkedAllChildren && !killChild)
-                            {
-                                Instantiate(currentShape.model, currentShape.shape.transform.position + new Vector3(0, count, 0), currentShape.model.transform.rotation);
-                                foreach (Transform child in currentShape.shape.transform)
-                                {
-                                    if (!child.CompareTag("shapeInvalid"))
-                                        placedPositions.Add(child.position);
-                                }
-
-                            }
-                    
                     }
                 }
             }
         }
-        
-
     }
+}

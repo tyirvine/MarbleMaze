@@ -118,7 +118,7 @@ public class ObstacleManager : MonoBehaviour
     {
         PathManager.GridPoints gridPoints = pathManager.gridPoints;
         List<NodeObject> simplePath = new List<NodeObject>();
-        tempNodes = pathManager.pathNodes;
+        tempNodes.AddRange(pathManager.pathNodes);
         //add the start and end points as nodes so that they are included in the walls
         tempNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, true));
         tempNodes.Add(new NodeObject(gridPoints.endPointNode, 0, 0, 0, true));
@@ -141,8 +141,8 @@ public class ObstacleManager : MonoBehaviour
         //visualisation of the list.
         foreach (NodeObject node in tempNodes)
         {
-            if (!node.walkable)
-                Instantiate(obstacleFlag, node.position, Quaternion.identity);
+            //if (!node.walkable)
+              //  Instantiate(obstacleFlag, node.position, Quaternion.identity);
         }
         GlobalStaticVariables.Instance.obstacleGenerationComplete = true;
     }
