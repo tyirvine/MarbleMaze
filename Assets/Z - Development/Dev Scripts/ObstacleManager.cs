@@ -123,8 +123,7 @@ public class ObstacleManager : MonoBehaviour
         tempNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, true));
         tempNodes.Add(new NodeObject(gridPoints.endPointNode, 0, 0, 0, true));
         simplePath.AddRange(tempNodes);
-        Debug.Log("SimplePath Length : " + simplePath.Count);
-        Debug.Log("TempNodes Length : " + tempNodes.Count);
+        
         //check through positions -1,0 1,0 0,1 0,-1 to see if there is anything present. if not, make a new node in that position and make it unwalkable
         foreach (NodeObject node in simplePath)
         {
@@ -138,15 +137,14 @@ public class ObstacleManager : MonoBehaviour
                 }
             }
         }
-        Debug.Log("SimplePath Length 2 : " + simplePath.Count);
-        Debug.Log("TempNodes Length 2 : " + tempNodes.Count);
+        
         //visualisation of the list.
         foreach (NodeObject node in tempNodes)
         {
             if (!node.walkable)
                 Instantiate(obstacleFlag, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, node.position), Quaternion.identity);
         }
-      //  GlobalStaticVariables.Instance.obstacleGenerationComplete = true;
+        GlobalStaticVariables.Instance.obstacleGenerationComplete = true;
     }
    
     /// <summary>Picks which obstacle type to spawn.</summary>
