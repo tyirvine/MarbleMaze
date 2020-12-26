@@ -135,7 +135,7 @@ public class ObstacleManager : MonoBehaviour
         //add the start and end points as nodes so that they are included in the walls
         tempNodes.AddRange(AddAreaAround(gridPoints.startPointNode));
         tempNodes.AddRange(AddAreaAround(gridPoints.endPointNode));
-        //tempNodes.Add(new NodeObject(gridPoints.endPointNode, 0, 0, 0, true));
+        
         simplePath.AddRange(tempNodes);
         
         //check through positions -1,0 1,0 0,1 0,-1 to see if there is anything present. if not, make a new node in that position and make it unwalkable
