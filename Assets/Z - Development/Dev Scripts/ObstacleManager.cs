@@ -114,14 +114,28 @@ public class ObstacleManager : MonoBehaviour
     }
     // This is working real good. So simple. I made some adjustments to make it more readable. - Ty @bubzy-coding
     // Experiment
+    public List<NodeObject> AddAreaAround(Vector3Int position)
+    {
+        List<NodeObject> objects = new List<NodeObject>();
+        for(int i = -1; i<=1; i++)
+        {
+            for(int j = -1;j<=1;j++)
+            {
+                objects.Add(new NodeObject(new Vector3Int(position.x+i, 0, position.z+j), 0, 0, 0, true));
+            }
+        }
+        return objects;
+    }
+    
     public void BuildWall()
     {
         PathManager.GridPoints gridPoints = pathManager.gridPoints;
         List<NodeObject> simplePath = new List<NodeObject>();
         tempNodes.AddRange(pathManager.pathNodes);
         //add the start and end points as nodes so that they are included in the walls
-        tempNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, true));
-        tempNodes.Add(new NodeObject(gridPoints.endPointNode, 0, 0, 0, true));
+        tempNodes.AddRange(AddAreaAround(gridPoints.startPointNode));
+        tempNodes.AddRange(AddAreaAround(gridPoints.endPointNode));
+        //tempNodes.Add(new NodeObject(gridPoints.endPointNode, 0, 0, 0, true));
         simplePath.AddRange(tempNodes);
         
         //check through positions -1,0 1,0 0,1 0,-1 to see if there is anything present. if not, make a new node in that position and make it unwalkable

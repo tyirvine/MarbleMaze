@@ -13,6 +13,8 @@ TagManager:
   - shapeManager
   - PathManager
   - shapeInvalid
+  - shapeDontPlace
+  - shapeValid
   layers:
   - Default
   - TransparentFX
