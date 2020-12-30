@@ -152,13 +152,6 @@ public class ObstacleManager : MonoBehaviour
             }
         }
         
-        //visualisation of the list.
-        foreach (NodeObject node in tempNodes)
-        {
-            //if (!node.walkable)
-              //  Instantiate(obstacleFlag, node.position, Quaternion.identity);
-        }
-        GlobalStaticVariables.Instance.obstacleGenerationComplete = true;
     }
    
     /// <summary>Picks which obstacle type to spawn.</summary>

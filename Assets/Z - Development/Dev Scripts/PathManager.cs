@@ -577,6 +577,9 @@ public class PathManager : MonoBehaviour {
         // Initialize
         Initialize();
         GameObject[] flags;
+
+
+
         // Destroy all flags first
         flags = GameObject.FindGameObjectsWithTag("Flag");
         foreach (GameObject flag in flags) GameObject.Destroy(flag);
@@ -585,9 +588,7 @@ public class PathManager : MonoBehaviour {
         {
             Destroy(wall);
         }
-        
-
-        
+                
         // Build the grid and spawn the obstacles
         ConstructGrid();
 
@@ -603,7 +604,7 @@ public class PathManager : MonoBehaviour {
         }
         // A valid path has been generated!
         if (errorCaught) Debug.Log("Error resolved - Loop Completed!");
-
+        gameObject.GetComponent<ShapeManager>().CheckShapes();
         // TODO: Do we need this? - Ty @bubzy-coding
         //	GameObject.FindGameObjectWithTag("shapeManager").GetComponent<ShapeManager>().gameObject.SetActive(true); //heckShapesAgainstObstacles();
         //Instantiate(shapeManager, transform.position, Quaternion.identity);

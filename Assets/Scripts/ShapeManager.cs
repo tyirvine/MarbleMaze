@@ -37,11 +37,11 @@ public class ShapeManager : MonoBehaviour
     public GameObject obstacleFlag;
     int rotation = 90;
     //update this once execution order is complete, this is an awful method for executing scripts :D
-    private void Update() { if (!completedChecks && GlobalStaticVariables.Instance.obstacleGenerationComplete) { CheckShapes(); } }
+  //  private void Update() { if (!completedChecks && GlobalStaticVariables.Instance.obstacleGenerationComplete) { CheckShapes(); } }
 
 
 
-   void CheckShapes()
+   public void CheckShapes()
     {
         List<NodeObject> pathNodes = new List<NodeObject>();
         completedChecks = true;
@@ -65,8 +65,7 @@ public class ShapeManager : MonoBehaviour
         }
         Array.Sort(shapes, delegate (ShapeTemplate x, ShapeTemplate y) { return x.unitCount.CompareTo(y.unitCount); });
         Array.Reverse(shapes);
-
-
+        
         foreach (ShapeTemplate currentShape in shapes)
         {
             if (currentShape.includeInBuild)
@@ -74,66 +73,67 @@ public class ShapeManager : MonoBehaviour
                 GameObject tempRule = Instantiate(currentShape.rule);
                 foreach (Vector3Int nodePosition in nodePositions)
                 {
-                    int rotation = 1;
-                    if (currentShape.rotate)
+                    if (!placedPositions.Contains(nodePosition))
                     {
-                        rotation = 4;
-                    }
-                    Debug.Log("Rotations : " + rotation);
-                    for (int i = 0; i < rotation; i++)
-                    {
-                        shapePoints.Clear();
-                        
-                        tempRule.transform.position = nodePosition;
-                        tempRule.transform.Rotate(0, i*90, 0);
-
-                        foreach (Transform childObject in tempRule.transform)
+                        int rotation = 1;
+                        if (currentShape.rotate)
                         {
-                            ShapePoints tempShape = new ShapePoints();
-                            tempShape.position = Vector3Int.RoundToInt(childObject.transform.position);
-                            switch (childObject.tag)
-                            {
-                                case "shapeValid": tempShape.mode = 1; break;
-                                case "shapeDontPlace": tempShape.mode = 2; break;
-                                case "shapeInvalid": tempShape.mode = 3; break;
-                                default: tempShape.mode = 3; break;
-                            }
-                            shapePoints.Add(tempShape);
+                            rotation = 4;
                         }
+                        for (int i = 0; i < rotation; i++)
+                        {
+                            shapePoints.Clear();
+                            tempRule.transform.position = nodePosition;
+                            tempRule.transform.Rotate(0, i * 90, 0);
 
-                        int count = 0;
-                        foreach (ShapePoints checkPosition in shapePoints)
-                        {
-                            
-                            if (checkPosition.mode == 3 && nodePositions.Contains(checkPosition.position))
+                            foreach (Transform childObject in tempRule.transform)
                             {
-                                count = -200; //silly value, probably a better way to ensure failure
-                                break;
-                            }
-                            if (checkPosition.mode == 1 || checkPosition.mode == 2)
-                            {
-                                if (nodePositions.Contains(checkPosition.position) && !placedPositions.Contains(checkPosition.position))
-                                count++;
-                            }
-                        }
-                        
-                        if (count == currentShape.unitCount) //have we got enough positive hits to build this object? if so, make the model and add the points to the placedPositions list so they are unavailable
-                        {
-                            Instantiate(currentShape.model, tempRule.transform.position, tempRule.transform.rotation);
-                            foreach(ShapePoints placePos in shapePoints)
-                            {
-                                if(placePos.mode == 1)
+                                ShapePoints tempShape = new ShapePoints();
+                                tempShape.position = Vector3Int.RoundToInt(childObject.transform.position);
+                                switch (childObject.tag)
                                 {
-                                    placedPositions.Add(placePos.position);
+                                    case "shapeValid": tempShape.mode = 1; break;
+                                    case "shapeDontPlace": tempShape.mode = 2; break;
+                                    case "shapeInvalid": tempShape.mode = 3; break;
+                                    default: tempShape.mode = 3; break;
+                                }
+                                shapePoints.Add(tempShape);
+                            }
+
+                            int count = 0;
+                            foreach (ShapePoints checkPosition in shapePoints)
+                            {
+                                
+                                if (checkPosition.mode == 3 && nodePositions.Contains(checkPosition.position))
+                                {
+                                    count = -200; //silly value, probably a better way to ensure failure
+                                    break;
+                                }
+                                if (checkPosition.mode == 1 || checkPosition.mode == 2)
+                                {
+                                    if (nodePositions.Contains(checkPosition.position) && !placedPositions.Contains(checkPosition.position))
+                                        count++;
+                                }
+                            }
+
+                            if (count == currentShape.unitCount) //have we got enough positive hits to build this object? if so, make the model and add the points to the placedPositions list so they are unavailable
+                            {
+                                Instantiate(currentShape.model, tempRule.transform.position, tempRule.transform.rotation);
+                                foreach (ShapePoints placePos in shapePoints)
+                                {
+                                    if (placePos.mode == 1)
+                                    {
+                                        placedPositions.Add(placePos.position);
+                                    }
                                 }
                             }
                         }
+                        Destroy(tempRule); // this stops the rule being visible at the end of the object generation
                     }
-                    Destroy(tempRule); // this stops the rule being visible at the end of the object generation
-
                 }//if currentshape include in build
 
             }
+            
         }
     }
 }
