@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7856035495487963071}
   m_Layer: 0
-  m_Name: TL Corner
+  m_Name: Corner
   m_TagString: wallTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

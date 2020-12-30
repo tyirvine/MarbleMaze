@@ -9,8 +9,8 @@ public class PathManager : MonoBehaviour {
 
     // These are half lengths so they can be used as a product of a (1/2) division
     [Header("Grid Settings")]
-    [Range(5, 100)] public int gridXSizeHalfLength = 10;
-    [Range(5, 100)] public int gridZSizeHalfLength = 10;
+    [Range(2, 100)] public int gridXSizeHalfLength = 10;
+    [Range(2, 100)] public int gridZSizeHalfLength = 10;
 
     // Scaling for the placement of objects on the grid
     Vector3 gridScale;

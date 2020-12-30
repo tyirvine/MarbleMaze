@@ -51,8 +51,19 @@ public class GlobalStaticVariables : MonoBehaviour {
             writer.WriteLine(str);
         }
         writer.Close();
+        PlayerPrefs.SetInt("played", 110);
     }
-
+    public void WriteDebug()
+    {
+        string fileName = Path.Combine(Application.streamingAssetsPath, "Debug.log");
+        StreamWriter writer = new StreamWriter(fileName, true);
+        foreach (string str in debugLog)
+        {
+            writer.WriteLine(str);
+        }
+        writer.Close();
+        PlayerPrefs.SetInt("played", 110);
+    }
     /// <summary>This function formats a log to the debug.log file into a [Timestamp + Log] format.</summary>
     public void DebugLogEntry(string log) {
         debugLog.Add("[" + System.DateTime.Now.TimeOfDay.ToString() + "]" + " " + log);

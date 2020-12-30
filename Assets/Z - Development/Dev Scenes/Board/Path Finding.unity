@@ -259,8 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bbdeb670c0a461f9fece1ea3408a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridXSizeHalfLength: 13
-  gridZSizeHalfLength: 11
+  gridXSizeHalfLength: 27
+  gridZSizeHalfLength: 26
   startAreaPercentage: 0.1
   cornerLengthDivider: 2
   desiredPathLengthPercentage: 1
@@ -357,46 +357,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapes:
-  - shape: {fileID: 5520149041154882132, guid: 581a55c0115d54940b66f1dc35317cee, type: 3}
-    model: {fileID: 692993567064736562, guid: 58862c1988870654c9bf32fd8df4aec4, type: 3}
+  - rule: {fileID: 2341339139694139497, guid: 097611774ba41aa49a66995354cede90, type: 3}
+    model: {fileID: 8635483451534611262, guid: c6cbbf5c7209c3943842a60e4635fa89, type: 3}
+    unitCount: 1
+    includeInBuild: 0
+    rotate: 0
+  - rule: {fileID: 5520149041154882132, guid: ad4eadd807e341849affa8a7c525afdc, type: 3}
+    model: {fileID: 5293181921660050700, guid: 10b2ca129b31225468b64e8f63dc501b, type: 3}
     unitCount: 4
     includeInBuild: 1
-  - shape: {fileID: 5520149041154882132, guid: ad4eadd807e341849affa8a7c525afdc, type: 3}
-    model: {fileID: 692993567064736562, guid: 370d06bfca61b6c4eb244f5dd46b25d9, type: 3}
-    unitCount: 4
-    includeInBuild: 1
-  - shape: {fileID: 5520149041154882132, guid: e328897719b4bd3498c0c4310b85a5d8, type: 3}
-    model: {fileID: 692993567064736562, guid: d0a4b8e64caa5174eb909fd4a195b181, type: 3}
-    unitCount: 4
-    includeInBuild: 1
-  - shape: {fileID: 5520149041154882132, guid: 432a6933d6fdccf4f9b2fccdf2a55783, type: 3}
-    model: {fileID: 692993567064736562, guid: a1e12df328e287a4bb4e0d382122d1c8, type: 3}
-    unitCount: 4
-    includeInBuild: 1
-  - shape: {fileID: 5520149041154882132, guid: 345bfa0c5703c8a4fb726cb402a173eb, type: 3}
-    model: {fileID: 1414435072253065291, guid: 9ce4fc56f6ab3da429f5e4e12d5d20bb, type: 3}
-    unitCount: 3
-    includeInBuild: 1
-  - shape: {fileID: 5520149041154882132, guid: 8c0b550e7cc1dcc4d8df1a99e79a7bb4, type: 3}
-    model: {fileID: 1414435072253065291, guid: 8b14c654fed3d7f44bc63b34e833b9dc, type: 3}
-    unitCount: 3
-    includeInBuild: 1
-  - shape: {fileID: 5520149041154882132, guid: ccf4d40b2615b7742b13a29b5eeeb0b0, type: 3}
+    rotate: 1
+  - rule: {fileID: 5520149041154882132, guid: ccf4d40b2615b7742b13a29b5eeeb0b0, type: 3}
     model: {fileID: 1414435072253065291, guid: 5c7820dc313061542a03a4a79795a3d2, type: 3}
     unitCount: 3
     includeInBuild: 1
-  - shape: {fileID: 5520149041154882132, guid: f4de702234db5e140b9b8c3ff5a774dc, type: 3}
-    model: {fileID: 1414435072253065291, guid: e6150fb9e893ade4186e8262ca1bc15d, type: 3}
-    unitCount: 3
-    includeInBuild: 1
-  - shape: {fileID: 5520149041154882132, guid: 21db756e964e3504f9f4521dfaa20a3f, type: 3}
-    model: {fileID: 386726255828250603, guid: 0938d6b85a339114bb7e6793d2345478, type: 3}
-    unitCount: 11
-    includeInBuild: 1
-  - shape: {fileID: 2341339139694139497, guid: 097611774ba41aa49a66995354cede90, type: 3}
-    model: {fileID: 8635483451534611262, guid: c6cbbf5c7209c3943842a60e4635fa89, type: 3}
-    unitCount: 1
-    includeInBuild: 1
+    rotate: 1
   spawnFlags: 1
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
