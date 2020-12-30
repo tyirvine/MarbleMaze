@@ -107,6 +107,7 @@ public class ShapeManager : MonoBehaviour
                                 if (checkPosition.mode == 3 && nodePositions.Contains(checkPosition.position))
                                 {
                                     count = -200; //silly value, probably a better way to ensure failure
+                                    i = rotation + 1;
                                     break;
                                 }
                                 if (checkPosition.mode == 1 || checkPosition.mode == 2)
