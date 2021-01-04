@@ -259,8 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bbdeb670c0a461f9fece1ea3408a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridXSizeHalfLength: 15
-  gridZSizeHalfLength: 15
+  gridXSizeHalfLength: 50
+  gridZSizeHalfLength: 50
   startAreaPercentage: 0.1
   cornerLengthDivider: 2
   desiredPathLengthPercentage: 1
