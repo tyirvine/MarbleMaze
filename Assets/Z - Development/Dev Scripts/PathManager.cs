@@ -605,6 +605,7 @@ public class PathManager : MonoBehaviour {
         // A valid path has been generated!
         if (errorCaught) Debug.Log("Error resolved - Loop Completed!");
         gameObject.GetComponent<ShapeManager>().CheckShapes();
+        gameObject.GetComponent<BuildBoard>().GetBoardSize();
         // TODO: Do we need this? - Ty @bubzy-coding
         //	GameObject.FindGameObjectWithTag("shapeManager").GetComponent<ShapeManager>().gameObject.SetActive(true); //heckShapesAgainstObstacles();
         //Instantiate(shapeManager, transform.position, Quaternion.identity);

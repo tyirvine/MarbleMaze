@@ -137,19 +137,25 @@ public class ObstacleManager : MonoBehaviour
         tempNodes.AddRange(AddAreaAround(gridPoints.endPointNode));
         
         simplePath.AddRange(tempNodes);
-        
+
+       
+
         //check through positions -1,0 1,0 0,1 0,-1 to see if there is anything present. if not, make a new node in that position and make it unwalkable
         foreach (NodeObject node in simplePath)
         {
-            Vector3Int[] checkNeighbours = pathManager.FindNodeNeighbours(node.position, 1);
+            
+                Vector3Int[] checkNeighbours = pathManager.FindNodeNeighbours(node.position, 1);
 
-            foreach (Vector3Int position in checkNeighbours)
-            {
-                if (!simplePath.Any(nodes => nodes.position == position) && !tempNodes.Any(nodes => nodes.position == position))
+                foreach (Vector3Int position in checkNeighbours)
                 {
-                    tempNodes.Add(new NodeObject(position, 0, 0, 0, false));
-                }
+                    if (!simplePath.Any(nodes => nodes.position == position) && !tempNodes.Any(nodes => nodes.position == position) )
+                    {
+                    
+                    tempNodes.Add(new NodeObject(position, 0, 0, 0, false));                
+                    }
             }
+            
+            
         }
         
     }
