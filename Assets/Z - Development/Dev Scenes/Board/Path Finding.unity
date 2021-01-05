@@ -260,8 +260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bbdeb670c0a461f9fece1ea3408a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridXSizeHalfLength: 10
-  gridZSizeHalfLength: 10
+  gridXSizeHalfLength: 20
+  gridZSizeHalfLength: 20
   startAreaPercentage: 0.1
   cornerLengthDivider: 2
   desiredPathLengthPercentage: 1
@@ -376,6 +376,11 @@ MonoBehaviour:
   - rule: {fileID: 28809290107358158, guid: a917be0f9fc3fd74f8a7b236c9bfbda1, type: 3}
     model: {fileID: 5894796073042468409, guid: 0ffe6f6e4424a014a8ad32be74faac30, type: 3}
     unitCount: 5
+    includeInBuild: 1
+    rotate: 1
+  - rule: {fileID: 2307249883964024786, guid: 12379e374e9d5794fb700beec806d39f, type: 3}
+    model: {fileID: 7475948318026797624, guid: b985261ced5e342438c4e8b6de0d9a47, type: 3}
+    unitCount: 8
     includeInBuild: 1
     rotate: 1
   spawnFlags: 1

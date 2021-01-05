@@ -50,7 +50,7 @@ public class ShapeManager : MonoBehaviour
         List<Vector3Int> placedPositions = new List<Vector3Int>();
         List<Vector3Int> nodePositions = new List<Vector3Int>();
         List<ShapePoints> shapePoints = new List<ShapePoints>();
-
+        List<Vector3Int> walkNodes = new List<Vector3Int>();
 
         // assign the unwalkable pathNodes to nodePositions and the walkable pathNodes to pathPositions
         for (int i = 0; i < pathNodes.Count; i++)
@@ -63,7 +63,12 @@ public class ShapeManager : MonoBehaviour
                     Instantiate(obstacleFlag, pathNodes[i].position, Quaternion.identity);
                 }
             }
+            if(pathNodes[i].walkable)
+            {
+                walkNodes.Add(Vector3Int.RoundToInt(pathNodes[i].position));
+            }
         }
+        Debug.Log("WALKNODES : " + walkNodes.Count);
         Array.Sort(shapes, delegate (ShapeTemplate x, ShapeTemplate y) { return x.unitCount.CompareTo(y.unitCount); });
         Array.Reverse(shapes);
 
@@ -96,6 +101,7 @@ public class ShapeManager : MonoBehaviour
                                     case "shapeValid": tempShape.mode = 1; break;
                                     case "shapeDontPlace": tempShape.mode = 2; break;
                                     case "shapeInvalid": tempShape.mode = 3; break;
+                                    case "shapeNoPath": tempShape.mode = 4; break;
                                     default: tempShape.mode = 3; break;
                                 }
                                 shapePoints.Add(tempShape);
@@ -104,7 +110,11 @@ public class ShapeManager : MonoBehaviour
                             int count = 0;
                             foreach (ShapePoints checkPosition in shapePoints)
                             {
-
+                                if(checkPosition.mode == 4 && walkNodes.Contains(checkPosition.position))
+                                {
+                                    count = -200; //silly value, probably a better way to ensure failure
+                                    break;
+                                }   
                                 if (checkPosition.mode == 3 && nodePositions.Contains(checkPosition.position))
                                 {
                                     count = -200; //silly value, probably a better way to ensure failure
@@ -113,8 +123,9 @@ public class ShapeManager : MonoBehaviour
                                 if (checkPosition.mode == 1 || checkPosition.mode == 2)
                                 {
                                     if (nodePositions.Contains(checkPosition.position) && !placedPositions.Contains(checkPosition.position))
-                                        count++;
+                                    count++;
                                 }
+                                
                             }
 
                             if (count == currentShape.unitCount) //have we got enough positive hits to build this object? if so, make the model and add the points to the placedPositions list so they are unavailable
@@ -137,7 +148,7 @@ public class ShapeManager : MonoBehaviour
 
         }
     }
-}
+    }
 /*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
