@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6657395001516752113}
   m_Layer: 0
   m_Name: Shape Unit
-  m_TagString: Untagged
+  m_TagString: shapeValid
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
