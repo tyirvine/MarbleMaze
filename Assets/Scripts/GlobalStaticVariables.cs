@@ -16,6 +16,11 @@ public class GlobalStaticVariables : MonoBehaviour {
 
     public List<string> debugLog = new List<string>();
 
+    [Header("Input Options")]
+    public bool invertY = false;
+    public bool invertX = false;
+
+
     [Header("Debug Options")]
     public bool debugMode;
     public bool collectFlags;

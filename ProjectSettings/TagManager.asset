@@ -16,6 +16,7 @@ TagManager:
   - shapeDontPlace
   - shapeValid
   - shapeNoPath
+  - floorTile
   layers:
   - Default
   - TransparentFX

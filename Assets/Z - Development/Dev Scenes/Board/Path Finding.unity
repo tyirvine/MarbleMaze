@@ -266,7 +266,7 @@ MonoBehaviour:
   cornerLengthDivider: 2
   desiredPathLengthPercentage: 1
   isPathWacky: 1
-  wackiness: 14
+  wackiness: 4
   pathFlag: {fileID: 6344987324550275196, guid: 682118e13740245f7914fc3b0b6627d8,
     type: 3}
   startFlag: {fileID: 4014911049134122452, guid: 9d670d60e092d47a099802f4d445f0c9,
@@ -380,10 +380,10 @@ MonoBehaviour:
     rotate: 1
   - rule: {fileID: 2307249883964024786, guid: 12379e374e9d5794fb700beec806d39f, type: 3}
     model: {fileID: 7475948318026797624, guid: b985261ced5e342438c4e8b6de0d9a47, type: 3}
-    unitCount: 8
+    unitCount: 16
     includeInBuild: 1
     rotate: 1
-  spawnFlags: 1
+  spawnFlags: 0
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
 --- !u!114 &982076546
@@ -405,6 +405,11 @@ MonoBehaviour:
     type: 3}
   cornerCube: {fileID: 6568648836625729755, guid: 1855b3c91866a614ab7d3c020d83721a,
     type: 3}
+  pathCube: {fileID: 8635483451534611262, guid: 82aed1a0150b5ab4b9b2045f80a5a1a3,
+    type: 3}
+  boardMovementDampening: 0.1
+  moveSpeed: 25
+  Marble: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18, type: 3}
 --- !u!1 &1648830592
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,7 +444,7 @@ MonoBehaviour:
   debugLog: []
   debugMode: 0
   collectFlags: 1
-  renderBoardAsSingleMesh: 0
+  renderBoardAsSingleMesh: 1
   obstacleGenerationComplete: 0
   pathGenerationComplete: 0
   vSync: 0

@@ -98,6 +98,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shape Unit
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 36c9274be7207bd458be388a39783581,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeValid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c9274be7207bd458be388a39783581, type: 3}
 --- !u!4 &2564870819551011229 stripped

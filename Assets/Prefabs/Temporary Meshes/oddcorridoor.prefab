@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7748366790711360903}
+  - component: {fileID: -679768076973227586}
   m_Layer: 0
   m_Name: oddcorridoor
-  m_TagString: Untagged
+  m_TagString: wallTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,6 +39,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &-679768076973227586
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7475948318026797624}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1001 &33209703335528606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -104,6 +119,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CornerModel1Cube 1 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6568648836625729755, guid: 1855b3c91866a614ab7d3c020d83721a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1855b3c91866a614ab7d3c020d83721a, type: 3}
@@ -180,6 +200,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CornerModel1Cube 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6568648836625729755, guid: 1855b3c91866a614ab7d3c020d83721a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1855b3c91866a614ab7d3c020d83721a, type: 3}
 --- !u!4 &1148312899528053935 stripped
@@ -254,6 +279,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CornerModel1Cube 1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6568648836625729755, guid: 1855b3c91866a614ab7d3c020d83721a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1855b3c91866a614ab7d3c020d83721a, type: 3}
@@ -554,6 +584,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CornerModel1Cube 1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6568648836625729755, guid: 1855b3c91866a614ab7d3c020d83721a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1855b3c91866a614ab7d3c020d83721a, type: 3}

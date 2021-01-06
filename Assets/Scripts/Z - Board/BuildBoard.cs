@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.InputSystem;
 public class BuildBoard : MonoBehaviour
 {
     List<NodeObject> pathNodes = new List<NodeObject>();
@@ -11,9 +12,16 @@ public class BuildBoard : MonoBehaviour
     public GameObject floorCube;
     public GameObject wallCube;
     public GameObject cornerCube;
-    void Start()
+    public GameObject pathCube;
+    public GameObject boardObjects;
+
+
+    public GameObject Marble;
+    void Awake()
     {
-      
+        boardObjects = new GameObject();
+        boardObjects.AddComponent<MeshFilter>();
+        boardObjects.AddComponent<MeshRenderer>();
         //GetBoardSize();
     }
 
@@ -47,9 +55,28 @@ public class BuildBoard : MonoBehaviour
         ///
         BuildWall();
         FillSpaces();
+        GroupObjects("floorTile");
+        MakeSingleMesh();
+        PlaceMarble();
+        GroupObjects("wallTile");
     }
 
+    void PlaceMarble()
+    {
+        PathManager.GridPoints gridPoints = GetComponent<PathManager>().gridPoints;
+        Instantiate(Marble, gridPoints.startPointNode, Quaternion.identity);
 
+    }
+    void GroupObjects(string tag)
+    {
+        GameObject[] placeholdExposedReference = GameObject.FindGameObjectsWithTag(tag);
+        
+        boardObjects.name = tag + "s Group";
+        foreach(GameObject go in placeholdExposedReference)
+        {
+            go.transform.parent = boardObjects.transform;
+        }
+    }
     void BuildWall()
     {
         for (int x = topLeft.x-1; x <= topLeft.x + size.x+1; x++)
@@ -109,6 +136,7 @@ public class BuildBoard : MonoBehaviour
         }
         Debug.Log(fullGrid.Count);
         List<NodeObject> tempGrid = new List<NodeObject>();
+        List<NodeObject> pathGrid = new List<NodeObject>();
         tempGrid.AddRange(fullGrid);
         foreach (NodeObject n in fullGrid)
         {
@@ -119,6 +147,7 @@ public class BuildBoard : MonoBehaviour
             if(pathNodes.Any(node =>node.position == n.position))
             {
                 tempGrid.Remove(n);
+                pathGrid.Add(n);
             }
 
         }
@@ -126,36 +155,59 @@ public class BuildBoard : MonoBehaviour
         fullGrid.Clear();
         fullGrid.AddRange(tempGrid);
 
+       
+      //  foreach(NodeObject n in pathGrid)
+        //{
+          //  Instantiate(pathCube, new Vector3(n.position.x, -1f, n.position.z), Quaternion.identity);
+        //}
         
 
     }
 
-    /*
-     * 	if (GlobalStaticVariables.Instance.renderBoardAsSingleMesh)
-		{
-			MeshFilter[] meshfilters = GetComponentsInChildren<MeshFilter>();
-			CombineInstance[] combine = new CombineInstance[meshfilters.Length];
-
-			int i = 0;
-			while (i < meshfilters.Length)
-			{
-				combine[i].mesh = meshfilters[i].sharedMesh;
-				combine[i].transform = meshfilters[i].transform.localToWorldMatrix;
-				meshfilters[i].gameObject.SetActive(false);
-				i++;
-			}
-			transform.GetComponent<MeshFilter>().mesh = new Mesh();
-			transform.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
-			transform.gameObject.SetActive(true);
-			transform.GetComponent<MeshCollider>().sharedMesh = transform.GetComponent<MeshFilter>().mesh;
-			transform.GetComponent<MeshCollider>().material = slippyMaterial;
-		}
-    */
-
-
-    // Update is called once per frame
-    void Update()
+    void MakeSingleMesh()
     {
-        
+
+
+        if (GlobalStaticVariables.Instance.renderBoardAsSingleMesh)
+        {
+            MeshFilter[] meshfilters = boardObjects.GetComponentsInChildren<MeshFilter>();
+            CombineInstance[] combine = new CombineInstance[meshfilters.Length];
+            boardObjects.AddComponent<MeshCollider>().convex = true ;
+            int i = 0;
+            while (i < meshfilters.Length)
+            {
+                combine[i].mesh = meshfilters[i].sharedMesh;
+                combine[i].transform = meshfilters[i].transform.localToWorldMatrix;
+                meshfilters[i].gameObject.SetActive(false);
+                i++;
+            }
+            boardObjects.transform.GetComponent<MeshFilter>().mesh = new Mesh();
+            boardObjects.transform.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
+            boardObjects.transform.gameObject.SetActive(true);
+            boardObjects.transform.GetComponent<MeshCollider>().sharedMesh = boardObjects.transform.GetComponent<MeshFilter>().mesh;
+           // transform.GetComponent<MeshCollider>().material = slippyMaterial;
+        }
+        boardObjects.AddComponent<Rigidbody>();
+        Rigidbody boardBody = boardObjects.GetComponent<Rigidbody>();
+        boardBody.useGravity = false;
+        boardBody.isKinematic = true;
     }
+    
+  
+
+   
+
+    void OnTestKey()
+    {
+        Debug.Log("WHAT THE HELL THOUGH");
+    }
+    private void FixedUpdate()
+    {
+       
+    
+    }
+    // Update is called once per frame
+
+
+    
 }

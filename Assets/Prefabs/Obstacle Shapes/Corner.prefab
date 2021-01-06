@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5520149041154882135}
   m_Layer: 0
   m_Name: Corner
-  m_TagString: Untagged
+  m_TagString: wallTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,6 +103,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShapeUnitDontPlace
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 05b4f417beb48b041a755bfa856bc40c,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeDontPlace
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05b4f417beb48b041a755bfa856bc40c, type: 3}
 --- !u!4 &9070497441266471399 stripped
@@ -177,6 +182,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShapeUnitInvalid (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
@@ -253,6 +263,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shape Unit (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 36c9274be7207bd458be388a39783581,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeValid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c9274be7207bd458be388a39783581, type: 3}
 --- !u!4 &1222818786549531311 stripped
@@ -327,6 +342,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShapeUnitInvalid (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
@@ -403,6 +423,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShapeUnitDontPlace (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 05b4f417beb48b041a755bfa856bc40c,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeDontPlace
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05b4f417beb48b041a755bfa856bc40c, type: 3}
 --- !u!4 &694374510894048419 stripped
@@ -477,6 +502,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShapeUnitInvalid (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}

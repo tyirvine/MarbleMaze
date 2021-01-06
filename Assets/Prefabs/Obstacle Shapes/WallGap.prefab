@@ -112,6 +112,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShapeUnitInvalid (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
 --- !u!4 &6892096910631609489 stripped
@@ -186,6 +191,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShapeUnitInvalid
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
@@ -262,6 +272,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shape Unit (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 36c9274be7207bd458be388a39783581,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeValid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c9274be7207bd458be388a39783581, type: 3}
 --- !u!4 &5856352042014905218 stripped
@@ -336,6 +351,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shape Unit (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 36c9274be7207bd458be388a39783581,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeValid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c9274be7207bd458be388a39783581, type: 3}
@@ -412,6 +432,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShapeUnitInvalid (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
 --- !u!4 &4976921855697025218 stripped
@@ -486,6 +511,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shape Unit (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 36c9274be7207bd458be388a39783581,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeValid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c9274be7207bd458be388a39783581, type: 3}
@@ -562,6 +592,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShapeUnitInvalid (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
 --- !u!4 &9188890283838827573 stripped
@@ -636,6 +671,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShapeUnitInvalid (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
@@ -712,6 +752,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShapeUnitInvalid (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
 --- !u!4 &7805512857430980128 stripped
@@ -786,6 +831,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShapeUnitInvalid (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
@@ -862,6 +912,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shape Unit (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 36c9274be7207bd458be388a39783581,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeValid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c9274be7207bd458be388a39783581, type: 3}
 --- !u!4 &7233752971491184605 stripped
@@ -936,6 +991,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shape Unit
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 36c9274be7207bd458be388a39783581,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeValid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c9274be7207bd458be388a39783581, type: 3}
@@ -1012,6 +1072,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShapeUnitInvalid (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
 --- !u!4 &7105289774185211268 stripped
@@ -1087,6 +1152,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShapeUnitInvalid (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
 --- !u!4 &641840825397092074 stripped
@@ -1161,6 +1231,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShapeUnitInvalid (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}

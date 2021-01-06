@@ -107,6 +107,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShapeUnitInvalid (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
 --- !u!4 &5614937912913388386 stripped
@@ -181,6 +186,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shape Unit (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 36c9274be7207bd458be388a39783581,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeValid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c9274be7207bd458be388a39783581, type: 3}
@@ -257,6 +267,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShapeUnitInvalid (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
 --- !u!4 &4864521461405777140 stripped
@@ -331,6 +346,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShapeUnitInvalid (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
@@ -407,6 +427,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShapeUnitInvalid (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
 --- !u!4 &7676160827236830824 stripped
@@ -481,6 +506,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shape Unit (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 36c9274be7207bd458be388a39783581,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeValid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c9274be7207bd458be388a39783581, type: 3}
@@ -557,6 +587,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shape Unit (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 36c9274be7207bd458be388a39783581,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeValid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c9274be7207bd458be388a39783581, type: 3}
 --- !u!4 &1222818786049104423 stripped
@@ -631,6 +666,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shape Unit (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 36c9274be7207bd458be388a39783581,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeValid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c9274be7207bd458be388a39783581, type: 3}
@@ -707,6 +747,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShapeUnitInvalid (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}
 --- !u!4 &1272816563767407167 stripped
@@ -781,6 +826,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShapeUnitInvalid (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 303d75b21a21d3a4f967ca8efabafea3,
+        type: 3}
+      propertyPath: m_TagString
+      value: shapeInvalid
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 303d75b21a21d3a4f967ca8efabafea3, type: 3}

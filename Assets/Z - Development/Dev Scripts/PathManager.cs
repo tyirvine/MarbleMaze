@@ -655,6 +655,6 @@ public class PathManager : MonoBehaviour {
     }
 
     public void OnDebug() {
-        constructPath = true;
+     //   constructPath = true;
     }
 }
