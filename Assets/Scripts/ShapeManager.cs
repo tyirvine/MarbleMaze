@@ -68,7 +68,7 @@ public class ShapeManager : MonoBehaviour
                 walkNodes.Add(Vector3Int.RoundToInt(pathNodes[i].position));
             }
         }
-        Debug.Log("WALKNODES : " + walkNodes.Count);
+      //  Debug.Log("WALKNODES : " + walkNodes.Count);
         Array.Sort(shapes, delegate (ShapeTemplate x, ShapeTemplate y) { return x.unitCount.CompareTo(y.unitCount); });
         Array.Reverse(shapes);
 

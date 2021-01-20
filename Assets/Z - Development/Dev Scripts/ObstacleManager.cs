@@ -145,13 +145,13 @@ public class ObstacleManager : MonoBehaviour
         {
             
                 Vector3Int[] checkNeighbours = pathManager.FindNodeNeighbours(node.position, 1);
-
-                foreach (Vector3Int position in checkNeighbours)
+                
+            foreach (Vector3Int position in checkNeighbours)
                 {
                     if (!simplePath.Any(nodes => nodes.position == position) && !tempNodes.Any(nodes => nodes.position == position) )
-                    {
-                    
-                    tempNodes.Add(new NodeObject(position, 0, 0, 0, false));                
+                    {                                        
+                    tempNodes.Add(new NodeObject(position, 0, 0, 0, false));
+                
                     }
             }
             

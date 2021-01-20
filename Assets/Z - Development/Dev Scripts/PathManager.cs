@@ -152,6 +152,12 @@ public class PathManager : MonoBehaviour {
                     FindNodePosition(1, 0, position),
                     FindNodePosition(0, -1, position),
                    };
+            case 3:
+                return new Vector3Int[] {
+                    FindNodePosition(-2, 0, position),
+                    
+                    FindNodePosition(2, 0, position),                    
+                   };
         }
         return null;
     }
