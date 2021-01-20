@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 982076544}
   - component: {fileID: 982076545}
   - component: {fileID: 982076546}
+  - component: {fileID: 982076547}
   m_Layer: 0
   m_Name: PathManager
   m_TagString: PathManager
@@ -260,13 +261,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bbdeb670c0a461f9fece1ea3408a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridXSizeHalfLength: 20
-  gridZSizeHalfLength: 20
+  gridXSizeHalfLength: 10
+  gridZSizeHalfLength: 8
   startAreaPercentage: 0.1
   cornerLengthDivider: 2
   desiredPathLengthPercentage: 1
   isPathWacky: 1
-  wackiness: 4
+  wackiness: 3
   pathFlag: {fileID: 6344987324550275196, guid: 682118e13740245f7914fc3b0b6627d8,
     type: 3}
   startFlag: {fileID: 4014911049134122452, guid: 9d670d60e092d47a099802f4d445f0c9,
@@ -310,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: b31621ab030976e458cfd43272868df3,
+  m_Actions: {fileID: -944628639613478452, guid: 5debeef29e67b164089554bbbe289ede,
     type: 3}
   m_NotificationBehavior: 1
   m_UIInputModule: {fileID: 0}
@@ -340,9 +341,9 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 78eb1acc-f31b-4785-9635-c7eaa11e16df
     m_ActionName: Board/Debug[/Keyboard/a]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Board
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Gamepad
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &982076545
@@ -381,9 +382,14 @@ MonoBehaviour:
   - rule: {fileID: 2307249883964024786, guid: 12379e374e9d5794fb700beec806d39f, type: 3}
     model: {fileID: 7475948318026797624, guid: b985261ced5e342438c4e8b6de0d9a47, type: 3}
     unitCount: 16
+    includeInBuild: 0
+    rotate: 1
+  - rule: {fileID: 1719504460147752543, guid: 7b60b13db035fed4886eaa0d5a5c09ca, type: 3}
+    model: {fileID: 7367053565530404002, guid: 4bdd19951c36a434c92c8bdee2838897, type: 3}
+    unitCount: 4
     includeInBuild: 1
     rotate: 1
-  spawnFlags: 0
+  spawnFlags: 1
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
 --- !u!114 &982076546
@@ -407,9 +413,24 @@ MonoBehaviour:
     type: 3}
   pathCube: {fileID: 8635483451534611262, guid: 82aed1a0150b5ab4b9b2045f80a5a1a3,
     type: 3}
+  boardObjects: {fileID: 0}
+  Marble: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18, type: 3}
+--- !u!114 &982076547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982076540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce9df54b50368f4ba6d622b8b6bd3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardObjects: {fileID: 0}
+  boardClamp: 20
   boardMovementDampening: 0.1
   moveSpeed: 25
-  Marble: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18, type: 3}
 --- !u!1 &1648830592
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,6 +463,8 @@ MonoBehaviour:
   Value: 0
   GlobalScale: {x: 1, y: 1, z: 1}
   debugLog: []
+  invertY: 0
+  invertX: 0
   debugMode: 0
   collectFlags: 1
   renderBoardAsSingleMesh: 1

@@ -17,6 +17,8 @@ TagManager:
   - shapeValid
   - shapeNoPath
   - floorTile
+  - pickup
+  - boardObjects
   layers:
   - Default
   - TransparentFX

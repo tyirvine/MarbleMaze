@@ -72,7 +72,8 @@ public class BuildBoard : MonoBehaviour
         GameObject[] placeholdExposedReference = GameObject.FindGameObjectsWithTag(tag);
         
         boardObjects.name = tag + "s Group";
-        foreach(GameObject go in placeholdExposedReference)
+        boardObjects.tag = "boardObjects"
+;        foreach(GameObject go in placeholdExposedReference)
         {
             go.transform.parent = boardObjects.transform;
         }
