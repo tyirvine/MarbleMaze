@@ -225,8 +225,8 @@ GameObject:
   - component: {fileID: 982076542}
   - component: {fileID: 982076543}
   - component: {fileID: 982076544}
-  - component: {fileID: 982076545}
   - component: {fileID: 982076546}
+  - component: {fileID: 982076545}
   m_Layer: 0
   m_Name: PathManager
   m_TagString: PathManager
@@ -260,13 +260,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bbdeb670c0a461f9fece1ea3408a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridXSizeHalfLength: 20
-  gridZSizeHalfLength: 20
-  startAreaPercentage: 0.1
-  cornerLengthDivider: 2
+  gridXSizeHalfLength: 7
+  gridZSizeHalfLength: 7
+  startAreaPercentage: 0.0571
+  cornerLengthDivider: 8
   desiredPathLengthPercentage: 1
-  isPathWacky: 1
-  wackiness: 4
+  isPathWacky: 0
+  wackiness: 1
   pathFlag: {fileID: 6344987324550275196, guid: 682118e13740245f7914fc3b0b6627d8,
     type: 3}
   startFlag: {fileID: 4014911049134122452, guid: 9d670d60e092d47a099802f4d445f0c9,
@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: b31621ab030976e458cfd43272868df3,
+  m_Actions: {fileID: -944628639613478452, guid: 5debeef29e67b164089554bbbe289ede,
     type: 3}
   m_NotificationBehavior: 1
   m_UIInputModule: {fileID: 0}
@@ -342,7 +342,7 @@ MonoBehaviour:
     m_ActionName: Board/Debug[/Keyboard/a]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Board
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &982076545
@@ -407,8 +407,7 @@ MonoBehaviour:
     type: 3}
   pathCube: {fileID: 8635483451534611262, guid: 82aed1a0150b5ab4b9b2045f80a5a1a3,
     type: 3}
-  boardMovementDampening: 0.1
-  moveSpeed: 25
+  boardObjects: {fileID: 0}
   Marble: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18, type: 3}
 --- !u!1 &1648830592
 GameObject:
@@ -442,6 +441,8 @@ MonoBehaviour:
   Value: 0
   GlobalScale: {x: 1, y: 1, z: 1}
   debugLog: []
+  invertY: 0
+  invertX: 0
   debugMode: 0
   collectFlags: 1
   renderBoardAsSingleMesh: 1
