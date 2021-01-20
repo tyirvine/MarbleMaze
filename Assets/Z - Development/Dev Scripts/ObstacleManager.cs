@@ -14,9 +14,7 @@ public class ObstacleManager : MonoBehaviour
         BuildGrid,
         BuildWall
     }
-    public GameObject wallCube;
-    public GameObject floorCube;
-
+   
     public List<NodeObject> tempNodes = new List<NodeObject>();
     // This is an inspector setting for setting which obstacle type to spawn
     public SpawnObstacles spawnObstacles = SpawnObstacles.None;
@@ -138,8 +136,6 @@ public class ObstacleManager : MonoBehaviour
         
         simplePath.AddRange(tempNodes);
 
-       
-
         //check through positions -1,0 1,0 0,1 0,-1 to see if there is anything present. if not, make a new node in that position and make it unwalkable
         foreach (NodeObject node in simplePath)
         {
@@ -151,13 +147,47 @@ public class ObstacleManager : MonoBehaviour
                     if (!simplePath.Any(nodes => nodes.position == position) && !tempNodes.Any(nodes => nodes.position == position) )
                     {                                        
                     tempNodes.Add(new NodeObject(position, 0, 0, 0, false));
-                
+                    
                     }
             }
             
             
         }
-        
+       // AverageWalls();
+    }
+
+    public bool checkValues(Vector3Int position, bool walkable, NodeObject node)
+    {
+        if(node.position == position && node.walkable == walkable)
+        {
+            return true;
+        }
+        return false;
+
+    }
+
+    public void AverageWalls() //turns out this is just another shapemanager 
+    {
+        //work through temp nodes, finding nodes that are adjacent and returning the mean position of them
+        List<NodeObject> meanNodes = new List<NodeObject>();
+        meanNodes.AddRange(tempNodes);
+        foreach(NodeObject node in tempNodes)
+        {
+            
+            Vector3Int[] adjacentNodes = pathManager.FindNodeNeighbours(node.position, 3);
+            foreach (Vector3Int position in adjacentNodes)
+            {
+                
+            //    if (checkValues(position, false, node))
+                {
+                    NodeObject removeNode = tempNodes.Find(nodes => nodes.position == position);
+                    meanNodes.Remove(removeNode);
+                    meanNodes.Add(node);
+                }
+            }
+        }
+        tempNodes.Clear();
+        tempNodes.AddRange(meanNodes);
     }
    
     /// <summary>Picks which obstacle type to spawn.</summary>

@@ -19,6 +19,7 @@ TagManager:
   - floorTile
   - pickup
   - boardObjects
+  - invalidIgnore
   layers:
   - Default
   - TransparentFX
