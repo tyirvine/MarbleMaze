@@ -265,7 +265,7 @@ MonoBehaviour:
   startAreaPercentage: 0.0571
   cornerLengthDivider: 8
   desiredPathLengthPercentage: 1
-  isPathWacky: 0
+  isPathWacky: 1
   wackiness: 1
   pathFlag: {fileID: 6344987324550275196, guid: 682118e13740245f7914fc3b0b6627d8,
     type: 3}
