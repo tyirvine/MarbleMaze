@@ -27,7 +27,7 @@ public class BuildBoard : MonoBehaviour
 
     public void GetBoardSize()
     {
-        pathNodes.AddRange(gameObject.GetComponent<ObstacleManager>().tempNodes);
+        pathNodes.AddRange(gameObject.GetComponent<ObstacleManager>().obstacleNodes);
         
         int topLeftX = 0, topLeftY = 0, lowRightX = 0, lowRightY = 0;
         

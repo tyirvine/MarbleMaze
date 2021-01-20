@@ -42,7 +42,7 @@ public class ShapeManager : MonoBehaviour {
 	public void CheckShapes() {
 		List<NodeObject> pathNodes = new List<NodeObject>();
 		completedChecks = true;
-		pathNodes.AddRange(gameObject.GetComponent<ObstacleManager>().tempNodes);
+		pathNodes.AddRange(gameObject.GetComponent<ObstacleManager>().obstacleNodes);
 		List<Vector3Int> placedPositions = new List<Vector3Int>();
 		List<Vector3Int> nodePositions = new List<Vector3Int>();
 		List<ShapePoints> shapePoints = new List<ShapePoints>();
