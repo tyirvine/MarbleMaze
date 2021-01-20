@@ -37,8 +37,6 @@ public class ShapeManager : MonoBehaviour {
 	//update this once execution order is complete, this is an awful method for executing scripts :D
 	//  private void Update() { if (!completedChecks && GlobalStaticVariables.Instance.obstacleGenerationComplete) { CheckShapes(); } }
 
-
-
 	public void CheckShapes() {
 		List<NodeObject> pathNodes = new List<NodeObject>();
 		completedChecks = true;
@@ -82,11 +80,11 @@ public class ShapeManager : MonoBehaviour {
 								ShapePoints tempShape = new ShapePoints();
 								tempShape.position = Vector3Int.RoundToInt(childObject.transform.position);
 								switch (childObject.tag) {
-								case "shapeValid": tempShape.mode = 1; break;
-								case "shapeDontPlace": tempShape.mode = 2; break;
-								case "shapeInvalid": tempShape.mode = 3; break;
-								case "shapeNoPath": tempShape.mode = 4; break;
-								default: tempShape.mode = 3; break;
+									case "shapeValid": tempShape.mode = 1; break;
+									case "shapeDontPlace": tempShape.mode = 2; break;
+									case "shapeInvalid": tempShape.mode = 3; break;
+									case "shapeNoPath": tempShape.mode = 4; break;
+									default: tempShape.mode = 3; break;
 								}
 								shapePoints.Add(tempShape);
 							}

@@ -49,7 +49,6 @@ public class ObstacleManager : MonoBehaviour {
 		return objects;
 	}
 
-
 	#region Obstacle Generators
 
 	// TODO: Consider deprecating
@@ -90,7 +89,6 @@ public class ObstacleManager : MonoBehaviour {
 		}
 	}
 
-
 	///  <summary>Creates a list of nodes the size of the whole grid and leave out the path nodes.</summary>
 	public void BuildFullGrid() {
 		int gridXSizeHalfLength = pathManager.gridXSizeHalfLength;
@@ -112,32 +110,34 @@ public class ObstacleManager : MonoBehaviour {
 	public void BuildWall() {
 		// Contains start and end node positions
 		PathManager.GridPoints gridPoints = pathManager.gridPoints;
-		// This is the path that is used to build the wall
-		//List<NodeObject> path = new List<NodeObject>();
 
-		//obstacleNodes.AddRange(pathManager.pathNodes);
-		//path.AddRange(obstacleNodes);
+		// Check through positions -1,0 1,0 0,1 0,-1 to see if there is anything present. If not, make a new node in that position and make it unwalkable
+		foreach (NodeObject pathNode in pathManager.pathNodes) {
 
-		// Add the start and end points as nodes so that they are included in the walls
-		//obstacleNodes.AddRange(AddAreaAround(gridPoints.startPointNode));
-		//obstacleNodes.AddRange(AddAreaAround(gridPoints.endPointNode));
+			// Check if a node is on the main path. If it isn't make it an obstacle node
+			Vector3Int[] checkNeighboursInitial = pathManager.FindNodeNeighbours(pathNode.position, 1);
+			foreach (Vector3Int position in checkNeighboursInitial) {
+				if (pathManager.pathNodes.All(node => node.position != position)) {
 
-
-		//check through positions -1,0 1,0 0,1 0,-1 to see if there is anything present. if not, make a new node in that position and make it unwalkable
-		foreach (NodeObject node in pathManager.pathNodes) {
-
-			Vector3Int[] checkNeighbours = pathManager.FindNodeNeighbours(node.position, 1);
-
-			foreach (Vector3Int position in checkNeighbours) {
-				// This wants a node that isn't in the path nodes and isn't in the obstacle nodes, it then will take a node like that and add it to obstacle nodes
-				//if (!path.Any(nodes => nodes.position == position) && !obstacleNodes.Any(nodes => nodes.position == position)) {
-				if (!pathManager.pathNodes.Any(nodes => nodes.position == position)) {
-					obstacleNodes.Add(new NodeObject(position, 0, 0, 0, false));
-					SpawnObstacleFlag(position);
+					// Also check to make sure it isn't spawning on a diagonal
+					Vector3Int[] checkNeighboursSecondary = pathManager.FindNodeNeighbours(position, 0);
+					for (int i = 0; i < checkNeighboursSecondary.Length; i++) {
+						Vector3Int diagonal = checkNeighboursSecondary[i];
+						// if (obstacleNodes.Any(node => node.position != diagonal)) {
+						if (obstacleNodes.All(nodes => nodes.position != diagonal)) {
+							if (i == checkNeighboursSecondary.Length - 1)
+								obstacleNodes.Add(new NodeObject(position));
+						} else {
+							break;
+						}
+					}
 				}
 			}
+		}
 
-
+		// Spawn obstacle flags
+		foreach (NodeObject obstacle in obstacleNodes) {
+			SpawnObstacleFlag(obstacle.position);
 		}
 	}
 
@@ -146,17 +146,17 @@ public class ObstacleManager : MonoBehaviour {
 	/// <summary>Picks which obstacle type to spawn.</summary>
 	public void ObstaclePicker() {
 		switch (spawnObstacles) {
-		case SpawnObstacles.None:
-			break;
-		case SpawnObstacles.ClassicObstacles:
-			ClassicObstacleGeneration();
-			break;
-		case SpawnObstacles.BuildGrid:
-			BuildFullGrid();
-			break;
-		case SpawnObstacles.BuildWall:
-			BuildWall();
-			break;
+			case SpawnObstacles.None:
+				break;
+			case SpawnObstacles.ClassicObstacles:
+				ClassicObstacleGeneration();
+				break;
+			case SpawnObstacles.BuildGrid:
+				BuildFullGrid();
+				break;
+			case SpawnObstacles.BuildWall:
+				BuildWall();
+				break;
 		}
 	}
 }

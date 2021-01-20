@@ -128,10 +128,17 @@ public class PathManager : MonoBehaviour {
 	/// <example>mode 1 is diagonals, mode 2 is non diagonals</example>
 	public Vector3Int[] FindNodeNeighbours(Vector3Int position, int mode) {
 		switch (mode) {
-			case 1:
-
+			// Diagonals
+			case 0:
 				return new Vector3Int[] {
-					// diagonals
+					FindNodePosition(-1, -1, position),
+					FindNodePosition(1, 1, position),
+					FindNodePosition(-1, 1, position),
+					FindNodePosition(1, -1, position),
+					};
+			// All
+			case 1:
+				return new Vector3Int[] {
 					FindNodePosition(-1, 0, position),
 					FindNodePosition(0, 1, position),
 					FindNodePosition(1, 0, position),
@@ -142,19 +149,34 @@ public class PathManager : MonoBehaviour {
 					FindNodePosition(-1, -1, position),
 					FindNodePosition(1, -1, position),
 				   };
+			// Non-Diagonals
 			case 2:
 				return new Vector3Int[] {
-					// non diagonals
 					FindNodePosition(-1, 0, position),
 					FindNodePosition(0, 1, position),
 					FindNodePosition(1, 0, position),
 					FindNodePosition(0, -1, position),
 				   };
+			// Sides
 			case 3:
 				return new Vector3Int[] {
 					FindNodePosition(-2, 0, position),
-
 					FindNodePosition(2, 0, position),
+				   };
+			// All including center
+			case 4:
+				return new Vector3Int[] {
+					position,
+
+					FindNodePosition(-1, 0, position),
+					FindNodePosition(0, 1, position),
+					FindNodePosition(1, 0, position),
+					FindNodePosition(0, -1, position),
+
+					FindNodePosition(-1, 1, position),
+					FindNodePosition(1, 1, position),
+					FindNodePosition(-1, -1, position),
+					FindNodePosition(1, -1, position),
 				   };
 		}
 		return null;
@@ -394,8 +416,6 @@ public class PathManager : MonoBehaviour {
 				if (traceNode.position != gridPoints.endPointNode) pathNodes.Add(traceNode);
 				traceNode = traceNode.parent;
 			}
-			// Reverse the list because we started tracing from the end, and calculate the path's length
-			pathNodes.Reverse();
 
 			// Add in both start and end points
 			pathNodes.Add(new NodeObject(gridPoints.startPointNode));
@@ -409,6 +429,9 @@ public class PathManager : MonoBehaviour {
 				foreach (Vector3Int position in clearancePositions)
 					pathNodes.Add(new NodeObject(position, 0, 0, 0, true));
 			}
+
+			// Reverse the list because we started tracing from the end, and calculate the path's length
+			pathNodes.Reverse();
 
 			// Instantiate desired object
 			foreach (NodeObject node in pathNodes) {
