@@ -181,15 +181,15 @@ public class PathManager : MonoBehaviour {
 			// All - two levels
 			case 5:
 				return new Vector3Int[] {
-					FindNodePosition(-1, 0, position),
-					FindNodePosition(0, 1, position),
-					FindNodePosition(1, 0, position),
-					FindNodePosition(0, -1, position),
+					// FindNodePosition(-1, 0, position),
+					// FindNodePosition(0, 1, position),
+					// FindNodePosition(1, 0, position),
+					// FindNodePosition(0, -1, position),
 
-					FindNodePosition(-1, 1, position),
-					FindNodePosition(1, 1, position),
-					FindNodePosition(-1, -1, position),
-					FindNodePosition(1, -1, position),
+					// FindNodePosition(-1, 1, position),
+					// FindNodePosition(1, 1, position),
+					// FindNodePosition(-1, -1, position),
+					// FindNodePosition(1, -1, position),
 
 					// 2nd level
 					FindNodePosition(-2, 0, position),
@@ -198,15 +198,15 @@ public class PathManager : MonoBehaviour {
 					FindNodePosition(0, -2, position),
 
 					// Inbetweeners
-					FindNodePosition(1, 2, position),
-					FindNodePosition(1, -2, position),
-					FindNodePosition(-1, 2, position),
-					FindNodePosition(-1, -2, position),
+					// FindNodePosition(1, 2, position),
+					// FindNodePosition(1, -2, position),
+					// FindNodePosition(-1, 2, position),
+					// FindNodePosition(-1, -2, position),
 
-					FindNodePosition(2, 1, position),
-					FindNodePosition(2, -1, position),
-					FindNodePosition(-2, 1, position),
-					FindNodePosition(-2, -1, position),
+					// FindNodePosition(2, 1, position),
+					// FindNodePosition(2, -1, position),
+					// FindNodePosition(-2, 1, position),
+					// FindNodePosition(-2, -1, position),
 
 					FindNodePosition(-2, 2, position),
 					FindNodePosition(2, 2, position),
@@ -598,9 +598,6 @@ public class PathManager : MonoBehaviour {
 			return Random.Range(1, wackiness) * dstX + 10 * (dstZ - dstX);
 		}
 
-		// Adds a new set of clearance nodes
-		int clearanceCounter = 0;
-
 		// Loop Emergency Break
 		int loopEmergencyBrake = 0;
 		int loopEmergencyBrakeCap = 5000;
@@ -651,17 +648,11 @@ public class PathManager : MonoBehaviour {
 					node.parent = currentNode;
 
 					// Add clearance neighbours as well
-					if (clearanceCounter >= 2) {
-						if (currentNode.parent != null && currentNode.parent.parent != null && currentNode.parent.parent.parent != null) {
-							Vector3Int[] clearanceNeighbours = FindNodeNeighbours(currentNode.parent.parent.parent.position, 5);
-							foreach (Vector3Int position in clearanceNeighbours)
-								closedNodes.Add(new NodeObject(position));
-
-							clearanceCounter = 0;
-						} else
-							clearanceCounter = 0;
+					if (currentNode.parent != null && currentNode.parent.parent != null && currentNode.parent.parent.parent != null) {
+						Vector3Int[] clearanceNeighbours = FindNodeNeighbours(currentNode.parent.parent.parent.position, 5);
+						foreach (Vector3Int position in clearanceNeighbours)
+							closedNodes.Add(new NodeObject(position));
 					}
-					clearanceCounter++;
 
 					// If the node is not found in the open nodes list then add it
 					if (!openNodes.Any(nodes => nodes.position == node.position)) {
