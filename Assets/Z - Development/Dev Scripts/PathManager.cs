@@ -178,36 +178,15 @@ public class PathManager : MonoBehaviour {
 					FindNodePosition(-1, -1, position),
 					FindNodePosition(1, -1, position),
 				   };
-			// All - two levels
+			// All - extended perimeter
 			case 5:
 				return new Vector3Int[] {
-					// FindNodePosition(-1, 0, position),
-					// FindNodePosition(0, 1, position),
-					// FindNodePosition(1, 0, position),
-					// FindNodePosition(0, -1, position),
-
-					// FindNodePosition(-1, 1, position),
-					// FindNodePosition(1, 1, position),
-					// FindNodePosition(-1, -1, position),
-					// FindNodePosition(1, -1, position),
-
-					// 2nd level
+					// Non-diagonals
 					FindNodePosition(-2, 0, position),
 					FindNodePosition(2, 0, position),
 					FindNodePosition(0, 2, position),
 					FindNodePosition(0, -2, position),
-
-					// Inbetweeners
-					// FindNodePosition(1, 2, position),
-					// FindNodePosition(1, -2, position),
-					// FindNodePosition(-1, 2, position),
-					// FindNodePosition(-1, -2, position),
-
-					// FindNodePosition(2, 1, position),
-					// FindNodePosition(2, -1, position),
-					// FindNodePosition(-2, 1, position),
-					// FindNodePosition(-2, -1, position),
-
+					// Diagonals
 					FindNodePosition(-2, 2, position),
 					FindNodePosition(2, 2, position),
 					FindNodePosition(-2, -2, position),
@@ -308,62 +287,10 @@ public class PathManager : MonoBehaviour {
 			return false;
 	}
 
-	// TODO: Scrap this function
-	/// <summary>This spawns the start and end points by making sure they have ample room and aren't colliding.</summary>
-	void SpawnStartOrEnd(FlagAreas flag, GameObject flagObject) {
-		// TODO: This function needs to be cleaned up, it's no longer dealing with obstacles
-		/// <summary>This keeps track of the loop and will fire off a warning to reset the obstacle gen if it's taking too long.</summary>
-		int loopCounter = 0;
-		// Loop through until a valid spawn point is found
-		while (loopCounter <= obstacleManager.gridArea) {
-			// Generate spawn point based on area
-			Vector3Int possibleSpawn = SpawnPointInArea(FlagAreas.Grid);
-			// Check to see if the possible spawn is colliding with the obstacle positions
-			if (!obstacleManager.obstaclePositions.Contains(possibleSpawn) && !gridPoints.placedPoints.Contains(possibleSpawn)) {
-				// Find all neighbours of the possible spawn point
-
-				List<Vector3Int> possibleSpawnNeighbours = new List<Vector3Int>();
-				for (int x = -2; x <= 2; x++) {
-					for (int y = -2; y <= 2; y++) {
-						if (x != 0 && y != 0) {
-							possibleSpawnNeighbours.Add(FindNodePosition(x, y, position: possibleSpawn));
-						}
-					}
-				}
-
-				// Verifies that the neighbouring positions are also not colliding with obstacle positions
-				// if a collision is detected it breaks out of the loop so it can try another spawn point
-				foreach (Vector3Int neighbour in possibleSpawnNeighbours) {
-					if (obstacleManager.obstaclePositions.Contains(neighbour) || gridPoints.placedPoints.Contains(neighbour))
-						goto EndOfLoop;
-					else
-						continue;
-				}
-				// All checks are successful so the flag can be spawned!
-				if (flag == FlagAreas.Start) gridPoints.startPointNode = possibleSpawn;
-				if (flag == FlagAreas.End) gridPoints.endPointNode = possibleSpawn;
-				Instantiate(flagObject, Vector3.Scale(gridScale, possibleSpawn), Quaternion.identity);
-
-				// Makes itself a placed point to avoid overlap with other points
-				gridPoints.placedPoints.Add(possibleSpawn);
-
-				return;
-			}
-		// The goto jumps to here
-		EndOfLoop:;
-
-			// If loop is close to firing tell the obstacle builder to rebuild
-			if (loopCounter < obstacleManager.gridArea) {
-				didPathGenerate = false;
-			} else
-				loopCounter++;
-		}
-	}
-
 	// WARNING - This function must execute after contruct grid. If it executes prior there will be errors.
 	//create start and end nodes, ensure that they spawn apart in seperate quadrants of the grid
 	//divide grid: top left - 0, top right - 1, bottom left - 2, bottom right - 3. make a function to randomly pick one for the start and ensure that the diagonally opposite contains the end.
-	void AltStartEnd() {
+	void SpawnStartEnd() {
 		int cornerLength = 0;
 		///leave a gap at 1/4 of the size of a quadrant. this does reduce the amount of space available to a start/end point
 		///this takes the length of the shortest side and divides it by the corner length divider. This gives us 
@@ -426,7 +353,7 @@ public class PathManager : MonoBehaviour {
 		// Spawn start and end points
 		//SpawnStartOrEnd(FlagAreas.Start, startFlag);
 		//SpawnStartOrEnd(FlagAreas.End, endFlag);
-		AltStartEnd();
+		SpawnStartEnd();
 		// Add the start node to the open points list
 		openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, false));
 
@@ -436,20 +363,9 @@ public class PathManager : MonoBehaviour {
 		/// <summary>Finds all the clearance nodes for the provided position. Top, top right, and right side.</summary>
 		Vector3Int[] FindClearanceNodes(Vector3Int position) {
 			return new Vector3Int[] {
-				// First level
 				FindNodePosition(0, 1, position),
 				FindNodePosition(1, 1, position),
 				FindNodePosition(1, 0, position),
-
-				// // Second level
-				// FindNodePosition(0, 2, position),
-				// FindNodePosition(2, 2, position),
-				// FindNodePosition(2, 0, position),
-
-				// // Inbetweeners
-				// FindNodePosition(1, 2, position),
-				// FindNodePosition(2, 1, position)
-
 			};
 		}
 
@@ -483,21 +399,12 @@ public class PathManager : MonoBehaviour {
 			foreach (NodeObject node in pathNodes) {
 				Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
 			}
-
-			// foreach (NodeObject node in clearanceNodes) {
-			// 	Instantiate(startFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
-			// }
-
-			// foreach (NodeObject node in closedNodes) {
-			// 	Instantiate(endFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
-			// }
-
 		}
 
 		/// <summary>This checks to see if the point collides with any non-pathable positions.</summary>
 		bool IsPathable(NodeObject node) {
 			// Grab clearance neighbours to provided position
-			Vector3Int[] positionClearanceNeighbours = FindNodeNeighbours(node.position, 1);
+			Vector3Int[] positionClearanceNeighbours = FindNodeNeighbours(node.position, 5);
 			bool isPathable = false;
 
 			// Start by making sure the point is within the grid bounds
@@ -506,74 +413,6 @@ public class PathManager : MonoBehaviour {
 					isPathable = true;
 				else
 					return false;
-
-			// Check to see if there is enough clearance to make a turn
-			// Vector3Int[] diagonals = FindNodeNeighbours(node.position, 0);
-			// If there's a diagonal hit on two corners it's not pathable
-			// if (clearanceNodes.Any(nodes => nodes.position == diagonals[0]) && clearanceNodes.Any(nodes => nodes.position == diagonals[1]))
-			// 	return false;
-			// else if (clearanceNodes.Any(nodes => nodes.position == diagonals[2]) && clearanceNodes.Any(nodes => nodes.position == diagonals[3]))
-			// 	return false;
-			// int diagonalCount = 0;
-			// foreach (Vector3Int diagonal in diagonals) {
-			// 	Debug.Log(diagonalCount);
-			// 	if (diagonalCount >= 2)
-			// 		return false;
-			// 	if (clearanceNodes.Any(nodes => nodes.position == diagonal))
-			// 		diagonalCount++;
-			// }
-
-			// Grab corner positions
-			// CornerNode[] pathNodeCorners = new CornerNode[] {
-			// 	new CornerNode(FindNodePosition(-1, -1, node.position), Corner.BottomLeft),
-			// 	new CornerNode(FindNodePosition(-1, 1, positionClearanceNeighbours[0]), Corner.TopLeft),
-			// 	new CornerNode(FindNodePosition(1, 1, positionClearanceNeighbours[1]), Corner.TopRight),
-			// 	new CornerNode(FindNodePosition(1, -1, positionClearanceNeighbours[2]), Corner.BottomRight)
-			// };
-
-			// // Checks a corner node's neighbours
-			// bool ContainsAdjacentNodes(Corner corner, Vector3Int position) {
-			// 	Vector3Int adjacentOne = Vector3Int.zero;
-			// 	Vector3Int adjacentTwo = Vector3Int.zero;
-
-			// 	// Finds adjacent corner positions depending on corner
-			// 	switch (corner) {
-			// 		case Corner.TopLeft:
-			// 			adjacentOne = FindNodePosition(0, -1, position);
-			// 			adjacentTwo = FindNodePosition(1, 0, position);
-			// 			break;
-			// 		case Corner.TopRight:
-			// 			adjacentOne = FindNodePosition(-1, 0, position);
-			// 			adjacentTwo = FindNodePosition(0, -1, position);
-			// 			break;
-			// 		case Corner.BottomLeft:
-			// 			adjacentOne = FindNodePosition(0, 1, position);
-			// 			adjacentTwo = FindNodePosition(1, 0, position);
-			// 			break;
-			// 		case Corner.BottomRight:
-			// 			adjacentOne = FindNodePosition(-1, 0, position);
-			// 			adjacentTwo = FindNodePosition(0, 1, position);
-			// 			break;
-			// 	}
-
-			// 	// Checks to see if closed nodes contains either of the adjacent nodes
-			// 	if (closedNodes.Any(nodes => nodes.position == adjacentOne) || closedNodes.Any(nodes => nodes.position == adjacentTwo))
-			// 		return true;
-			// 	// Otherwise that means we found a diagonal so...
-			// 	else
-			// 		return false;
-			// }
-
-			// // Then check each corner to make sure it's not a diagonal pinch
-			// foreach (CornerNode cornerNode in pathNodeCorners)
-			// 	if (closedNodes.Any(nodes => nodes.position == cornerNode.position)) {
-			// 		// If it does contain a node on the corner, then it checks for adjacents
-			// 		if (!ContainsAdjacentNodes(cornerNode.corner, cornerNode.position))
-			// 			return false;
-			// 		else
-			// 			isPathable = true;
-			// 	} else
-			// 		isPathable = true;
 
 			return isPathable;
 		}
@@ -588,10 +427,6 @@ public class PathManager : MonoBehaviour {
 					return 14 * dstZ + 10 * (dstX - dstZ);
 				else
 					return 14 * dstX + 10 * (dstZ - dstX);
-				// if (dstX > dstZ)
-				// 	return 14 * dstZ + 10 * (dstX - dstZ);
-				// else
-				// 	return 14 * dstX + 10 * (dstZ - dstX);
 			}
 			// and here?
 			if (dstX > dstZ) return Random.Range(1, wackiness) * dstZ + 10 * (dstX - dstZ);
@@ -647,7 +482,8 @@ public class PathManager : MonoBehaviour {
 					node.hCost = GetDistance(node, new NodeObject(gridPoints.endPointNode, 0, 0, 0, false));
 					node.parent = currentNode;
 
-					// Add clearance neighbours as well
+					// Add clearance cluster to the fourth previous parent node
+					// https://www.notion.so/scriptobit/Path-Randomization-f9e3607f1b55484388ee7221516295e8
 					if (currentNode.parent != null && currentNode.parent.parent != null && currentNode.parent.parent.parent != null) {
 						Vector3Int[] clearanceNeighbours = FindNodeNeighbours(currentNode.parent.parent.parent.position, 5);
 						foreach (Vector3Int position in clearanceNeighbours)
@@ -656,9 +492,7 @@ public class PathManager : MonoBehaviour {
 
 					// If the node is not found in the open nodes list then add it
 					if (!openNodes.Any(nodes => nodes.position == node.position)) {
-
 						openNodes.Add(node);
-
 					}
 				}
 			}
@@ -679,20 +513,19 @@ public class PathManager : MonoBehaviour {
 	void ConstructPathStack() {
 		// A bool switch to see if an error was caught on the try carch
 		bool errorCaught = false;
-		int emergencyBrake = 0;
 
 	// Restart from here
 	RestartLoop:;
+
+#if UNITY_EDITOR
+		// Used to time path construction
+		long loopStartTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+		GlobalStaticVariables.Instance.DebugLogEntry("Started PathManager.cs");
+#endif
+
 		// Initialize
 		Initialize();
 		GameObject[] flags;
-
-		// Stop game if emergency brake is engaged
-		emergencyBrake++;
-		if (emergencyBrake > 100) {
-			UnityEditor.EditorApplication.isPlaying = false;
-			Application.Quit();
-		}
 
 		// Destroy all flags first
 		flags = GameObject.FindGameObjectsWithTag("Flag");
@@ -714,27 +547,31 @@ public class PathManager : MonoBehaviour {
 			Debug.LogException(e, this);
 			Debug.LogWarning("Error caught - Loop Reset");
 			errorCaught = true;
-			// TODO: Reinstate
 			goto RestartLoop;
 		}
 		// A valid path has been generated!
 		if (errorCaught) Debug.Log("Error resolved - Loop Completed!");
 
-		// TODO: Repair
-		//gameObject.GetComponent<ShapeManager>().CheckShapes();
-		//gameObject.GetComponent<BuildBoard>().GetBoardSize();
+		// Build walls
+		gameObject.GetComponent<ShapeManager>().CheckShapes();
+		gameObject.GetComponent<BuildBoard>().GetBoardSize();
+
 		// TODO: Do we need this? - Ty @bubzy-coding
 		//	GameObject.FindGameObjectWithTag("shapeManager").GetComponent<ShapeManager>().gameObject.SetActive(true); //heckShapesAgainstObstacles();
 		//Instantiate(shapeManager, transform.position, Quaternion.identity);
+
+#if UNITY_EDITOR
+		// Path construction finished
+		long currentTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+		string currentTimeLog = "Path found in " + (currentTime - loopStartTime) + "ms!";
+		GlobalStaticVariables.Instance.DebugLogEntry("Finished PathManager.cs - " + currentTimeLog);
+		Debug.Log(currentTimeLog);
+#endif
 
 	}
 
 	// Start is called before the first frame updates
 	void Start() {
-#if UNITY_EDITOR
-		long loopStartTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-		GlobalStaticVariables.Instance.DebugLogEntry("Started PathManager.cs");
-#endif
 
 		// Grab parameters from global variables
 		gridScale = GlobalStaticVariables.Instance.GlobalScale;
@@ -743,17 +580,10 @@ public class PathManager : MonoBehaviour {
 		ConstructPathStack();
 		GlobalStaticVariables.Instance.pathGenerationComplete = true;
 
-#if UNITY_EDITOR
-		long currentTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-		string currentTimeLog = "Path found in " + (currentTime - loopStartTime) + "ms!";
-		GlobalStaticVariables.Instance.DebugLogEntry("Finished PathManager.cs - " + currentTimeLog);
-		Debug.Log(currentTimeLog);
-#endif
-
 		// Collects all the flags in the scene and parents them
 		if (GlobalStaticVariables.Instance.collectFlags) {
 			GameObject[] flags = GameObject.FindGameObjectsWithTag("Flag");
-			GameObject flagParent = new GameObject();
+			GameObject flagParent = new GameObject(name: "FlagParent");
 
 			foreach (GameObject flag in flags) {
 				flag.transform.SetParent(flagParent.transform);
