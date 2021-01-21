@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 982076543}
   - component: {fileID: 982076544}
   - component: {fileID: 982076546}
+  - component: {fileID: 982076545}
   m_Layer: 0
   m_Name: PathManager
   m_TagString: PathManager
@@ -382,6 +383,21 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &982076545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982076540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955eb84a1d918e944a478aefab69e4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shapes: []
+  spawnFlags: 0
+  obstacleFlag: {fileID: 0}
 --- !u!114 &982076546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,156 +476,4 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2044476438
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2044476443}
-  - component: {fileID: 2044476442}
-  - component: {fileID: 2044476441}
-  - component: {fileID: 2044476440}
-  - component: {fileID: 2044476439}
-  m_Layer: 0
-  m_Name: PathManager (1)
-  m_TagString: PathManager
-  m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &2044476439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2044476438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36a3131e811ae7d4fa73552a8ccb8ebf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flag: {fileID: 8970112326771813452, guid: 3a13cb7cf52e0c048be27ed0b089bdad, type: 3}
-  floorCube: {fileID: 8635483451534611262, guid: 8982c834c3551e94fbe9fc3b6bda1cce,
-    type: 3}
-  wallCube: {fileID: 8635483451534611262, guid: c6cbbf5c7209c3943842a60e4635fa89,
-    type: 3}
-  cornerCube: {fileID: 6568648836625729755, guid: 1855b3c91866a614ab7d3c020d83721a,
-    type: 3}
-  pathCube: {fileID: 8635483451534611262, guid: 82aed1a0150b5ab4b9b2045f80a5a1a3,
-    type: 3}
-  boardObjects: {fileID: 0}
-  Marble: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18, type: 3}
---- !u!114 &2044476440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2044476438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 5debeef29e67b164089554bbbe289ede,
-    type: 3}
-  m_NotificationBehavior: 1
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a61dd4a7-cab0-4160-a8ac-4ce68c20f22a
-    m_ActionName: Board/Tilt_X[/Keyboard/leftArrow,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d67e31c9-cdb6-4f68-aa4f-9e7cf8f2d2c4
-    m_ActionName: Board/Tilt_Z[/Keyboard/downArrow,/Keyboard/upArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 05d954e1-fcee-41ef-ac02-363c432496e5
-    m_ActionName: Board/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 78eb1acc-f31b-4785-9635-c7eaa11e16df
-    m_ActionName: Board/Debug[/Keyboard/a]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
---- !u!114 &2044476441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2044476438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: efa9654f631974526a371afcbe258072, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  obstacleCoveragePercentage: 1
-  wallCube: {fileID: 0}
-  floorCube: {fileID: 0}
-  spawnObstacles: 3
-  spawnDiagonals: 0
-  obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
-    type: 3}
-  pathManager: {fileID: 2044476442}
-  gridArea: 0
-  obstaclePositions: []
---- !u!114 &2044476442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2044476438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71bbdeb670c0a461f9fece1ea3408a63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridXSizeHalfLength: 8
-  gridZSizeHalfLength: 8
-  startAreaPercentage: 0.0571
-  cornerLengthDivider: 3
-  desiredPathLengthPercentage: 1
-  isPathWacky: 1
-  wackiness: 1
-  pathFlag: {fileID: 6344987324550275196, guid: 682118e13740245f7914fc3b0b6627d8,
-    type: 3}
-  startFlag: {fileID: 4014911049134122452, guid: 9d670d60e092d47a099802f4d445f0c9,
-    type: 3}
-  endFlag: {fileID: 8970112326771813452, guid: 3a13cb7cf52e0c048be27ed0b089bdad, type: 3}
-  obstacleManager: {fileID: 2044476441}
-  didPathGenerate: 0
---- !u!4 &2044476443
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2044476438}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

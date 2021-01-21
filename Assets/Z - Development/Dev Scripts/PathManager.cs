@@ -553,8 +553,9 @@ public class PathManager : MonoBehaviour {
 		if (errorCaught) Debug.Log("Error resolved - Loop Completed!");
 
 		// Build walls
+		// TODO: This is causing errors
 		gameObject.GetComponent<ShapeManager>().CheckShapes();
-		gameObject.GetComponent<BuildBoard>().GetBoardSize();
+		// gameObject.GetComponent<BuildBoard>().GetBoardSize();
 
 		// TODO: Do we need this? - Ty @bubzy-coding
 		//	GameObject.FindGameObjectWithTag("shapeManager").GetComponent<ShapeManager>().gameObject.SetActive(true); //heckShapesAgainstObstacles();
@@ -578,7 +579,7 @@ public class PathManager : MonoBehaviour {
 
 		// Executes the entire path stack
 		ConstructPathStack();
-		GlobalStaticVariables.Instance.pathGenerationComplete = true;
+		// GlobalStaticVariables.Instance.pathGenerationComplete = true;
 
 		// Collects all the flags in the scene and parents them
 		if (GlobalStaticVariables.Instance.collectFlags) {
