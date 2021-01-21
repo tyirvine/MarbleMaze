@@ -9,8 +9,8 @@ public class PathManager : MonoBehaviour {
 
 	// These are half lengths so they can be used as a product of a (1/2) division
 	[Header("Grid Settings")]
-	[Range(2, 100)] public int gridXSizeHalfLength = 10;
-	[Range(2, 100)] public int gridZSizeHalfLength = 10;
+	[Range(7, 100)] public int gridXSizeHalfLength = 10;
+	[Range(7, 100)] public int gridZSizeHalfLength = 10;
 
 	// Scaling for the placement of objects on the grid
 	Vector3 gridScale;
@@ -177,6 +177,41 @@ public class PathManager : MonoBehaviour {
 					FindNodePosition(1, 1, position),
 					FindNodePosition(-1, -1, position),
 					FindNodePosition(1, -1, position),
+				   };
+			// All - two levels
+			case 5:
+				return new Vector3Int[] {
+					FindNodePosition(-1, 0, position),
+					FindNodePosition(0, 1, position),
+					FindNodePosition(1, 0, position),
+					FindNodePosition(0, -1, position),
+
+					FindNodePosition(-1, 1, position),
+					FindNodePosition(1, 1, position),
+					FindNodePosition(-1, -1, position),
+					FindNodePosition(1, -1, position),
+
+					// 2nd level
+					FindNodePosition(-2, 0, position),
+					FindNodePosition(2, 0, position),
+					FindNodePosition(0, 2, position),
+					FindNodePosition(0, -2, position),
+
+					// Inbetweeners
+					FindNodePosition(1, 2, position),
+					FindNodePosition(1, -2, position),
+					FindNodePosition(-1, 2, position),
+					FindNodePosition(-1, -2, position),
+
+					FindNodePosition(2, 1, position),
+					FindNodePosition(2, -1, position),
+					FindNodePosition(-2, 1, position),
+					FindNodePosition(-2, -1, position),
+
+					FindNodePosition(-2, 2, position),
+					FindNodePosition(2, 2, position),
+					FindNodePosition(-2, -2, position),
+					FindNodePosition(2, -2, position),
 				   };
 		}
 		return null;
@@ -401,9 +436,20 @@ public class PathManager : MonoBehaviour {
 		/// <summary>Finds all the clearance nodes for the provided position. Top, top right, and right side.</summary>
 		Vector3Int[] FindClearanceNodes(Vector3Int position) {
 			return new Vector3Int[] {
+				// First level
 				FindNodePosition(0, 1, position),
 				FindNodePosition(1, 1, position),
-				FindNodePosition(1, 0, position)
+				FindNodePosition(1, 0, position),
+
+				// // Second level
+				// FindNodePosition(0, 2, position),
+				// FindNodePosition(2, 2, position),
+				// FindNodePosition(2, 0, position),
+
+				// // Inbetweeners
+				// FindNodePosition(1, 2, position),
+				// FindNodePosition(2, 1, position)
+
 			};
 		}
 
@@ -421,7 +467,7 @@ public class PathManager : MonoBehaviour {
 			pathNodes.Add(new NodeObject(gridPoints.startPointNode));
 			pathNodes.Add(new NodeObject(gridPoints.endPointNode));
 
-			// Setup an extra list so the for loop doesn't grow ↴
+			// // Setup an extra list so the for loop doesn't grow ↴
 			NodeObject[] pathNodesClearance = pathNodes.ToArray();
 			// Add in clearance nodes to path nodes
 			foreach (NodeObject node in pathNodesClearance) {
@@ -437,21 +483,22 @@ public class PathManager : MonoBehaviour {
 			foreach (NodeObject node in pathNodes) {
 				Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
 			}
+
+			// foreach (NodeObject node in clearanceNodes) {
+			// 	Instantiate(startFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
+			// }
+
+			// foreach (NodeObject node in closedNodes) {
+			// 	Instantiate(endFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
+			// }
+
 		}
 
 		/// <summary>This checks to see if the point collides with any non-pathable positions.</summary>
 		bool IsPathable(NodeObject node) {
 			// Grab clearance neighbours to provided position
-			Vector3Int[] positionClearanceNeighbours = FindClearanceNodes(node.position);
+			Vector3Int[] positionClearanceNeighbours = FindNodeNeighbours(node.position, 1);
 			bool isPathable = false;
-
-			// Grab corner positions
-			CornerNode[] pathNodeCorners = new CornerNode[] {
-				new CornerNode(FindNodePosition(-1, -1, node.position), Corner.BottomLeft),
-				new CornerNode(FindNodePosition(-1, 1, positionClearanceNeighbours[0]), Corner.TopLeft),
-				new CornerNode(FindNodePosition(1, 1, positionClearanceNeighbours[1]), Corner.TopRight),
-				new CornerNode(FindNodePosition(1, -1, positionClearanceNeighbours[2]), Corner.BottomRight)
-			};
 
 			// Start by making sure the point is within the grid bounds
 			foreach (Vector3Int position in positionClearanceNeighbours)
@@ -460,49 +507,73 @@ public class PathManager : MonoBehaviour {
 				else
 					return false;
 
-			// Checks a corner node's neighbours
-			bool ContainsAdjacentNodes(Corner corner, Vector3Int position) {
-				Vector3Int adjacentOne = Vector3Int.zero;
-				Vector3Int adjacentTwo = Vector3Int.zero;
+			// Check to see if there is enough clearance to make a turn
+			// Vector3Int[] diagonals = FindNodeNeighbours(node.position, 0);
+			// If there's a diagonal hit on two corners it's not pathable
+			// if (clearanceNodes.Any(nodes => nodes.position == diagonals[0]) && clearanceNodes.Any(nodes => nodes.position == diagonals[1]))
+			// 	return false;
+			// else if (clearanceNodes.Any(nodes => nodes.position == diagonals[2]) && clearanceNodes.Any(nodes => nodes.position == diagonals[3]))
+			// 	return false;
+			// int diagonalCount = 0;
+			// foreach (Vector3Int diagonal in diagonals) {
+			// 	Debug.Log(diagonalCount);
+			// 	if (diagonalCount >= 2)
+			// 		return false;
+			// 	if (clearanceNodes.Any(nodes => nodes.position == diagonal))
+			// 		diagonalCount++;
+			// }
 
-				// Finds adjacent corner positions depending on corner
-				switch (corner) {
-					case Corner.TopLeft:
-						adjacentOne = FindNodePosition(0, -1, position);
-						adjacentTwo = FindNodePosition(1, 0, position);
-						break;
-					case Corner.TopRight:
-						adjacentOne = FindNodePosition(-1, 0, position);
-						adjacentTwo = FindNodePosition(0, -1, position);
-						break;
-					case Corner.BottomLeft:
-						adjacentOne = FindNodePosition(0, 1, position);
-						adjacentTwo = FindNodePosition(1, 0, position);
-						break;
-					case Corner.BottomRight:
-						adjacentOne = FindNodePosition(-1, 0, position);
-						adjacentTwo = FindNodePosition(0, 1, position);
-						break;
-				}
+			// Grab corner positions
+			// CornerNode[] pathNodeCorners = new CornerNode[] {
+			// 	new CornerNode(FindNodePosition(-1, -1, node.position), Corner.BottomLeft),
+			// 	new CornerNode(FindNodePosition(-1, 1, positionClearanceNeighbours[0]), Corner.TopLeft),
+			// 	new CornerNode(FindNodePosition(1, 1, positionClearanceNeighbours[1]), Corner.TopRight),
+			// 	new CornerNode(FindNodePosition(1, -1, positionClearanceNeighbours[2]), Corner.BottomRight)
+			// };
 
-				// Checks to see if closed nodes contains either of the adjacent nodes
-				if (closedNodes.Any(nodes => nodes.position == adjacentOne) || closedNodes.Any(nodes => nodes.position == adjacentTwo))
-					return true;
-				// Otherwise that means we found a diagonal so...
-				else
-					return false;
-			}
+			// // Checks a corner node's neighbours
+			// bool ContainsAdjacentNodes(Corner corner, Vector3Int position) {
+			// 	Vector3Int adjacentOne = Vector3Int.zero;
+			// 	Vector3Int adjacentTwo = Vector3Int.zero;
 
-			// Then check each corner to make sure it's not a diagonal pinch
-			foreach (CornerNode cornerNode in pathNodeCorners)
-				if (closedNodes.Any(nodes => nodes.position == cornerNode.position)) {
-					// If it does contain a node on the corner, then it checks for adjacents
-					if (!ContainsAdjacentNodes(cornerNode.corner, cornerNode.position))
-						return false;
-					else
-						isPathable = true;
-				} else
-					isPathable = true;
+			// 	// Finds adjacent corner positions depending on corner
+			// 	switch (corner) {
+			// 		case Corner.TopLeft:
+			// 			adjacentOne = FindNodePosition(0, -1, position);
+			// 			adjacentTwo = FindNodePosition(1, 0, position);
+			// 			break;
+			// 		case Corner.TopRight:
+			// 			adjacentOne = FindNodePosition(-1, 0, position);
+			// 			adjacentTwo = FindNodePosition(0, -1, position);
+			// 			break;
+			// 		case Corner.BottomLeft:
+			// 			adjacentOne = FindNodePosition(0, 1, position);
+			// 			adjacentTwo = FindNodePosition(1, 0, position);
+			// 			break;
+			// 		case Corner.BottomRight:
+			// 			adjacentOne = FindNodePosition(-1, 0, position);
+			// 			adjacentTwo = FindNodePosition(0, 1, position);
+			// 			break;
+			// 	}
+
+			// 	// Checks to see if closed nodes contains either of the adjacent nodes
+			// 	if (closedNodes.Any(nodes => nodes.position == adjacentOne) || closedNodes.Any(nodes => nodes.position == adjacentTwo))
+			// 		return true;
+			// 	// Otherwise that means we found a diagonal so...
+			// 	else
+			// 		return false;
+			// }
+
+			// // Then check each corner to make sure it's not a diagonal pinch
+			// foreach (CornerNode cornerNode in pathNodeCorners)
+			// 	if (closedNodes.Any(nodes => nodes.position == cornerNode.position)) {
+			// 		// If it does contain a node on the corner, then it checks for adjacents
+			// 		if (!ContainsAdjacentNodes(cornerNode.corner, cornerNode.position))
+			// 			return false;
+			// 		else
+			// 			isPathable = true;
+			// 	} else
+			// 		isPathable = true;
 
 			return isPathable;
 		}
@@ -513,13 +584,22 @@ public class PathManager : MonoBehaviour {
 			int dstZ = Mathf.Abs(nodeA.position.z - nodeB.position.z);
 			if (!isPathWacky) {
 				// Bubzy do you know what's happening here?
-				if (dstX > dstZ) return 14 * dstZ + 10 * (dstX - dstZ);
-				return 14 * dstX + 10 * (dstZ - dstX);
+				if (dstX > dstZ)
+					return 14 * dstZ + 10 * (dstX - dstZ);
+				else
+					return 14 * dstX + 10 * (dstZ - dstX);
+				// if (dstX > dstZ)
+				// 	return 14 * dstZ + 10 * (dstX - dstZ);
+				// else
+				// 	return 14 * dstX + 10 * (dstZ - dstX);
 			}
 			// and here?
 			if (dstX > dstZ) return Random.Range(1, wackiness) * dstZ + 10 * (dstX - dstZ);
 			return Random.Range(1, wackiness) * dstX + 10 * (dstZ - dstX);
 		}
+
+		// Adds a new set of clearance nodes
+		int clearanceCounter = 0;
 
 		// Loop Emergency Break
 		int loopEmergencyBrake = 0;
@@ -527,16 +607,12 @@ public class PathManager : MonoBehaviour {
 
 		// This loops until a path is generated from the start node to the end node
 		while (loopEmergencyBrake < loopEmergencyBrakeCap) {
+
 			// Find node with the lowest f_cost, remove it from the open nodes and add it to the closed nodes
 			int highestFCost = openNodes.Max(nodes => nodes.fCost);
 			currentNode = openNodes.First(nodes => nodes.fCost == highestFCost);
 			openNodes.Remove(currentNode);
 			closedNodes.Add(currentNode);
-
-			// Add clearance neighbours as well
-			Vector3Int[] clearanceNeighbours = FindClearanceNodes(currentNode.position);
-			foreach (Vector3Int position in clearanceNeighbours)
-				closedNodes.Add(new NodeObject(position, 0, 0, 0, false));
 
 			// Check to see if the current node position is equal to the end or target node's position
 			if (currentNode.position == gridPoints.endPointNode) {
@@ -554,10 +630,10 @@ public class PathManager : MonoBehaviour {
 			///				(-z)
 			// Assign all neighbour node positions
 			NodeObject[] neighbourNodes = new NodeObject[] {
-			new NodeObject(FindNodePosition(-2, 0, currentNode: currentNode), 0, 0, 0,false),
-			new NodeObject(FindNodePosition(0, 2, currentNode: currentNode), 0, 0, 0,false),
-			new NodeObject(FindNodePosition(2, 0, currentNode: currentNode), 0, 0, 0,false),
-			new NodeObject(FindNodePosition(0, -2, currentNode: currentNode), 0, 0, 0,false)
+			new NodeObject(FindNodePosition(-1, 0, currentNode: currentNode), 0, 0, 0,false),
+			new NodeObject(FindNodePosition(0, 1, currentNode: currentNode), 0, 0, 0,false),
+			new NodeObject(FindNodePosition(1, 0, currentNode: currentNode), 0, 0, 0,false),
+			new NodeObject(FindNodePosition(0, -1, currentNode: currentNode), 0, 0, 0,false)
 			};
 
 			// Loop through all neighbours
@@ -574,13 +650,24 @@ public class PathManager : MonoBehaviour {
 					node.hCost = GetDistance(node, new NodeObject(gridPoints.endPointNode, 0, 0, 0, false));
 					node.parent = currentNode;
 
-					//@bubzy added here to try and work out which nodes are walkable and not in a full grid of obstacles
-					node.walkable = true;
+					// Add clearance neighbours as well
+					if (clearanceCounter >= 2) {
+						if (currentNode.parent != null && currentNode.parent.parent != null && currentNode.parent.parent.parent != null) {
+							Vector3Int[] clearanceNeighbours = FindNodeNeighbours(currentNode.parent.parent.parent.position, 5);
+							foreach (Vector3Int position in clearanceNeighbours)
+								closedNodes.Add(new NodeObject(position));
+
+							clearanceCounter = 0;
+						} else
+							clearanceCounter = 0;
+					}
+					clearanceCounter++;
 
 					// If the node is not found in the open nodes list then add it
 					if (!openNodes.Any(nodes => nodes.position == node.position)) {
 
 						openNodes.Add(node);
+
 					}
 				}
 			}
@@ -601,12 +688,20 @@ public class PathManager : MonoBehaviour {
 	void ConstructPathStack() {
 		// A bool switch to see if an error was caught on the try carch
 		bool errorCaught = false;
+		int emergencyBrake = 0;
 
 	// Restart from here
 	RestartLoop:;
 		// Initialize
 		Initialize();
 		GameObject[] flags;
+
+		// Stop game if emergency brake is engaged
+		emergencyBrake++;
+		if (emergencyBrake > 100) {
+			UnityEditor.EditorApplication.isPlaying = false;
+			Application.Quit();
+		}
 
 		// Destroy all flags first
 		flags = GameObject.FindGameObjectsWithTag("Flag");
@@ -624,15 +719,19 @@ public class PathManager : MonoBehaviour {
 			// Generates the entire path
 			GeneratePath();
 			obstacleManager.ObstaclePicker();
-		} catch {
+		} catch (Exception e) {
+			Debug.LogException(e, this);
 			Debug.LogWarning("Error caught - Loop Reset");
 			errorCaught = true;
+			// TODO: Reinstate
 			goto RestartLoop;
 		}
 		// A valid path has been generated!
 		if (errorCaught) Debug.Log("Error resolved - Loop Completed!");
-		gameObject.GetComponent<ShapeManager>().CheckShapes();
-		gameObject.GetComponent<BuildBoard>().GetBoardSize();
+
+		// TODO: Repair
+		//gameObject.GetComponent<ShapeManager>().CheckShapes();
+		//gameObject.GetComponent<BuildBoard>().GetBoardSize();
 		// TODO: Do we need this? - Ty @bubzy-coding
 		//	GameObject.FindGameObjectWithTag("shapeManager").GetComponent<ShapeManager>().gameObject.SetActive(true); //heckShapesAgainstObstacles();
 		//Instantiate(shapeManager, transform.position, Quaternion.identity);
@@ -682,6 +781,6 @@ public class PathManager : MonoBehaviour {
 	}
 
 	public void OnDebug() {
-		//   constructPath = true;
+		constructPath = true;
 	}
 }
