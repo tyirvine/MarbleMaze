@@ -108,6 +108,10 @@ public class ShapeManager : MonoBehaviour {
 
 							if (count == currentShape.unitCount) //have we got enough positive hits to build this object? if so, make the model and add the points to the placedPositions list so they are unavailable
 							{
+								// TODO: Potentially remove - Testing to see if this adds the shape's current rotation properly
+								tempRule.transform.rotation *= currentShape.model.transform.rotation;
+								tempRule.transform.position += currentShape.model.transform.position;
+								// Spawns shape
 								Instantiate(currentShape.model, tempRule.transform.position, tempRule.transform.rotation);
 								foreach (ShapePoints placePos in shapePoints) {
 									if (placePos.mode == 1) {

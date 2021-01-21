@@ -10,7 +10,8 @@ public class ObstacleManager : MonoBehaviour {
 		None,
 		ClassicObstacles,
 		BuildGrid,
-		BuildWall
+		BuildWall,
+		BuildWallWithoutCorners
 	}
 	public GameObject wallCube;
 	public GameObject floorCube;
@@ -106,8 +107,8 @@ public class ObstacleManager : MonoBehaviour {
 		}
 	}
 
-	/// <summary>This builds a wall of obstacle nodes around the path.</summary>
-	public void BuildWall() {
+	/// <summary>This builds a wall of obstacle nodes around the path without any corners. So the walls are seperated.</summary>
+	public void BuildWallWithoutCorners() {
 		// Contains start and end node positions
 		PathManager.GridPoints gridPoints = pathManager.gridPoints;
 
@@ -141,6 +142,29 @@ public class ObstacleManager : MonoBehaviour {
 		}
 	}
 
+	/// <summary>This builds a wall of obstacle nodes around the path.</summary>
+	public void BuildWall() {
+		// Contains start and end node positions
+		PathManager.GridPoints gridPoints = pathManager.gridPoints;
+
+		// Check through positions -1,0 1,0 0,1 0,-1 to see if there is anything present. If not, make a new node in that position and make it unwalkable
+		foreach (NodeObject pathNode in pathManager.pathNodes) {
+
+			// Check if a node is on the main path. If it isn't make it an obstacle node
+			Vector3Int[] checkNeighboursInitial = pathManager.FindNodeNeighbours(pathNode.position, 1);
+			foreach (Vector3Int position in checkNeighboursInitial) {
+				if (pathManager.pathNodes.All(node => node.position != position)) {
+					obstacleNodes.Add(new NodeObject(position));
+				}
+			}
+		}
+
+		// Spawn obstacle flags
+		foreach (NodeObject obstacle in obstacleNodes) {
+			SpawnObstacleFlag(obstacle.position);
+		}
+	}
+
 	#endregion
 
 	/// <summary>Picks which obstacle type to spawn.</summary>
@@ -153,6 +177,9 @@ public class ObstacleManager : MonoBehaviour {
 				break;
 			case SpawnObstacles.BuildGrid:
 				BuildFullGrid();
+				break;
+			case SpawnObstacles.BuildWallWithoutCorners:
+				BuildWallWithoutCorners();
 				break;
 			case SpawnObstacles.BuildWall:
 				BuildWall();
