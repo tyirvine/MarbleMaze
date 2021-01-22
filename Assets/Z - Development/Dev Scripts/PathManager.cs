@@ -552,7 +552,7 @@ public class PathManager : MonoBehaviour {
 		try {
 			// Generates the entire path
 			GeneratePath();
-			obstacleManager.ObstaclePicker();
+		if(buildObstacles)	obstacleManager.ObstaclePicker();
 		} catch (Exception e) {
 			Debug.LogException(e, this);
 			Debug.LogWarning("Error caught - Loop Reset");
@@ -564,8 +564,8 @@ public class PathManager : MonoBehaviour {
 
 		// Build walls
 		// TODO: This is causing errors
-		gameObject.GetComponent<ShapeManager>().CheckShapes();
-		// gameObject.GetComponent<BuildBoard>().GetBoardSize();
+		if(buildShapes)gameObject.GetComponent<ShapeManager>().CheckShapes();
+		if(buildBoard) gameObject.GetComponent<BuildBoard>().GetBoardSize();
 
 		// TODO: Do we need this? - Ty @bubzy-coding
 		//	GameObject.FindGameObjectWithTag("shapeManager").GetComponent<ShapeManager>().gameObject.SetActive(true); //heckShapesAgainstObstacles();

@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEngine.InputSystem;
 public class BuildBoard : MonoBehaviour
 {
+    List<NodeObject> wallNodes = new List<NodeObject>();
     List<NodeObject> pathNodes = new List<NodeObject>();
     Vector2Int topLeft = new Vector2Int();
     Vector2Int size = new Vector2Int();
@@ -27,18 +28,20 @@ public class BuildBoard : MonoBehaviour
 
     public void GetBoardSize()
     {
-        pathNodes.AddRange(gameObject.GetComponent<ObstacleManager>().obstacleNodes);
-        
-        int topLeftX = 0, topLeftY = 0, lowRightX = 0, lowRightY = 0;
-        
-        foreach (NodeObject n in pathNodes)
-        {
-         if (n.position.x < topLeftX)            {                topLeftX = n.position.x;            }
-         else if (n.position.x > lowRightX)      {                lowRightX = n.position.x;           }
 
-         if(n.position.z > topLeftY)             {                topLeftY = n.position.z;            }
-         else if(n.position.z < lowRightY)       {                lowRightY = n.position.z;           }
-            
+        wallNodes.AddRange(gameObject.GetComponent<ObstacleManager>().obstacleNodes);
+        pathNodes.AddRange(gameObject.GetComponent<PathManager>().pathNodes);
+
+        int topLeftX = 0, topLeftY = 0, lowRightX = 0, lowRightY = 0;
+
+        foreach (NodeObject n in wallNodes)
+        {
+            if (n.position.x < topLeftX) { topLeftX = n.position.x; }
+            else if (n.position.x > lowRightX) { lowRightX = n.position.x; }
+
+            if (n.position.z > topLeftY) { topLeftY = n.position.z; }
+            else if (n.position.z < lowRightY) { lowRightY = n.position.z; }
+
         }
 
         int xSize = Mathf.Abs(topLeftX) + lowRightX;
@@ -47,19 +50,35 @@ public class BuildBoard : MonoBehaviour
         topLeft = new Vector2Int(topLeftX, topLeftY);
 
         ///debug to make sure we got the board size right.
-        Instantiate(flag, new Vector3(topLeftX, 1, topLeftY), Quaternion.identity);
-        Instantiate(flag, new Vector3(lowRightX, 1, lowRightY), Quaternion.identity);
-        Debug.Log(topLeftY + " " + lowRightY);
-        Debug.Log("Size X : " + xSize + " y: " + ySize);
+        // Instantiate(flag, new Vector3(topLeftX, 1, topLeftY), Quaternion.identity);
+        // Instantiate(flag, new Vector3(lowRightX, 1, lowRightY), Quaternion.identity);
+        // Debug.Log(topLeftY + " " + lowRightY);
+        // Debug.Log("Size X : " + xSize + " y: " + ySize);
 
         ///
-        //BuildWall();
+        //   BuildWall();
         //FillSpaces();
+        FillGround();
         GroupObjects("floorTile");
         MakeSingleMesh();
         PlaceMarble();
         GroupObjects("wallTile");
     }
+
+    void FillGround()
+    {
+        Debug.Log(pathNodes.Count + "PATHNODES COUNT");
+        foreach (NodeObject n in pathNodes)
+        {
+            Instantiate(pathCube, n.position - new Vector3(0, pathCube.transform.localScale.y, 0), pathCube.transform.rotation);
+        }
+        foreach (NodeObject n in wallNodes)
+        {
+            // Instantiate(wallCube, n.position - new Vector3Int(0, 1, 0), pathCube.transform.rotation);
+        }
+
+    }
+
 
     void PlaceMarble()
     {
@@ -70,36 +89,36 @@ public class BuildBoard : MonoBehaviour
     void GroupObjects(string tag)
     {
         GameObject[] placeholdExposedReference = GameObject.FindGameObjectsWithTag(tag);
-        
+
         boardObjects.name = tag + "s Group";
         boardObjects.tag = "boardObjects"
-;        foreach(GameObject go in placeholdExposedReference)
+; foreach (GameObject go in placeholdExposedReference)
         {
             go.transform.parent = boardObjects.transform;
         }
     }
     void BuildWall()
     {
-        for (int x = topLeft.x-1; x <= topLeft.x + size.x+1; x++)
+        for (int x = topLeft.x - 1; x <= topLeft.x + size.x + 1; x++)
         {
-            for (int y = topLeft.y - size.y-1; y <= topLeft.y+1; y++)
+            for (int y = topLeft.y - size.y - 1; y <= topLeft.y + 1; y++)
             {
-                if( x== topLeft.x-1 && y== topLeft.y+1)
+                if (x == topLeft.x - 1 && y == topLeft.y + 1)
                 {
                     Instantiate(cornerCube, new Vector3(x, 0, y), Quaternion.Euler(0, -90, 0));
                     continue;
                 }
-                if(x==topLeft.x+size.x+1&&y==topLeft.y+1)
+                if (x == topLeft.x + size.x + 1 && y == topLeft.y + 1)
                 {
                     Instantiate(cornerCube, new Vector3(x, 0, y), Quaternion.Euler(0, 0, 0));
                     continue;
                 }
-                if(x==topLeft.x-1 && y==topLeft.y-size.y-1)
+                if (x == topLeft.x - 1 && y == topLeft.y - size.y - 1)
                 {
                     Instantiate(cornerCube, new Vector3(x, 0, y), Quaternion.Euler(0, 180, 0));
                     continue;
                 }
-                if(x==topLeft.x+size.x+1 && y == topLeft.y - size.y - 1)
+                if (x == topLeft.x + size.x + 1 && y == topLeft.y - size.y - 1)
                 {
                     Instantiate(cornerCube, new Vector3(x, 0, y), Quaternion.Euler(0, 90, 0));
                     continue;
@@ -112,11 +131,11 @@ public class BuildBoard : MonoBehaviour
                 {
                     Instantiate(wallCube, new Vector3(x, 0, y), Quaternion.identity);
                 }
-                if(y==topLeft.y-size.y - 1 || y == topLeft.y+1)
+                if (y == topLeft.y - size.y - 1 || y == topLeft.y + 1)
                 {
                     Instantiate(wallCube, new Vector3(x, 0, y), Quaternion.identity);
                 }
-             
+
             }
         }
     }
@@ -128,24 +147,24 @@ public class BuildBoard : MonoBehaviour
     void FillSpaces()
     {
         List<NodeObject> fullGrid = new List<NodeObject>();
-        for(int x = topLeft.x ; x <= topLeft.x + size.x; x++)
+        for (int x = topLeft.x; x <= topLeft.x + size.x; x++)
         {
-            for(int y = topLeft.y-size.y; y<=topLeft.y;y++)
+            for (int y = topLeft.y - size.y; y <= topLeft.y; y++)
             {
                 fullGrid.Add(new NodeObject(new Vector3Int(x, 0, y), 0, 0, 0, false));
             }
         }
-        Debug.Log(fullGrid.Count);
+        //Debug.Log(fullGrid.Count);
         List<NodeObject> tempGrid = new List<NodeObject>();
         List<NodeObject> pathGrid = new List<NodeObject>();
         tempGrid.AddRange(fullGrid);
-        foreach (NodeObject n in fullGrid)
+        foreach (NodeObject n in tempGrid)
         {
-            Instantiate(floorCube, new Vector3(n.position.x, -1f, n.position.z), Quaternion.identity);
+            //      Instantiate(floorCube, new Vector3(n.position.x, -1f, n.position.z), Quaternion.identity);
         }
         foreach (NodeObject n in fullGrid)
         {
-            if(pathNodes.Any(node =>node.position == n.position))
+            if (wallNodes.Any(node => node.position == (n.position)))
             {
                 tempGrid.Remove(n);
                 pathGrid.Add(n);
@@ -156,12 +175,12 @@ public class BuildBoard : MonoBehaviour
         fullGrid.Clear();
         fullGrid.AddRange(tempGrid);
 
-       
-      //  foreach(NodeObject n in pathGrid)
-        //{
-          //  Instantiate(pathCube, new Vector3(n.position.x, -1f, n.position.z), Quaternion.identity);
-        //}
-        
+
+        foreach (NodeObject n in pathGrid)
+        {
+            Instantiate(pathCube, new Vector3(n.position.x, -1f, n.position.z), Quaternion.identity);
+        }
+
 
     }
 
@@ -173,7 +192,7 @@ public class BuildBoard : MonoBehaviour
         {
             MeshFilter[] meshfilters = boardObjects.GetComponentsInChildren<MeshFilter>();
             CombineInstance[] combine = new CombineInstance[meshfilters.Length];
-            boardObjects.AddComponent<MeshCollider>().convex = true ;
+            boardObjects.AddComponent<MeshCollider>().convex = true;
             int i = 0;
             while (i < meshfilters.Length)
             {
@@ -186,17 +205,17 @@ public class BuildBoard : MonoBehaviour
             boardObjects.transform.GetComponent<MeshFilter>().mesh.CombineMeshes(combine);
             boardObjects.transform.gameObject.SetActive(true);
             boardObjects.transform.GetComponent<MeshCollider>().sharedMesh = boardObjects.transform.GetComponent<MeshFilter>().mesh;
-           // transform.GetComponent<MeshCollider>().material = slippyMaterial;
+            // transform.GetComponent<MeshCollider>().material = slippyMaterial;
         }
         boardObjects.AddComponent<Rigidbody>();
         Rigidbody boardBody = boardObjects.GetComponent<Rigidbody>();
         boardBody.useGravity = false;
         boardBody.isKinematic = true;
     }
-    
-  
 
-   
+
+
+
 
     void OnTestKey()
     {
@@ -204,11 +223,11 @@ public class BuildBoard : MonoBehaviour
     }
     private void FixedUpdate()
     {
-       
-    
+
+
     }
     // Update is called once per frame
 
 
-    
+
 }
