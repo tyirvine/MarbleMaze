@@ -151,8 +151,9 @@ public class ObstacleManager : MonoBehaviour {
 		foreach (NodeObject pathNode in pathManager.pathNodes) {
 
 			// Check if a node is on the main path. If it isn't make it an obstacle node
-			Vector3Int[] checkNeighboursInitial = pathManager.FindNodeNeighbours(pathNode.position, 1);
+			Vector3Int[] checkNeighboursInitial = pathManager.FindNodeNeighbours(pathNode.position, 0);
 			foreach (Vector3Int position in checkNeighboursInitial) {
+				// Also check grid position now
 				if (pathManager.pathNodes.All(node => node.position != position)) {
 					obstacleNodes.Add(new NodeObject(position));
 				}

@@ -30,6 +30,10 @@ public class PathManager : MonoBehaviour {
 	public bool isPathWacky = false;
 	[Range(1, 40)] public int wackiness;
 
+	// Flag controls
+	[Header("Flag Control")]
+	public bool disablePathFlags = false;
+
 	// Empties that acts as markers
 	[Header("Object References")]
 	public GameObject pathFlag;
@@ -396,9 +400,10 @@ public class PathManager : MonoBehaviour {
 			pathNodes.Reverse();
 
 			// Instantiate desired object
-			foreach (NodeObject node in pathNodes) {
-				Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
-			}
+			if (!disablePathFlags)
+				foreach (NodeObject node in pathNodes) {
+					Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
+				}
 		}
 
 		/// <summary>This checks to see if the point collides with any non-pathable positions.</summary>
