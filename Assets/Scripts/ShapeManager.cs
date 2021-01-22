@@ -26,9 +26,6 @@ public class ShapePoints {
 }
 
 public class ShapeManager : MonoBehaviour {
-	[Header("Disable Shape Manager")]
-	public bool disable = false;
-	[Space]
 
 	// Shapes
 	public ShapeTemplate[] shapes;
@@ -100,7 +97,7 @@ public class ShapeManager : MonoBehaviour {
 								int currentChildCheck = 0;
 								int childCount = tempRule.transform.childCount;
 								int failPoint = childCount - currentShape.unitCount;
-								Debug.Log("failpoint : " + failPoint + " Child Count : " + childCount + " unitCount : " + currentShape.unitCount);
+								//Debug.Log("failpoint : " + failPoint + " Child Count : " + childCount + " unitCount : " + currentShape.unitCount);
 								foreach (ShapePoints checkPosition in shapePoints)
 								{
 									currentChildCheck++;

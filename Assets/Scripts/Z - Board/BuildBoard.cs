@@ -68,9 +68,19 @@ public class BuildBoard : MonoBehaviour
     void FillGround()
     {
         Debug.Log(pathNodes.Count + "PATHNODES COUNT");
+        int count = 0;
+        int maxBeforeFloor = 5;
+        pathNodes.Reverse();
         foreach (NodeObject n in pathNodes)
         {
-            Instantiate(pathCube, n.position - new Vector3(0, pathCube.transform.localScale.y, 0), pathCube.transform.rotation);
+            if (count <= maxBeforeFloor)
+            {
+                Instantiate(pathCube, n.position - new Vector3(0, pathCube.transform.localScale.y, 0), pathCube.transform.rotation);
+            }
+            
+            if(count >= maxBeforeFloor+1*2)
+            { count = 0; }
+            count++;
         }
         foreach (NodeObject n in wallNodes)
         {
