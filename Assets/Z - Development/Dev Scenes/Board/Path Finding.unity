@@ -227,6 +227,7 @@ GameObject:
   - component: {fileID: 982076544}
   - component: {fileID: 982076546}
   - component: {fileID: 982076545}
+  - component: {fileID: 982076547}
   m_Layer: 0
   m_Name: PathManager
   m_TagString: PathManager
@@ -267,6 +268,10 @@ MonoBehaviour:
   desiredPathLengthPercentage: 1
   isPathWacky: 1
   wackiness: 1
+  disablePathFlags: 1
+  buildBoard: 1
+  buildShapes: 1
+  buildObstacles: 1
   pathFlag: {fileID: 6344987324550275196, guid: 682118e13740245f7914fc3b0b6627d8,
     type: 3}
   startFlag: {fileID: 4014911049134122452, guid: 9d670d60e092d47a099802f4d445f0c9,
@@ -379,7 +384,7 @@ MonoBehaviour:
     m_ActionId: 679a8de5-c88e-43cd-a45b-3d21b232065b
     m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 1
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -395,7 +400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 955eb84a1d918e944a478aefab69e4e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disable: 1
   shapes:
   - rule: {fileID: 2341339139694139497, guid: 097611774ba41aa49a66995354cede90, type: 3}
     model: {fileID: 8635483451534611262, guid: c6cbbf5c7209c3943842a60e4635fa89, type: 3}
@@ -473,6 +477,22 @@ MonoBehaviour:
     type: 3}
   boardObjects: {fileID: 0}
   Marble: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18, type: 3}
+--- !u!114 &982076547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982076540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce9df54b50368f4ba6d622b8b6bd3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardObjects: {fileID: 0}
+  boardClamp: 20
+  boardMovementDampening: 0.1
+  moveSpeed: 25
 --- !u!1 &1648830592
 GameObject:
   m_ObjectHideFlags: 0
