@@ -53,8 +53,8 @@ public class BuildBoard : MonoBehaviour
         Debug.Log("Size X : " + xSize + " y: " + ySize);
 
         ///
-        BuildWall();
-        FillSpaces();
+        //BuildWall();
+        //FillSpaces();
         GroupObjects("floorTile");
         MakeSingleMesh();
         PlaceMarble();

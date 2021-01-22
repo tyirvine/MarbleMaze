@@ -43,8 +43,7 @@ public class ShapeManager : MonoBehaviour {
 	public void CheckShapes() {
 
 		// This simply disables the method from firing
-		if (!disable) {
-
+		
 			List<NodeObject> pathNodes = new List<NodeObject>();
 			pathNodes.AddRange(gameObject.GetComponent<ObstacleManager>().obstacleNodes);
 			List<Vector3Int> placedPositions = new List<Vector3Int>();
@@ -98,20 +97,34 @@ public class ShapeManager : MonoBehaviour {
 								}
 
 								int count = 0;
-								foreach (ShapePoints checkPosition in shapePoints) {
-									if (checkPosition.mode == 5 && nodePositions.Contains(checkPosition.position)) {
+								int currentChildCheck = 0;
+								int childCount = tempRule.transform.childCount;
+								int failPoint = childCount - currentShape.unitCount;
+								Debug.Log("failpoint : " + failPoint + " Child Count : " + childCount + " unitCount : " + currentShape.unitCount);
+								foreach (ShapePoints checkPosition in shapePoints)
+								{
+									currentChildCheck++;
+
+									if (checkPosition.mode == 5 && nodePositions.Contains(checkPosition.position))
+									{
 										count++;
-									} else if (checkPosition.mode == 4 && walkNodes.Contains(checkPosition.position)) {
+									}
+									else if (checkPosition.mode == 4 && walkNodes.Contains(checkPosition.position))
+									{
 										count = -200; //silly value, probably a better way to ensure failure
 										break;
-									} else if (checkPosition.mode == 3 && nodePositions.Contains(checkPosition.position)) {
+									}
+									else if (checkPosition.mode == 3 && nodePositions.Contains(checkPosition.position))
+									{
 										count = -200; //silly value, probably a better way to ensure failure
 										break;
-									} else if (checkPosition.mode == 1 || checkPosition.mode == 2) {
+									}
+									else if (checkPosition.mode == 1 || checkPosition.mode == 2)
+									{
 										if (nodePositions.Contains(checkPosition.position) && !placedPositions.Contains(checkPosition.position))
 											count++;
 									}
-
+									if (currentChildCheck > failPoint + 1 && count <= 1) { Debug.Log("failed at " + currentChildCheck + " and count : " + count); break; }
 								}
 
 								if (count == currentShape.unitCount) //have we got enough positive hits to build this object? if so, make the model and add the points to the placedPositions list so they are unavailable
@@ -133,6 +146,6 @@ public class ShapeManager : MonoBehaviour {
 					}//if currentshape include in build
 				}
 			}
-		}
+		
 	}
 }

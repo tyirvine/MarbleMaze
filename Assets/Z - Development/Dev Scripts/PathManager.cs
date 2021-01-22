@@ -33,6 +33,11 @@ public class PathManager : MonoBehaviour {
 	// Flag controls
 	[Header("Flag Control")]
 	public bool disablePathFlags = false;
+	// Build Controls
+	[Header("Build Controls")]
+	public bool buildBoard = false;
+	public bool buildShapes = false;
+	public bool buildObstacles = false;
 
 	// Empties that acts as markers
 	[Header("Object References")]
