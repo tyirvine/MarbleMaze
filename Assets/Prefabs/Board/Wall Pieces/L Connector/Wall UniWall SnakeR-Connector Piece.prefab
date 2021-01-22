@@ -10,13 +10,13 @@ PrefabInstance:
     - target: {fileID: 495513155630108100, guid: b12339393f7c6496a80eeae36097f7f2,
         type: 3}
       propertyPath: m_Name
-      value: Wall UniWall Snake-Connector Piece
+      value: Wall UniWall SnakeR-Connector Piece
       objectReference: {fileID: 0}
     - target: {fileID: 6937636632491791852, guid: b12339393f7c6496a80eeae36097f7f2,
         type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 14781553631909979, guid: c4c4432f9ff4f4e3b97203aa0d48a4a6,
+      objectReference: {fileID: -8410674405407074833, guid: c4c4432f9ff4f4e3b97203aa0d48a4a6,
         type: 3}
     - target: {fileID: 9045211334359144839, guid: b12339393f7c6496a80eeae36097f7f2,
         type: 3}

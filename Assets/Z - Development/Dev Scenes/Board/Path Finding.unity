@@ -409,7 +409,7 @@ MonoBehaviour:
   - rule: {fileID: 5520149041154882132, guid: ccf4d40b2615b7742b13a29b5eeeb0b0, type: 3}
     model: {fileID: 1414435072253065291, guid: 1d537a658723d41df9ec39669ed842c2, type: 3}
     unitCount: 3
-    includeInBuild: 0
+    includeInBuild: 1
     rotate: 1
   - rule: {fileID: 28809290107358158, guid: a917be0f9fc3fd74f8a7b236c9bfbda1, type: 3}
     model: {fileID: 5894796073042468409, guid: 0ffe6f6e4424a014a8ad32be74faac30, type: 3}
@@ -429,10 +429,15 @@ MonoBehaviour:
   - rule: {fileID: 5520149041154882132, guid: 47a8264bedc9a483da6be1e9e2d7af97, type: 3}
     model: {fileID: 8030225223454038683, guid: 86dc6ca264bc829488e713aa161a03ea, type: 3}
     unitCount: 2
-    includeInBuild: 0
+    includeInBuild: 1
     rotate: 1
   - rule: {fileID: 5520149041154882132, guid: c592313622366433cb40f605d5dafe97, type: 3}
     model: {fileID: 1414435072253065291, guid: 52d2af09a056d49cf9ce791f6596950b, type: 3}
+    unitCount: 4
+    includeInBuild: 1
+    rotate: 1
+  - rule: {fileID: 5520149041154882132, guid: 160ebb87b1a78410c834ef9758b02fe5, type: 3}
+    model: {fileID: 1414435072253065291, guid: 30f74cf16a534440b92386dcb8ca0a57, type: 3}
     unitCount: 4
     includeInBuild: 1
     rotate: 1
