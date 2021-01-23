@@ -4,6 +4,13 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.InputSystem;
 public class BuildBoard : MonoBehaviour {
+
+	// Script refs
+	[Header("Scirpt References")]
+	public PathManager pathManager;
+
+	// References
+	[Header("Objects")]
 	List<NodeObject> wallNodes = new List<NodeObject>();
 	List<NodeObject> pathNodes = new List<NodeObject>();
 	Vector2Int topLeft = new Vector2Int();
@@ -13,6 +20,7 @@ public class BuildBoard : MonoBehaviour {
 	public GameObject wallCube;
 	public GameObject cornerCube;
 	public GameObject pathCube;
+	public GameObject pathFinishHole;
 	public GameObject boardObjects;
 
 	public GameObject Marble;
