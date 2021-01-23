@@ -34,7 +34,7 @@ public class ObstacleManager : MonoBehaviour {
 
 	/// <summary>Spawn an obstacle flag.</summary>
 	public void SpawnObstacleFlag(Vector3Int currentObstaclePosition) {
-		Instantiate(obstacleFlag, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, currentObstaclePosition), Quaternion.identity);
+		//Instantiate(obstacleFlag, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, currentObstaclePosition), Quaternion.identity);
 	}
 
 	/// <summary>This builds a wall of nodes around whatever NodeObject list is provided!</summary>
@@ -82,7 +82,7 @@ public class ObstacleManager : MonoBehaviour {
 				// Check to make sure this position isn't already taken
 				if (!obstaclePositions.Contains(currentObstaclePosition)) {
 					obstaclePositions.Add(currentObstaclePosition);
-					SpawnObstacleFlag(currentObstaclePosition);
+				//	SpawnObstacleFlag(currentObstaclePosition);
 					break;
 				}
 			}
@@ -103,7 +103,7 @@ public class ObstacleManager : MonoBehaviour {
 			}
 		}
 		foreach (NodeObject node in fullGrid) {
-			Instantiate(obstacleFlag, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, node.position), Quaternion.identity);
+		//	Instantiate(obstacleFlag, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, node.position), Quaternion.identity);
 		}
 	}
 
@@ -170,6 +170,12 @@ public class ObstacleManager : MonoBehaviour {
 
 	/// <summary>Picks which obstacle type to spawn.</summary>
 	public void ObstaclePicker() {
+
+		//clear all lists for rebuilding level
+		obstacleNodes = new List<NodeObject>();
+
+
+
 		switch (spawnObstacles) {
 			case SpawnObstacles.None:
 				break;

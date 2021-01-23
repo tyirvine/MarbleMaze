@@ -353,8 +353,8 @@ public class PathManager : MonoBehaviour {
 		}
 
 		// Spawn start / end flags
-		Instantiate(startFlag, Vector3.Scale(gridScale, gridPoints.startPointNode), Quaternion.identity);
-		Instantiate(endFlag, Vector3.Scale(gridScale, gridPoints.endPointNode), Quaternion.identity);
+		if(!disablePathFlags)Instantiate(startFlag, Vector3.Scale(gridScale, gridPoints.startPointNode), Quaternion.identity);
+		if (!disablePathFlags) Instantiate(endFlag, Vector3.Scale(gridScale, gridPoints.endPointNode), Quaternion.identity);
 	}
 
 	/// <summary>This handles the creation of a path from the start point to the end point!</summary>
@@ -583,20 +583,30 @@ public class PathManager : MonoBehaviour {
 
 	// Start is called before the first frame updates
 	void Start() {
+		PublicStart();
+		
+	}
 
+	public void PublicStart()
+    {
 		// Grab parameters from global variables
 		gridScale = GlobalStaticVariables.Instance.GlobalScale;
-
-		// Executes the entire path stack
-		ConstructPathStack();
+		openNodes = new List<NodeObject>();
+	    closedNodes = new List<NodeObject>();
+	    pathNodes = new List<NodeObject>();
+	    clearanceNodes = new List<NodeObject>();
+	// Executes the entire path stack
+	ConstructPathStack();
 		// GlobalStaticVariables.Instance.pathGenerationComplete = true;
 
 		// Collects all the flags in the scene and parents them
-		if (GlobalStaticVariables.Instance.collectFlags) {
+		if (GlobalStaticVariables.Instance.collectFlags)
+		{
 			GameObject[] flags = GameObject.FindGameObjectsWithTag("Flag");
 			GameObject flagParent = new GameObject(name: "FlagParent");
 
-			foreach (GameObject flag in flags) {
+			foreach (GameObject flag in flags)
+			{
 				flag.transform.SetParent(flagParent.transform);
 			}
 		}

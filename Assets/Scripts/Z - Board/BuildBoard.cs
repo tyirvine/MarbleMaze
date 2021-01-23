@@ -20,15 +20,17 @@ public class BuildBoard : MonoBehaviour
     public GameObject Marble;
     void Awake()
     {
-        boardObjects = new GameObject();
-        boardObjects.AddComponent<MeshFilter>();
-        boardObjects.AddComponent<MeshRenderer>();
+       
         //GetBoardSize();
     }
 
     public void GetBoardSize()
     {
-
+        boardObjects = new GameObject();
+        boardObjects.AddComponent<MeshFilter>();
+        boardObjects.AddComponent<MeshRenderer>();
+        pathNodes.Clear();
+        wallNodes.Clear();
         wallNodes.AddRange(gameObject.GetComponent<ObstacleManager>().obstacleNodes);
         pathNodes.AddRange(gameObject.GetComponent<PathManager>().pathNodes);
 

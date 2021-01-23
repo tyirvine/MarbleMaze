@@ -20,6 +20,7 @@ TagManager:
   - pickup
   - boardObjects
   - invalidIgnore
+  - GameManager
   layers:
   - Default
   - TransparentFX
