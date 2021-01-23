@@ -357,6 +357,15 @@ public class PathManager : MonoBehaviour {
 		Instantiate(endFlag, Vector3.Scale(gridScale, gridPoints.endPointNode), Quaternion.identity);
 	}
 
+	/// <summary>Finds all the clearance nodes for the provided position. Top, top right, and right side.</summary>
+	public Vector3Int[] FindClearanceNodes(Vector3Int position) {
+		return new Vector3Int[] {
+				FindNodePosition(0, 1, position),
+				FindNodePosition(1, 1, position),
+				FindNodePosition(1, 0, position),
+			};
+	}
+
 	/// <summary>This handles the creation of a path from the start point to the end point!</summary>
 	void GeneratePath() {
 		// Spawn start and end points
@@ -368,15 +377,6 @@ public class PathManager : MonoBehaviour {
 
 		// This object contains the current node being investigated
 		NodeObject currentNode;
-
-		/// <summary>Finds all the clearance nodes for the provided position. Top, top right, and right side.</summary>
-		Vector3Int[] FindClearanceNodes(Vector3Int position) {
-			return new Vector3Int[] {
-				FindNodePosition(0, 1, position),
-				FindNodePosition(1, 1, position),
-				FindNodePosition(1, 0, position),
-			};
-		}
 
 		/// <summary>This back tracks from the current node to find the starting node, making a path.</summary>
 		void RetracePath(NodeObject lastNode) {
@@ -552,7 +552,7 @@ public class PathManager : MonoBehaviour {
 		try {
 			// Generates the entire path
 			GeneratePath();
-		if(buildObstacles)	obstacleManager.ObstaclePicker();
+			if (buildObstacles) obstacleManager.ObstaclePicker();
 		} catch (Exception e) {
 			Debug.LogException(e, this);
 			Debug.LogWarning("Error caught - Loop Reset");
@@ -564,8 +564,8 @@ public class PathManager : MonoBehaviour {
 
 		// Build walls
 		// TODO: This is causing errors
-		if(buildShapes)gameObject.GetComponent<ShapeManager>().CheckShapes();
-		if(buildBoard) gameObject.GetComponent<BuildBoard>().GetBoardSize();
+		if (buildShapes) gameObject.GetComponent<ShapeManager>().CheckShapes();
+		if (buildBoard) gameObject.GetComponent<BuildBoard>().GetBoardSize();
 
 		// TODO: Do we need this? - Ty @bubzy-coding
 		//	GameObject.FindGameObjectWithTag("shapeManager").GetComponent<ShapeManager>().gameObject.SetActive(true); //heckShapesAgainstObstacles();

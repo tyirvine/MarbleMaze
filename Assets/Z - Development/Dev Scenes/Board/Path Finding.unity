@@ -451,7 +451,7 @@ MonoBehaviour:
     unitCount: 4
     includeInBuild: 1
     rotate: 1
-  spawnFlags: 1
+  spawnFlags: 0
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
 --- !u!114 &982076546
@@ -466,6 +466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a3131e811ae7d4fa73552a8ccb8ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathManager: {fileID: 982076542}
   flag: {fileID: 8970112326771813452, guid: 3a13cb7cf52e0c048be27ed0b089bdad, type: 3}
   floorCube: {fileID: 8635483451534611262, guid: 8982c834c3551e94fbe9fc3b6bda1cce,
     type: 3}
@@ -474,6 +475,8 @@ MonoBehaviour:
   cornerCube: {fileID: 6568648836625729755, guid: 1855b3c91866a614ab7d3c020d83721a,
     type: 3}
   pathCube: {fileID: 8635483451534611262, guid: 82aed1a0150b5ab4b9b2045f80a5a1a3,
+    type: 3}
+  pathFinishHole: {fileID: 8458655825351085258, guid: fa61f5a6dfd0b40938c88f763d0ad804,
     type: 3}
   boardObjects: {fileID: 0}
   Marble: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18, type: 3}
@@ -484,7 +487,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 982076540}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cce9df54b50368f4ba6d622b8b6bd3a6, type: 3}
   m_Name: 
