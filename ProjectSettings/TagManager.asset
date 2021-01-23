@@ -21,6 +21,7 @@ TagManager:
   - boardObjects
   - invalidIgnore
   - GameManager
+  - LevelFinish
   layers:
   - Default
   - TransparentFX

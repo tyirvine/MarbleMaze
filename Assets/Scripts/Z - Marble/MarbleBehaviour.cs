@@ -23,6 +23,11 @@ public class MarbleBehaviour : MonoBehaviour
             score += other.GetComponent<Pill>().pickup.pickupValue;
             Destroy(other.gameObject);
         }
+        if(other.CompareTag("LevelFinish"))
+        {
+            GameObject gm = GameObject.FindGameObjectWithTag("GameManager");
+            gm.GetComponent<GameManager>().ReloadLevel();
+        }
         Debug.Log(other.tag);
     }
 }
