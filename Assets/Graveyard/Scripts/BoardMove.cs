@@ -30,6 +30,7 @@ public class BoardMove : MonoBehaviour {
 
 	// This is being fired by the PlayerInputs component
 	public void OnMove(InputValue value) {
+		Debug.Log("Fire");
 		inputRotation = value.Get<Vector2>();
 	}
 
