@@ -128,6 +128,192 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[0].rotate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[1].rotate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[4].rotate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[5].rotate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[1].rule
+      value: 
+      objectReference: {fileID: 5520149041154882132, guid: ccf4d40b2615b7742b13a29b5eeeb0b0,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[1].model
+      value: 
+      objectReference: {fileID: 1414435072253065291, guid: 1d537a658723d41df9ec39669ed842c2,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[1].unitCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[1].includeInBuild
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[2].rule
+      value: 
+      objectReference: {fileID: 5520149041154882132, guid: 47a8264bedc9a483da6be1e9e2d7af97,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[2].model
+      value: 
+      objectReference: {fileID: 8030225223454038683, guid: 86dc6ca264bc829488e713aa161a03ea,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[2].unitCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[2].includeInBuild
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[2].rotate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[3].rule
+      value: 
+      objectReference: {fileID: 5520149041154882132, guid: c592313622366433cb40f605d5dafe97,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[3].model
+      value: 
+      objectReference: {fileID: 1414435072253065291, guid: 52d2af09a056d49cf9ce791f6596950b,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[3].unitCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[4].rule
+      value: 
+      objectReference: {fileID: 5520149041154882132, guid: 160ebb87b1a78410c834ef9758b02fe5,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[4].model
+      value: 
+      objectReference: {fileID: 1414435072253065291, guid: 30f74cf16a534440b92386dcb8ca0a57,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[4].unitCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[5].rule
+      value: 
+      objectReference: {fileID: 5520149041154882132, guid: dfee14ae8f119433ca5143d8a704e46b,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[5].model
+      value: 
+      objectReference: {fileID: 1414435072253065291, guid: 50c5dfc8c304140a0b46d07791e00abe,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[5].unitCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[5].includeInBuild
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[6].rule
+      value: 
+      objectReference: {fileID: 5520149041154882132, guid: dfee14ae8f119433ca5143d8a704e46b,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[6].model
+      value: 
+      objectReference: {fileID: 1414435072253065291, guid: 50c5dfc8c304140a0b46d07791e00abe,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[6].unitCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[7].rule
+      value: 
+      objectReference: {fileID: 5520149041154882132, guid: dfee14ae8f119433ca5143d8a704e46b,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[7].model
+      value: 
+      objectReference: {fileID: 1414435072253065291, guid: 50c5dfc8c304140a0b46d07791e00abe,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[8].rule
+      value: 
+      objectReference: {fileID: 5520149041154882132, guid: dfee14ae8f119433ca5143d8a704e46b,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[8].model
+      value: 
+      objectReference: {fileID: 1414435072253065291, guid: 50c5dfc8c304140a0b46d07791e00abe,
+        type: 3}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[4].includeInBuild
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[3].includeInBuild
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573442668972672345, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+        type: 3}
+      propertyPath: shapes.Array.data[3].rotate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3573442668972672420, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
         type: 3}
       propertyPath: m_Name
@@ -191,7 +377,7 @@ PrefabInstance:
     - target: {fileID: 3573442668972672422, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
         type: 3}
       propertyPath: buildShapes
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3573442668972672422, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
         type: 3}
@@ -201,17 +387,17 @@ PrefabInstance:
     - target: {fileID: 3573442668972672422, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
         type: 3}
       propertyPath: buildBoard
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3573442668972672422, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
         type: 3}
       propertyPath: desiredPathLength
-      value: 100
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 3573442668972672422, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
         type: 3}
       propertyPath: disablePathFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0, type: 3}
