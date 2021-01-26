@@ -34,7 +34,7 @@ public class ObstacleManager : MonoBehaviour {
 
 	/// <summary>Spawn an obstacle flag.</summary>
 	public void SpawnObstacleFlag(Vector3Int currentObstaclePosition) {
-		//Instantiate(obstacleFlag, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, currentObstaclePosition), Quaternion.identity);
+		Instantiate(obstacleFlag, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, currentObstaclePosition), Quaternion.identity);
 	}
 
 	/// <summary>This builds a wall of nodes around whatever NodeObject list is provided!</summary>
@@ -52,44 +52,6 @@ public class ObstacleManager : MonoBehaviour {
 
 	#region Obstacle Generators
 
-	// TODO: Consider deprecating
-	public void ClassicObstacleGeneration() {
-		// Find out grid size
-		gridArea = (pathManager.gridXSizeHalfLength * 2) * (pathManager.gridZSizeHalfLength * 2);
-		int obstacleCount = (int)(gridArea * obstacleCoveragePercentage);
-		// Spawn specified amount of obstacles using the total area of the grid. FlagAreas.Grid ensures the entire grid is used.
-		for (int i = 0; i < obstacleCount; i++) {
-			while (true) {
-				Vector3Int currentObstaclePosition = pathManager.SpawnPointInArea(PathManager.FlagAreas.Grid);
-				// Find neighbouring points off current position
-				Vector3Int[] currentObstacleNeighbourPositions = new Vector3Int[] {
-					// Diagonals - 1st level
-					pathManager.FindNodePosition(-1, 1, position: currentObstaclePosition),
-					pathManager.FindNodePosition(1, 1, position: currentObstaclePosition),
-					pathManager.FindNodePosition(1, -1, position: currentObstaclePosition),
-					pathManager.FindNodePosition(-1, -1, position: currentObstaclePosition),
-				};
-				// Iterate through all of the neighbours to make sure no diagonals are found
-				// If a diagonal position is filled break the entire loop, otherwise continue
-				if (!spawnDiagonals) {
-					foreach (Vector3Int neighbour in currentObstacleNeighbourPositions) {
-						if (obstaclePositions.Contains(neighbour))
-							goto EndOfLoop;
-						else
-							continue;
-					}
-				}
-				// Check to make sure this position isn't already taken
-				if (!obstaclePositions.Contains(currentObstaclePosition)) {
-					obstaclePositions.Add(currentObstaclePosition);
-				//	SpawnObstacleFlag(currentObstaclePosition);
-					break;
-				}
-			}
-		EndOfLoop:;
-		}
-	}
-
 	///  <summary>Creates a list of nodes the size of the whole grid and leave out the path nodes.</summary>
 	public void BuildFullGrid() {
 		int gridXSizeHalfLength = pathManager.gridXSizeHalfLength;
@@ -103,15 +65,12 @@ public class ObstacleManager : MonoBehaviour {
 			}
 		}
 		foreach (NodeObject node in fullGrid) {
-		//	Instantiate(obstacleFlag, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, node.position), Quaternion.identity);
+			//	Instantiate(obstacleFlag, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, node.position), Quaternion.identity);
 		}
 	}
 
 	/// <summary>This builds a wall of obstacle nodes around the path without any corners. So the walls are seperated.</summary>
 	public void BuildWallWithoutCorners() {
-		// Contains start and end node positions
-		PathManager.GridPoints gridPoints = pathManager.gridPoints;
-
 		// Check through positions -1,0 1,0 0,1 0,-1 to see if there is anything present. If not, make a new node in that position and make it unwalkable
 		foreach (NodeObject pathNode in pathManager.pathNodes) {
 
@@ -144,8 +103,6 @@ public class ObstacleManager : MonoBehaviour {
 
 	/// <summary>This builds a wall of obstacle nodes around the path.</summary>
 	public void BuildWall() {
-		// Contains start and end node positions
-		PathManager.GridPoints gridPoints = pathManager.gridPoints;
 
 		// Check through positions -1,0 1,0 0,1 0,-1 to see if there is anything present. If not, make a new node in that position and make it unwalkable
 		foreach (NodeObject pathNode in pathManager.pathNodes) {
@@ -174,13 +131,8 @@ public class ObstacleManager : MonoBehaviour {
 		//clear all lists for rebuilding level
 		obstacleNodes = new List<NodeObject>();
 
-
-
 		switch (spawnObstacles) {
 			case SpawnObstacles.None:
-				break;
-			case SpawnObstacles.ClassicObstacles:
-				ClassicObstacleGeneration();
 				break;
 			case SpawnObstacles.BuildGrid:
 				BuildFullGrid();

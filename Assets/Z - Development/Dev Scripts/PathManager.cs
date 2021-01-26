@@ -23,7 +23,7 @@ public class PathManager : MonoBehaviour {
 
 	// Decides how long the path itself should be, measured in integral units.
 	[Header("Path Settings")]
-	[Range(0.1f, 1.0f)] public float desiredPathLengthPercentage = 0.1f;
+	[Range(6, 100)] public int desiredPathLength = 6;
 
 	/// <summary>Creates a randomized path if enabled.</summary>
 	[Header("Path Manipulation")]
@@ -224,45 +224,6 @@ public class PathManager : MonoBehaviour {
 		obstacleManager.gridArea = 0;
 	}
 
-	// TODO: Scrap this function
-	/// <summary>Simplifies spawning a point in a specified area.</summary>
-	public Vector3Int SpawnPointInArea(FlagAreas flag) {
-		// Finds size of either the start or end point spawn area
-		Vector3 SpawnAreaMin;
-		Vector3 SpawnAreaMax;
-
-		// Simplifies finding a spawn area's max and min Vector3s
-		Vector3 FindGridAreaMaxMin(Vector3Int referencePoint, float percentMarker) {
-			// Grabs the entire domain length of the grid regardless of the grid point's signum
-			int domain = Mathf.Abs(gridPoints.bottomLeft.z) + Mathf.Abs(gridPoints.topLeft.z);
-			// Makes sure to offset the Vector3.z by the topLeft.z value in order to respect the domain
-			return new Vector3(referencePoint.x, 0f, (float)(domain * percentMarker - Mathf.Abs(gridPoints.bottomLeft.z)));
-		}
-
-		// Grab the maximum and minimum values of the spawn area specified by the flag chosen
-		if (flag == FlagAreas.Start) {
-			SpawnAreaMin = gridPoints.bottomRight;
-			SpawnAreaMax = FindGridAreaMaxMin(gridPoints.topLeft, startAreaPercentage);
-		}
-		// Spawns just for the end area
-		else if (flag == FlagAreas.End) {
-			float remainingArea = 1f - (startAreaPercentage * 2);
-			SpawnAreaMin = FindGridAreaMaxMin(gridPoints.topRight, remainingArea);
-			SpawnAreaMax = gridPoints.topLeft;
-		}
-		// Spawns for the entire grid area
-		else {
-			SpawnAreaMin = gridPoints.bottomRight;
-			SpawnAreaMax = gridPoints.topLeft;
-		}
-
-		// Grab random values based on spawn area's min and max points
-		float spawnPointX = Random.Range(SpawnAreaMin.x, SpawnAreaMax.x);
-		float spawnPointZ = Random.Range(SpawnAreaMin.z, SpawnAreaMax.z);
-		// Return the position chosen!
-		return new Vector3Int((int)spawnPointX, parentYPosition, (int)spawnPointZ);
-	}
-
 	/// <summary>Sets the grid's origin point and draws an outline of it. Then it spawns both the start and end point objects and assigns them to <see cref="gridPoints"/>.</summary>
 	void ConstructGrid() {
 		// Simplifies grid position definitions, parent
@@ -353,7 +314,7 @@ public class PathManager : MonoBehaviour {
 		}
 
 		// Spawn start / end flags
-		if(!disablePathFlags)Instantiate(startFlag, Vector3.Scale(gridScale, gridPoints.startPointNode), Quaternion.identity);
+		if (!disablePathFlags) Instantiate(startFlag, Vector3.Scale(gridScale, gridPoints.startPointNode), Quaternion.identity);
 		if (!disablePathFlags) Instantiate(endFlag, Vector3.Scale(gridScale, gridPoints.endPointNode), Quaternion.identity);
 	}
 
@@ -366,82 +327,130 @@ public class PathManager : MonoBehaviour {
 			};
 	}
 
+	/// <summary>This back tracks from the current node to find the starting node, making a path.</summary>
+	public void RetracePath(NodeObject lastNode) {
+		NodeObject traceNode = lastNode;
+
+		/// <summary>This links the child node to the parent node by spawning nodes inbetween.</summary>
+		void AddPathNodeAtOffset(NodeObject node, String axis, int offset) {
+			Vector3Int newNodePos;
+			Vector3Int newNodePosSecond;
+			if (axis == "x") {
+				newNodePos = new Vector3Int(node.position.x, parentYPosition, node.position.z + offset);
+				newNodePosSecond = new Vector3Int(node.position.x, parentYPosition, node.position.z + (offset * 2));
+			} else {
+				newNodePos = new Vector3Int(node.position.x + offset, parentYPosition, node.position.z);
+				newNodePosSecond = new Vector3Int(node.position.x + (offset * 2), parentYPosition, node.position.z);
+			}
+			pathNodes.Add(new NodeObject(newNodePos));
+			pathNodes.Add(new NodeObject(newNodePosSecond));
+		}
+
+		// Link all nodes by creating a new node between the parent and child
+		foreach (NodeObject node in closedNodes) {
+			if (node.parent != null) {
+				// Check if both nodes are on the x-axis
+				if (node.position.x == node.parent.position.x) {
+					if (node.position.z > node.parent.position.z) {
+						AddPathNodeAtOffset(node, "x", -1);
+					} else {
+						AddPathNodeAtOffset(node, "x", 1);
+					}
+				}
+				// Check if both nodes are on the z-axis
+				else if (node.position.z == node.parent.position.z) {
+					if (node.position.x > node.parent.position.x) {
+						AddPathNodeAtOffset(node, "z", -1);
+					} else {
+						AddPathNodeAtOffset(node, "z", 1);
+					}
+				}
+			}
+			// Add current pathnode
+			pathNodes.Add(node);
+		}
+
+		// // Builds a trace by taking in the parent node of each node and adding it to the path nodes list
+		// while (traceNode.position != gridPoints.startPointNode) {
+		// 	if (traceNode.position != gridPoints.endPointNode) pathNodes.Add(traceNode);
+		// 	traceNode = traceNode.parent;
+		// }
+
+		// // Add in both start and end points
+		// pathNodes.Add(new NodeObject(gridPoints.startPointNode));
+		// pathNodes.Add(new NodeObject(gridPoints.endPointNode));
+
+		// // Setup an extra list so the for loop doesn't grow ↴
+		NodeObject[] pathNodesClearance = pathNodes.ToArray();
+		// Add in clearance nodes to path nodes
+		foreach (NodeObject node in pathNodesClearance) {
+			Vector3Int[] clearancePositions = FindClearanceNodes(node.position);
+			foreach (Vector3Int position in clearancePositions)
+				pathNodes.Add(new NodeObject(position, 0, 0, 0, true));
+		}
+
+		// Reverse the list because we started tracing from the end, and calculate the path's length
+		pathNodes.Reverse();
+
+		// Instantiate desired object
+		if (!disablePathFlags) {
+			foreach (NodeObject node in pathNodes) {
+				Instantiate(pathFlag, node.position, Quaternion.identity);
+			}
+			Instantiate(startFlag, gridPoints.startPointNode, Quaternion.identity);
+			Instantiate(endFlag, gridPoints.endPointNode, Quaternion.identity);
+		}
+	}
+
+	/// <summary>This checks to see if the point collides with any non-pathable positions.</summary>
+	public bool IsPathable(NodeObject node) {
+		// Grab clearance neighbours to provided position
+		Vector3Int[] positionClearanceNeighbours = FindNodeNeighbours(node.position, 5);
+		bool isPathable = false;
+
+		// Start by making sure the point is within the grid bounds
+		foreach (Vector3Int position in positionClearanceNeighbours)
+			if (CheckIfInGridBounds(position))
+				isPathable = true;
+			else
+				return false;
+
+		return isPathable;
+	}
+
+	/// <summary>Grabs the difference in distance of both the x & z points between Node A and Node B.</summary>
+	public int GetDistance(NodeObject nodeA, NodeObject nodeB) {
+		int dstX = Mathf.Abs(nodeA.position.x - nodeB.position.x);
+		int dstZ = Mathf.Abs(nodeA.position.z - nodeB.position.z);
+		if (!isPathWacky) {
+			// Bubzy do you know what's happening here?
+			if (dstX > dstZ)
+				return 14 * dstZ + 10 * (dstX - dstZ);
+			else
+				return 14 * dstX + 10 * (dstZ - dstX);
+		}
+		// and here?
+		if (dstX > dstZ) return Random.Range(1, wackiness) * dstZ + 10 * (dstX - dstZ);
+		return Random.Range(1, wackiness) * dstX + 10 * (dstZ - dstX);
+	}
+
+	/* -------------------------------------------------------------------------- */
+	/*                               Path Generation                              */
+	/* -------------------------------------------------------------------------- */
+
 	/// <summary>This handles the creation of a path from the start point to the end point!</summary>
 	void GeneratePath() {
-		// Spawn start and end points
-		//SpawnStartOrEnd(FlagAreas.Start, startFlag);
-		//SpawnStartOrEnd(FlagAreas.End, endFlag);
-		SpawnStartEnd();
+		// Grab current position for starting point
+		gridPoints.startPointNode = currentWorldPosition;
+
 		// Add the start node to the open points list
 		openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, false));
 
 		// This object contains the current node being investigated
-		NodeObject currentNode;
+		NodeObject currentNode = new NodeObject(gridPoints.startPointNode);
 
-		/// <summary>This back tracks from the current node to find the starting node, making a path.</summary>
-		void RetracePath(NodeObject lastNode) {
-			NodeObject traceNode = lastNode;
-
-			// Builds a trace by taking in the parent node of each node and adding it to the path nodes list
-			while (traceNode.position != gridPoints.startPointNode) {
-				if (traceNode.position != gridPoints.endPointNode) pathNodes.Add(traceNode);
-				traceNode = traceNode.parent;
-			}
-
-			// Add in both start and end points
-			pathNodes.Add(new NodeObject(gridPoints.startPointNode));
-			pathNodes.Add(new NodeObject(gridPoints.endPointNode));
-
-			// // Setup an extra list so the for loop doesn't grow ↴
-			NodeObject[] pathNodesClearance = pathNodes.ToArray();
-			// Add in clearance nodes to path nodes
-			foreach (NodeObject node in pathNodesClearance) {
-				Vector3Int[] clearancePositions = FindClearanceNodes(node.position);
-				foreach (Vector3Int position in clearancePositions)
-					pathNodes.Add(new NodeObject(position, 0, 0, 0, true));
-			}
-
-			// Reverse the list because we started tracing from the end, and calculate the path's length
-			pathNodes.Reverse();
-
-			// Instantiate desired object
-			if (!disablePathFlags)
-				foreach (NodeObject node in pathNodes) {
-					Instantiate(pathFlag, Vector3.Scale(gridScale, node.position), Quaternion.identity);
-				}
-		}
-
-		/// <summary>This checks to see if the point collides with any non-pathable positions.</summary>
-		bool IsPathable(NodeObject node) {
-			// Grab clearance neighbours to provided position
-			Vector3Int[] positionClearanceNeighbours = FindNodeNeighbours(node.position, 5);
-			bool isPathable = false;
-
-			// Start by making sure the point is within the grid bounds
-			foreach (Vector3Int position in positionClearanceNeighbours)
-				if (CheckIfInGridBounds(position))
-					isPathable = true;
-				else
-					return false;
-
-			return isPathable;
-		}
-
-		/// <summary>Grabs the difference in distance of both the x & z points between Node A and Node B.</summary>
-		int GetDistance(NodeObject nodeA, NodeObject nodeB) {
-			int dstX = Mathf.Abs(nodeA.position.x - nodeB.position.x);
-			int dstZ = Mathf.Abs(nodeA.position.z - nodeB.position.z);
-			if (!isPathWacky) {
-				// Bubzy do you know what's happening here?
-				if (dstX > dstZ)
-					return 14 * dstZ + 10 * (dstX - dstZ);
-				else
-					return 14 * dstX + 10 * (dstZ - dstX);
-			}
-			// and here?
-			if (dstX > dstZ) return Random.Range(1, wackiness) * dstZ + 10 * (dstX - dstZ);
-			return Random.Range(1, wackiness) * dstX + 10 * (dstZ - dstX);
-		}
+		// This variable keeps track of how much progress it's made in getting to the desired path length
+		int pathLengthProgress = 0;
 
 		// Loop Emergency Break
 		int loopEmergencyBrake = 0;
@@ -450,16 +459,26 @@ public class PathManager : MonoBehaviour {
 		// This loops until a path is generated from the start node to the end node
 		while (loopEmergencyBrake < loopEmergencyBrakeCap) {
 
-			// Find node with the lowest f_cost, remove it from the open nodes and add it to the closed nodes
-			int highestFCost = openNodes.Max(nodes => nodes.fCost);
-			currentNode = openNodes.First(nodes => nodes.fCost == highestFCost);
-			openNodes.Remove(currentNode);
-			closedNodes.Add(currentNode);
+			if (pathLengthProgress > 0) {
+				// Add previous node (known as current) to the closed nodes
+				closedNodes.Add(currentNode);
+				// Instantiate(startFlag, currentNode.position, startFlag.transform.rotation);
+				// Randomly pick the next node out of the open nodes and assign that as the new current
+				int randomOpenNode = Random.Range(0, openNodes.Count());
+				currentNode = openNodes[randomOpenNode];
+				// Empty out open nodes list
+				openNodes.Clear();
+			}
+			// Path incremented one position
+			pathLengthProgress++;
 
+			// TODO: Rewrite this to account for path length instead
 			// Check to see if the current node position is equal to the end or target node's position
-			if (currentNode.position == gridPoints.endPointNode) {
+			// and log the current position as the end position
+			if (pathLengthProgress >= desiredPathLength) {
+				gridPoints.endPointNode = currentNode.position;
+				closedNodes.Add(currentNode);
 				RetracePath(currentNode);
-				didPathGenerate = true;
 				return;
 			}
 
@@ -472,39 +491,22 @@ public class PathManager : MonoBehaviour {
 			///				(-z)
 			// Assign all neighbour node positions
 			NodeObject[] neighbourNodes = new NodeObject[] {
-			new NodeObject(FindNodePosition(-1, 0, currentNode: currentNode), 0, 0, 0,false),
-			new NodeObject(FindNodePosition(0, 1, currentNode: currentNode), 0, 0, 0,false),
-			new NodeObject(FindNodePosition(1, 0, currentNode: currentNode), 0, 0, 0,false),
-			new NodeObject(FindNodePosition(0, -1, currentNode: currentNode), 0, 0, 0,false)
+			new NodeObject(FindNodePosition(-3, 0, currentNode: currentNode), 0, 0, 0,false),
+			new NodeObject(FindNodePosition(0, 3, currentNode: currentNode), 0, 0, 0,false),
+			new NodeObject(FindNodePosition(3, 0, currentNode: currentNode), 0, 0, 0,false),
+			new NodeObject(FindNodePosition(0, -3, currentNode: currentNode), 0, 0, 0,false)
 			};
 
 			// Loop through all neighbours
 			foreach (NodeObject node in neighbourNodes) {
-				// Checks to see if the current neighbour node being investigated is in the closedNodes list or is traversable
-				if (closedNodes.Any(nodes => nodes.position == node.position) || !IsPathable(node))
-					// If it is then skip this loop iteration and move to the next neighbour node
+				// Check to see if the current neighbour node is intersecting with a closed node
+				if (closedNodes.Any(nodes => nodes.position == node.position)) {
 					continue;
-				// Find the longest distance
-				int newNeighbourMovementCost = currentNode.gCost + GetDistance(currentNode, node);
-				// Otherwise check to see if the node is in the open list or if the new path to the node is shorter than the stored path
-				if (newNeighbourMovementCost < node.gCost || !openNodes.Any(nodes => nodes.position == node.position)) {
-					node.gCost = newNeighbourMovementCost;
-					node.hCost = GetDistance(node, new NodeObject(gridPoints.endPointNode, 0, 0, 0, false));
-					node.parent = currentNode;
-
-					// Add clearance cluster to the fourth previous parent node
-					// https://www.notion.so/scriptobit/Path-Randomization-f9e3607f1b55484388ee7221516295e8
-					if (currentNode.parent != null && currentNode.parent.parent != null && currentNode.parent.parent.parent != null) {
-						Vector3Int[] clearanceNeighbours = FindNodeNeighbours(currentNode.parent.parent.parent.position, 5);
-						foreach (Vector3Int position in clearanceNeighbours)
-							closedNodes.Add(new NodeObject(position));
-					}
-
-					// If the node is not found in the open nodes list then add it
-					if (!openNodes.Any(nodes => nodes.position == node.position)) {
-						openNodes.Add(node);
-					}
 				}
+
+				// Otherwise add that node to a list of possible directions to take
+				node.parent = currentNode;
+				openNodes.Add(node);
 			}
 			// Acts as an emergency break for this loop
 			loopEmergencyBrake++;
@@ -545,9 +547,6 @@ public class PathManager : MonoBehaviour {
 			Destroy(wall);
 		}
 
-		// Build the grid and spawn the obstacles
-		ConstructGrid();
-
 		// This catch is looking for a `No sequence` error that can occur when the path can't go from start to finish
 		try {
 			// Generates the entire path
@@ -582,31 +581,28 @@ public class PathManager : MonoBehaviour {
 	}
 
 	// Start is called before the first frame updates
-	void Start() {
-		PublicStart();
-		
-	}
+	// void Start() {
+	// 	PublicStart();
 
-	public void PublicStart()
-    {
+	// }
+
+	public void PublicStart() {
 		// Grab parameters from global variables
 		gridScale = GlobalStaticVariables.Instance.GlobalScale;
 		openNodes = new List<NodeObject>();
-	    closedNodes = new List<NodeObject>();
-	    pathNodes = new List<NodeObject>();
-	    clearanceNodes = new List<NodeObject>();
-	// Executes the entire path stack
-	ConstructPathStack();
+		closedNodes = new List<NodeObject>();
+		pathNodes = new List<NodeObject>();
+		clearanceNodes = new List<NodeObject>();
+		// Executes the entire path stack
+		ConstructPathStack();
 		// GlobalStaticVariables.Instance.pathGenerationComplete = true;
 
 		// Collects all the flags in the scene and parents them
-		if (GlobalStaticVariables.Instance.collectFlags)
-		{
+		if (GlobalStaticVariables.Instance.collectFlags) {
 			GameObject[] flags = GameObject.FindGameObjectsWithTag("Flag");
 			GameObject flagParent = new GameObject(name: "FlagParent");
 
-			foreach (GameObject flag in flags)
-			{
+			foreach (GameObject flag in flags) {
 				flag.transform.SetParent(flagParent.transform);
 			}
 		}
