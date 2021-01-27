@@ -52,10 +52,10 @@ MonoBehaviour:
   gridZSizeHalfLength: 7
   startAreaPercentage: 0.0571
   cornerLengthDivider: 8
-  desiredPathLengthPercentage: 1
+  desiredPathLength: 10
   isPathWacky: 1
   wackiness: 1
-  disablePathFlags: 1
+  disablePathFlags: 0
   buildBoard: 1
   buildShapes: 1
   buildObstacles: 1
