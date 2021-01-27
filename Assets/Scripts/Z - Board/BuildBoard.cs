@@ -45,21 +45,19 @@ public class BuildBoard : MonoBehaviour {
 			if (n.position.z > topLeftY) { topLeftY = n.position.z; } else if (n.position.z < lowRightY) { lowRightY = n.position.z; }
 
 		}
+		Vector3 tpLeft = new Vector3(topLeftX, 0, topLeftY);
+		Vector3 btRight = new Vector3(lowRightX, 0, lowRightY);
+		Vector3 midpoint = (tpLeft + btRight) / 2;
+		float middleX = topLeftX +  (topLeftX - lowRightX) / 2;
+		float middleY = topLeftY +  (topLeftY - lowRightY) / 2;
 
+		boardObjects.transform.position = midpoint;
+			 
 		int xSize = Mathf.Abs(topLeftX) + lowRightX;
 		int ySize = Mathf.Abs(lowRightY) + topLeftY;
 		size = new Vector2Int(xSize, ySize);
 		topLeft = new Vector2Int(topLeftX, topLeftY);
 
-		///debug to make sure we got the board size right.
-		// Instantiate(flag, new Vector3(topLeftX, 1, topLeftY), Quaternion.identity);
-		// Instantiate(flag, new Vector3(lowRightX, 1, lowRightY), Quaternion.identity);
-		// Debug.Log(topLeftY + " " + lowRightY);
-		// Debug.Log("Size X : " + xSize + " y: " + ySize);
-
-		///
-		//   BuildWall();
-		//FillSpaces();
 		FillGround();
 		GroupObjects("floorTile");
 		MakeSingleMesh();

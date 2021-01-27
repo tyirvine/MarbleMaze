@@ -17,7 +17,7 @@ public class MarbleAdjustVelocity : MonoBehaviour {
 		// This decides whether or not to stop doing physics calculations on the rigidbody
 		marbleRigidbody.sleepThreshold = sleepThreshold;
 		
-		Debug.Log(marbleRigidbody.velocity.y.ToString());
+	//	Debug.Log(marbleRigidbody.velocity.y.ToString());
 		
 	}
 

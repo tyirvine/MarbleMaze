@@ -48,13 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bbdeb670c0a461f9fece1ea3408a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridXSizeHalfLength: 7
-  gridZSizeHalfLength: 7
-  startAreaPercentage: 0.0571
-  cornerLengthDivider: 8
   desiredPathLength: 6
-  isPathWacky: 1
-  wackiness: 1
   disablePathFlags: 1
   buildBoard: 1
   buildShapes: 1
@@ -66,7 +60,6 @@ MonoBehaviour:
   endFlag: {fileID: 8970112326771813452, guid: 3a13cb7cf52e0c048be27ed0b089bdad, type: 3}
   obstacleManager: {fileID: 3573442668972672423}
   didPathGenerate: 0
-  currentWorldPosition: {x: 0, y: -10, z: 0}
 --- !u!114 &3573442668972672423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79,15 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa9654f631974526a371afcbe258072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacleCoveragePercentage: 2
-  wallCube: {fileID: 0}
-  floorCube: {fileID: 0}
-  spawnObstacles: 3
-  spawnDiagonals: 0
-  obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
-    type: 3}
   pathManager: {fileID: 3573442668972672422}
-  gridArea: 0
   obstaclePositions: []
 --- !u!114 &3573442668972672346
 MonoBehaviour:
@@ -114,6 +99,7 @@ MonoBehaviour:
   pathFinishHole: {fileID: 8458655825351085258, guid: fa61f5a6dfd0b40938c88f763d0ad804,
     type: 3}
   boardObjects: {fileID: 0}
+  marble: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18, type: 3}
 --- !u!114 &3573442668972672345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,8 +113,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapes:
-  - rule: {fileID: 5520149041154882132, guid: dfee14ae8f119433ca5143d8a704e46b, type: 3}
-    model: {fileID: 1414435072253065291, guid: 50c5dfc8c304140a0b46d07791e00abe, type: 3}
+  - rule: {fileID: 2341339139694139497, guid: 097611774ba41aa49a66995354cede90, type: 3}
+    model: {fileID: 8635483451534611262, guid: c6cbbf5c7209c3943842a60e4635fa89, type: 3}
+    unitCount: 1
+    includeInBuild: 1
+    rotate: 1
+  - rule: {fileID: 5520149041154882132, guid: ad4eadd807e341849affa8a7c525afdc, type: 3}
+    model: {fileID: 5293181921660050700, guid: 10b2ca129b31225468b64e8f63dc501b, type: 3}
+    unitCount: 4
+    includeInBuild: 0
+    rotate: 1
+  - rule: {fileID: 5520149041154882132, guid: ccf4d40b2615b7742b13a29b5eeeb0b0, type: 3}
+    model: {fileID: 1414435072253065291, guid: 1d537a658723d41df9ec39669ed842c2, type: 3}
+    unitCount: 3
+    includeInBuild: 1
+    rotate: 1
+  - rule: {fileID: 28809290107358158, guid: a917be0f9fc3fd74f8a7b236c9bfbda1, type: 3}
+    model: {fileID: 5894796073042468409, guid: 0ffe6f6e4424a014a8ad32be74faac30, type: 3}
+    unitCount: 5
+    includeInBuild: 0
+    rotate: 0
+  - rule: {fileID: 2307249883964024786, guid: 12379e374e9d5794fb700beec806d39f, type: 3}
+    model: {fileID: 7475948318026797624, guid: b985261ced5e342438c4e8b6de0d9a47, type: 3}
+    unitCount: 16
+    includeInBuild: 0
+    rotate: 1
+  - rule: {fileID: 1719504460147752543, guid: 7b60b13db035fed4886eaa0d5a5c09ca, type: 3}
+    model: {fileID: 7367053565530404002, guid: 4bdd19951c36a434c92c8bdee2838897, type: 3}
+    unitCount: 4
+    includeInBuild: 0
+    rotate: 1
+  - rule: {fileID: 5520149041154882132, guid: 47a8264bedc9a483da6be1e9e2d7af97, type: 3}
+    model: {fileID: 8030225223454038683, guid: 86dc6ca264bc829488e713aa161a03ea, type: 3}
+    unitCount: 2
+    includeInBuild: 1
+    rotate: 1
+  - rule: {fileID: 5520149041154882132, guid: c592313622366433cb40f605d5dafe97, type: 3}
+    model: {fileID: 1414435072253065291, guid: 52d2af09a056d49cf9ce791f6596950b, type: 3}
     unitCount: 4
     includeInBuild: 1
     rotate: 1
@@ -137,24 +158,9 @@ MonoBehaviour:
     unitCount: 4
     includeInBuild: 1
     rotate: 1
-  - rule: {fileID: 5520149041154882132, guid: c592313622366433cb40f605d5dafe97, type: 3}
-    model: {fileID: 1414435072253065291, guid: 52d2af09a056d49cf9ce791f6596950b, type: 3}
+  - rule: {fileID: 5520149041154882132, guid: dfee14ae8f119433ca5143d8a704e46b, type: 3}
+    model: {fileID: 1414435072253065291, guid: 50c5dfc8c304140a0b46d07791e00abe, type: 3}
     unitCount: 4
-    includeInBuild: 1
-    rotate: 1
-  - rule: {fileID: 5520149041154882132, guid: ccf4d40b2615b7742b13a29b5eeeb0b0, type: 3}
-    model: {fileID: 1414435072253065291, guid: 1d537a658723d41df9ec39669ed842c2, type: 3}
-    unitCount: 3
-    includeInBuild: 1
-    rotate: 1
-  - rule: {fileID: 5520149041154882132, guid: 47a8264bedc9a483da6be1e9e2d7af97, type: 3}
-    model: {fileID: 8030225223454038683, guid: 86dc6ca264bc829488e713aa161a03ea, type: 3}
-    unitCount: 2
-    includeInBuild: 1
-    rotate: 1
-  - rule: {fileID: 2341339139694139497, guid: 097611774ba41aa49a66995354cede90, type: 3}
-    model: {fileID: 8635483451534611262, guid: c6cbbf5c7209c3943842a60e4635fa89, type: 3}
-    unitCount: 1
     includeInBuild: 1
     rotate: 1
   spawnFlags: 0
