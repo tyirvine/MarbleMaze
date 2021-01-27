@@ -387,7 +387,8 @@ public class PathManager : MonoBehaviour {
 		foreach (NodeObject node in pathNodesClearance) {
 			Vector3Int[] clearancePositions = FindClearanceNodes(node.position);
 			foreach (Vector3Int position in clearancePositions)
-				pathNodes.Add(new NodeObject(position, 0, 0, 0, true));
+				if (pathNodes.All(nodes => nodes.position != position))
+					pathNodes.Add(new NodeObject(position, 0, 0, 0, true));
 		}
 
 		// Reverse the list because we started tracing from the end, and calculate the path's length
