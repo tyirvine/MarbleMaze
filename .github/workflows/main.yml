@@ -12,11 +12,6 @@ jobs:
   dotnet-format:
     runs-on: ubuntu-latest
     steps:
-      - name: Get branch info
-        id: comment-branch
-        uses: xt0rted/pull-request-comment-branch@v1.1.0
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout repo
         uses: actions/checkout@v2.3.2
