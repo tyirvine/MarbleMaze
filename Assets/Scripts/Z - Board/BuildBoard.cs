@@ -49,11 +49,11 @@ public class BuildBoard : MonoBehaviour {
 		Vector3 tpLeft = new Vector3(topLeftX, 0, topLeftY);
 		Vector3 btRight = new Vector3(lowRightX, 0, lowRightY);
 		Vector3 midpoint = (tpLeft + btRight) / 2;
-		float middleX = topLeftX +  (topLeftX - lowRightX) / 2;
-		float middleY = topLeftY +  (topLeftY - lowRightY) / 2;
+		float middleX = topLeftX + (topLeftX - lowRightX) / 2;
+		float middleY = topLeftY + (topLeftY - lowRightY) / 2;
 
 		boardObjects.transform.position = midpoint;
-			 
+
 		int xSize = Mathf.Abs(topLeftX) + lowRightX;
 		int ySize = Mathf.Abs(lowRightY) + topLeftY;
 		size = new Vector2Int(xSize, ySize);
@@ -197,9 +197,5 @@ public class BuildBoard : MonoBehaviour {
 	void OnTestKey() {
 		Debug.Log("WHAT THE HELL THOUGH");
 	}
-	private void FixedUpdate() {
-
-	}
-	// Update is called once per frame
 
 }
