@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine.InputSystem;
 public class BuildBoard : MonoBehaviour {
 
-	// Script refs
+	// Script references
 	[Header("Scirpt References")]
 	public PathManager pathManager;
 
