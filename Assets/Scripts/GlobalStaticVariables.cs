@@ -3,7 +3,8 @@ using System.IO;
 
 using UnityEngine;
 
-public class GlobalStaticVariables : MonoBehaviour {
+public class GlobalStaticVariables : MonoBehaviour
+{
 
     // This allows all the variables and functions within this class to be static when this class is used as an object!
     public static GlobalStaticVariables Instance { get; private set; }
@@ -42,17 +43,20 @@ public class GlobalStaticVariables : MonoBehaviour {
     #endregion ============ Global Static Variables Settings End ⤴ ================
 
     /// <summary> Picks out random number </summary>
-    public int RandomEven(int min, int max) {
+    public int RandomEven(int min, int max)
+    {
         return Random.Range(min / 2, max / 2) * 2;
     }
 
     // This function writes to the debug log file? - Ty
     // Yep. - bubzy
-    private void OnApplicationQuit() {
+    private void OnApplicationQuit()
+    {
         Debug.Log("Quitting...");
         string fileName = Path.Combine(Application.streamingAssetsPath, "Debug.log");
         StreamWriter writer = new StreamWriter(fileName, true);
-        foreach (string str in debugLog) {
+        foreach (string str in debugLog)
+        {
             writer.WriteLine(str);
         }
         writer.Close();
@@ -70,22 +74,28 @@ public class GlobalStaticVariables : MonoBehaviour {
         PlayerPrefs.SetInt("played", 110);
     }
     /// <summary>This function formats a log to the debug.log file into a [Timestamp + Log] format.</summary>
-    public void DebugLogEntry(string log) {
+    public void DebugLogEntry(string log)
+    {
         debugLog.Add("[" + System.DateTime.Now.TimeOfDay.ToString() + "]" + " " + log);
     }
 
     // Runs before start
-    public void Awake() {
+    public void Awake()
+    {
         // This allows the gsv to persist between scenes
-        if (Instance == null) {
+        if (Instance == null)
+        {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-        } else {
+        }
+        else
+        {
             Destroy(gameObject);
         }
 
         // Creates a directory for the debug log if it doesn't exist
-        if (!Directory.Exists(Application.streamingAssetsPath)) {
+        if (!Directory.Exists(Application.streamingAssetsPath))
+        {
             Directory.CreateDirectory(Application.streamingAssetsPath);
         }
 

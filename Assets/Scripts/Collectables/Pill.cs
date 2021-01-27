@@ -22,8 +22,8 @@ public class Pill : MonoBehaviour
         }
 
         Vector3 rotation = (Vector3.up * rotSpeed * Time.deltaTime);
-        transform.Rotate(rotation,Space.World);
+        transform.Rotate(rotation, Space.World);
     }
 
-    
+
 }

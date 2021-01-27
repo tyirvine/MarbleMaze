@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if(GameObject.FindGameObjectWithTag("Player").gameObject)
-        Destroy(GameObject.FindGameObjectWithTag("Player").gameObject);
+        if (GameObject.FindGameObjectWithTag("Player").gameObject)
+            Destroy(GameObject.FindGameObjectWithTag("Player").gameObject);
         tempPM.PublicStart();
     }
 
