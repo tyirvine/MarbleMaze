@@ -23,7 +23,6 @@ public class BuildBoard : MonoBehaviour {
 	public GameObject pathFinishHole;
 	public GameObject boardObjects;
 
-	public GameObject Marble;
 	void Awake() {
 
 		//GetBoardSize();
@@ -64,7 +63,6 @@ public class BuildBoard : MonoBehaviour {
 		FillGround();
 		GroupObjects("floorTile");
 		MakeSingleMesh();
-		PlaceMarble();
 		GroupObjects("wallTile");
 	}
 
@@ -91,11 +89,6 @@ public class BuildBoard : MonoBehaviour {
 
 	}
 
-	void PlaceMarble() {
-		PathManager.GridPoints gridPoints = GetComponent<PathManager>().gridPoints;
-		Instantiate(Marble, gridPoints.startPointNode, Quaternion.identity);
-
-	}
 	void GroupObjects(string tag) {
 		GameObject[] placeholdExposedReference = GameObject.FindGameObjectsWithTag(tag);
 

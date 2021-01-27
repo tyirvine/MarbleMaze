@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7856035495487963071}
   m_Layer: 0
-  m_Name: CornerSnake
+  m_Name: CornerSnakeL
   m_TagString: wallTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,7 +165,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f03366c31e76d7d4596f8f713de60fe6, type: 2}
+      objectReference: {fileID: 2100000, guid: 30dff1239102b4840963cb71d8208c57, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd1665abd2bf94d61849159b7fe288fe, type: 3}
 --- !u!1 &5878571412040501070 stripped
