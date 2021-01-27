@@ -48,14 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bbdeb670c0a461f9fece1ea3408a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridXSizeHalfLength: 7
-  gridZSizeHalfLength: 7
-  startAreaPercentage: 0.0571
-  cornerLengthDivider: 8
-  desiredPathLength: 10
-  isPathWacky: 1
-  wackiness: 1
-  disablePathFlags: 0
+  desiredPathLength: 6
+  disablePathFlags: 1
   buildBoard: 1
   buildShapes: 1
   buildObstacles: 1
@@ -78,15 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efa9654f631974526a371afcbe258072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacleCoveragePercentage: 2
-  wallCube: {fileID: 0}
-  floorCube: {fileID: 0}
-  spawnObstacles: 3
-  spawnDiagonals: 0
-  obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
-    type: 3}
   pathManager: {fileID: 3573442668972672422}
-  gridArea: 0
   obstaclePositions: []
 --- !u!114 &3573442668972672346
 MonoBehaviour:
@@ -113,7 +99,7 @@ MonoBehaviour:
   pathFinishHole: {fileID: 8458655825351085258, guid: fa61f5a6dfd0b40938c88f763d0ad804,
     type: 3}
   boardObjects: {fileID: 0}
-  Marble: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18, type: 3}
+  marble: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18, type: 3}
 --- !u!114 &3573442668972672345
 MonoBehaviour:
   m_ObjectHideFlags: 0

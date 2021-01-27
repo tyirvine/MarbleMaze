@@ -14,18 +14,30 @@ public class GameManager : MonoBehaviour
 
     public void ReloadLevel()
     {
+        GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
+        foreach(GameObject p in player)
+        {
+            Destroy(p);
+        }
         GameObject[] wallTiles = GameObject.FindGameObjectsWithTag("boardObjects");
         if (wallTiles.Length > 0)
         {
             foreach (GameObject go in wallTiles)
             {
-                Destroy(go);
+                if (go.gameObject.GetComponent<Rigidbody>() != null)
+                {
+                    Rigidbody rigidBody = go.GetComponent<Rigidbody>();
+                    rigidBody.useGravity = true;
+                    rigidBody.isKinematic = false;
+                    rigidBody.AddExplosionForce(100, Vector3.zero, 20);
+
+                    Destroy(go,3f);
+                }
             }
         }
 
-        if(GameObject.FindGameObjectWithTag("Player").gameObject)
-        Destroy(GameObject.FindGameObjectWithTag("Player").gameObject);
-        tempPM.PublicStart();
+      
+      //  tempPM.PublicStart();
     }
 
     void OnFire()

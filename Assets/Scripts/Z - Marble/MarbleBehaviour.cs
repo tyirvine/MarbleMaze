@@ -25,8 +25,10 @@ public class MarbleBehaviour : MonoBehaviour
         }
         if(other.CompareTag("LevelFinish"))
         {
+            
             GameObject gm = GameObject.FindGameObjectWithTag("GameManager");
             gm.GetComponent<GameManager>().ReloadLevel();
+            
         }
         Debug.Log(other.tag);
     }
