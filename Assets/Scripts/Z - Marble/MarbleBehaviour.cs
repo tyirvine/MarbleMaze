@@ -8,22 +8,22 @@ public class MarbleBehaviour : MonoBehaviour
     public int score = 0;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("pickup"))
+        if (other.CompareTag("pickup"))
         {
             score += other.GetComponent<Pill>().pickup.pickupValue;
             Destroy(other.gameObject);
         }
-        if(other.CompareTag("LevelFinish"))
+        if (other.CompareTag("LevelFinish"))
         {
             GameObject gm = GameObject.FindGameObjectWithTag("GameManager");
             gm.GetComponent<GameManager>().ReloadLevel();

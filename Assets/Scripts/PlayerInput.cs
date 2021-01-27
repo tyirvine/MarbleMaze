@@ -13,16 +13,16 @@ public class PlayerInput : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
     void OnLook(InputValue _value)
     {
         Vector2 temp = _value.Get<Vector2>();
         boardMovement.x = temp.y;
         boardMovement.y = temp.x;
-        if(GlobalStaticVariables.Instance.invertX)        {            boardMovement.y = -boardMovement.y;        }
-        if(GlobalStaticVariables.Instance.invertY)        {            boardMovement.x = -boardMovement.x;        }
-        
+        if (GlobalStaticVariables.Instance.invertX) { boardMovement.y = -boardMovement.y; }
+        if (GlobalStaticVariables.Instance.invertY) { boardMovement.x = -boardMovement.x; }
+
     }
     // Update is called once per frame
     void Update()
@@ -42,7 +42,7 @@ public class PlayerInput : MonoBehaviour
         }
         else
         {
-            boardObjects = gameObject.GetComponent<BuildBoard>().boardObjects; 
+            boardObjects = gameObject.GetComponent<BuildBoard>().boardObjects;
         }
     }
 }

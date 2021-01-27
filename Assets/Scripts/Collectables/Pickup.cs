@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pickup 
+public class Pickup
 {
     public int pickupValue;
-    
-        
-    
 
-    
+
+
+
+
 }
