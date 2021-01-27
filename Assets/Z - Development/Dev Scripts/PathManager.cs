@@ -8,27 +8,27 @@ using Random = UnityEngine.Random;
 public class PathManager : MonoBehaviour {
 
 	// These are half lengths so they can be used as a product of a (1/2) division
-	[Header("Grid Settings")]
-	[Range(7, 100)] public int gridXSizeHalfLength = 10;
-	[Range(7, 100)] public int gridZSizeHalfLength = 10;
+//	[Header("Grid Settings")]
+//	[Range(7, 100)] public int gridXSizeHalfLength = 10;
+//	[Range(7, 100)] public int gridZSizeHalfLength = 10;
 
 	// Scaling for the placement of objects on the grid
 	Vector3 gridScale;
 
 	/// <summary>This dictates how much of the grid area should be start node spawnable area.</summary>
-	[Range(0f, 0.2f)] public float startAreaPercentage = 0.1f;
+//	[Range(0f, 0.2f)] public float startAreaPercentage = 0.1f;
 
-	[Header("Start/End point settings")]
-	[Range(2, 8)] public int cornerLengthDivider = 2;
+//	[Header("Start/End point settings")]
+//	[Range(2, 8)] public int cornerLengthDivider = 2;
 
 	// Decides how long the path itself should be, measured in integral units.
 	[Header("Path Settings")]
 	[Range(6, 100)] public int desiredPathLength = 6;
 
 	/// <summary>Creates a randomized path if enabled.</summary>
-	[Header("Path Manipulation")]
-	public bool isPathWacky = false;
-	[Range(1, 40)] public int wackiness;
+//	[Header("Path Manipulation")]
+//	public bool isPathWacky = false;
+//	[Range(1, 40)] public int wackiness;
 
 	// Flag controls
 	[Header("Flag Control")]
@@ -38,7 +38,7 @@ public class PathManager : MonoBehaviour {
 	public bool buildBoard = false;
 	public bool buildShapes = false;
 	public bool buildObstacles = false;
-
+	
 	// Empties that acts as markers
 	[Header("Object References")]
 	public GameObject pathFlag;
@@ -53,14 +53,13 @@ public class PathManager : MonoBehaviour {
 	[HideInInspector] public bool didPathGenerate;
 
 	/// <summary>Provide the current position of the grid origin.</summary>
-	// [HideInInspector] public Vector3Int currentWorldPosition { get => Vector3Int.FloorToInt(gameObject.transform.position); }
-	[HideInInspector] public Vector3Int currentWorldPosition;
+	[HideInInspector] public Vector3Int currentWorldPosition { get => Vector3Int.FloorToInt(gameObject.transform.position); }
 	/// <summary>Reference to y position of the parent. Used to ensure grid positions are all at the same y position.</summary>
 	// [HideInInspector] public int parentYPosition = 0;
 	[HideInInspector] public int parentYPosition { get => currentWorldPosition.y; }
 
 	/// <summary>How long the grid should appear drawn for. This int gets casted as a float automatically.</summary>
-	int gridDrawDuration = 1000;
+	//int gridDrawDuration = 1000;
 
 	/// For an explination on what these node lists mean please visit ⤵
 	/// https://www.notion.so/scriptobit/Environment-Path-Generation-a5304e8f37474efa98809a03f0e26074
@@ -90,14 +89,14 @@ public class PathManager : MonoBehaviour {
 	//a buffer to stop start and endpoints spawning too close to each other;
 
 	/// <summary>An object that contains which corner and position it's at.</summary>
-	public class CornerNode {
-		public Vector3Int position;
-		public Corner corner;
-		public CornerNode(Vector3Int position, Corner corner) {
-			this.position = position;
-			this.corner = corner;
-		}
-	}
+	//public class CornerNode {
+	//	public Vector3Int position;
+	//	public Corner corner;
+	//	public CornerNode(Vector3Int position, Corner corner) {
+	//		this.position = position;
+	//		this.corner = corner;
+//		}
+//	}
 
 	// For determining whether or not to spawn the start or end point. Helps with readability
 	public enum FlagAreas {
@@ -222,102 +221,11 @@ public class PathManager : MonoBehaviour {
 
 		// Obstacle manager
 		obstacleManager.obstaclePositions = new List<Vector3Int>();
-		obstacleManager.gridArea = 0;
+		
 	}
 
-	/// <summary>Sets the grid's origin point and draws an outline of it. Then it spawns both the start and end point objects and assigns them to <see cref="gridPoints"/>.</summary>
-	void ConstructGrid() {
-		// Simplifies grid position definitions, parent
-		Vector3Int ReturnGridPoint(int x, int z) => new Vector3Int(x, 0, z) + currentWorldPosition;
+	
 
-		// Define grid positions
-		gridPoints.topLeft = ReturnGridPoint(-gridXSizeHalfLength, gridZSizeHalfLength);
-		gridPoints.topRight = ReturnGridPoint(gridXSizeHalfLength, gridZSizeHalfLength);
-		gridPoints.bottomLeft = ReturnGridPoint(-gridXSizeHalfLength, -gridZSizeHalfLength);
-		gridPoints.bottomRight = ReturnGridPoint(gridXSizeHalfLength, -gridZSizeHalfLength);
-
-		// Duration needs to be specified, otherwise a line will only be drawn for one frame
-		void DrawGridLine(Vector3Int start, Vector3Int end) => Debug.DrawLine(start, end, color: Color.white, duration: gridDrawDuration);
-		// Draw a rectangle of the grid
-		DrawGridLine(gridPoints.bottomLeft, gridPoints.topLeft);
-		DrawGridLine(gridPoints.topLeft, gridPoints.topRight);
-		DrawGridLine(gridPoints.topRight, gridPoints.bottomRight);
-		DrawGridLine(gridPoints.bottomRight, gridPoints.bottomLeft);
-	}
-
-	// =========================================
-	// Phase 2: Generate the path
-	// =========================================
-
-	/// <summary>Check to see if a position is within the grid bounds or not.</summary>
-	public bool CheckIfInGridBounds(Vector3Int position) {
-		GridPoints grid = gridPoints;
-		if ((position.z < grid.topLeft.z && position.z > grid.bottomRight.z) && (position.x < grid.bottomRight.x && position.x > grid.topLeft.x))
-			return true;
-		else
-			return false;
-	}
-
-	// WARNING - This function must execute after contruct grid. If it executes prior there will be errors.
-	//create start and end nodes, ensure that they spawn apart in seperate quadrants of the grid
-	//divide grid: top left - 0, top right - 1, bottom left - 2, bottom right - 3. make a function to randomly pick one for the start and ensure that the diagonally opposite contains the end.
-	void SpawnStartEnd() {
-		int cornerLength = 0;
-		///leave a gap at 1/4 of the size of a quadrant. this does reduce the amount of space available to a start/end point
-		///this takes the length of the shortest side and divides it by the corner length divider. This gives us 
-		///a corner side that is nice and short. Resulting in nice square areas to spawn our points.
-		if (gridXSizeHalfLength < gridZSizeHalfLength) {
-			cornerLength = (int)(gridXSizeHalfLength / cornerLengthDivider);
-		} else {
-			cornerLength = (int)(gridZSizeHalfLength / cornerLengthDivider);
-		}
-
-		// This function simplifies picking out a random position within a corner
-		Vector3Int PickOutCornerPosition(int xMinDirection, int xMaxDirection, int zMinDirection, int zMaxDirection) {
-			return new Vector3Int(GlobalStaticVariables.Instance.RandomEven(xMinDirection, xMaxDirection), parentYPosition, GlobalStaticVariables.Instance.RandomEven(zMinDirection, zMaxDirection));
-		}
-
-		/// This is a function that calculates the corner length's position in world space.
-		/// 1 = +x / +z
-		/// -1 = -x / -z
-		int FindCornerLengthPosition(int direction, bool isXAxis) {
-			if (isXAxis)
-				return currentWorldPosition.x + (cornerLength * direction);
-			else
-				return currentWorldPosition.z + (cornerLength * direction);
-		}
-
-		// These functions define the corners
-		Vector3Int TopLeft() => PickOutCornerPosition(gridPoints.topLeft.x, FindCornerLengthPosition(-1, true), FindCornerLengthPosition(1, false), gridPoints.topLeft.z);
-		Vector3Int TopRight() => PickOutCornerPosition(FindCornerLengthPosition(1, true), gridPoints.topRight.x, FindCornerLengthPosition(1, false), gridPoints.topRight.z);
-		Vector3Int BottomLeft() => PickOutCornerPosition(gridPoints.bottomLeft.x, FindCornerLengthPosition(-1, true), FindCornerLengthPosition(-1, false), gridPoints.bottomLeft.z);
-		Vector3Int BottomRight() => PickOutCornerPosition(FindCornerLengthPosition(1, true), gridPoints.bottomRight.x, gridPoints.bottomRight.z, FindCornerLengthPosition(-1, false));
-
-		// Randomly pick out a corner to start at
-		int startQuad = Mathf.RoundToInt(Random.Range(0, 4));
-		switch (startQuad) {
-			case 0:             //top left
-				gridPoints.startPointNode = TopLeft();
-				gridPoints.endPointNode = BottomRight();
-				break;
-			case 1:             //top right
-				gridPoints.startPointNode = TopRight();
-				gridPoints.endPointNode = BottomLeft();
-				break;
-			case 2:             //bottom left
-				gridPoints.startPointNode = BottomLeft();
-				gridPoints.endPointNode = TopRight();
-				break;
-			case 3:             //bottom right
-				gridPoints.startPointNode = BottomRight();
-				gridPoints.endPointNode = TopLeft();
-				break;
-		}
-
-		// Spawn start / end flags
-		if (!disablePathFlags) Instantiate(startFlag, Vector3.Scale(gridScale, gridPoints.startPointNode), Quaternion.identity);
-		if (!disablePathFlags) Instantiate(endFlag, Vector3.Scale(gridScale, gridPoints.endPointNode), Quaternion.identity);
-	}
 
 	/// <summary>Finds all the clearance nodes for the provided position. Top, top right, and right side.</summary>
 	public Vector3Int[] FindClearanceNodes(Vector3Int position) {
@@ -387,8 +295,7 @@ public class PathManager : MonoBehaviour {
 		foreach (NodeObject node in pathNodesClearance) {
 			Vector3Int[] clearancePositions = FindClearanceNodes(node.position);
 			foreach (Vector3Int position in clearancePositions)
-				if (pathNodes.All(nodes => nodes.position != position))
-					pathNodes.Add(new NodeObject(position, 0, 0, 0, true));
+				pathNodes.Add(new NodeObject(position, 0, 0, 0, true));
 		}
 
 		// Reverse the list because we started tracing from the end, and calculate the path's length
@@ -405,37 +312,7 @@ public class PathManager : MonoBehaviour {
 	}
 
 	/// <summary>This checks to see if the point collides with any non-pathable positions.</summary>
-	public bool IsPathable(NodeObject node) {
-		// Grab clearance neighbours to provided position
-		Vector3Int[] positionClearanceNeighbours = FindNodeNeighbours(node.position, 5);
-		bool isPathable = false;
-
-		// Start by making sure the point is within the grid bounds
-		foreach (Vector3Int position in positionClearanceNeighbours)
-			if (CheckIfInGridBounds(position))
-				isPathable = true;
-			else
-				return false;
-
-		return isPathable;
-	}
-
-	/// <summary>Grabs the difference in distance of both the x & z points between Node A and Node B.</summary>
-	public int GetDistance(NodeObject nodeA, NodeObject nodeB) {
-		int dstX = Mathf.Abs(nodeA.position.x - nodeB.position.x);
-		int dstZ = Mathf.Abs(nodeA.position.z - nodeB.position.z);
-		if (!isPathWacky) {
-			// Bubzy do you know what's happening here?
-			if (dstX > dstZ)
-				return 14 * dstZ + 10 * (dstX - dstZ);
-			else
-				return 14 * dstX + 10 * (dstZ - dstX);
-		}
-		// and here?
-		if (dstX > dstZ) return Random.Range(1, wackiness) * dstZ + 10 * (dstX - dstZ);
-		return Random.Range(1, wackiness) * dstX + 10 * (dstZ - dstX);
-	}
-
+	
 	/* -------------------------------------------------------------------------- */
 	/*                               Path Generation                              */
 	/* -------------------------------------------------------------------------- */
@@ -443,10 +320,10 @@ public class PathManager : MonoBehaviour {
 	/// <summary>This handles the creation of a path from the start point to the end point!</summary>
 	void GeneratePath() {
 		// Grab current position for starting point
-		gridPoints.startPointNode = currentWorldPosition;
+		//gridPoints.startPointNode = currentWorldPosition;
 
 		// Add the start node to the open points list
-		openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, false));
+		//openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, false));
 
 		// This object contains the current node being investigated
 		NodeObject currentNode = new NodeObject(gridPoints.startPointNode);
@@ -524,11 +401,9 @@ public class PathManager : MonoBehaviour {
 	/// <summary>This will spawn the grid, obstacle positions, and path positions. It checks to make sure the path is valid,
 	/// if it detects that the path is not valid it reruns, starting at RestartLoop. Usually it only takes one rerun
 	/// to generate a valid path.</summary>
-	public void ConstructPathStack(Vector3Int spawnPosition) {
+	void ConstructPathStack() {
 		// A bool switch to see if an error was caught on the try carch
 		bool errorCaught = false;
-		// Sets up the designated spawn point
-		currentWorldPosition = spawnPosition;
 
 	// Restart from here
 	RestartLoop:;
@@ -555,7 +430,7 @@ public class PathManager : MonoBehaviour {
 		try {
 			// Generates the entire path
 			GeneratePath();
-			if (buildObstacles) obstacleManager.ObstaclePicker();
+			if (buildObstacles) obstacleManager.BuildWall();
 		} catch (Exception e) {
 			Debug.LogException(e, this);
 			Debug.LogWarning("Error caught - Loop Reset");
@@ -584,25 +459,175 @@ public class PathManager : MonoBehaviour {
 
 	}
 
-	// public void PublicStart() {
-	// 	// Grab parameters from global variables
-	// 	gridScale = GlobalStaticVariables.Instance.GlobalScale;
-	// 	openNodes = new List<NodeObject>();
-	// 	closedNodes = new List<NodeObject>();
-	// 	pathNodes = new List<NodeObject>();
-	// 	clearanceNodes = new List<NodeObject>();
-	// 	// Executes the entire path stack
-	// 	ConstructPathStack();
+	// Start is called before the first frame updates
+	 void Start() {
+	 	PublicStart();
 
-	// 	// Collects all the flags in the scene and parents them
-	// 	if (GlobalStaticVariables.Instance.collectFlags) {
-	// 		GameObject[] flags = GameObject.FindGameObjectsWithTag("Flag");
-	// 		GameObject flagParent = new GameObject(name: "FlagParent");
+	 }
 
-	// 		foreach (GameObject flag in flags) {
-	// 			flag.transform.SetParent(flagParent.transform);
-	// 		}
-	// 	}
+	public void PublicStart() {
+		// Grab parameters from global variables
+		gridScale = GlobalStaticVariables.Instance.GlobalScale;
+		openNodes = new List<NodeObject>();
+		closedNodes = new List<NodeObject>();
+		pathNodes = new List<NodeObject>();
+		clearanceNodes = new List<NodeObject>();
+		// Executes the entire path stack
+		ConstructPathStack();
+		// GlobalStaticVariables.Instance.pathGenerationComplete = true;
 
-	// }
+		// Collects all the flags in the scene and parents them
+		if (GlobalStaticVariables.Instance.collectFlags) {
+			GameObject[] flags = GameObject.FindGameObjectsWithTag("Flag");
+			GameObject flagParent = new GameObject(name: "FlagParent");
+
+			foreach (GameObject flag in flags) {
+				flag.transform.SetParent(flagParent.transform);
+			}
+		}
+
+	}
+
+	// TODO: Delete this - this is only for testing
+	bool constructPath = false;
+	void Update() {
+		if (constructPath) {
+			ConstructPathStack();
+			constructPath = false;
+		}
+	}
+	public void OnFire()
+    {
+	//	ConstructPathStack();
+    }
+	public void OnDebug() {
+	//	ConstructPathStack();
+	}
 }
+
+/*// WARNING - This function must execute after contruct grid. If it executes prior there will be errors.
+//create start and end nodes, ensure that they spawn apart in seperate quadrants of the grid
+//divide grid: top left - 0, top right - 1, bottom left - 2, bottom right - 3. make a function to randomly pick one for the start and ensure that the diagonally opposite contains the end.
+void SpawnStartEnd() {
+	int cornerLength = 0;
+	///leave a gap at 1/4 of the size of a quadrant. this does reduce the amount of space available to a start/end point
+	///this takes the length of the shortest side and divides it by the corner length divider. This gives us 
+	///a corner side that is nice and short. Resulting in nice square areas to spawn our points.
+	if (gridXSizeHalfLength < gridZSizeHalfLength) {
+		cornerLength = (int)(gridXSizeHalfLength / cornerLengthDivider);
+	} else {
+		cornerLength = (int)(gridZSizeHalfLength / cornerLengthDivider);
+	}
+
+	// This function simplifies picking out a random position within a corner
+	Vector3Int PickOutCornerPosition(int xMinDirection, int xMaxDirection, int zMinDirection, int zMaxDirection) {
+		return new Vector3Int(GlobalStaticVariables.Instance.RandomEven(xMinDirection, xMaxDirection), parentYPosition, GlobalStaticVariables.Instance.RandomEven(zMinDirection, zMaxDirection));
+	}
+
+	/// This is a function that calculates the corner length's position in world space.
+	/// 1 = +x / +z
+	/// -1 = -x / -z
+	int FindCornerLengthPosition(int direction, bool isXAxis) {
+		if (isXAxis)
+			return currentWorldPosition.x + (cornerLength * direction);
+		else
+			return currentWorldPosition.z + (cornerLength * direction);
+	}
+
+	// These functions define the corners
+	Vector3Int TopLeft() => PickOutCornerPosition(gridPoints.topLeft.x, FindCornerLengthPosition(-1, true), FindCornerLengthPosition(1, false), gridPoints.topLeft.z);
+	Vector3Int TopRight() => PickOutCornerPosition(FindCornerLengthPosition(1, true), gridPoints.topRight.x, FindCornerLengthPosition(1, false), gridPoints.topRight.z);
+	Vector3Int BottomLeft() => PickOutCornerPosition(gridPoints.bottomLeft.x, FindCornerLengthPosition(-1, true), FindCornerLengthPosition(-1, false), gridPoints.bottomLeft.z);
+	Vector3Int BottomRight() => PickOutCornerPosition(FindCornerLengthPosition(1, true), gridPoints.bottomRight.x, gridPoints.bottomRight.z, FindCornerLengthPosition(-1, false));
+
+	// Randomly pick out a corner to start at
+	int startQuad = Mathf.RoundToInt(Random.Range(0, 4));
+	switch (startQuad) {
+		case 0:             //top left
+			gridPoints.startPointNode = TopLeft();
+			gridPoints.endPointNode = BottomRight();
+			break;
+		case 1:             //top right
+			gridPoints.startPointNode = TopRight();
+			gridPoints.endPointNode = BottomLeft();
+			break;
+		case 2:             //bottom left
+			gridPoints.startPointNode = BottomLeft();
+			gridPoints.endPointNode = TopRight();
+			break;
+		case 3:             //bottom right
+			gridPoints.startPointNode = BottomRight();
+			gridPoints.endPointNode = TopLeft();
+			break;
+	}
+
+	// Spawn start / end flags
+	if (!disablePathFlags) Instantiate(startFlag, Vector3.Scale(gridScale, gridPoints.startPointNode), Quaternion.identity);
+	if (!disablePathFlags) Instantiate(endFlag, Vector3.Scale(gridScale, gridPoints.endPointNode), Quaternion.identity);
+}
+
+/// <summary>Sets the grid's origin point and draws an outline of it. Then it spawns both the start and end point objects and assigns them to <see cref="gridPoints"/>.</summary>
+void ConstructGrid()
+{
+	// Simplifies grid position definitions, parent
+	Vector3Int ReturnGridPoint(int x, int z) => new Vector3Int(x, 0, z) + currentWorldPosition;
+
+	// Define grid positions
+	gridPoints.topLeft = ReturnGridPoint(-gridXSizeHalfLength, gridZSizeHalfLength);
+	gridPoints.topRight = ReturnGridPoint(gridXSizeHalfLength, gridZSizeHalfLength);
+	gridPoints.bottomLeft = ReturnGridPoint(-gridXSizeHalfLength, -gridZSizeHalfLength);
+	gridPoints.bottomRight = ReturnGridPoint(gridXSizeHalfLength, -gridZSizeHalfLength);
+
+	// Duration needs to be specified, otherwise a line will only be drawn for one frame
+	void DrawGridLine(Vector3Int start, Vector3Int end) => Debug.DrawLine(start, end, color: Color.white, duration: gridDrawDuration);
+	// Draw a rectangle of the grid
+	DrawGridLine(gridPoints.bottomLeft, gridPoints.topLeft);
+	DrawGridLine(gridPoints.topLeft, gridPoints.topRight);
+	DrawGridLine(gridPoints.topRight, gridPoints.bottomRight);
+	DrawGridLine(gridPoints.bottomRight, gridPoints.bottomLeft);
+}
+
+public bool IsPathable(NodeObject node) {
+		// Grab clearance neighbours to provided position
+		Vector3Int[] positionClearanceNeighbours = FindNodeNeighbours(node.position, 5);
+		bool isPathable = false;
+
+		// Start by making sure the point is within the grid bounds
+		foreach (Vector3Int position in positionClearanceNeighbours)
+			if (CheckIfInGridBounds(position))
+				isPathable = true;
+			else
+				return false;
+
+		return isPathable;
+	}
+
+	/// <summary>Grabs the difference in distance of both the x & z points between Node A and Node B.</summary>
+	public int GetDistance(NodeObject nodeA, NodeObject nodeB) {
+		int dstX = Mathf.Abs(nodeA.position.x - nodeB.position.x);
+		int dstZ = Mathf.Abs(nodeA.position.z - nodeB.position.z);
+		if (!isPathWacky) {
+			// Bubzy do you know what's happening here?
+			if (dstX > dstZ)
+				return 14 * dstZ + 10 * (dstX - dstZ);
+			else
+				return 14 * dstX + 10 * (dstZ - dstX);
+		}
+		// and here?
+		if (dstX > dstZ) return Random.Range(1, wackiness) * dstZ + 10 * (dstX - dstZ);
+		return Random.Range(1, wackiness) * dstX + 10 * (dstZ - dstX);
+	}
+
+	// =========================================
+	// Phase 2: Generate the path
+	// =========================================
+
+	/// <summary>Check to see if a position is within the grid bounds or not.</summary>
+//	public bool CheckIfInGridBounds(Vector3Int position) {
+	//	GridPoints grid = gridPoints;
+		//if ((position.z < grid.topLeft.z && position.z > grid.bottomRight.z) && (position.x < grid.bottomRight.x && position.x > grid.topLeft.x))
+	//		return true;
+//		else
+	//		return false;
+//	}
+*/
