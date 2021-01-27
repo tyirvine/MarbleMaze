@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour {
 	public void NewBoard() {
 		DeleteOldBoards();
 		Debug.Log("Create a new board!");
+		
 	}
 
 	// Ensures the marble is placed before any functions occur that rely on it's position

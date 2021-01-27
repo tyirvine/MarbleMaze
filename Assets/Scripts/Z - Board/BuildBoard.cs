@@ -45,8 +45,9 @@ public class BuildBoard : MonoBehaviour {
 			if (n.position.z > topLeftY) { topLeftY = n.position.z; } else if (n.position.z < lowRightY) { lowRightY = n.position.z; }
 
 		}
-		Vector3 tpLeft = new Vector3(topLeftX, 0, topLeftY);
-		Vector3 btRight = new Vector3(lowRightX, 0, lowRightY);
+		float y = pathManager.currentWorldPosition.y;
+		Vector3 tpLeft = new Vector3(topLeftX, y, topLeftY);
+		Vector3 btRight = new Vector3(lowRightX, y, lowRightY);
 		Vector3 midpoint = (tpLeft + btRight) / 2;
 		float middleX = topLeftX + (topLeftX - lowRightX) / 2;
 		float middleY = topLeftY + (topLeftY - lowRightY) / 2;
