@@ -7,28 +7,12 @@ using Random = UnityEngine.Random;
 
 public class PathManager : MonoBehaviour {
 
-	// These are half lengths so they can be used as a product of a (1/2) division
-	//	[Header("Grid Settings")]
-	//	[Range(7, 100)] public int gridXSizeHalfLength = 10;
-	//	[Range(7, 100)] public int gridZSizeHalfLength = 10;
-
 	// Scaling for the placement of objects on the grid
 	Vector3 gridScale;
-
-	/// <summary>This dictates how much of the grid area should be start node spawnable area.</summary>
-	//	[Range(0f, 0.2f)] public float startAreaPercentage = 0.1f;
-
-	//	[Header("Start/End point settings")]
-	//	[Range(2, 8)] public int cornerLengthDivider = 2;
 
 	// Decides how long the path itself should be, measured in integral units.
 	[Header("Path Settings")]
 	[Range(6, 100)] public int desiredPathLength = 6;
-
-	/// <summary>Creates a randomized path if enabled.</summary>
-	//	[Header("Path Manipulation")]
-	//	public bool isPathWacky = false;
-	//	[Range(1, 40)] public int wackiness;
 
 	// Flag controls
 	[Header("Flag Control")]
@@ -53,14 +37,9 @@ public class PathManager : MonoBehaviour {
 	[HideInInspector] public bool didPathGenerate;
 
 	/// <summary>Provide the current position of the grid origin.</summary>
-	// [HideInInspector] public Vector3Int currentWorldPosition { get => Vector3Int.FloorToInt(gameObject.transform.position); }
 	[HideInInspector] public Vector3Int currentWorldPosition;
 	/// <summary>Reference to y position of the parent. Used to ensure grid positions are all at the same y position.</summary>
-	// [HideInInspector] public int parentYPosition = 0;
 	[HideInInspector] public int parentYPosition { get => currentWorldPosition.y; }
-
-	/// <summary>How long the grid should appear drawn for. This int gets casted as a float automatically.</summary>
-	//int gridDrawDuration = 1000;
 
 	/// For an explination on what these node lists mean please visit ⤵
 	/// https://www.notion.so/scriptobit/Environment-Path-Generation-a5304e8f37474efa98809a03f0e26074
@@ -86,18 +65,6 @@ public class PathManager : MonoBehaviour {
 
 	/// <summary>Contains all grid positions in an easy to use object.</summary>
 	public GridPoints gridPoints;
-
-	//a buffer to stop start and endpoints spawning too close to each other;
-
-	/// <summary>An object that contains which corner and position it's at.</summary>
-	//public class CornerNode {
-	//	public Vector3Int position;
-	//	public Corner corner;
-	//	public CornerNode(Vector3Int position, Corner corner) {
-	//		this.position = position;
-	//		this.corner = corner;
-	//		}
-	//	}
 
 	// For determining whether or not to spawn the start or end point. Helps with readability
 	public enum FlagAreas {
@@ -277,16 +244,6 @@ public class PathManager : MonoBehaviour {
 			pathNodes.Add(node);
 		}
 
-		// // Builds a trace by taking in the parent node of each node and adding it to the path nodes list
-		// while (traceNode.position != gridPoints.startPointNode) {
-		// 	if (traceNode.position != gridPoints.endPointNode) pathNodes.Add(traceNode);
-		// 	traceNode = traceNode.parent;
-		// }
-
-		// // Add in both start and end points
-		// pathNodes.Add(new NodeObject(gridPoints.startPointNode));
-		// pathNodes.Add(new NodeObject(gridPoints.endPointNode));
-
 		// // Setup an extra list so the for loop doesn't grow ↴
 		NodeObject[] pathNodesClearance = pathNodes.ToArray();
 		// Add in clearance nodes to path nodes
@@ -319,10 +276,10 @@ public class PathManager : MonoBehaviour {
 	/// <summary>This handles the creation of a path from the start point to the end point!</summary>
 	void GeneratePath() {
 		// Grab current position for starting point
-		//gridPoints.startPointNode = currentWorldPosition;
+		gridPoints.startPointNode = currentWorldPosition;
 
 		// Add the start node to the open points list
-		//openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, false));
+		openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, false));
 
 		// This object contains the current node being investigated
 		NodeObject currentNode = new NodeObject(gridPoints.startPointNode);
@@ -340,7 +297,6 @@ public class PathManager : MonoBehaviour {
 			if (pathLengthProgress > 0) {
 				// Add previous node (known as current) to the closed nodes
 				closedNodes.Add(currentNode);
-				// Instantiate(startFlag, currentNode.position, startFlag.transform.rotation);
 				// Randomly pick the next node out of the open nodes and assign that as the new current
 				int randomOpenNode = Random.Range(0, openNodes.Count());
 				currentNode = openNodes[randomOpenNode];
