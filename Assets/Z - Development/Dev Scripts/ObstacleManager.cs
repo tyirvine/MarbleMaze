@@ -34,7 +34,7 @@ public class ObstacleManager : MonoBehaviour {
 
 	/// <summary>Spawn an obstacle flag.</summary>
 	public void SpawnObstacleFlag(Vector3Int currentObstaclePosition) {
-		Instantiate(obstacleFlag, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, currentObstaclePosition), Quaternion.identity);
+		if (!pathManager.disablePathFlags) Instantiate(obstacleFlag, Vector3.Scale(GlobalStaticVariables.Instance.GlobalScale, currentObstaclePosition), Quaternion.identity);
 	}
 
 	/// <summary>This builds a wall of nodes around whatever NodeObject list is provided!</summary>

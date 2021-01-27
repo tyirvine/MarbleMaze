@@ -53,7 +53,8 @@ public class PathManager : MonoBehaviour {
 	[HideInInspector] public bool didPathGenerate;
 
 	/// <summary>Provide the current position of the grid origin.</summary>
-	[HideInInspector] public Vector3Int currentWorldPosition { get => Vector3Int.FloorToInt(gameObject.transform.position); }
+	// [HideInInspector] public Vector3Int currentWorldPosition { get => Vector3Int.FloorToInt(gameObject.transform.position); }
+	[HideInInspector] public Vector3Int currentWorldPosition;
 	/// <summary>Reference to y position of the parent. Used to ensure grid positions are all at the same y position.</summary>
 	// [HideInInspector] public int parentYPosition = 0;
 	[HideInInspector] public int parentYPosition { get => currentWorldPosition.y; }
@@ -522,9 +523,11 @@ public class PathManager : MonoBehaviour {
 	/// <summary>This will spawn the grid, obstacle positions, and path positions. It checks to make sure the path is valid,
 	/// if it detects that the path is not valid it reruns, starting at RestartLoop. Usually it only takes one rerun
 	/// to generate a valid path.</summary>
-	void ConstructPathStack() {
+	public void ConstructPathStack(Vector3Int spawnPosition) {
 		// A bool switch to see if an error was caught on the try carch
 		bool errorCaught = false;
+		// Sets up the designated spawn point
+		currentWorldPosition = spawnPosition;
 
 	// Restart from here
 	RestartLoop:;
@@ -580,45 +583,25 @@ public class PathManager : MonoBehaviour {
 
 	}
 
-	// Start is called before the first frame updates
-	// void Start() {
-	// 	PublicStart();
+	// public void PublicStart() {
+	// 	// Grab parameters from global variables
+	// 	gridScale = GlobalStaticVariables.Instance.GlobalScale;
+	// 	openNodes = new List<NodeObject>();
+	// 	closedNodes = new List<NodeObject>();
+	// 	pathNodes = new List<NodeObject>();
+	// 	clearanceNodes = new List<NodeObject>();
+	// 	// Executes the entire path stack
+	// 	ConstructPathStack();
+
+	// 	// Collects all the flags in the scene and parents them
+	// 	if (GlobalStaticVariables.Instance.collectFlags) {
+	// 		GameObject[] flags = GameObject.FindGameObjectsWithTag("Flag");
+	// 		GameObject flagParent = new GameObject(name: "FlagParent");
+
+	// 		foreach (GameObject flag in flags) {
+	// 			flag.transform.SetParent(flagParent.transform);
+	// 		}
+	// 	}
 
 	// }
-
-	public void PublicStart() {
-		// Grab parameters from global variables
-		gridScale = GlobalStaticVariables.Instance.GlobalScale;
-		openNodes = new List<NodeObject>();
-		closedNodes = new List<NodeObject>();
-		pathNodes = new List<NodeObject>();
-		clearanceNodes = new List<NodeObject>();
-		// Executes the entire path stack
-		ConstructPathStack();
-		// GlobalStaticVariables.Instance.pathGenerationComplete = true;
-
-		// Collects all the flags in the scene and parents them
-		if (GlobalStaticVariables.Instance.collectFlags) {
-			GameObject[] flags = GameObject.FindGameObjectsWithTag("Flag");
-			GameObject flagParent = new GameObject(name: "FlagParent");
-
-			foreach (GameObject flag in flags) {
-				flag.transform.SetParent(flagParent.transform);
-			}
-		}
-
-	}
-
-	// TODO: Delete this - this is only for testing
-	bool constructPath = false;
-	void Update() {
-		if (constructPath) {
-			ConstructPathStack();
-			constructPath = false;
-		}
-	}
-
-	public void OnDebug() {
-		constructPath = true;
-	}
 }
