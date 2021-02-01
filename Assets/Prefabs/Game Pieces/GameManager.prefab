@@ -118,8 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f9b5e6cbeb55b42885d692e19c3c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathManager: {fileID: 3573442668972672422, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
-    type: 3}
+  pathManager: {fileID: 0}
   marblePrefab: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18,
     type: 3}
   marble: {fileID: 0}
