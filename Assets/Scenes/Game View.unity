@@ -198,7 +198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 126260992}
   m_LocalRotation: {x: -0.33058798, y: -0.3572273, z: 0.13684118, w: -0.86277163}
-  m_LocalPosition: {x: -15.2, y: 16.7, z: -14.6}
+  m_LocalPosition: {x: -15.2, y: 21.4, z: -14.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 612481850}
@@ -361,6 +361,11 @@ PrefabInstance:
     - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: boardOffsetFromMarble
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: rateOfMarbleMovement
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325326, guid: e4812eac19bba4a7f90f3bebb64f5ffd,

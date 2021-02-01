@@ -22,6 +22,7 @@ TagManager:
   - invalidIgnore
   - GameManager
   - LevelFinish
+  - oldWallTiles
   layers:
   - Default
   - TransparentFX

@@ -26,7 +26,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (boardObjects)
         {
-            boardObjects.transform.Rotate(new Vector3(boardMovement.x, 0, -boardMovement.y) * moveSpeed * Time.deltaTime);
+            boardObjects.transform.Rotate(new Vector3(boardMovement.x, 0, -boardMovement.y) * moveSpeed * Time.fixedDeltaTime);
             Vector3 rotEulers = boardObjects.transform.rotation.eulerAngles;
             // Debug.Log(rotEulers.ToString());
             rotEulers.x = (rotEulers.x <= 180 ? rotEulers.x : -(360 - rotEulers.x));

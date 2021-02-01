@@ -400,9 +400,9 @@ public class PathManager : MonoBehaviour
     RestartLoop:;
 
 #if UNITY_EDITOR
-		// Used to time path construction
-		long loopStartTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-		GlobalStaticVariables.Instance.DebugLogEntry("Started PathManager.cs");
+        // Used to time path construction
+        long loopStartTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        GlobalStaticVariables.Instance.DebugLogEntry("Started PathManager.cs");
 #endif
 
         // Initialize
@@ -445,11 +445,11 @@ public class PathManager : MonoBehaviour
         //Instantiate(shapeManager, transform.position, Quaternion.identity);
 
 #if UNITY_EDITOR
-		// Path construction finished
-		long currentTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-		string currentTimeLog = "Path found in " + (currentTime - loopStartTime) + "ms!";
-		GlobalStaticVariables.Instance.DebugLogEntry("Finished PathManager.cs - " + currentTimeLog);
-		Debug.Log(currentTimeLog);
+        // Path construction finished
+        long currentTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+        string currentTimeLog = "Path found in " + (currentTime - loopStartTime) + "ms!";
+        GlobalStaticVariables.Instance.DebugLogEntry("Finished PathManager.cs - " + currentTimeLog);
+        Debug.Log(currentTimeLog);
 #endif
 
     }
