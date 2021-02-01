@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public GameObject marble;
     // State objects
     bool buildNewBoard = false;
+    // Settings
+    [Range(0.1f, 3.0f)] public float spawnNewBoardTiming = 1.0f;
+    public int boardOffsetFromMarble = 30;
 
     /// <summary>Destroys the old board via tags.</summary>
     public void DeleteOldBoards()
@@ -30,37 +33,37 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>Just a simple script to spawn the marble.</summary>
-    void PlaceMarble()
+    public void PlaceMarble()
     {
         marble = Instantiate(marblePrefab, pathManager.gridPoints.startPointNode, Quaternion.identity);
     }
 
     /// <summary>Returns the marble's position offset on the y.</summary>
-    Vector3Int GetMarblePosition() => Vector3Int.FloorToInt(marble.transform.position - new Vector3Int(0, 10, 0));
+    Vector3Int GetMarblePositionOffset() => Vector3Int.FloorToInt(marble.transform.position - new Vector3Int(0, boardOffsetFromMarble, 0));
 
     /// <summary>Calls the new board method after a set number of seconds.</summary>
     public void CallForNewBoard()
     {
-        Invoke("NewBoard", 2);
+        Invoke("NewBoard", spawnNewBoardTiming);
     }
 
     /// <summary>This method generates a new board and anything else that needs to happen.</summary>
     public void NewBoard()
     {
         DeleteOldBoards();
-        Debug.Log("Create a new board!");
+        pathManager.ConstructPathStack(GetMarblePositionOffset());
     }
 
     // Ensures the marble is placed before any functions occur that rely on it's position
-    private void Awake()
+    void Awake()
     {
         PlaceMarble();
     }
 
     // TODO: Remove, testing only
-    private void Start()
+    void Start()
     {
-        pathManager.ConstructPathStack(GetMarblePosition());
+        pathManager.ConstructPathStack(GetMarblePositionOffset());
     }
 
 }

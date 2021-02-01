@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3573442668972672423}
   - component: {fileID: 3573442668972672346}
   - component: {fileID: 3573442668972672345}
-  - component: {fileID: 3573442668972672347}
   - component: {fileID: -3357521514988041618}
   m_Layer: 0
   m_Name: PathManager
@@ -135,35 +134,19 @@ MonoBehaviour:
     unitCount: 3
     includeInBuild: 1
     rotate: 1
-  - rule: {fileID: 2341339139694139497, guid: 097611774ba41aa49a66995354cede90, type: 3}
-    model: {fileID: 8635483451534611262, guid: c6cbbf5c7209c3943842a60e4635fa89, type: 3}
-    unitCount: 1
-    includeInBuild: 1
-    rotate: 0
   - rule: {fileID: 5520149041154882132, guid: 47a8264bedc9a483da6be1e9e2d7af97, type: 3}
     model: {fileID: 8030225223454038683, guid: 86dc6ca264bc829488e713aa161a03ea, type: 3}
     unitCount: 2
     includeInBuild: 1
     rotate: 1
+  - rule: {fileID: 2341339139694139497, guid: 097611774ba41aa49a66995354cede90, type: 3}
+    model: {fileID: 8635483451534611262, guid: c6cbbf5c7209c3943842a60e4635fa89, type: 3}
+    unitCount: 1
+    includeInBuild: 1
+    rotate: 0
   spawnFlags: 0
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
---- !u!114 &3573442668972672347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3573442668972672420}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cce9df54b50368f4ba6d622b8b6bd3a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boardObjects: {fileID: 0}
-  boardClamp: 20
-  boardMovementDampening: 0.1
-  moveSpeed: 25
 --- !u!114 &-3357521514988041618
 MonoBehaviour:
   m_ObjectHideFlags: 0
