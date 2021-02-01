@@ -115,8 +115,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapes:
-  - rule: {fileID: 5520149041154882132, guid: c592313622366433cb40f605d5dafe97, type: 3}
-    model: {fileID: 1414435072253065291, guid: 52d2af09a056d49cf9ce791f6596950b, type: 3}
+  - rule: {fileID: 5520149041154882132, guid: dfee14ae8f119433ca5143d8a704e46b, type: 3}
+    model: {fileID: 1414435072253065291, guid: 50c5dfc8c304140a0b46d07791e00abe, type: 3}
     unitCount: 4
     includeInBuild: 1
     rotate: 1
@@ -125,8 +125,8 @@ MonoBehaviour:
     unitCount: 4
     includeInBuild: 1
     rotate: 1
-  - rule: {fileID: 5520149041154882132, guid: dfee14ae8f119433ca5143d8a704e46b, type: 3}
-    model: {fileID: 1414435072253065291, guid: 50c5dfc8c304140a0b46d07791e00abe, type: 3}
+  - rule: {fileID: 5520149041154882132, guid: c592313622366433cb40f605d5dafe97, type: 3}
+    model: {fileID: 1414435072253065291, guid: 52d2af09a056d49cf9ce791f6596950b, type: 3}
     unitCount: 4
     includeInBuild: 1
     rotate: 1
@@ -135,16 +135,16 @@ MonoBehaviour:
     unitCount: 3
     includeInBuild: 1
     rotate: 1
-  - rule: {fileID: 5520149041154882132, guid: 47a8264bedc9a483da6be1e9e2d7af97, type: 3}
-    model: {fileID: 8030225223454038683, guid: 86dc6ca264bc829488e713aa161a03ea, type: 3}
-    unitCount: 1
-    includeInBuild: 1
-    rotate: 1
   - rule: {fileID: 2341339139694139497, guid: 097611774ba41aa49a66995354cede90, type: 3}
     model: {fileID: 8635483451534611262, guid: c6cbbf5c7209c3943842a60e4635fa89, type: 3}
     unitCount: 1
     includeInBuild: 1
     rotate: 0
+  - rule: {fileID: 5520149041154882132, guid: 47a8264bedc9a483da6be1e9e2d7af97, type: 3}
+    model: {fileID: 8030225223454038683, guid: 86dc6ca264bc829488e713aa161a03ea, type: 3}
+    unitCount: 2
+    includeInBuild: 1
+    rotate: 1
   spawnFlags: 0
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
