@@ -2,8 +2,14 @@
 
 public class LevelManager : MonoBehaviour
 {
+
+    /* -------------------------------- Settings -------------------------------- */
+    [Header("Settings")]
+    public int startingPathLength = 3;
+
     /* --------------------------- Referenced objects --------------------------- */
-    public int pathLength;
+    [Header("References")]
+    public PathManager pathManager;
     // Hazards
     public int hazardBumperProbability;
     public int hazardSpikeProbability;
@@ -12,7 +18,10 @@ public class LevelManager : MonoBehaviour
     // Grab references on Awake
     private void Awake()
     {
-        pathLength = FindObjectOfType<PathManager>().desiredPathLength;
+        // Path
+        pathManager = FindObjectOfType<GameManager>().pathManager;
+        pathManager.desiredPathLength = startingPathLength;
+
         // TODO: Get reference to hazard probability
         // hazardBumperProbability = FindObjectOfType<ShapeManager>().
     }
@@ -36,13 +45,11 @@ public class LevelManager : MonoBehaviour
         currentLevel++;
     }
 
+    /// <summary>Currently increments the path every 2 levels so by level 100 you have a path 50 units long.</summary>
     public void IncrementPathLength()
     {
         if (currentLevel % 2 == 0)
-        {
-            pathLength++;
-            Debug.Log(pathLength);
-        }
+            pathManager.desiredPathLength++;
     }
 
 }

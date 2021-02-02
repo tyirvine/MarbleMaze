@@ -17,6 +17,7 @@ public class ShapeTemplate
     public bool includeInBuild = true;
     public bool rotate = true;
     public int chanceToSpawn = 100;
+    public bool isHazard = false;
 }
 
 ///create a class to store each child point in a shape, this can be done from the child transform, but this method is a little tidier
@@ -32,7 +33,14 @@ public class ShapeManager : MonoBehaviour
 {
 
     // Shapes
+    [Header("Shapes")]
     public ShapeTemplate[] shapes;
+
+    // Hazards
+    [Header("Hazards")]
+    public ShapeTemplate hazardBumper;
+    public ShapeTemplate hazardSpike;
+    public ShapeTemplate hazardTreadmill;
 
     // Settings
     [Header("Draw Flags of obstacle positions")]
@@ -44,9 +52,16 @@ public class ShapeManager : MonoBehaviour
     int rotation = 90;
     public void CheckShapes()
     {
+        /* ------------------------------ Hazard Shapes ----------------------------- */
+        // Keep in mind these need to be removed at the end
+        List<ShapeTemplate> shapesAsList = shapes.ToList();
+        // shapesAsList.RemoveAll(shape => shape.isHazard);
+        shapesAsList.Add(hazardBumper);
+        shapesAsList.Add(hazardSpike);
+        shapesAsList.Add(hazardTreadmill);
+        shapes = shapesAsList.ToArray();
 
         // This simply disables the method from firing
-
         List<NodeObject> pathNodes = new List<NodeObject>();
         pathNodes.AddRange(gameObject.GetComponent<ObstacleManager>().obstacleNodes);
         List<Vector3Int> placedPositions = new List<Vector3Int>();
@@ -183,6 +198,10 @@ public class ShapeManager : MonoBehaviour
 
         }
 
+        // Remove all hazards from shapes
+        shapesAsList = shapes.ToList();
+        shapesAsList.RemoveAll(shape => shape.isHazard);
+        shapes = shapesAsList.ToArray();
     }
 
     public bool SpawnObject(int pct)
