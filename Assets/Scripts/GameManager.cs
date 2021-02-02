@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
         // Pre-deletion ⤵︎
         marble.transform.SetParent(null);
         colorManager.changeColor = true;
-        levelManager.IncrementCurrentLevel();
+        levelManager.NewLevel();
 
         // Call new board
         Invoke("NewBoard", spawnNewBoardTiming);
