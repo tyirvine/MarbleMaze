@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   desiredPathLength: 16
-  disablePathFlags: 1
+  disablePathFlags: 0
   buildBoard: 1
   buildShapes: 1
   buildObstacles: 1
@@ -59,7 +59,7 @@ MonoBehaviour:
   endFlag: {fileID: 8970112326771813452, guid: 3a13cb7cf52e0c048be27ed0b089bdad, type: 3}
   obstacleManager: {fileID: 3573442668972672423}
   didPathGenerate: 0
-  currentWorldPosition: {x: 14, y: -1453, z: -70}
+  currentWorldPosition: {x: 4, y: -184, z: 0}
 --- !u!114 &3573442668972672423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,13 +119,7 @@ MonoBehaviour:
     unitCount: 7
     includeInBuild: 1
     rotate: 1
-    chanceToSpawn: 50
-  - rule: {fileID: 5520149041154882132, guid: c592313622366433cb40f605d5dafe97, type: 3}
-    model: {fileID: 1414435072253065291, guid: 52d2af09a056d49cf9ce791f6596950b, type: 3}
-    unitCount: 4
-    includeInBuild: 1
-    rotate: 1
-    chanceToSpawn: 100
+    chanceToSpawn: 35
   - rule: {fileID: 5520149041154882132, guid: 160ebb87b1a78410c834ef9758b02fe5, type: 3}
     model: {fileID: 1414435072253065291, guid: 30f74cf16a534440b92386dcb8ca0a57, type: 3}
     unitCount: 4
@@ -134,6 +128,12 @@ MonoBehaviour:
     chanceToSpawn: 100
   - rule: {fileID: 5520149041154882132, guid: dfee14ae8f119433ca5143d8a704e46b, type: 3}
     model: {fileID: 1414435072253065291, guid: 50c5dfc8c304140a0b46d07791e00abe, type: 3}
+    unitCount: 4
+    includeInBuild: 1
+    rotate: 1
+    chanceToSpawn: 100
+  - rule: {fileID: 5520149041154882132, guid: c592313622366433cb40f605d5dafe97, type: 3}
+    model: {fileID: 1414435072253065291, guid: 52d2af09a056d49cf9ce791f6596950b, type: 3}
     unitCount: 4
     includeInBuild: 1
     rotate: 1

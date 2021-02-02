@@ -49,6 +49,9 @@ public class PathManager : MonoBehaviour
     public List<NodeObject> pathNodes = new List<NodeObject>();
     public List<NodeObject> clearanceNodes = new List<NodeObject>();
 
+    /// <summary>This list contains path nodes that are specifically refined for the ShapeManager.</summary>
+    public List<NodeObject> pathShapeNodes = new List<NodeObject>();
+
     /// <summary> Use this object to define grid positions.</summary>
     public struct GridPoints
     {
@@ -194,6 +197,7 @@ public class PathManager : MonoBehaviour
         closedNodes = new List<NodeObject>();
         pathNodes = new List<NodeObject>();
         clearanceNodes = new List<NodeObject>();
+        pathShapeNodes = new List<NodeObject>();
 
         // Obstacle manager
         obstacleManager.obstaclePositions = new List<Vector3Int>();
@@ -268,7 +272,7 @@ public class PathManager : MonoBehaviour
             pathNodes.Add(node);
         }
 
-        // // Setup an extra list so the for loop doesn't grow ↴
+        // Setup an extra list so the for loop doesn't grow ↴
         NodeObject[] pathNodesClearance = pathNodes.ToArray();
         // Add in clearance nodes to path nodes
         foreach (NodeObject node in pathNodesClearance)
@@ -279,8 +283,24 @@ public class PathManager : MonoBehaviour
                     pathNodes.Add(new NodeObject(position, 0, 0, 0, true));
         }
 
+        // Build pathnodes list for ShapeManager
+        pathShapeNodes = pathNodes.ToList();
+        // Remove clearance nodes from both start/end points
+        Vector3Int[] startendPoints = { gridPoints.startPointNode, gridPoints.endPointNode };
+        foreach (Vector3Int position in startendPoints)
+        {
+            Vector3Int[] clearancePositions = FindClearanceNodes(position);
+            foreach (Vector3Int clearancePosition in clearancePositions)
+                pathShapeNodes.RemoveAll(nodes => nodes.position == clearancePosition);
+        }
+
+        // Remove start / ends as well
+        pathShapeNodes.RemoveAll(nodes => nodes.position == gridPoints.startPointNode);
+        pathShapeNodes.RemoveAll(nodes => nodes.position == gridPoints.endPointNode);
+
         // Reverse the list because we started tracing from the end, and calculate the path's length
         pathNodes.Reverse();
+        pathShapeNodes.Reverse();
 
         // Instantiate desired object
         if (!disablePathFlags)

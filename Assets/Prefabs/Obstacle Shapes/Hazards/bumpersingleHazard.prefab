@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8523229018494783309}
   m_Layer: 0
-  m_Name: bumpersingleHazard
+  m_Name: BumperSingleHazard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,6 +179,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShapeUnitDontPlace (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 05b4f417beb48b041a755bfa856bc40c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05b4f417beb48b041a755bfa856bc40c, type: 3}
 --- !u!4 &7846868306121168727 stripped
@@ -253,6 +258,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shape Unit (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 36c9274be7207bd458be388a39783581,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c9274be7207bd458be388a39783581, type: 3}
@@ -478,6 +488,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShapeUnitDontPlace (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6657395001516752114, guid: 05b4f417beb48b041a755bfa856bc40c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05b4f417beb48b041a755bfa856bc40c, type: 3}

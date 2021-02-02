@@ -53,7 +53,7 @@ public class ShapeManager : MonoBehaviour
         List<Vector3Int> nodePositions = new List<Vector3Int>();
         List<ShapePoints> shapePoints = new List<ShapePoints>();
         List<NodeObject> _walkNodes = new List<NodeObject>();
-        _walkNodes.AddRange(gameObject.GetComponent<PathManager>().pathNodes);
+        _walkNodes.AddRange(gameObject.GetComponent<PathManager>().pathShapeNodes);
         List<Vector3> walkNodes = new List<Vector3>();
 
         // assign the unwalkable pathNodes to nodePositions and the walkable pathNodes to pathPositions
