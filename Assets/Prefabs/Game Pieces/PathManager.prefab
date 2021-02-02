@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1f89345e95a4676a73b5c4a7aacdd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredPathLength: 4
+  desiredPathLength: 17
   disablePathFlags: 1
   buildBoard: 1
   buildShapes: 1
@@ -59,7 +59,7 @@ MonoBehaviour:
   endFlag: {fileID: 8970112326771813452, guid: 3a13cb7cf52e0c048be27ed0b089bdad, type: 3}
   obstacleManager: {fileID: 3573442668972672423}
   didPathGenerate: 0
-  currentWorldPosition: {x: -3, y: -201, z: 2}
+  currentWorldPosition: {x: 24, y: -1443, z: 33}
 --- !u!114 &3573442668972672423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +162,7 @@ MonoBehaviour:
     unitCount: 7
     includeInBuild: 1
     rotate: 1
-    chanceToSpawn: 100
+    chanceToSpawn: 19
     isHazard: 1
   hazardSpike:
     rule: {fileID: 0}
@@ -170,7 +170,7 @@ MonoBehaviour:
     unitCount: 0
     includeInBuild: 0
     rotate: 1
-    chanceToSpawn: 100
+    chanceToSpawn: 14
     isHazard: 1
   hazardTreadmill:
     rule: {fileID: 0}
@@ -178,12 +178,12 @@ MonoBehaviour:
     unitCount: 0
     includeInBuild: 0
     rotate: 1
-    chanceToSpawn: 100
+    chanceToSpawn: 24
     isHazard: 1
   spawnFlags: 0
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}
-  difficulty: 0.01
+  difficulty: 1
 --- !u!114 &-3357521514988041618
 MonoBehaviour:
   m_ObjectHideFlags: 0

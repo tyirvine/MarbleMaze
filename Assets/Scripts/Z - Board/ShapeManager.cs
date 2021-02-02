@@ -103,7 +103,7 @@ public class ShapeManager : MonoBehaviour
                 GameObject tempRule = Instantiate(currentShape.rule);
                 foreach (Vector3Int nodePosition in nodePositions)
                 {
-                    if (SpawnObject(currentShape.chanceToSpawn))
+                    if (!currentShape.isHazard || SpawnObject(currentShape.chanceToSpawn))
                     {
                         if (!placedPositions.Contains(nodePosition))
                         {
@@ -207,8 +207,8 @@ public class ShapeManager : MonoBehaviour
     public bool SpawnObject(int pct)
     {
         float rnd = UnityEngine.Random.Range(1, 100);
-        rnd *= difficulty;
-        if (rnd <= pct)
+        // rnd *= difficulty;
+        if (rnd <= pct * difficulty)
             return true;
         else
             return false;
