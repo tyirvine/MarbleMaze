@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 590207933317151692}
   - component: {fileID: 1783472212059904944}
   - component: {fileID: 2090060955402704634}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Marble
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -123,6 +123,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eac0bc7d18fdf4b88a63a8b3dee564d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  marbleRigidbody: {fileID: 1783472212059904944}
-  maxAngularVelocity: 72.62
-  sleepThreshold: 0.005
