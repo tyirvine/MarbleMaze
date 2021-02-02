@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1f89345e95a4676a73b5c4a7aacdd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredPathLength: 19
+  desiredPathLength: 10
   disablePathFlags: 1
   buildBoard: 1
   buildShapes: 1
@@ -59,7 +59,7 @@ MonoBehaviour:
   endFlag: {fileID: 8970112326771813452, guid: 3a13cb7cf52e0c048be27ed0b089bdad, type: 3}
   obstacleManager: {fileID: 3573442668972672423}
   didPathGenerate: 0
-  currentWorldPosition: {x: 23, y: -387, z: -25}
+  currentWorldPosition: {x: 5, y: -196, z: -15}
 --- !u!114 &3573442668972672423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,8 +114,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapes:
-  - rule: {fileID: 5520149041154882132, guid: c592313622366433cb40f605d5dafe97, type: 3}
-    model: {fileID: 1414435072253065291, guid: 52d2af09a056d49cf9ce791f6596950b, type: 3}
+  - rule: {fileID: 4142884895529112775, guid: cd276db386b8f7847b5f02748132742d, type: 3}
+    model: {fileID: 1601014077680546308, guid: e1972efc85352ef48a8386931d86fcad, type: 3}
+    unitCount: 7
+    includeInBuild: 1
+    rotate: 1
+    chanceToSpawn: 50
+  - rule: {fileID: 5520149041154882132, guid: dfee14ae8f119433ca5143d8a704e46b, type: 3}
+    model: {fileID: 1414435072253065291, guid: 50c5dfc8c304140a0b46d07791e00abe, type: 3}
     unitCount: 4
     includeInBuild: 1
     rotate: 1
@@ -126,8 +132,8 @@ MonoBehaviour:
     includeInBuild: 1
     rotate: 1
     chanceToSpawn: 100
-  - rule: {fileID: 5520149041154882132, guid: dfee14ae8f119433ca5143d8a704e46b, type: 3}
-    model: {fileID: 1414435072253065291, guid: 50c5dfc8c304140a0b46d07791e00abe, type: 3}
+  - rule: {fileID: 5520149041154882132, guid: c592313622366433cb40f605d5dafe97, type: 3}
+    model: {fileID: 1414435072253065291, guid: 52d2af09a056d49cf9ce791f6596950b, type: 3}
     unitCount: 4
     includeInBuild: 1
     rotate: 1
@@ -150,12 +156,6 @@ MonoBehaviour:
     includeInBuild: 1
     rotate: 0
     chanceToSpawn: 100
-  - rule: {fileID: 4142884895529112775, guid: cd276db386b8f7847b5f02748132742d, type: 3}
-    model: {fileID: 1601014077680546308, guid: e1972efc85352ef48a8386931d86fcad, type: 3}
-    unitCount: 7
-    includeInBuild: 1
-    rotate: 1
-    chanceToSpawn: 50
   spawnFlags: 0
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
     type: 3}

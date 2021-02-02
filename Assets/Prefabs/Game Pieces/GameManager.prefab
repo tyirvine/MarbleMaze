@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7683857431610325320}
   - component: {fileID: 7683857431610325323}
   - component: {fileID: 7683857431610325322}
+  - component: {fileID: 1527608143}
   - component: {fileID: 7683857431610325321}
   m_Layer: 0
   m_Name: GameManager
@@ -104,8 +105,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardObjects: {fileID: 0}
   boardClamp: 20
-  boardMovementDampening: 0.1
-  moveSpeed: 25
+  moveSpeed: 35
+--- !u!114 &1527608143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683857431610325326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8399f4ae965af40c99ba1570e2318d4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionInSeconds: 1
+  hueStep: 1
+  lerpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.1
+      inSlope: 0.0032209817
+      outSlope: 0.0032209817
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.14795041
+    - serializedVersion: 3
+      time: 0.75812024
+      value: 0.42506695
+      inSlope: 1.3317887
+      outSlope: 1.3317887
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.0745199
+      outWeight: 0.3141679
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 4.084288
+      outSlope: 4.084288
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.10207081
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  changeColor: 0
+  mat_background: {fileID: 0}
+  mat_foreground: {fileID: 2100000, guid: dc47d006b4868cb43a0741226b37cb73, type: 2}
+  mat_accent: {fileID: 2100000, guid: 30dff1239102b4840963cb71d8208c57, type: 2}
 --- !u!114 &7683857431610325321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +169,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f9b5e6cbeb55b42885d692e19c3c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathManager: {fileID: 0}
+  pathManager: {fileID: 3573442668972672422, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+    type: 3}
   marblePrefab: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18,
     type: 3}
+  colorManager: {fileID: 1527608143}
   marble: {fileID: 0}
+  boardStartPosition: {x: 0, y: 0, z: 0}
+  spawnNewBoardTiming: 1
+  boardOffsetFromMarble: 75
+  rateOfMarbleMovement: 10

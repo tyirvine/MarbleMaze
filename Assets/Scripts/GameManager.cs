@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
     // References
     public PathManager pathManager;
     public GameObject marblePrefab;
+    public ColorManager colorManager;
 
     // In game objects
     [HideInInspector] public GameObject marble;
@@ -56,7 +57,6 @@ public class GameManager : MonoBehaviour
     public void MoveMarbleIntoBoard()
     {
 
-
         Vector3 marbleHorizontalPosition = new Vector3(marble.transform.position.x, 0, marble.transform.position.z);
         Vector3 boardHorizontalPosition = new Vector3(boardStartPosition.x, 0, boardStartPosition.z);
 
@@ -65,7 +65,6 @@ public class GameManager : MonoBehaviour
         if (marble.transform.position.y < boardStartPosition.y + verticalTriggerPadding && marble.transform.position.y > boardStartPosition.y - verticalTriggerPadding)
         {
             marbleIsFalling = false;
-
         }
 
         // Adjust marble's horizontal position
@@ -94,6 +93,10 @@ public class GameManager : MonoBehaviour
     /// <summary>Returns the marble's position offset on the y.</summary>
     Vector3Int GetMarblePositionOffset() => Vector3Int.FloorToInt(marble.transform.position - new Vector3Int(0, boardOffsetFromMarble, 0));
 
+    /* -------------------------------------------------------------------------- */
+    /*                              New Board Methods                             */
+    /* -------------------------------------------------------------------------- */
+
     /// <summary>Calls the new board method after a set number of seconds.</summary>
     public void CallForNewBoard()
     {
@@ -109,6 +112,11 @@ public class GameManager : MonoBehaviour
 
         // Guide marble to new board start position
         marbleIsFalling = true;
+
+        // Add any code below that needs to be execute upon starting a new level
+
+        // Change colour
+        colorManager.changeColor = true;
     }
 
     // Ensures the marble is placed before any functions occur that rely on it's position
