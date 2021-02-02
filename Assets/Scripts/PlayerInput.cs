@@ -4,9 +4,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
+    [HideInInspector]
     public GameObject boardObjects;
+
     public float boardClamp = 20f;
-    public float boardMovementDampening = 0.1f;
     Vector2 boardMovement = new Vector2(0, 0);
     public float moveSpeed = 25f;
 

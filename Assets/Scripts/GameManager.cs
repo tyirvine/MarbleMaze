@@ -10,10 +10,14 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public GameObject marble;
     [HideInInspector] public Vector3 boardStartPosition;
 
+    Vector3 boardPosition;
+
     // State objects
     bool buildNewBoard = false;
     bool marbleIsFalling = false;
     private string oldWallTileTag = "oldWallTiles";
+
+    PhysicMaterial material;
 
     // Settings
     [Range(0.1f, 3.0f)] public float spawnNewBoardTiming = 1.0f;
@@ -51,6 +55,8 @@ public class GameManager : MonoBehaviour
     /// <summary>This function is designed to move the marble into the board's position.</summary>
     public void MoveMarbleIntoBoard()
     {
+
+
         Vector3 marbleHorizontalPosition = new Vector3(marble.transform.position.x, 0, marble.transform.position.z);
         Vector3 boardHorizontalPosition = new Vector3(boardStartPosition.x, 0, boardStartPosition.z);
 
@@ -59,6 +65,7 @@ public class GameManager : MonoBehaviour
         if (marble.transform.position.y < boardStartPosition.y + verticalTriggerPadding && marble.transform.position.y > boardStartPosition.y - verticalTriggerPadding)
         {
             marbleIsFalling = false;
+
         }
 
         // Adjust marble's horizontal position
@@ -67,6 +74,9 @@ public class GameManager : MonoBehaviour
             Vector3 positionDifference = boardHorizontalPosition - marbleHorizontalPosition;
             marble.transform.position += positionDifference;
         }
+
+        //get the current ACTUAL board position for calculating marble physics behaviour
+        boardPosition = GameObject.FindGameObjectWithTag("boardObjects").transform.position;
     }
 
     /// <summary>Find the board's finish hole collider.</summary>
@@ -111,14 +121,24 @@ public class GameManager : MonoBehaviour
     {
         if (marbleIsFalling)
         {
+            material.bounceCombine = PhysicMaterialCombine.Minimum;
             MoveMarbleIntoBoard();
         }
+
+        if (marble.transform.position.y <= boardPosition.y + 1f)
+        {
+            material.bounceCombine = PhysicMaterialCombine.Average;
+        }
+
     }
 
     // TODO: Remove, testing only
     void Start()
     {
         pathManager.ConstructPathStack(GetMarblePositionOffset());
+        material = marble.GetComponent<Collider>().material;
+        //get the current ACTUAL board position for calculating marble physics behaviour
+        boardPosition = GameObject.FindGameObjectWithTag("boardObjects").transform.position;
     }
 
 }
