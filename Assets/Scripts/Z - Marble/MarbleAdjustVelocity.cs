@@ -4,28 +4,19 @@ using UnityEngine;
 
 public class MarbleAdjustVelocity : MonoBehaviour
 {
-
-    // We're just grabbing a reference to the marble's rigidbody so we can set it's max angular velocity.
-    public Rigidbody marbleRigidbody;
-    [Tooltip("The default max angular velocity is 7 and it feels a bit slow at times.")]
-    public float maxAngularVelocity = 30f;
-    [Tooltip("The default sleep threshold is 0.005.")]
-    public float sleepThreshold = 0.005f;
-
+    //made non public as the parameters no longer need to be assigned in inspector.
+    Rigidbody marbleRigidbody;
     private void Start()
     {
-        // Here we're just setting the maximum angular velocity of the rigidbody to [maxAngularVelocity]
-        //marbleRigidbody.maxAngularVelocity = maxAngularVelocity;
-        // This decides whether or not to stop doing physics calculations on the rigidbody
-        marbleRigidbody.sleepThreshold = sleepThreshold;
-
-        //	Debug.Log(marbleRigidbody.velocity.y.ToString());
-
+        marbleRigidbody = GetComponent<Rigidbody>();
+        //make it so that there is no limit to the speed the marble can go, this allows the marble to 
+        //roll as fast as it can along a corrider etc.
+        marbleRigidbody.maxAngularVelocity = Mathf.Infinity;
     }
 
     private void FixedUpdate()
     {
-
-
+        //set the marble to never rest, this avoids it "sticking" to walls etc
+        marbleRigidbody.WakeUp();
     }
 }
