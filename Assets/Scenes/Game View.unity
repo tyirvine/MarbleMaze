@@ -368,6 +368,11 @@ PrefabInstance:
       propertyPath: rateOfMarbleMovement
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: marbleFallingSpeed
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325322, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: moveSpeed

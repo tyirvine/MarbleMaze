@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     [Range(0.1f, 3.0f)] public float spawnNewBoardTiming = 1.0f;
     public int boardOffsetFromMarble = 30;
     public float rateOfMarbleMovement = 1.0f;
-
+    public float marbleFallingSpeed = 50f;
     /// <summary>Retag old boards.</summary>
     public void RetagOldBoard()
     {
@@ -122,12 +122,16 @@ public class GameManager : MonoBehaviour
         if (marbleIsFalling)
         {
             material.bounceCombine = PhysicMaterialCombine.Minimum;
+            marble.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, -marbleFallingSpeed, 0);
+            //marble.gameObject.GetComponent<Rigidbody>().maxAngularVelocity = 10;
+            
             MoveMarbleIntoBoard();
         }
 
         if (marble.transform.position.y <= boardPosition.y + 1f)
         {
             material.bounceCombine = PhysicMaterialCombine.Average;
+         //   marble.gameObject.GetComponent<Rigidbody>().maxAngularVelocity = Mathf.Infinity;
         }
 
     }
