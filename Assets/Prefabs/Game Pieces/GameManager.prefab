@@ -172,7 +172,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b8e4c32a1054d788994954ac6d80a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentLevel: 1
+  startingPathLength: 3
+  startingBumperProbability: 5
+  startingTreadmillProbability: 10
+  startingSpikeProbability: 0
+  pathManager: {fileID: 0}
+  shapeManager: {fileID: 0}
 --- !u!114 &7683857431610325321
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,14 +6,15 @@ public class LevelManager : MonoBehaviour
     /* -------------------------------- Settings -------------------------------- */
     [Header("Settings")]
     public int startingPathLength = 3;
+    // Hazards
+    [Range(0, 100)] public int startingBumperProbability = 35;
+    [Range(0, 100)] public int startingTreadmillProbability = 25;
+    [Range(0, 100)] public int startingSpikeProbability = 15;
 
     /* --------------------------- Referenced objects --------------------------- */
     [Header("References")]
     public PathManager pathManager;
-    // Hazards
-    public int hazardBumperProbability;
-    public int hazardSpikeProbability;
-    public int hazardTreadmillProbability;
+    public ShapeManager shapeManager;
 
     // Grab references on Awake
     private void Awake()
@@ -22,8 +23,11 @@ public class LevelManager : MonoBehaviour
         pathManager = FindObjectOfType<GameManager>().pathManager;
         pathManager.desiredPathLength = startingPathLength;
 
-        // TODO: Get reference to hazard probability
-        // hazardBumperProbability = FindObjectOfType<ShapeManager>().
+        // Shapes
+        shapeManager = pathManager.GetComponent<ShapeManager>();
+        shapeManager.hazardBumper.chanceToSpawn = startingBumperProbability;
+        shapeManager.hazardTreadmill.chanceToSpawn = startingTreadmillProbability;
+        shapeManager.hazardSpike.chanceToSpawn = startingSpikeProbability;
     }
 
     /* ------------------------------ State objects ----------------------------- */
@@ -41,6 +45,7 @@ public class LevelManager : MonoBehaviour
     public void NewLevel()
     {
         IncrementPathLength();
+        IncrementHazardProbability();
         // Leave this at the bottom
         currentLevel++;
     }
@@ -48,8 +53,16 @@ public class LevelManager : MonoBehaviour
     /// <summary>Currently increments the path every 2 levels so by level 100 you have a path 50 units long.</summary>
     public void IncrementPathLength()
     {
-        if (currentLevel % 2 == 0)
-            pathManager.desiredPathLength++;
+        // if (currentLevel % 2 == 0)
+        pathManager.desiredPathLength++;
+    }
+
+    /// <summary>Increases probability for each hazard dynamically.</summary>
+    public void IncrementHazardProbability()
+    {
+        shapeManager.hazardBumper.chanceToSpawn++;
+        shapeManager.hazardTreadmill.chanceToSpawn++;
+        shapeManager.hazardSpike.chanceToSpawn++;
     }
 
 }
