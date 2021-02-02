@@ -111,7 +111,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &6165861870575303010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4670614603540532265}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eac0bc7d18fdf4b88a63a8b3dee564d9, type: 3}
   m_Name: 

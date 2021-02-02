@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionInSeconds: 1
-  hueStep: 1
+  hueStep: 0.1
   lerpCurve:
     serializedVersion: 2
     m_Curve:
@@ -179,3 +179,4 @@ MonoBehaviour:
   spawnNewBoardTiming: 1
   boardOffsetFromMarble: 75
   rateOfMarbleMovement: 10
+  marbleFallingSpeed: 50

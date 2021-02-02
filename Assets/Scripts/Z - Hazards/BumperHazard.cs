@@ -15,7 +15,7 @@ public class BumperHazard : MonoBehaviour
     {
         if ((layerToInteract.value & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer)
         {
-            Debug.Log("bingo");
+            // Debug.Log("bingo");
             foreach (ContactPoint contact in collision.contacts)
             {
                 contact.otherCollider.attachedRigidbody.AddForce((-1 * contact.normal) * bumperForce, ForceMode.Impulse);

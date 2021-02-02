@@ -40,7 +40,6 @@ public class ShapeManager : MonoBehaviour
     public GameObject obstacleFlag;
     public float difficulty = 1f;
 
-
     // Program
     int rotation = 90;
     public void CheckShapes()
@@ -75,7 +74,7 @@ public class ShapeManager : MonoBehaviour
             walkNodes.Add(walk.position);
         }
 
-        Debug.Log("WALKABLE  : " + walkNodes.Count);
+        // Debug.Log("WALKABLE  : " + walkNodes.Count);
         //sort the array by shape size, this ensures that the largest objects are checked first and does not fill the whole grid with the smallest shape(1x1)
         Array.Sort(shapes, delegate (ShapeTemplate x, ShapeTemplate y) { return x.unitCount.CompareTo(y.unitCount); });
         Array.Reverse(shapes);

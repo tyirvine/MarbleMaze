@@ -70,7 +70,7 @@ public class BuildBoard : MonoBehaviour
 
     void FillGround()
     {
-        Debug.Log(pathNodes.Count + "PATHNODES COUNT");
+        // Debug.Log(pathNodes.Count + "PATHNODES COUNT");
         pathNodes.Reverse();
 
         // Get reference to path manager
@@ -175,7 +175,7 @@ public class BuildBoard : MonoBehaviour
             }
 
         }
-        Debug.Log(tempGrid.Count);
+        // Debug.Log(tempGrid.Count);
         fullGrid.Clear();
         fullGrid.AddRange(tempGrid);
 

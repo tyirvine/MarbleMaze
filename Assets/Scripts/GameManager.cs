@@ -9,22 +9,23 @@ public class GameManager : MonoBehaviour
 
     // In game objects
     [HideInInspector] public GameObject marble;
+    [HideInInspector] public Rigidbody marbleRigidbody;
     [HideInInspector] public Vector3 boardStartPosition;
 
     Vector3 boardPosition;
+    PhysicMaterial material;
 
     // State objects
     bool buildNewBoard = false;
-    bool marbleIsFalling = false;
+    bool marbleIsFalling = true;
+    bool marbleIsReparented = false;
     private string oldWallTileTag = "oldWallTiles";
-
-    PhysicMaterial material;
 
     // Settings
     [Range(0.1f, 3.0f)] public float spawnNewBoardTiming = 1.0f;
     public int boardOffsetFromMarble = 30;
-    public float rateOfMarbleMovement = 1.0f;
     public float marbleFallingSpeed = 50f;
+
     /// <summary>Retag old boards.</summary>
     public void RetagOldBoard()
     {
@@ -37,6 +38,17 @@ public class GameManager : MonoBehaviour
             {
                 tile.tag = oldWallTileTag;
             }
+        }
+    }
+
+    /// <summary>Parents the marble. This eliminates stutter during board movement.</summary>
+    public void ReparentMarble()
+    {
+        if (!marbleIsReparented)
+        {
+            GameObject currentBoard = GameObject.FindGameObjectWithTag("boardObjects");
+            marble.transform.parent = currentBoard.transform;
+            marbleIsReparented = true;
         }
     }
 
@@ -88,6 +100,7 @@ public class GameManager : MonoBehaviour
     public void PlaceMarble()
     {
         marble = Instantiate(marblePrefab, pathManager.gridPoints.startPointNode, Quaternion.identity);
+        marbleRigidbody = marble.gameObject.GetComponent<Rigidbody>();
     }
 
     /// <summary>Returns the marble's position offset on the y.</summary>
@@ -100,6 +113,11 @@ public class GameManager : MonoBehaviour
     /// <summary>Calls the new board method after a set number of seconds.</summary>
     public void CallForNewBoard()
     {
+        // Pre-deletion ⤵︎
+        marble.transform.SetParent(null);
+        colorManager.changeColor = true;
+
+        // Call new board
         Invoke("NewBoard", spawnNewBoardTiming);
     }
 
@@ -108,15 +126,14 @@ public class GameManager : MonoBehaviour
     {
         DeleteOldBoards();
         pathManager.ConstructPathStack(GetMarblePositionOffset());
-        boardStartPosition = pathManager.gridPoints.startPointNode;
+        boardStartPosition = pathManager.gridPoints.startPointNode + new Vector3(0.5f, 0f, 0.5f);
 
         // Guide marble to new board start position
         marbleIsFalling = true;
+        marbleIsReparented = false;
 
-        // Add any code below that needs to be execute upon starting a new level
+        // Add any code below that needs to be execute upon starting a new level ⤵︎
 
-        // Change colour
-        colorManager.changeColor = true;
     }
 
     // Ensures the marble is placed before any functions occur that rely on it's position
@@ -127,30 +144,31 @@ public class GameManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        // This starts off true
         if (marbleIsFalling)
         {
-            material.bounceCombine = PhysicMaterialCombine.Minimum;
-            marble.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, -marbleFallingSpeed, 0);
+            marbleRigidbody.AddForce(Vector3.up * marbleFallingSpeed, ForceMode.Force);
+            // material.bounceCombine = PhysicMaterialCombine.Minimum;
+            // marble.gameObject.GetComponent<Rigidbody>().velocity += (new Vector3(0, -marbleFallingSpeed, 0) * Time.fixedDeltaTime);
             //marble.gameObject.GetComponent<Rigidbody>().maxAngularVelocity = 10;
-
             MoveMarbleIntoBoard();
         }
-
-        if (marble.transform.position.y <= boardPosition.y + 1f)
-        {
-            material.bounceCombine = PhysicMaterialCombine.Average;
-            //   marble.gameObject.GetComponent<Rigidbody>().maxAngularVelocity = Mathf.Infinity;
-        }
-
+        else
+            ReparentMarble();
+        // if (marble.transform.position.y <= boardPosition.y + 1f)
+        // {
+        //     material.bounceCombine = PhysicMaterialCombine.Average;
+        //     //   marble.gameObject.GetComponent<Rigidbody>().maxAngularVelocity = Mathf.Infinity;
+        // }
     }
 
     // TODO: Remove, testing only
     void Start()
     {
         pathManager.ConstructPathStack(GetMarblePositionOffset());
-        material = marble.GetComponent<Collider>().material;
+        // material = marble.GetComponent<Collider>().material;
         //get the current ACTUAL board position for calculating marble physics behaviour
-        boardPosition = GameObject.FindGameObjectWithTag("boardObjects").transform.position;
+        // boardPosition = GameObject.FindGameObjectWithTag("boardObjects").transform.position;
     }
 
 }
