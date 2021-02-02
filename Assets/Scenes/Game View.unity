@@ -347,38 +347,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: color_foreground.r
-      value: 0.90588236
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: color_foreground.g
-      value: 0.37254903
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: color_foreground.b
-      value: 0.67058825
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: color_accent.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: color_accent.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: color_accent.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: color_foreground.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: color_accent.a
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325326, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: m_Name
