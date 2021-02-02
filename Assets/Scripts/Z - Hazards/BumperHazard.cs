@@ -9,7 +9,7 @@ public class BumperHazard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -18,7 +18,7 @@ public class BumperHazard : MonoBehaviour
             Debug.Log("bingo");
             foreach (ContactPoint contact in collision.contacts)
             {
-                contact.otherCollider.attachedRigidbody.AddForce((-1 * contact.normal)*bumperForce, ForceMode.Impulse);
+                contact.otherCollider.attachedRigidbody.AddForce((-1 * contact.normal) * bumperForce, ForceMode.Impulse);
             }
         }
     }
