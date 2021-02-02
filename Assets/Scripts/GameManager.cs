@@ -2,17 +2,13 @@
 
 public class GameManager : MonoBehaviour
 {
-    // References
-    public PathManager pathManager;
-    public GameObject marblePrefab;
-    public ColorManager colorManager;
 
     // In game objects
     [HideInInspector] public GameObject marble;
     [HideInInspector] public Rigidbody marbleRigidbody;
     [HideInInspector] public Vector3 boardStartPosition;
 
-    Vector3 boardPosition;
+    // Vector3 boardPosition;
     PhysicMaterial material;
 
     // State objects
@@ -26,20 +22,16 @@ public class GameManager : MonoBehaviour
     public int boardOffsetFromMarble = 30;
     public float marbleFallingSpeed = 50f;
 
-    /// <summary>Retag old boards.</summary>
-    public void RetagOldBoard()
-    {
-        GameObject[] oldWallTiles = GameObject.FindGameObjectsWithTag("boardObjects");
-        GameObject oldWallTileGroup = GameObject.Find("wallTiles Group");
-        if (oldWallTiles.Length > 0)
-        {
-            oldWallTileGroup.tag = oldWallTileTag;
-            foreach (GameObject tile in oldWallTiles)
-            {
-                tile.tag = oldWallTileTag;
-            }
-        }
-    }
+    // References
+    [Header("References")]
+    public PathManager pathManager;
+    public GameObject marblePrefab;
+    public ColorManager colorManager;
+    public LevelManager levelManager;
+
+    /* -------------------------------------------------------------------------- */
+    /*                                   Methods                                  */
+    /* -------------------------------------------------------------------------- */
 
     /// <summary>Parents the marble. This eliminates stutter during board movement.</summary>
     public void ReparentMarble()
@@ -47,8 +39,11 @@ public class GameManager : MonoBehaviour
         if (!marbleIsReparented)
         {
             GameObject currentBoard = GameObject.FindGameObjectWithTag("boardObjects");
-            marble.transform.parent = currentBoard.transform;
-            marbleIsReparented = true;
+            if (currentBoard != null)
+            {
+                marble.transform.parent = currentBoard.transform;
+                marbleIsReparented = true;
+            }
         }
     }
 
@@ -87,13 +82,7 @@ public class GameManager : MonoBehaviour
         }
 
         //get the current ACTUAL board position for calculating marble physics behaviour
-        boardPosition = GameObject.FindGameObjectWithTag("boardObjects").transform.position;
-    }
-
-    /// <summary>Find the board's finish hole collider.</summary>
-    public bool FindFinishHoleCollider()
-    {
-        return pathManager.GetComponent<BuildBoard>().pathFinishHole.GetComponent<BoxCollider>();
+        // boardPosition = GameObject.FindGameObjectWithTag("boardObjects").transform.position;
     }
 
     /// <summary>Just a simple script to spawn the marble.</summary>
@@ -116,6 +105,7 @@ public class GameManager : MonoBehaviour
         // Pre-deletion ⤵︎
         marble.transform.SetParent(null);
         colorManager.changeColor = true;
+        levelManager.IncrementCurrentLevel();
 
         // Call new board
         Invoke("NewBoard", spawnNewBoardTiming);
@@ -162,10 +152,11 @@ public class GameManager : MonoBehaviour
         // }
     }
 
-    // TODO: Remove, testing only
+    // @AlexMPester @bubzy-coding I think the entire game can run from here tbh
     void Start()
     {
-        pathManager.ConstructPathStack(GetMarblePositionOffset());
+        CallForNewBoard();
+        // pathManager.ConstructPathStack(GetMarblePositionOffset());
         // material = marble.GetComponent<Collider>().material;
         //get the current ACTUAL board position for calculating marble physics behaviour
         // boardPosition = GameObject.FindGameObjectWithTag("boardObjects").transform.position;

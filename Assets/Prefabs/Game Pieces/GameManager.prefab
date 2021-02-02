@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7683857431610325323}
   - component: {fileID: 7683857431610325322}
   - component: {fileID: 1527608143}
+  - component: {fileID: 1299860387565759768}
   - component: {fileID: 7683857431610325321}
   m_Layer: 0
   m_Name: GameManager
@@ -159,6 +160,19 @@ MonoBehaviour:
   startingHue: {r: 1, g: 0.61960787, b: 0.8313726, a: 1}
   color_foreground: {r: 0.90588236, g: 0.37254903, b: 0.67058825, a: 1}
   color_accent: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1299860387565759768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683857431610325326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b8e4c32a1054d788994954ac6d80a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentLevel: 1
 --- !u!114 &7683857431610325321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,14 +185,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f9b5e6cbeb55b42885d692e19c3c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathManager: {fileID: 3573442668972672422, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
-    type: 3}
-  marblePrefab: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18,
-    type: 3}
-  colorManager: {fileID: 1527608143}
   marble: {fileID: 0}
   marbleRigidbody: {fileID: 0}
   boardStartPosition: {x: 0, y: 0, z: 0}
   spawnNewBoardTiming: 0.75
   boardOffsetFromMarble: 75
   marbleFallingSpeed: 80
+  pathManager: {fileID: 3573442668972672422, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+    type: 3}
+  marblePrefab: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18,
+    type: 3}
+  colorManager: {fileID: 1527608143}
+  levelManager: {fileID: 1299860387565759768}

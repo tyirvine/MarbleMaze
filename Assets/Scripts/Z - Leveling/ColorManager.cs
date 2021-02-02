@@ -70,8 +70,6 @@ public class ColorManager : MonoBehaviour
         float H, S, V = 0f;
         Color.RGBToHSV(color, out H, out S, out V);
 
-        Debug.Log(H);
-
         // Adjust hue
         H += hueStep;
 
