@@ -26,8 +26,8 @@ public class MarbleBehaviour : MonoBehaviour
 
         if (other.CompareTag("LevelFinish"))
         {
-            
-            
+
+
             gameManager.CallForNewBoard();
         }
     }

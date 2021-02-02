@@ -124,14 +124,14 @@ public class GameManager : MonoBehaviour
             material.bounceCombine = PhysicMaterialCombine.Minimum;
             marble.gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, -marbleFallingSpeed, 0);
             //marble.gameObject.GetComponent<Rigidbody>().maxAngularVelocity = 10;
-            
+
             MoveMarbleIntoBoard();
         }
 
         if (marble.transform.position.y <= boardPosition.y + 1f)
         {
             material.bounceCombine = PhysicMaterialCombine.Average;
-         //   marble.gameObject.GetComponent<Rigidbody>().maxAngularVelocity = Mathf.Infinity;
+            //   marble.gameObject.GetComponent<Rigidbody>().maxAngularVelocity = Mathf.Infinity;
         }
 
     }
