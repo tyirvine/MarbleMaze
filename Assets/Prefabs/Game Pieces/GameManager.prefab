@@ -105,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardObjects: {fileID: 0}
   boardClamp: 20
-  moveSpeed: 35
+  moveSpeed: 45
 --- !u!114 &1527608143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,38 +125,40 @@ MonoBehaviour:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.1
-      inSlope: 0.0032209817
-      outSlope: 0.0032209817
+      value: 0
+      inSlope: 0.05018063
+      outSlope: 0.05018063
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.14795041
+      outWeight: 0.5175777
     - serializedVersion: 3
-      time: 0.75812024
-      value: 0.42506695
-      inSlope: 1.3317887
-      outSlope: 1.3317887
+      time: 0.83665156
+      value: 0.48909065
+      inSlope: 1.4544194
+      outSlope: 1.4544194
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.0745199
-      outWeight: 0.3141679
+      inWeight: 0.33333334
+      outWeight: 0.34524894
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 4.084288
-      outSlope: 4.084288
+      inSlope: 5.2933016
+      outSlope: 5.2933016
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.10207081
+      inWeight: 0.1015697
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   changeColor: 0
-  mat_background: {fileID: 0}
   mat_foreground: {fileID: 2100000, guid: dc47d006b4868cb43a0741226b37cb73, type: 2}
   mat_accent: {fileID: 2100000, guid: 30dff1239102b4840963cb71d8208c57, type: 2}
+  startingHue: {r: 1, g: 0.61960787, b: 0.8313726, a: 1}
+  color_foreground: {r: 0.90588236, g: 0.37254903, b: 0.67058825, a: 1}
+  color_accent: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &7683857431610325321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,8 +177,8 @@ MonoBehaviour:
     type: 3}
   colorManager: {fileID: 1527608143}
   marble: {fileID: 0}
+  marbleRigidbody: {fileID: 0}
   boardStartPosition: {x: 0, y: 0, z: 0}
-  spawnNewBoardTiming: 1
+  spawnNewBoardTiming: 0.75
   boardOffsetFromMarble: 75
-  rateOfMarbleMovement: 10
-  marbleFallingSpeed: 50
+  marbleFallingSpeed: 80

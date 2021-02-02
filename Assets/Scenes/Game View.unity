@@ -348,137 +348,36 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.size
-      value: 3
+      propertyPath: color_foreground.r
+      value: 0.90588236
       objectReference: {fileID: 0}
     - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: hueStep
-      value: 0.1
+      propertyPath: color_foreground.g
+      value: 0.37254903
       objectReference: {fileID: 0}
     - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: startingHue.r
+      propertyPath: color_foreground.b
+      value: 0.67058825
+      objectReference: {fileID: 0}
+    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
+      propertyPath: color_accent.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: startingHue.g
-      value: 0.61960787
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: startingHue.b
-      value: 0.8313726
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: startingHue.a
+      propertyPath: color_accent.g
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: transitionInSeconds
+      propertyPath: color_accent.b
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[1].time
-      value: 0.83665156
+      propertyPath: color_foreground.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[1].value
-      value: 0.48909065
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[1].inSlope
-      value: 1.4544194
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[1].outSlope
-      value: 1.4544194
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[1].outWeight
-      value: 0.34524894
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[2].inSlope
-      value: 5.2933016
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[2].outSlope
-      value: 5.2933016
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[2].inWeight
-      value: 0.1015697
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_PostInfinity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[2].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[1].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[1].inWeight
-      value: 0.33333334
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[0].inSlope
-      value: 0.05018063
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[0].outSlope
-      value: 0.05018063
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[0].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[0].outWeight
-      value: 0.5175777
-      objectReference: {fileID: 0}
-    - target: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd, type: 3}
-      propertyPath: lerpCurve.m_Curve.Array.data[0].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: pathManager
-      value: 
-      objectReference: {fileID: 3573442668972672422, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
-        type: 3}
-    - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: spawnNewBoardTiming
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: boardOffsetFromMarble
-      value: 75
-      objectReference: {fileID: 0}
-    - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: rateOfMarbleMovement
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: marbleFallingSpeed
-      value: 80
-      objectReference: {fileID: 0}
-    - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: material
-      value: 
-      objectReference: {fileID: 13400000, guid: 036f8294882075242bf4ef0cf94fc21f,
-        type: 2}
-    - target: {fileID: 7683857431610325322, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: moveSpeed
-      value: 45
+      propertyPath: color_accent.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325326, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}

@@ -13,12 +13,17 @@ public class ColorManager : MonoBehaviour
     float time = 0.0f;
 
     // Materials
-    public Color startingHue;
     /// <summary>The floor of a board.</summary>
     public Material mat_foreground;
     /// <summary>The walls of a board.</summary>
     public Material mat_accent;
 
+    // Colors
+    public Color startingHue;
+    public Color color_foreground;
+    public Color color_accent;
+
+    /// <summary>This object can change the color of the material it's attached to.</summary>
     public class HueObject
     {
         public Camera camera;
@@ -100,8 +105,12 @@ public class ColorManager : MonoBehaviour
     // Assign materials initially
     void Awake()
     {
-        // Set initial colours
         Camera camera = FindObjectOfType<Camera>();
+        // Set initial colours
+        mat_foreground.color = color_foreground;
+        mat_accent.color = color_accent;
+
+        // Shift initial colours to designated hue
         camera.backgroundColor = ShiftHue(camera.backgroundColor, startingHue);
         mat_foreground.color = ShiftHue(mat_foreground.color, startingHue);
         mat_accent.color = ShiftHue(mat_accent.color, startingHue);
