@@ -68,9 +68,9 @@ public class ShapeManager : MonoBehaviour
                     Instantiate(obstacleFlag, pathNodes[i].position, Quaternion.identity);
                 }
             }
-         
+
         }
-        foreach(NodeObject walk in _walkNodes)
+        foreach (NodeObject walk in _walkNodes)
         {
             walkNodes.Add(walk.position);
         }
@@ -130,7 +130,7 @@ public class ShapeManager : MonoBehaviour
                                 {
                                     currentChildCheck++;
 
-                                    if(checkPosition.mode == 6 && walkNodes.Contains(checkPosition.position))
+                                    if (checkPosition.mode == 6 && walkNodes.Contains(checkPosition.position))
                                     {
                                         count++;
                                     }
@@ -181,7 +181,7 @@ public class ShapeManager : MonoBehaviour
                     }//if currentshape include in build
                 }
             }
-            
+
         }
 
     }
@@ -192,8 +192,8 @@ public class ShapeManager : MonoBehaviour
         rnd *= difficulty;
         if (rnd <= pct)
             return true;
-        else 
+        else
             return false;
-        
+
     }
 }
