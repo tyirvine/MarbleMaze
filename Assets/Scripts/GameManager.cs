@@ -55,8 +55,8 @@ public class GameManager : MonoBehaviour
     /// <summary>This function is designed to move the marble into the board's position.</summary>
     public void MoveMarbleIntoBoard()
     {
-        
-        
+
+
         Vector3 marbleHorizontalPosition = new Vector3(marble.transform.position.x, 0, marble.transform.position.z);
         Vector3 boardHorizontalPosition = new Vector3(boardStartPosition.x, 0, boardStartPosition.z);
 
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         if (marble.transform.position.y < boardStartPosition.y + verticalTriggerPadding && marble.transform.position.y > boardStartPosition.y - verticalTriggerPadding)
         {
             marbleIsFalling = false;
-            
+
         }
 
         // Adjust marble's horizontal position
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
             Vector3 positionDifference = boardHorizontalPosition - marbleHorizontalPosition;
             marble.transform.position += positionDifference;
         }
-        
+
         //get the current ACTUAL board position for calculating marble physics behaviour
         boardPosition = GameObject.FindGameObjectWithTag("boardObjects").transform.position;
     }
@@ -124,12 +124,12 @@ public class GameManager : MonoBehaviour
             material.bounceCombine = PhysicMaterialCombine.Minimum;
             MoveMarbleIntoBoard();
         }
-        
+
         if (marble.transform.position.y <= boardPosition.y + 1f)
         {
-            material.bounceCombine = PhysicMaterialCombine.Average; 
+            material.bounceCombine = PhysicMaterialCombine.Average;
         }
-       
+
     }
 
     // TODO: Remove, testing only
