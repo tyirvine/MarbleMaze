@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
     [Header("References")]
     public PathManager pathManager;
     public GameObject marblePrefab;
-    public ColorManager colorManager;
     public LevelManager levelManager;
 
     /* -------------------------------------------------------------------------- */
@@ -104,7 +103,6 @@ public class GameManager : MonoBehaviour
     {
         // Pre-deletion ⤵︎
         marble.transform.SetParent(null);
-        colorManager.changeColor = true;
         levelManager.NewLevel();
 
         // Call new board

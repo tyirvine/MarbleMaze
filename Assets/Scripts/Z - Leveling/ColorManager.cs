@@ -17,6 +17,8 @@ public class ColorManager : MonoBehaviour
     public Material mat_foreground;
     /// <summary>The walls of a board.</summary>
     public Material mat_accent;
+    /// <summary>The material for the UI level counter.</summary>
+    public Material mat_userInterface;
 
     // Colors
     public Color startingHue;
@@ -129,6 +131,7 @@ public class ColorManager : MonoBehaviour
                 ChangeMaterial(hue_background);
                 ChangeMaterial(hue_foreground);
                 ChangeMaterial(hue_accent);
+                mat_userInterface.SetColor("_UnderlayColor", hue_foreground.material.color);
                 time += Time.deltaTime;
             }
             else
