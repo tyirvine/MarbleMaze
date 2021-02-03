@@ -64,7 +64,7 @@ public class BuildBoard : MonoBehaviour
 
         FillGround();
         GroupObjects("floorTile");
-     //   MakeSingleMesh();
+        //   MakeSingleMesh();
         GroupObjects("wallTile");
     }
 

@@ -7,7 +7,7 @@ public class MarbleBehaviour : MonoBehaviour
     [HideInInspector] public GameManager gameManager;
     [Range(0.5f, 1.5f)] public float scale = 1.25f;
     public float audioTriggerSpeed;
-    
+
     AudioSource audioSource;
     public AudioClip impact;
 
@@ -28,7 +28,7 @@ public class MarbleBehaviour : MonoBehaviour
             score += other.GetComponent<Pill>().pickup.pickupValue;
             Destroy(other.gameObject);
         }
-        
+
 
         if (other.CompareTag("LevelFinish"))
         {
@@ -39,10 +39,10 @@ public class MarbleBehaviour : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.relativeVelocity.magnitude > audioTriggerSpeed)
-            {
-                audioSource.clip = impact;
-                audioSource.PlayOneShot(impact);
-            }
+        {
+            audioSource.clip = impact;
+            audioSource.PlayOneShot(impact);
+        }
 
     }
 }
