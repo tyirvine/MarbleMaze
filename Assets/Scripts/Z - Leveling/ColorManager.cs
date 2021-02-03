@@ -48,6 +48,9 @@ public class ColorManager : MonoBehaviour
     public HueObject hue_foreground;
     public HueObject hue_accent;
 
+    /// <summary>Changes the color for the user interface counter.</summary>
+    void UpdateUIColor() => mat_userInterface.SetColor("_UnderlayColor", hue_foreground.material.color);
+
     /// <summary>This shifts the hue to the starting colour.</summary>
     public Color ShiftHue(Color startColor, Color targetHue)
     {
@@ -119,6 +122,9 @@ public class ColorManager : MonoBehaviour
         hue_background = new HueObject(camera);
         hue_foreground = new HueObject(mat_foreground);
         hue_accent = new HueObject(mat_accent);
+
+        // Establish ui colour
+        UpdateUIColor();
     }
 
     // Update is called once per frame
@@ -131,7 +137,7 @@ public class ColorManager : MonoBehaviour
                 ChangeMaterial(hue_background);
                 ChangeMaterial(hue_foreground);
                 ChangeMaterial(hue_accent);
-                mat_userInterface.SetColor("_UnderlayColor", hue_foreground.material.color);
+                UpdateUIColor();
                 time += Time.deltaTime;
             }
             else
