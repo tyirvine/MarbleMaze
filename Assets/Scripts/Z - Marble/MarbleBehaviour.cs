@@ -15,8 +15,8 @@ public class MarbleBehaviour : MonoBehaviour
     int layerMask = 1 << 9;
     private void Start()
     {
-     
-      //  layerMask = ~layerMask;
+
+        //  layerMask = ~layerMask;
         audioSource = GetComponent<AudioSource>();
         // Find references
         colliders = gameObject.GetComponents<SphereCollider>();
@@ -46,13 +46,13 @@ public class MarbleBehaviour : MonoBehaviour
     {
 
         Vector3 collisionForce = collision.impulse / Time.fixedDeltaTime;
-        if (collisionForce.magnitude > audioTriggerSpeed && collision.gameObject.CompareTag("wallTile")) 
-            {
-                audioSource.clip = impact;
-                audioSource.PlayOneShot(impact);
-            
-            }
-       
+        if (collisionForce.magnitude > audioTriggerSpeed && collision.gameObject.CompareTag("wallTile"))
+        {
+            audioSource.clip = impact;
+            audioSource.PlayOneShot(impact);
+
+        }
+
 
 
     }
