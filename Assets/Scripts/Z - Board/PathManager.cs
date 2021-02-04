@@ -433,10 +433,17 @@ public class PathManager : MonoBehaviour
         flags = GameObject.FindGameObjectsWithTag("Flag");
         foreach (GameObject flag in flags) GameObject.Destroy(flag);
         GameObject[] walls = GameObject.FindGameObjectsWithTag("wallTile");
+        GameObject[] floors = GameObject.FindGameObjectsWithTag("floorTile");
         foreach (GameObject wall in walls)
         {
             Destroy(wall);
         }
+        foreach (GameObject floor in floors)
+        {
+            Destroy(floor);
+
+        }
+
 
         // This catch is looking for a `No sequence` error that can occur when the path can't go from start to finish
         try
