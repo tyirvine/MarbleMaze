@@ -418,7 +418,7 @@ public class PathManager : MonoBehaviour
         {
             Destroy(wall);
         }
-        foreach(GameObject floor in floors)
+        foreach (GameObject floor in floors)
         {
             Destroy(floor);
 
