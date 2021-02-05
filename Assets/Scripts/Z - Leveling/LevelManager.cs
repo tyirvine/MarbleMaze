@@ -113,17 +113,16 @@ public class LevelManager : MonoBehaviour
             shapeManager.hazardBumper.chanceToSpawn = CalculateSpawnRate(bumperSpawnRate, shapeManager.hazardBumper.chanceToSpawn);
 
         // Landmine
-        if (currentLevel == 10)
+        if (currentLevel == 9)
             shapeManager.hazardLandmine.chanceToSpawn = startingLandmineProbability;
-        else if (currentLevel > 10)
+        else if (currentLevel >= 10)
             shapeManager.hazardLandmine.chanceToSpawn = CalculateSpawnRate(landmineSpawnRate, shapeManager.hazardLandmine.chanceToSpawn);
 
         // Spike
-        if (currentLevel == 20)
+        if (currentLevel == 19)
             shapeManager.hazardSpike.chanceToSpawn = startingSpikeProbability;
-        else if (currentLevel > 20)
+        else if (currentLevel >= 20)
             shapeManager.hazardSpike.chanceToSpawn = CalculateSpawnRate(spikeSpawnRate, shapeManager.hazardSpike.chanceToSpawn);
-        Debug.Log(shapeManager.hazardLandmine.chanceToSpawn);
     }
 
     /// <summary>This calculates how often the hazard should be spawning.</summary>

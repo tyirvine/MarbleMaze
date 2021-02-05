@@ -193,7 +193,8 @@ public class ShapeManager : MonoBehaviour
                             }
                             Destroy(tempRule); // this stops the rule being visible at the end of the object generation
                         }
-                    }//if currentshape include in build
+                    }
+
                 }
             }
 

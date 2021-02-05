@@ -9,8 +9,13 @@ public class LandmineHazard : MonoBehaviour
     public AnimationCurve fadeCurve;
     [Range(0f, 10f)] public float fadeRate;
     [Range(0f, 10f)] public float detonationFadeRate;
+
+    // Explosion Settings
+    [Header("Explosion Settings")]
     public float explosionForce;
     public float explosionRadius;
+    [Range(0.0f, 100.0f)] public float upwardsModifier;
+    public ForceMode explosionForceMode = ForceMode.Impulse;
 
     // Min / max values
     [Header("Min/Max Values")]
@@ -51,18 +56,19 @@ public class LandmineHazard : MonoBehaviour
         Collider[] hitObjects = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (var hitObject in hitObjects)
         {
-            if (hitObject.tag == "wallTile" && hitObject.name != gameObject.name)
+            if (hitObject.tag == "wallTile")
             {
-                hitObject.enabled = false;
-                // @tyirvine - I disabled the object's collider so that it just falls through the map instead of interfereing
-                // Collider[] colliders = hitObject.gameObject.GetComponents<Collider>();
-                // foreach (Collider collider in colliders) collider.enabled = false;
-
                 // Explosion
                 Rigidbody rigidbody = hitObject.gameObject.GetComponent<Rigidbody>();
                 rigidbody.isKinematic = false;
                 rigidbody.useGravity = true;
-                rigidbody.AddExplosionForce(explosionForce, transform.position + Vector3.up, explosionRadius);
+                // rigidbody.AddExplosionForce(explosionForce, transform.position - new Vector3(0f, explosionRadius, 0f), explosionRadius);
+                rigidbody.AddExplosionForce(explosionForce, gameObject.transform.position, explosionRadius, upwardsModifier, explosionForceMode);
+
+                // @tyirvine - I disabled the object's collider so that it just falls through the map instead of interfereing
+                Collider[] colliders = hitObject.gameObject.GetComponents<Collider>();
+                foreach (Collider collider in colliders)
+                    collider.enabled = false;
             }
         }
     }
