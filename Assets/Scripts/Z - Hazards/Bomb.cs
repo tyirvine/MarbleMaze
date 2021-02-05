@@ -6,7 +6,7 @@ public class Bomb : MonoBehaviour
 {
     public float explosionForce;
     public float explosionRadius;
-   public void Explode()
+    public void Explode()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (var hitCollider in hitColliders)
@@ -17,7 +17,7 @@ public class Bomb : MonoBehaviour
                 rigidbody.isKinematic = false;
                 rigidbody.useGravity = true;
                 rigidbody.AddExplosionForce(explosionForce, transform.position + Vector3.up, explosionRadius);
-                
+
 
             }
         }
