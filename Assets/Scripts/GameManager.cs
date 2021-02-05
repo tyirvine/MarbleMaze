@@ -9,13 +9,14 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public Vector3 boardStartPosition;
 
     // Vector3 boardPosition;
+    public Transform boardPosition;
     PhysicMaterial material;
 
     // State objects
     bool buildNewBoard = false;
     bool marbleIsFalling = true;
     bool marbleIsReparented = false;
-    private string oldWallTileTag = "oldWallTiles";
+   // private string oldWallTileTag = "oldWallTiles";
 
     // Settings
     [Range(0.1f, 3.0f)] public float spawnNewBoardTiming = 1.0f;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     public PathManager pathManager;
     public GameObject marblePrefab;
     public LevelManager levelManager;
+    public PlayerStats playerStats;
 
     /* -------------------------------------------------------------------------- */
     /*                                   Methods                                  */
@@ -38,8 +40,10 @@ public class GameManager : MonoBehaviour
         if (!marbleIsReparented)
         {
             GameObject currentBoard = GameObject.FindGameObjectWithTag("boardObjects");
+            
             if (currentBoard != null)
             {
+                boardPosition = currentBoard.transform; // allow this to be accessible from other scripts(marble in particular)
                 marble.transform.parent = currentBoard.transform;
                 marbleIsReparented = true;
             }
@@ -119,7 +123,7 @@ public class GameManager : MonoBehaviour
         // Guide marble to new board start position
         marbleIsFalling = true;
         marbleIsReparented = false;
-
+        marble.GetComponent<MarbleBehaviour>().ResetState(); //a boolean to stop level skipping
         // Add any code below that needs to be execute upon starting a new level ⤵︎
 
     }
@@ -135,29 +139,44 @@ public class GameManager : MonoBehaviour
         // This starts off true
         if (marbleIsFalling)
         {
+            //added to stop the board from rotating while the marble is falling
+            GetComponent<PlayerInput>().enabled = false;
+            
             marbleRigidbody.AddForce(Vector3.up * marbleFallingSpeed, ForceMode.Force);
-            // material.bounceCombine = PhysicMaterialCombine.Minimum;
-            // marble.gameObject.GetComponent<Rigidbody>().velocity += (new Vector3(0, -marbleFallingSpeed, 0) * Time.fixedDeltaTime);
-            //marble.gameObject.GetComponent<Rigidbody>().maxAngularVelocity = 10;
+      
             MoveMarbleIntoBoard();
         }
         else
+        {
+            GetComponent<PlayerInput>().enabled = true;
             ReparentMarble();
-        // if (marble.transform.position.y <= boardPosition.y + 1f)
-        // {
-        //     material.bounceCombine = PhysicMaterialCombine.Average;
-        //     //   marble.gameObject.GetComponent<Rigidbody>().maxAngularVelocity = Mathf.Infinity;
-        // }
+        }
+   
+    }
+
+    public void RemoveLife()
+    {
+        playerStats.RemoveLife(1);
+
+        Debug.Log("Update UI for lives remaining :" + playerStats.livesRemaining);
+
+        if(playerStats.livesRemaining <=0)
+        {
+            Debug.Log("Heres where we trigger the gameover stuff");
+        }
+    }
+
+    public void AddScore(int score)
+    {
+        playerStats.AdjustScore(score);
     }
 
     // @AlexMPester @bubzy-coding I think the entire game can run from here tbh
     void Start()
     {
-        CallForNewBoard();
-        // pathManager.ConstructPathStack(GetMarblePositionOffset());
-        // material = marble.GetComponent<Collider>().material;
-        //get the current ACTUAL board position for calculating marble physics behaviour
-        // boardPosition = GameObject.FindGameObjectWithTag("boardObjects").transform.position;
+        playerStats = new PlayerStats(3);
+        CallForNewBoard();       
     }
+
 
 }

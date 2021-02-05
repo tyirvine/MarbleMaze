@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System.Collections.Generic;
 public class MarbleBehaviour : MonoBehaviour
 {
     [HideInInspector] public int score = 0;
@@ -14,7 +14,13 @@ public class MarbleBehaviour : MonoBehaviour
     public AudioClip levelFinish;
     public AudioClip deathSound;
 
-    public Collision oldCollision;
+    public int fallDistance = 30;   //how far from the board does the marble fall before triggering a death event
+    bool fellToMyDeath = false;     //stops the falling check, it was previously causing a lot of level skipping
+
+    public List<GameObject> oldTiles = new List<GameObject>();
+    
+    public int tilesBeforeDeletion = 5; //how many tiles we touch before deleting them
+
     int layerMask = 1 << 9;
     private void Start()
     {
@@ -64,11 +70,48 @@ public class MarbleBehaviour : MonoBehaviour
             Debug.Log("this is where we lose a life");
         }
 
+        if(collision.gameObject.tag == "floorTile")
+        {
+            oldTiles.Add(collision.gameObject);
+        }
     }
 
     public void PlayAudio(AudioClip _clip)
     {
         audioSource.PlayOneShot(_clip);
+    }
+
+
+    public void ResetState()
+    {
+        fellToMyDeath = false;
+        oldTiles.Clear();
+    }
+
+
+
+
+    public void Update()
+    {
+        //has the player fallen off the board?
+        //run this check in update as its not physics heavy
+        if (gameManager.boardPosition != null)
+        {
+            if (transform.position.y < gameManager.boardPosition.position.y - fallDistance && !fellToMyDeath)
+            {
+                Debug.Log("die");
+                fellToMyDeath = true;
+                gameManager.RemoveLife();
+                gameManager.CallForNewBoard();
+            }
+        }
+        if(oldTiles.Count >= tilesBeforeDeletion && oldTiles.Count >0 && oldTiles[0]!=null)
+        {
+            oldTiles[0].GetComponent<Rigidbody>().isKinematic = false;
+            oldTiles[0].GetComponent<Rigidbody>().useGravity = true;
+            Destroy(oldTiles[0].gameObject, 2);
+            oldTiles.RemoveAt(0);            
+        }
     }
 
 }
