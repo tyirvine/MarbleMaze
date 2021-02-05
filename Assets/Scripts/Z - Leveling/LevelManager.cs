@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.ComponentModel;
+using UnityEngine;
 using TMPro;
 
 public class LevelManager : MonoBehaviour
@@ -8,9 +9,16 @@ public class LevelManager : MonoBehaviour
     [Header("Settings")]
     public int startingPathLength = 3;
     // Hazards
-    [Range(0, 100)] public int startingBumperProbability = 35;
-    [Range(0, 100)] public int startingTreadmillProbability = 25;
-    [Range(0, 100)] public int startingSpikeProbability = 15;
+    [Header("Starting Probability")]
+    [Tooltip("The probability is out of 1000. So 200 would be the equivalent to 20%.")]
+    [Range(0, 1000)] public int startingBumperProbability = 32;
+    [Range(0, 1000)] public int startingLandmineProbability = 25;
+    [Range(0, 1000)] public int startingSpikeProbability = 15;
+    // Hazard spawn rate
+    [Header("Spawn Rate")]
+    [Range(1, 100)] public int bumperSpawnRate = 3;
+    [Range(1, 100)] public int landmineSpawnRate = 2;
+    [Range(1, 100)] public int spikeSpawnRate = 1;
 
     /* --------------------------- Referenced objects --------------------------- */
     [Header("References")]
@@ -28,9 +36,9 @@ public class LevelManager : MonoBehaviour
 
         // Shapes
         shapeManager = pathManager.GetComponent<ShapeManager>();
-        shapeManager.hazardBumper.chanceToSpawn = startingBumperProbability;
-        shapeManager.hazardTreadmill.chanceToSpawn = startingTreadmillProbability;
-        shapeManager.hazardSpike.chanceToSpawn = startingSpikeProbability;
+        shapeManager.hazardBumper.chanceToSpawn = 0;
+        shapeManager.hazardLandmine.chanceToSpawn = 0;
+        shapeManager.hazardSpike.chanceToSpawn = 0;
 
         // UI
         UI_LevelCounter = FindObjectOfType<TextMeshProUGUI>();
@@ -97,9 +105,32 @@ public class LevelManager : MonoBehaviour
     /// <summary>Increases probability for each hazard dynamically.</summary>
     public void IncrementHazardProbability()
     {
-        shapeManager.hazardBumper.chanceToSpawn++;
-        shapeManager.hazardTreadmill.chanceToSpawn++;
-        shapeManager.hazardSpike.chanceToSpawn++;
+        // Bumper
+        if (currentLevel == 1)
+            shapeManager.hazardBumper.chanceToSpawn = startingBumperProbability;
+        else
+            shapeManager.hazardBumper.chanceToSpawn = CalculateSpawnRate(bumperSpawnRate, shapeManager.hazardBumper.chanceToSpawn);
+
+        // Landmine
+        if (currentLevel == 10)
+            shapeManager.hazardLandmine.chanceToSpawn = startingLandmineProbability;
+        else if (currentLevel > 10)
+            shapeManager.hazardLandmine.chanceToSpawn = CalculateSpawnRate(landmineSpawnRate, shapeManager.hazardLandmine.chanceToSpawn);
+
+        // Spike
+        if (currentLevel == 20)
+            shapeManager.hazardSpike.chanceToSpawn = startingSpikeProbability;
+        else if (currentLevel > 20)
+            shapeManager.hazardSpike.chanceToSpawn = CalculateSpawnRate(spikeSpawnRate, shapeManager.hazardSpike.chanceToSpawn);
+        Debug.Log(shapeManager.hazardLandmine.chanceToSpawn);
+    }
+
+    /// <summary>This calculates how often the hazard should be spawning.</summary>
+    int CalculateSpawnRate(int spawnrate, int input)
+    {
+        // if (currentLevel % spawnrate == 0) return input + 1;
+        // else return input;
+        return input + spawnrate;
     }
 
 }

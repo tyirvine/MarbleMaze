@@ -174,9 +174,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingPathLength: 3
-  startingBumperProbability: 5
-  startingTreadmillProbability: 10
-  startingSpikeProbability: 0
+  startingBumperProbability: 200
+  startingLandmineProbability: 50
+  startingSpikeProbability: 50
+  bumperSpawnRate: 10
+  landmineSpawnRate: 5
+  spikeSpawnRate: 5
   colorManager: {fileID: 1527608143}
   pathManager: {fileID: 0}
   shapeManager: {fileID: 0}

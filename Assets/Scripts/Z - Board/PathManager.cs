@@ -305,7 +305,7 @@ public class PathManager : MonoBehaviour
         // Instantiate desired object
         if (!disablePathFlags)
         {
-            foreach (NodeObject node in pathNodes)
+            foreach (NodeObject node in pathShapeNodes)
             {
                 Instantiate(pathFlag, node.position, Quaternion.identity);
             }
@@ -443,7 +443,6 @@ public class PathManager : MonoBehaviour
             Destroy(floor);
 
         }
-
 
         // This catch is looking for a `No sequence` error that can occur when the path can't go from start to finish
         try

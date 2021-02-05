@@ -16,7 +16,7 @@ public class ShapeTemplate
     public int unitCount;               //how many Units make this object
     public bool includeInBuild = true;
     public bool rotate = true;
-    public int chanceToSpawn = 100;
+    public int chanceToSpawn = 1000;
     public bool isHazard = false;
 }
 
@@ -40,13 +40,13 @@ public class ShapeManager : MonoBehaviour
     [Header("Hazards")]
     public ShapeTemplate hazardBumper;
     public ShapeTemplate hazardSpike;
-    public ShapeTemplate hazardTreadmill;
+    public ShapeTemplate hazardLandmine;
 
     // Settings
     [Header("Draw Flags of obstacle positions")]
     public bool spawnFlags = false;
     public GameObject obstacleFlag;
-    public float difficulty = 1f;
+    // public float difficulty = 1f;
 
     // Program
     int rotation = 90;
@@ -58,35 +58,35 @@ public class ShapeManager : MonoBehaviour
         // shapesAsList.RemoveAll(shape => shape.isHazard);
         shapesAsList.Add(hazardBumper);
         shapesAsList.Add(hazardSpike);
-        shapesAsList.Add(hazardTreadmill);
+        shapesAsList.Add(hazardLandmine);
         shapes = shapesAsList.ToArray();
 
         // This simply disables the method from firing
-        List<NodeObject> pathNodes = new List<NodeObject>();
-        pathNodes.AddRange(gameObject.GetComponent<ObstacleManager>().obstacleNodes);
+        List<NodeObject> obstacleNodes = new List<NodeObject>();
+        obstacleNodes.AddRange(gameObject.GetComponent<ObstacleManager>().obstacleNodes);
         List<Vector3Int> placedPositions = new List<Vector3Int>();
-        List<Vector3Int> nodePositions = new List<Vector3Int>();
+        List<Vector3Int> obstaclePositions = new List<Vector3Int>();
         List<ShapePoints> shapePoints = new List<ShapePoints>();
         List<NodeObject> _walkNodes = new List<NodeObject>();
         _walkNodes.AddRange(gameObject.GetComponent<PathManager>().pathShapeNodes);
         List<Vector3> walkNodes = new List<Vector3>();
 
         // assign the unwalkable pathNodes to nodePositions and the walkable pathNodes to pathPositions
-        for (int i = 0; i < pathNodes.Count; i++)
+        for (int i = 0; i < obstacleNodes.Count; i++)
         {
-            if (!pathNodes[i].walkable)
+            if (!obstacleNodes[i].walkable)
             {
-                nodePositions.Add(Vector3Int.RoundToInt(pathNodes[i].position));
+                obstaclePositions.Add(Vector3Int.RoundToInt(obstacleNodes[i].position));
                 if (spawnFlags)
                 {
-                    Instantiate(obstacleFlag, pathNodes[i].position, Quaternion.identity);
+                    Instantiate(obstacleFlag, obstacleNodes[i].position, Quaternion.identity);
                 }
             }
 
         }
-        foreach (NodeObject walk in _walkNodes)
+        foreach (NodeObject node in _walkNodes)
         {
-            walkNodes.Add(walk.position);
+            walkNodes.Add(node.position);
         }
 
         // Debug.Log("WALKABLE  : " + walkNodes.Count);
@@ -101,7 +101,7 @@ public class ShapeManager : MonoBehaviour
             {
 
                 GameObject tempRule = Instantiate(currentShape.rule);
-                foreach (Vector3Int nodePosition in nodePositions)
+                foreach (Vector3Int nodePosition in obstaclePositions)
                 {
                     if (!currentShape.isHazard || SpawnObject(currentShape.chanceToSpawn))
                     {
@@ -148,23 +148,24 @@ public class ShapeManager : MonoBehaviour
                                     {
                                         count++;
                                     }
-                                    if (checkPosition.mode == 5 && nodePositions.Contains(checkPosition.position))
+                                    if (checkPosition.mode == 5 && obstaclePositions.Contains(checkPosition.position))
                                     {
                                         count++;
                                     }
-                                    else if (checkPosition.mode == 4 && walkNodes.Contains(checkPosition.position))
+                                    else if (checkPosition.mode == 4 && !walkNodes.Contains(checkPosition.position))
                                     {
-                                        count = -200; //silly value, probably a better way to ensure failure
-                                        break;
+                                        count++;
+                                        // count = -200; //silly value, probably a better way to ensure failure
+                                        // break;
                                     }
-                                    else if (checkPosition.mode == 3 && nodePositions.Contains(checkPosition.position))
+                                    else if (checkPosition.mode == 3 && obstaclePositions.Contains(checkPosition.position))
                                     {
                                         count = -200; //silly value, probably a better way to ensure failure
                                         break;
                                     }
                                     else if (checkPosition.mode == 1 || checkPosition.mode == 2)
                                     {
-                                        if (nodePositions.Contains(checkPosition.position) && !placedPositions.Contains(checkPosition.position))
+                                        if (obstaclePositions.Contains(checkPosition.position) && !placedPositions.Contains(checkPosition.position))
                                             count++;
                                     }
                                     if (currentChildCheck > failPoint + 1 && count <= 1)
@@ -206,9 +207,10 @@ public class ShapeManager : MonoBehaviour
 
     public bool SpawnObject(int pct)
     {
-        float rnd = UnityEngine.Random.Range(1, 100);
+        int rnd = UnityEngine.Random.Range(1, 1000);
         // rnd *= difficulty;
-        if (rnd <= pct * difficulty)
+        // if (rnd <= pct * difficulty)
+        if (rnd <= pct)
             return true;
         else
             return false;

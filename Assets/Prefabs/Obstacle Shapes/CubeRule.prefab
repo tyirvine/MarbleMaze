@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5431454874833039251}
   m_Layer: 0
-  m_Name: 1x1
-  m_TagString: Untagged
+  m_Name: CubeRule
+  m_TagString: wallTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
