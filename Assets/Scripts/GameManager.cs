@@ -16,12 +16,19 @@ public class GameManager : MonoBehaviour
     bool buildNewBoard = false;
     bool marbleIsFalling = true;
     bool marbleIsReparented = false;
+    bool isStarted = true;
     // private string oldWallTileTag = "oldWallTiles";
 
     // Settings
     [Range(0.1f, 3.0f)] public float spawnNewBoardTiming = 1.0f;
     public int boardOffsetFromMarble = 30;
     public float marbleFallingSpeed = 50f;
+
+    // Debug Settings
+    [Header("Debug Settings")]
+    public bool debugMode = false;
+    public int debugJumpToLevel = 0;
+    int debugLevelTrack = 0;
 
     // References
     [Header("References")]
@@ -128,9 +135,38 @@ public class GameManager : MonoBehaviour
 
     }
 
+    /* -------------------------------------------------------------------------- */
+    /*                              Player Management                             */
+    /* -------------------------------------------------------------------------- */
+
+    public void RemoveLife()
+    {
+        playerStats.RemoveLife(1);
+
+        Debug.Log("Update UI for lives remaining :" + playerStats.livesRemaining);
+
+        if (playerStats.livesRemaining <= 0)
+        {
+            Debug.Log("Heres where we trigger the gameover stuff");
+        }
+    }
+
+    public void AddScore(int score)
+    {
+        playerStats.AdjustScore(score);
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /*                                    Main                                    */
+    /* -------------------------------------------------------------------------- */
+
     // Ensures the marble is placed before any functions occur that rely on it's position
     void Awake()
     {
+        // Debug Mode
+        if (debugMode) Debug.LogWarning("Level Manager Debug Mode Enabled");
+
+        // Marble
         PlaceMarble();
     }
 
@@ -154,29 +190,30 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void RemoveLife()
-    {
-        playerStats.RemoveLife(1);
-
-        Debug.Log("Update UI for lives remaining :" + playerStats.livesRemaining);
-
-        if (playerStats.livesRemaining <= 0)
-        {
-            Debug.Log("Heres where we trigger the gameover stuff");
-        }
-    }
-
-    public void AddScore(int score)
-    {
-        playerStats.AdjustScore(score);
-    }
-
     // @AlexMPester @bubzy-coding I think the entire game can run from here tbh
     void Start()
     {
+        // TODO: Adjust player stats
         playerStats = new PlayerStats(3);
-        CallForNewBoard();
+
+        // TODO: Remove this from the production build!
+        if (!debugMode)
+            CallForNewBoard();
     }
 
+    // TODO: Remove this from the production build!
+    void Update()
+    {
+        if (isStarted)
+        {
+            if (debugMode && debugLevelTrack < debugJumpToLevel)
+            {
+                CallForNewBoard();
+                debugLevelTrack++;
+            }
+            else
+                isStarted = false;
+        }
+    }
 
 }

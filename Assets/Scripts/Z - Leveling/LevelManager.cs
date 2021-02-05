@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
     /* -------------------------------- Settings -------------------------------- */
     [Header("Settings")]
     public int startingPathLength = 3;
+
     // Hazards
     [Header("Starting Probability")]
     [Tooltip("The probability is out of 1000. So 200 would be the equivalent to 20%.")]

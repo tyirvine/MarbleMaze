@@ -184,6 +184,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   fadeRate: 0.88
   detonationFadeRate: 4.62
+  explosionForce: 6
+  explosionRadius: 2
   lightMin: 1
   lightMax: 5
   materialMin: {r: 0, g: 0, b: 0, a: 0}
@@ -202,7 +204,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d98b3d84a864042c5be2f6f63bdc373e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d98b3d84a864042c5be2f6f63bdc373e,
         type: 3}

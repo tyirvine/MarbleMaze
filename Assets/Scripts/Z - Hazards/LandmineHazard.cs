@@ -9,6 +9,8 @@ public class LandmineHazard : MonoBehaviour
     public AnimationCurve fadeCurve;
     [Range(0f, 10f)] public float fadeRate;
     [Range(0f, 10f)] public float detonationFadeRate;
+    public float explosionForce;
+    public float explosionRadius;
 
     // Min / max values
     [Header("Min/Max Values")]
@@ -42,9 +44,33 @@ public class LandmineHazard : MonoBehaviour
     /// <summary>This function provides a lerp based on a provided min/max.</summary>
     float FadeLerp(float min, float max) => Mathf.Lerp(min, max, fadeCurve.Evaluate(time));
 
+    /// <summary>Creates a sphere around the land mine that picksup collider references.
+    /// Then it goes through each reference and applies an explosion force to it's rigidbody.</summary>
+    void LandmineExplode()
+    {
+        Collider[] hitObjects = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach (var hitObject in hitObjects)
+        {
+            if (hitObject.tag == "wallTile" && hitObject.name != gameObject.name)
+            {
+                hitObject.enabled = false;
+                // @tyirvine - I disabled the object's collider so that it just falls through the map instead of interfereing
+                // Collider[] colliders = hitObject.gameObject.GetComponents<Collider>();
+                // foreach (Collider collider in colliders) collider.enabled = false;
+
+                // Explosion
+                Rigidbody rigidbody = hitObject.gameObject.GetComponent<Rigidbody>();
+                rigidbody.isKinematic = false;
+                rigidbody.useGravity = true;
+                rigidbody.AddExplosionForce(explosionForce, transform.position + Vector3.up, explosionRadius);
+            }
+        }
+    }
+
     // This is a detonation trigger for the landmine
     public void DetonateLandmine()
     {
+        LandmineExplode();
         landmineState = DetonationPhases.Detonating;
     }
 

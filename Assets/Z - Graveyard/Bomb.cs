@@ -18,7 +18,6 @@ public class Bomb : MonoBehaviour
                 rigidbody.useGravity = true;
                 rigidbody.AddExplosionForce(explosionForce, transform.position + Vector3.up, explosionRadius);
 
-
             }
         }
         Destroy(gameObject);

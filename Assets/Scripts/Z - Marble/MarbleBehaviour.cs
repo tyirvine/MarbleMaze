@@ -24,7 +24,6 @@ public class MarbleBehaviour : MonoBehaviour
     int layerMask = 1 << 9;
     private void Start()
     {
-
         //  layerMask = ~layerMask;
         audioSource = GetComponent<AudioSource>();
         // Find references
@@ -42,7 +41,6 @@ public class MarbleBehaviour : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-
         if (other.CompareTag("LevelFinish"))
         {
             PlayAudio(levelFinish);
@@ -52,16 +50,10 @@ public class MarbleBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-
         Vector3 collisionForce = collision.impulse / Time.fixedDeltaTime;
         if (collisionForce.magnitude > audioTriggerSpeed && collision.gameObject.CompareTag("wallTile"))
         {
             PlayAudio(impact);
-
-        }
-        if (collision.gameObject.CompareTag("bomb"))
-        {
-            collision.gameObject.SendMessage("Explode");
         }
 
         if (collision.gameObject.CompareTag("spike"))
@@ -81,15 +73,11 @@ public class MarbleBehaviour : MonoBehaviour
         audioSource.PlayOneShot(_clip);
     }
 
-
     public void ResetState()
     {
         fellToMyDeath = false;
         oldTiles.Clear();
     }
-
-
-
 
     public void Update()
     {
@@ -105,13 +93,5 @@ public class MarbleBehaviour : MonoBehaviour
                 gameManager.CallForNewBoard();
             }
         }
-        if (oldTiles.Count >= tilesBeforeDeletion && oldTiles.Count > 0 && oldTiles[0] != null)
-        {
-            oldTiles[0].GetComponent<Rigidbody>().isKinematic = false;
-            oldTiles[0].GetComponent<Rigidbody>().useGravity = true;
-            Destroy(oldTiles[0].gameObject, 2);
-            oldTiles.RemoveAt(0);
-        }
     }
-
 }
