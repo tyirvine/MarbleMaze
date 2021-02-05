@@ -59,14 +59,14 @@ public class MarbleBehaviour : MonoBehaviour
             PlayAudio(impact);
 
         }
-        if(collision.gameObject.CompareTag("bomb"))
+        if (collision.gameObject.CompareTag("bomb"))
         {
             collision.gameObject.SendMessage("Explode");
         }
 
-        if(collision.gameObject.CompareTag("spike"))
+        if (collision.gameObject.CompareTag("spike"))
         {
-            PlayAudio(deathSound);    
+            PlayAudio(deathSound);
             Debug.Log("this is where we lose a life");
         }
 
