@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     bool buildNewBoard = false;
     bool marbleIsFalling = true;
     bool marbleIsReparented = false;
-   // private string oldWallTileTag = "oldWallTiles";
+    // private string oldWallTileTag = "oldWallTiles";
 
     // Settings
     [Range(0.1f, 3.0f)] public float spawnNewBoardTiming = 1.0f;
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         if (!marbleIsReparented)
         {
             GameObject currentBoard = GameObject.FindGameObjectWithTag("boardObjects");
-            
+
             if (currentBoard != null)
             {
                 boardPosition = currentBoard.transform; // allow this to be accessible from other scripts(marble in particular)
@@ -141,9 +141,9 @@ public class GameManager : MonoBehaviour
         {
             //added to stop the board from rotating while the marble is falling
             GetComponent<PlayerInput>().enabled = false;
-            
+
             marbleRigidbody.AddForce(Vector3.up * marbleFallingSpeed, ForceMode.Force);
-      
+
             MoveMarbleIntoBoard();
         }
         else
@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
             GetComponent<PlayerInput>().enabled = true;
             ReparentMarble();
         }
-   
+
     }
 
     public void RemoveLife()
@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Update UI for lives remaining :" + playerStats.livesRemaining);
 
-        if(playerStats.livesRemaining <=0)
+        if (playerStats.livesRemaining <= 0)
         {
             Debug.Log("Heres where we trigger the gameover stuff");
         }
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         playerStats = new PlayerStats(3);
-        CallForNewBoard();       
+        CallForNewBoard();
     }
 
 

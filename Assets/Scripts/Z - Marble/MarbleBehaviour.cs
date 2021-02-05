@@ -18,7 +18,7 @@ public class MarbleBehaviour : MonoBehaviour
     bool fellToMyDeath = false;     //stops the falling check, it was previously causing a lot of level skipping
 
     public List<GameObject> oldTiles = new List<GameObject>();
-    
+
     public int tilesBeforeDeletion = 5; //how many tiles we touch before deleting them
 
     int layerMask = 1 << 9;
@@ -70,7 +70,7 @@ public class MarbleBehaviour : MonoBehaviour
             Debug.Log("this is where we lose a life");
         }
 
-        if(collision.gameObject.tag == "floorTile")
+        if (collision.gameObject.tag == "floorTile")
         {
             oldTiles.Add(collision.gameObject);
         }
@@ -105,12 +105,12 @@ public class MarbleBehaviour : MonoBehaviour
                 gameManager.CallForNewBoard();
             }
         }
-        if(oldTiles.Count >= tilesBeforeDeletion && oldTiles.Count >0 && oldTiles[0]!=null)
+        if (oldTiles.Count >= tilesBeforeDeletion && oldTiles.Count > 0 && oldTiles[0] != null)
         {
             oldTiles[0].GetComponent<Rigidbody>().isKinematic = false;
             oldTiles[0].GetComponent<Rigidbody>().useGravity = true;
             Destroy(oldTiles[0].gameObject, 2);
-            oldTiles.RemoveAt(0);            
+            oldTiles.RemoveAt(0);
         }
     }
 

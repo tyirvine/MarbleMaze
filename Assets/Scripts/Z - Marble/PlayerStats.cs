@@ -7,7 +7,7 @@ public class PlayerStats
     public int livesRemaining;
     public int score;
 
-    public PlayerStats (int lives)
+    public PlayerStats(int lives)
     {
         livesRemaining = lives;
     }
@@ -27,5 +27,5 @@ public class PlayerStats
         score += _score;
     }
 
-    
+
 }
