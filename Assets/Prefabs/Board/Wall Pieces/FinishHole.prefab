@@ -152,7 +152,7 @@ PrefabInstance:
     - target: {fileID: 1618726761701252609, guid: 7c3ba40b78fd844c889c67abbd59e1da,
         type: 3}
       propertyPath: m_TagString
-      value: wallTile
+      value: floorTile
       objectReference: {fileID: 0}
     - target: {fileID: 3906928770144323876, guid: 7c3ba40b78fd844c889c67abbd59e1da,
         type: 3}

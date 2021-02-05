@@ -8,9 +8,12 @@ public class MarbleBehaviour : MonoBehaviour
     [Range(0.5f, 1.5f)] public float scale = 1.25f;
     public float audioTriggerSpeed;
 
+    [Header("Audio")]
     AudioSource audioSource;
     public AudioClip impact;
     public AudioClip levelFinish;
+    public AudioClip deathSound;
+
     public Collision oldCollision;
     int layerMask = 1 << 9;
     private void Start()
@@ -36,8 +39,7 @@ public class MarbleBehaviour : MonoBehaviour
 
         if (other.CompareTag("LevelFinish"))
         {
-            audioSource.clip = levelFinish;
-            audioSource.PlayOneShot(levelFinish);
+            PlayAudio(levelFinish);
             gameManager.CallForNewBoard();
         }
     }
@@ -48,12 +50,25 @@ public class MarbleBehaviour : MonoBehaviour
         Vector3 collisionForce = collision.impulse / Time.fixedDeltaTime;
         if (collisionForce.magnitude > audioTriggerSpeed && collision.gameObject.CompareTag("wallTile"))
         {
-            audioSource.clip = impact;
-            audioSource.PlayOneShot(impact);
+            PlayAudio(impact);
 
         }
+        if(collision.gameObject.CompareTag("bomb"))
+        {
+            collision.gameObject.SendMessage("Explode");
+        }
 
-
+        if(collision.gameObject.CompareTag("spike"))
+        {
+            PlayAudio(deathSound);    
+            Debug.Log("this is where we lose a life");
+        }
 
     }
+
+    public void PlayAudio(AudioClip _clip)
+    {
+        audioSource.PlayOneShot(_clip);
+    }
+
 }

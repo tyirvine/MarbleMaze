@@ -25,6 +25,8 @@ TagManager:
   - oldWallTiles
   - shapePathRequired
   - hazardObject
+  - bomb
+  - spike
   layers:
   - Default
   - TransparentFX
