@@ -104,7 +104,7 @@ public class BuildBoard : MonoBehaviour
         // Calculate board center
         Vector3Int startPoint = pathManager.gridPoints.startPointNode;
         Vector3Int endPoint = pathManager.gridPoints.endPointNode;
-        Vector3 boardCenter = (startPoint - endPoint) + startPoint;
+        Vector3 boardCenter = ((Vector3)(endPoint - startPoint) * 0.5f) + startPoint;
 
         // Spawn wall
         if (wallEviscerator == null)
@@ -113,14 +113,10 @@ public class BuildBoard : MonoBehaviour
             wallEviscerator.transform.position = boardCenter;
 
         // Calculate distance between center of board and furthest point (start/end)
-        float furthestPoint = 0.0f;
-        float startPointOffset = (pathManager.gridPoints.startPointNode - boardCenter).magnitude;
-        float endPointOffset = (pathManager.gridPoints.endPointNode - boardCenter).magnitude;
-        if (startPointOffset >= endPointOffset) furthestPoint = startPointOffset;
-        else furthestPoint = endPointOffset;
+        float furthestPoint = (pathManager.gridPoints.endPointNode - pathManager.gridPoints.startPointNode).sqrMagnitude;
 
         // Adjust radius
-        wallEviscerator.GetComponent<SphereCollider>().radius = furthestPoint * 2f;
+        wallEviscerator.GetComponent<SphereCollider>().radius = furthestPoint;
     }
 
     /// <summary>This groups all the wall tiles together into a wallTilesGroup object</summary>

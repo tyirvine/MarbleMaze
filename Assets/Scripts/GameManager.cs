@@ -7,20 +7,23 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public GameObject marble;
     [HideInInspector] public Rigidbody marbleRigidbody;
     [HideInInspector] public Vector3 boardStartPosition;
-
-    // Vector3 boardPosition;
-    public Transform boardPosition;
+    [HideInInspector] public Transform boardPosition;
     PhysicMaterial material;
 
     // State objects
-    bool marbleIsFalling = true;
+    [HideInInspector] public bool newBoardGenerating = true;
+    bool marbleIsFallingLegally = true;
     bool marbleIsReparented = false;
+    bool marbleHasDied = false;
     bool isStarted = true;
 
     // Settings
+    [Header("Settings")]
     [Range(0.1f, 3.0f)] public float spawnNewBoardTiming = 1.0f;
     public int boardOffsetFromMarble = 30;
     public float marbleFallingSpeed = 50f;
+    /// <summary>How far from the board does the marble fall before triggering a death event.</summary>
+    public int fallDistanceToDeath = 10;
 
     // Debug Settings
     [Header("Debug Settings")]
@@ -30,16 +33,15 @@ public class GameManager : MonoBehaviour
 
     // References
     [Header("References")]
-    public PathManager pathManager;
-    public GameObject marblePrefab;
-    public LevelManager levelManager;
-    public PlayerStats playerStats;
     public PlayerInput playerInput;
+    public GameObject marblePrefab;
+    public PathManager pathManager;
+    public LevelManager levelManager;
+    public StatsManager statsManager;
 
     /* -------------------------------------------------------------------------- */
-    /*                                   Methods                                  */
+    /*                           Marble Related Methods                           */
     /* -------------------------------------------------------------------------- */
-
     /// <summary>Parents the marble. This eliminates stutter during board movement.</summary>
     public void ReparentMarble()
     {
@@ -57,19 +59,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /// <summary>Destroys the old board via tags.</summary>
-    public void DeleteOldBoards()
-    {
-        GameObject[] wallTiles = GameObject.FindGameObjectsWithTag("boardObjects");
-        if (wallTiles.Length > 0)
-        {
-            foreach (GameObject tile in wallTiles)
-            {
-                Destroy(tile);
-            }
-        }
-    }
-
     /// <summary>This function is designed to move the marble into the board's position.</summary>
     public void MoveMarbleIntoBoard()
     {
@@ -77,10 +66,11 @@ public class GameManager : MonoBehaviour
         Vector3 boardHorizontalPosition = new Vector3(boardStartPosition.x, 0, boardStartPosition.z);
 
         // Disable if the marble is near the board
-        int verticalTriggerPadding = 7;
+        int verticalTriggerPadding = 5;
         if (marble.transform.position.y < boardStartPosition.y + verticalTriggerPadding && marble.transform.position.y > boardStartPosition.y - verticalTriggerPadding)
         {
-            marbleIsFalling = false;
+            newBoardGenerating = false;
+            marbleIsFallingLegally = false;
         }
 
         // Adjust marble's horizontal position
@@ -98,12 +88,36 @@ public class GameManager : MonoBehaviour
         marbleRigidbody = marble.gameObject.GetComponent<Rigidbody>();
     }
 
+    /// <summary>Check to see if the marble has slipped off the side of the board.</summary>
+    void CheckMarbleFallingIllegally()
+    {
+        // Run this check in update as its not physics heavy
+        if (boardPosition != null && !marbleIsFallingLegally)
+            if (marble.transform.position.y < (boardPosition.position.y - fallDistanceToDeath) && !marbleHasDied)
+            {
+                Debug.Log("Marble has died from heights");
+                marbleHasDied = true;
+            }
+    }
+
     /// <summary>Returns the marble's position offset on the y.</summary>
     Vector3Int GetMarblePositionOffset() => Vector3Int.FloorToInt(marble.transform.position - new Vector3Int(0, boardOffsetFromMarble, 0));
 
     /* -------------------------------------------------------------------------- */
     /*                              New Board Methods                             */
     /* -------------------------------------------------------------------------- */
+    /// <summary>Destroys the old board via tags.</summary>
+    public void DeleteOldBoards()
+    {
+        GameObject[] wallTiles = GameObject.FindGameObjectsWithTag("boardObjects");
+        if (wallTiles.Length > 0)
+        {
+            foreach (GameObject tile in wallTiles)
+            {
+                Destroy(tile);
+            }
+        }
+    }
 
     /// <summary>Calls the new board method after a set number of seconds.</summary>
     public void CallForNewBoard()
@@ -111,6 +125,7 @@ public class GameManager : MonoBehaviour
         // Pre-deletion ⤵︎
         marble.transform.SetParent(null);
         levelManager.NewLevel();
+        marbleIsFallingLegally = true;
 
         // Call new board
         Invoke("NewBoard", spawnNewBoardTiming);
@@ -124,37 +139,11 @@ public class GameManager : MonoBehaviour
         boardStartPosition = pathManager.gridPoints.startPointNode + new Vector3(0.5f, 0f, 0.5f);
 
         // Guide marble to new board start position
-        marbleIsFalling = true;
+        newBoardGenerating = true;
         marbleIsReparented = false;
-
-        // TODO: Review this
-        // A boolean to stop level skipping
-        marble.GetComponent<MarbleBehaviour>().ResetState();
 
         // Add any code below that needs to be execute upon starting a new level ⤵︎
 
-    }
-
-    /* -------------------------------------------------------------------------- */
-    /*                              Player Management                             */
-    /* -------------------------------------------------------------------------- */
-
-    // TODO: Review
-    public void RemoveLife()
-    {
-        playerStats.RemoveLife(1);
-
-        Debug.Log("Update UI for lives remaining :" + playerStats.livesRemaining);
-
-        if (playerStats.livesRemaining <= 0)
-        {
-            Debug.Log("Heres where we trigger the gameover stuff");
-        }
-    }
-
-    public void AddScore(int score)
-    {
-        playerStats.AdjustScore(score);
     }
 
     /* -------------------------------------------------------------------------- */
@@ -174,7 +163,7 @@ public class GameManager : MonoBehaviour
     void FixedUpdate()
     {
         // This starts off true
-        if (marbleIsFalling)
+        if (newBoardGenerating)
         {
             // Added to stop the board from rotating while the marble is falling
             playerInput.enabled = false;
@@ -187,14 +176,13 @@ public class GameManager : MonoBehaviour
             ReparentMarble();
         }
 
+        CheckMarbleFallingIllegally();
     }
 
+    /* ------------------------------ Debug Related ----------------------------- */
     // @AlexMPester @bubzy-coding I think the entire game can run from here tbh
     void Start()
     {
-        // TODO: Adjust player stats
-        playerStats = new PlayerStats(3);
-
         // TODO: Remove this from the production build!
         if (!debugMode)
             CallForNewBoard();

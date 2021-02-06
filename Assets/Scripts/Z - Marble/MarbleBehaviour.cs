@@ -1,42 +1,43 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+
 public class MarbleBehaviour : MonoBehaviour
 {
-    [HideInInspector] public int score = 0;
     [HideInInspector] public Collider[] colliders;
     [HideInInspector] public GameManager gameManager;
-    [Range(0.5f, 1.5f)] public float scale = 1.25f;
-    public float audioTriggerSpeed;
 
     [Header("Audio")]
     AudioSource audioSource;
+    public float audioTriggerSpeed;
     public AudioClip impact;
     public AudioClip levelFinish;
     public AudioClip deathSound;
 
-    public int fallDistance = 30;   //how far from the board does the marble fall before triggering a death event
-    bool fellToMyDeath = false;     //stops the falling check, it was previously causing a lot of level skipping
+    [Header("Settings")]
 
-    public List<GameObject> oldTiles = new List<GameObject>();
+    [Range(0.5f, 1.5f)] public float scale = 1.25f;
 
-    public int tilesBeforeDeletion = 5; //how many tiles we touch before deleting them
-
-    private void Start()
+    // Grab references
+    private void Awake()
     {
-        //  layerMask = ~layerMask;
-        audioSource = GetComponent<AudioSource>();
         // Find references
         colliders = gameObject.GetComponents<SphereCollider>();
         gameManager = GameObject.FindObjectOfType<GameManager>();
+        audioSource = GetComponent<AudioSource>();
+
         // Set scale
         gameObject.transform.localScale = gameObject.transform.localScale * scale;
+    }
+
+    public void PlayAudio(AudioClip _clip)
+    {
+        audioSource.PlayOneShot(_clip);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("pickup"))
         {
-            score += other.GetComponent<Pill>().pickup.pickupValue;
+            gameManager.statsManager.AddToScore(1);
             Destroy(other.gameObject);
         }
 
@@ -60,37 +61,17 @@ public class MarbleBehaviour : MonoBehaviour
             PlayAudio(deathSound);
             Debug.Log("this is where we lose a life");
         }
-
-        if (collision.gameObject.tag == "floorTile")
-        {
-            oldTiles.Add(collision.gameObject);
-        }
     }
 
-    public void PlayAudio(AudioClip _clip)
-    {
-        audioSource.PlayOneShot(_clip);
-    }
-
-    public void ResetState()
-    {
-        fellToMyDeath = false;
-        oldTiles.Clear();
-    }
-
-    public void Update()
-    {
-        //has the player fallen off the board?
-        //run this check in update as its not physics heavy
-        if (gameManager.boardPosition != null)
-        {
-            if (transform.position.y < gameManager.boardPosition.position.y - fallDistance && !fellToMyDeath)
-            {
-                Debug.Log("die");
-                fellToMyDeath = true;
-                gameManager.RemoveLife();
-                gameManager.CallForNewBoard();
-            }
-        }
-    }
+    // public void Update()
+    // {
+    //     // Has the player fallen off the board?
+    //     // Run this check in update as its not physics heavy
+    //     if (gameManager.boardPosition != null)
+    //     {
+    //         if (transform.position.y < (gameManager.boardPosition.position.y - fallDistanceToRemoveLife) && !gameManager.marbleIsFalling)
+    //         {
+    //         }
+    //     }
+    // }
 }

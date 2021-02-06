@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7683857431610325322}
   - component: {fileID: 1527608143}
   - component: {fileID: 1299860387565759768}
+  - component: {fileID: 3942923127047086806}
   - component: {fileID: 7683857431610325321}
   m_Layer: 0
   m_Name: GameManager
@@ -184,6 +185,21 @@ MonoBehaviour:
   pathManager: {fileID: 0}
   shapeManager: {fileID: 0}
   UI_LevelCounter: {fileID: 0}
+--- !u!114 &3942923127047086806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683857431610325326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dea38cbdb09114a899c7c2fbd661372f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  livesToStartWith: 0
+  livesRemaining: 0
+  score: 0
 --- !u!114 &7683857431610325321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,9 +221,10 @@ MonoBehaviour:
   marbleFallingSpeed: 80
   debugMode: 0
   debugJumpToLevel: 10
-  pathManager: {fileID: 3573442668972672422, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
-    type: 3}
+  playerInput: {fileID: 7683857431610325322}
   marblePrefab: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18,
     type: 3}
+  pathManager: {fileID: 3573442668972672422, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
+    type: 3}
   levelManager: {fileID: 1299860387565759768}
-  playerInput: {fileID: 7683857431610325322}
+  statsManager: {fileID: 3942923127047086806}
