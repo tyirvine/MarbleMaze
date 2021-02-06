@@ -23,14 +23,15 @@ public class BuildBoard : MonoBehaviour
     public GameObject pathFinishHole;
     public GameObject boardObjects;
 
-    void Awake()
-    {
+    // Utilities
+    [Header("Utilities")]
+    public GameObject wallEvisceratorPrefab;
+    GameObject wallEviscerator;
 
-        //GetBoardSize();
-    }
-
+    /// <summary>This is the main sauce of this source file.</summary>
     public void GetBoardSize()
     {
+
         boardObjects = new GameObject();
         boardObjects.AddComponent<MeshFilter>();
         boardObjects.AddComponent<MeshRenderer>();
@@ -62,12 +63,15 @@ public class BuildBoard : MonoBehaviour
         size = new Vector2Int(xSize, ySize);
         topLeft = new Vector2Int(topLeftX, topLeftY);
 
+        /* -------------------------- Assembly happens here ------------------------- */
         FillGround();
         GroupObjects("floorTile");
-        //   MakeSingleMesh();
         GroupObjects("wallTile");
+        MoveWallEviscerator();
+        //   MakeSingleMesh(); - This can combine all floor objects into one unified mesh
     }
 
+    /// <summary>This creates the floor for the board.</summary>
     void FillGround()
     {
         // Debug.Log(pathNodes.Count + "PATHNODES COUNT");
@@ -94,17 +98,43 @@ public class BuildBoard : MonoBehaviour
 
     }
 
+    /// <summary>This adds on a collider that destroys exploded wall tiles upon exit.</summary>
+    void MoveWallEviscerator()
+    {
+        // Calculate board center
+        Vector3Int startPoint = pathManager.gridPoints.startPointNode;
+        Vector3Int endPoint = pathManager.gridPoints.endPointNode;
+        Vector3 boardCenter = (startPoint - endPoint) + startPoint;
+
+        // Spawn wall
+        if (wallEviscerator == null)
+            wallEviscerator = Instantiate(wallEvisceratorPrefab, boardCenter, Quaternion.identity);
+        else
+            wallEviscerator.transform.position = boardCenter;
+
+        // Calculate distance between center of board and furthest point (start/end)
+        float furthestPoint = 0.0f;
+        float startPointOffset = (pathManager.gridPoints.startPointNode - boardCenter).magnitude;
+        float endPointOffset = (pathManager.gridPoints.endPointNode - boardCenter).magnitude;
+        if (startPointOffset >= endPointOffset) furthestPoint = startPointOffset;
+        else furthestPoint = endPointOffset;
+
+        // Adjust radius
+        wallEviscerator.GetComponent<SphereCollider>().radius = furthestPoint * 2f;
+    }
+
+    /// <summary>This groups all the wall tiles together into a wallTilesGroup object</summary>
     void GroupObjects(string tag)
     {
         GameObject[] placeholdExposedReference = GameObject.FindGameObjectsWithTag(tag);
-
         boardObjects.name = tag + "s Group";
-        boardObjects.tag = "boardObjects"
-; foreach (GameObject go in placeholdExposedReference)
+        boardObjects.tag = "boardObjects";
+        foreach (GameObject go in placeholdExposedReference)
         {
             go.transform.parent = boardObjects.transform;
         }
     }
+
     void BuildWall()
     {
         for (int x = topLeft.x - 1; x <= topLeft.x + size.x + 1; x++)
@@ -188,7 +218,6 @@ public class BuildBoard : MonoBehaviour
 
     void MakeSingleMesh()
     {
-
         if (GlobalStaticVariables.Instance.renderBoardAsSingleMesh)
         {
             MeshFilter[] meshfilters = boardObjects.GetComponentsInChildren<MeshFilter>();

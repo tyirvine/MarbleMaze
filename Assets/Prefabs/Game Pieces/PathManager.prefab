@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1f89345e95a4676a73b5c4a7aacdd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredPathLength: 14
+  desiredPathLength: 4
   disablePathFlags: 1
   buildBoard: 1
   buildShapes: 1
@@ -59,7 +59,7 @@ MonoBehaviour:
   endFlag: {fileID: 8970112326771813452, guid: 3a13cb7cf52e0c048be27ed0b089bdad, type: 3}
   obstacleManager: {fileID: 3573442668972672423}
   didPathGenerate: 0
-  currentWorldPosition: {x: 39, y: -1123, z: 9}
+  currentWorldPosition: {x: 0, y: -99, z: 0}
 --- !u!114 &3573442668972672423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +101,8 @@ MonoBehaviour:
   pathFinishHole: {fileID: 8458655825351085258, guid: fa61f5a6dfd0b40938c88f763d0ad804,
     type: 3}
   boardObjects: {fileID: 0}
+  wallEvisceratorPrefab: {fileID: 8645087766224602768, guid: c939b85c6c8a44f05930210e13493ae3,
+    type: 3}
 --- !u!114 &3573442668972672345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +164,7 @@ MonoBehaviour:
     unitCount: 7
     includeInBuild: 1
     rotate: 1
-    chanceToSpawn: 16
+    chanceToSpawn: 10
     isHazard: 1
   hazardSpike:
     rule: {fileID: 0}
@@ -170,7 +172,7 @@ MonoBehaviour:
     unitCount: 0
     includeInBuild: 0
     rotate: 1
-    chanceToSpawn: 4
+    chanceToSpawn: 0
     isHazard: 1
   hazardLandmine:
     rule: {fileID: 5520149041154882132, guid: a4f0e4774307e4ecf91efe9610faea91, type: 3}
@@ -178,7 +180,7 @@ MonoBehaviour:
     unitCount: 3
     includeInBuild: 1
     rotate: 1
-    chanceToSpawn: 6
+    chanceToSpawn: 0
     isHazard: 1
   spawnFlags: 0
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,

@@ -27,6 +27,7 @@ TagManager:
   - hazardObject
   - bomb
   - spike
+  - WallEviscerator
   layers:
   - Default
   - TransparentFX
@@ -38,8 +39,8 @@ TagManager:
   - 
   - Marble
   - FloorObjects
-  - 
-  - 
+  - WallEviscerator
+  - WallObjects
   - 
   - 
   - 

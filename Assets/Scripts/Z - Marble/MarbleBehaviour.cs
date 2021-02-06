@@ -21,7 +21,6 @@ public class MarbleBehaviour : MonoBehaviour
 
     public int tilesBeforeDeletion = 5; //how many tiles we touch before deleting them
 
-    int layerMask = 1 << 9;
     private void Start()
     {
         //  layerMask = ~layerMask;

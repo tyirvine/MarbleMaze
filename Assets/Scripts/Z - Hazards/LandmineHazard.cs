@@ -30,6 +30,7 @@ public class LandmineHazard : MonoBehaviour
     public BoxCollider buttonCollider;
     public Renderer buttonRenderer;
     public Animator buttonAnimator;
+    public GameObject wallEviscerator;
 
     // Detonation phases
     enum DetonationPhases
@@ -56,19 +57,13 @@ public class LandmineHazard : MonoBehaviour
         Collider[] hitObjects = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (var hitObject in hitObjects)
         {
-            if (hitObject.tag == "wallTile")
+            // Check to make sure there's a rigidbody first
+            if (hitObject.tag == "wallTile" && hitObject.gameObject.GetComponent<Rigidbody>() != null)
             {
-                // Explosion
                 Rigidbody rigidbody = hitObject.gameObject.GetComponent<Rigidbody>();
                 rigidbody.isKinematic = false;
                 rigidbody.useGravity = true;
-                // rigidbody.AddExplosionForce(explosionForce, transform.position - new Vector3(0f, explosionRadius, 0f), explosionRadius);
                 rigidbody.AddExplosionForce(explosionForce, gameObject.transform.position, explosionRadius, upwardsModifier, explosionForceMode);
-
-                // @tyirvine - I disabled the object's collider so that it just falls through the map instead of interfereing
-                Collider[] colliders = hitObject.gameObject.GetComponents<Collider>();
-                foreach (Collider collider in colliders)
-                    collider.enabled = false;
             }
         }
     }

@@ -199,11 +199,15 @@ MonoBehaviour:
   marble: {fileID: 0}
   marbleRigidbody: {fileID: 0}
   boardStartPosition: {x: 0, y: 0, z: 0}
+  boardPosition: {fileID: 0}
   spawnNewBoardTiming: 0.75
   boardOffsetFromMarble: 75
   marbleFallingSpeed: 80
+  debugMode: 0
+  debugJumpToLevel: 10
   pathManager: {fileID: 3573442668972672422, guid: 51c0d2d3ff075cf43b7c36ddcbf932c0,
     type: 3}
   marblePrefab: {fileID: 4670614603540532265, guid: 8b93e5787ed51b44ba6987a67e2f4c18,
     type: 3}
   levelManager: {fileID: 1299860387565759768}
+  playerInput: {fileID: 7683857431610325322}

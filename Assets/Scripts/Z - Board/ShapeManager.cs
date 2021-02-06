@@ -49,7 +49,6 @@ public class ShapeManager : MonoBehaviour
     // public float difficulty = 1f;
 
     // Program
-    int rotation = 90;
     public void CheckShapes()
     {
         /* ------------------------------ Hazard Shapes ----------------------------- */

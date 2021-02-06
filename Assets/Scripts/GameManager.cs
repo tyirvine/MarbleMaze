@@ -13,11 +13,9 @@ public class GameManager : MonoBehaviour
     PhysicMaterial material;
 
     // State objects
-    bool buildNewBoard = false;
     bool marbleIsFalling = true;
     bool marbleIsReparented = false;
     bool isStarted = true;
-    // private string oldWallTileTag = "oldWallTiles";
 
     // Settings
     [Range(0.1f, 3.0f)] public float spawnNewBoardTiming = 1.0f;
@@ -36,6 +34,7 @@ public class GameManager : MonoBehaviour
     public GameObject marblePrefab;
     public LevelManager levelManager;
     public PlayerStats playerStats;
+    public PlayerInput playerInput;
 
     /* -------------------------------------------------------------------------- */
     /*                                   Methods                                  */
@@ -50,7 +49,8 @@ public class GameManager : MonoBehaviour
 
             if (currentBoard != null)
             {
-                boardPosition = currentBoard.transform; // allow this to be accessible from other scripts(marble in particular)
+                // Allow this to be accessible from other scripts(marble in particular)
+                boardPosition = currentBoard.transform;
                 marble.transform.parent = currentBoard.transform;
                 marbleIsReparented = true;
             }
@@ -73,7 +73,6 @@ public class GameManager : MonoBehaviour
     /// <summary>This function is designed to move the marble into the board's position.</summary>
     public void MoveMarbleIntoBoard()
     {
-
         Vector3 marbleHorizontalPosition = new Vector3(marble.transform.position.x, 0, marble.transform.position.z);
         Vector3 boardHorizontalPosition = new Vector3(boardStartPosition.x, 0, boardStartPosition.z);
 
@@ -90,9 +89,6 @@ public class GameManager : MonoBehaviour
             Vector3 positionDifference = boardHorizontalPosition - marbleHorizontalPosition;
             marble.transform.position += positionDifference;
         }
-
-        //get the current ACTUAL board position for calculating marble physics behaviour
-        // boardPosition = GameObject.FindGameObjectWithTag("boardObjects").transform.position;
     }
 
     /// <summary>Just a simple script to spawn the marble.</summary>
@@ -130,7 +126,11 @@ public class GameManager : MonoBehaviour
         // Guide marble to new board start position
         marbleIsFalling = true;
         marbleIsReparented = false;
-        marble.GetComponent<MarbleBehaviour>().ResetState(); //a boolean to stop level skipping
+
+        // TODO: Review this
+        // A boolean to stop level skipping
+        marble.GetComponent<MarbleBehaviour>().ResetState();
+
         // Add any code below that needs to be execute upon starting a new level ⤵︎
 
     }
@@ -139,6 +139,7 @@ public class GameManager : MonoBehaviour
     /*                              Player Management                             */
     /* -------------------------------------------------------------------------- */
 
+    // TODO: Review
     public void RemoveLife()
     {
         playerStats.RemoveLife(1);
@@ -175,16 +176,14 @@ public class GameManager : MonoBehaviour
         // This starts off true
         if (marbleIsFalling)
         {
-            //added to stop the board from rotating while the marble is falling
-            GetComponent<PlayerInput>().enabled = false;
-
+            // Added to stop the board from rotating while the marble is falling
+            playerInput.enabled = false;
             marbleRigidbody.AddForce(Vector3.up * marbleFallingSpeed, ForceMode.Force);
-
             MoveMarbleIntoBoard();
         }
         else
         {
-            GetComponent<PlayerInput>().enabled = true;
+            playerInput.enabled = true;
             ReparentMarble();
         }
 
