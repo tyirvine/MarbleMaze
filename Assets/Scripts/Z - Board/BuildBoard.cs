@@ -119,6 +119,12 @@ public class BuildBoard : MonoBehaviour
         wallEviscerator.GetComponent<SphereCollider>().radius = furthestPoint;
     }
 
+    /// <summary>This tells the GameManager if the player has slipped off the side of the board.</summary>
+    void CreateDeathCatch()
+    {
+        
+    }
+
     /// <summary>This groups all the wall tiles together into a wallTilesGroup object</summary>
     void GroupObjects(string tag)
     {

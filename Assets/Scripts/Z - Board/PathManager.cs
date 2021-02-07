@@ -55,6 +55,8 @@ public class PathManager : MonoBehaviour
     /// <summary> Use this object to define grid positions.</summary>
     public struct GridPoints
     {
+
+        // TODO: Finish Death Catch
         // Grid corners
         public Vector3Int topLeft;
         public Vector3Int topRight;
