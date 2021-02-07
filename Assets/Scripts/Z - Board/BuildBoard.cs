@@ -122,7 +122,7 @@ public class BuildBoard : MonoBehaviour
     /// <summary>This tells the GameManager if the player has slipped off the side of the board.</summary>
     void CreateDeathCatch()
     {
-        
+
     }
 
     /// <summary>This groups all the wall tiles together into a wallTilesGroup object</summary>
