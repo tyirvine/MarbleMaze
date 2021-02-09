@@ -76,6 +76,9 @@ public class StatsManager : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("Heres where we trigger the gameover stuff");
+
+        // Stop following the player
+        cameraRig.StopFollowingPlayer();
     }
 
     /* ---------------------------- Score Management ---------------------------- */
