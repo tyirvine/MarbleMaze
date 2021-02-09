@@ -13,6 +13,7 @@ public class StatsManager : MonoBehaviour
 
     // References
     [Header("References")]
+    public CameraFollowPlayer cameraRig;
     public TextMeshProUGUI UI_LivesCounter;
 
     // TODO: Add Lives UI
@@ -40,8 +41,16 @@ public class StatsManager : MonoBehaviour
         AdjustLifeCount(lives);
 
         // Check if player has run out of lives
-        if (livesRemaining < 0) GameOver();
-        else { } // Run respawn
+        if (livesRemaining < 0)
+            GameOver();
+        else
+            RespawnPlayer();
+    }
+
+    /// <summary>This runs immediately after a life is removed.</summary>
+    void RespawnPlayer()
+    {
+        cameraRig.StopFollowingPlayer();
     }
 
     /// <summary>This runs the entire game over process.</summary>

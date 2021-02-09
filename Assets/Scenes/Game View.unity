@@ -218,6 +218,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &506331869 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+    type: 3}
+  m_PrefabInstance: {fileID: 8867217297318685884}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39f4778e68f9a4c22a26aa87f9bb8809, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &545776924
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,10 +349,15 @@ PrefabInstance:
       propertyPath: UI_LivesCounter
       value: 
       objectReference: {fileID: 8076443721751820165}
+    - target: {fileID: 3942923127047086806, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: cameraRig
+      value: 
+      objectReference: {fileID: 506331869}
     - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: debugMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325326, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
@@ -611,6 +628,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothness
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: stopPlayerFollowDelay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: lastPlayerPositionOffset
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef72a49885dee49d6af6e3acb4751037, type: 3}
