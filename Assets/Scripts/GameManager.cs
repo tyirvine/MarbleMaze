@@ -12,10 +12,10 @@ public class GameManager : MonoBehaviour
 
     // State objects
     [HideInInspector] public bool newBoardGenerating = true;
-    bool marbleIsFallingLegally = true;
     bool marbleIsReparented = false;
     bool marbleHasDied = false;
     bool isStarted = true;
+    [HideInInspector] public GameObject oldBoard;
 
     // Settings
     [Header("Settings")]
@@ -70,7 +70,6 @@ public class GameManager : MonoBehaviour
         if (marble.transform.position.y < boardStartPosition.y + verticalTriggerPadding && marble.transform.position.y > boardStartPosition.y - verticalTriggerPadding)
         {
             newBoardGenerating = false;
-            marbleIsFallingLegally = false;
         }
 
         // Adjust marble's horizontal position
@@ -88,18 +87,6 @@ public class GameManager : MonoBehaviour
         marbleRigidbody = marble.gameObject.GetComponent<Rigidbody>();
     }
 
-    /// <summary>Check to see if the marble has slipped off the side of the board.</summary>
-    void CheckMarbleFallingIllegally()
-    {
-        // Run this check in update as its not physics heavy
-        if (boardPosition != null && !marbleIsFallingLegally)
-            if (marble.transform.position.y < (boardPosition.position.y - fallDistanceToDeath) && !marbleHasDied)
-            {
-                Debug.Log("Marble has died from heights");
-                marbleHasDied = true;
-            }
-    }
-
     /// <summary>Returns the marble's position offset on the y.</summary>
     Vector3Int GetMarblePositionOffset() => Vector3Int.FloorToInt(marble.transform.position - new Vector3Int(0, boardOffsetFromMarble, 0));
 
@@ -109,12 +96,13 @@ public class GameManager : MonoBehaviour
     /// <summary>Destroys the old board via tags.</summary>
     public void DeleteOldBoards()
     {
-        GameObject[] wallTiles = GameObject.FindGameObjectsWithTag("boardObjects");
-        if (wallTiles.Length > 0)
+        GameObject[] boards = GameObject.FindGameObjectsWithTag("boardObjects");
+        if (boards != null)
         {
-            foreach (GameObject tile in wallTiles)
+            foreach (GameObject board in boards)
             {
-                Destroy(tile);
+                board.transform.DetachChildren();
+                Destroy(board);
             }
         }
     }
@@ -125,7 +113,10 @@ public class GameManager : MonoBehaviour
         // Pre-deletion ⤵︎
         marble.transform.SetParent(null);
         levelManager.NewLevel();
-        marbleIsFallingLegally = true;
+
+        // Delete death catch so we don't get false deaths on level completion
+        GameObject deathCatch = pathManager.GetComponent<BuildBoard>().deathCatch;
+        if (deathCatch != null) Destroy(deathCatch.gameObject);
 
         // Call new board
         Invoke("NewBoard", spawnNewBoardTiming);
@@ -175,8 +166,6 @@ public class GameManager : MonoBehaviour
             playerInput.enabled = true;
             ReparentMarble();
         }
-
-        CheckMarbleFallingIllegally();
     }
 
     /* ------------------------------ Debug Related ----------------------------- */

@@ -28,6 +28,7 @@ TagManager:
   - bomb
   - spike
   - WallEviscerator
+  - DeathCatch
   layers:
   - Default
   - TransparentFX

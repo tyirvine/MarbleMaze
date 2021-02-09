@@ -103,6 +103,8 @@ MonoBehaviour:
   boardObjects: {fileID: 0}
   wallEvisceratorPrefab: {fileID: 8645087766224602768, guid: c939b85c6c8a44f05930210e13493ae3,
     type: 3}
+  deathCatchPrefab: {fileID: 8645087766224602768, guid: c88ffe855d2e94b64b5067c994f16e52,
+    type: 3}
 --- !u!114 &3573442668972672345
 MonoBehaviour:
   m_ObjectHideFlags: 0

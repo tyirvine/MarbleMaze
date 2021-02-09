@@ -26,7 +26,9 @@ public class BuildBoard : MonoBehaviour
     // Utilities
     [Header("Utilities")]
     public GameObject wallEvisceratorPrefab;
+    public GameObject deathCatchPrefab;
     GameObject wallEviscerator;
+    [HideInInspector] public GameObject deathCatch;
 
     /// <summary>This is the main sauce of this source file.</summary>
     public void GetBoardSize()
@@ -65,6 +67,7 @@ public class BuildBoard : MonoBehaviour
 
         /* -------------------------- Assembly happens here ------------------------- */
         FillGround();
+        CreateDeathCatch();
         GroupObjects("floorTile");
         GroupObjects("wallTile");
         MoveWallEviscerator();
@@ -98,13 +101,19 @@ public class BuildBoard : MonoBehaviour
 
     }
 
+    /// <summary>Simply calculates the center of the board using the start and end points.</summary>
+    Vector3 FindBoardCenter()
+    {
+        Vector3Int startPoint = pathManager.gridPoints.startPointNode;
+        Vector3Int endPoint = pathManager.gridPoints.endPointNode;
+        return ((Vector3)(endPoint - startPoint) * 0.5f) + startPoint;
+    }
+
     /// <summary>This adds on a collider that destroys exploded wall tiles upon exit.</summary>
     void MoveWallEviscerator()
     {
         // Calculate board center
-        Vector3Int startPoint = pathManager.gridPoints.startPointNode;
-        Vector3Int endPoint = pathManager.gridPoints.endPointNode;
-        Vector3 boardCenter = ((Vector3)(endPoint - startPoint) * 0.5f) + startPoint;
+        Vector3 boardCenter = FindBoardCenter();
 
         // Spawn wall
         if (wallEviscerator == null)
@@ -119,10 +128,19 @@ public class BuildBoard : MonoBehaviour
         wallEviscerator.GetComponent<SphereCollider>().radius = furthestPoint;
     }
 
-    /// <summary>This tells the GameManager if the player has slipped off the side of the board.</summary>
+    /// <summary>This method adds the death catch under the board, which detects if the player died form falling off the board.</summary>
     void CreateDeathCatch()
     {
+        // Find board center
+        Vector3 boardCenter = FindBoardCenter();
 
+        // Spawn catch if neccessary
+        deathCatch = Instantiate(deathCatchPrefab, boardCenter, Quaternion.identity);
+
+        // Set size of death catch
+        BoxCollider collider = deathCatch.GetComponent<BoxCollider>();
+        float desiredSize = pathManager.desiredPathLength * 3f + 1000f;
+        collider.size = new Vector3(desiredSize, collider.size.y, desiredSize);
     }
 
     /// <summary>This groups all the wall tiles together into a wallTilesGroup object</summary>

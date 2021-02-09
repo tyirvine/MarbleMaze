@@ -55,8 +55,6 @@ public class PathManager : MonoBehaviour
     /// <summary> Use this object to define grid positions.</summary>
     public struct GridPoints
     {
-
-        // TODO: Finish Death Catch
         // Grid corners
         public Vector3Int topLeft;
         public Vector3Int topRight;
@@ -431,9 +429,11 @@ public class PathManager : MonoBehaviour
         Initialize();
         GameObject[] flags;
 
-        // Destroy all flags first
+        // Destroy all flags
         flags = GameObject.FindGameObjectsWithTag("Flag");
         foreach (GameObject flag in flags) GameObject.Destroy(flag);
+
+        // Destroy all shapes
         GameObject[] walls = GameObject.FindGameObjectsWithTag("wallTile");
         GameObject[] floors = GameObject.FindGameObjectsWithTag("floorTile");
         foreach (GameObject wall in walls)
@@ -443,7 +443,6 @@ public class PathManager : MonoBehaviour
         foreach (GameObject floor in floors)
         {
             Destroy(floor);
-
         }
 
         // This catch is looking for a `No sequence` error that can occur when the path can't go from start to finish

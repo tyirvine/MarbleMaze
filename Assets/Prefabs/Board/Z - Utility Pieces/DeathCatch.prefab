@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8645087766224602782}
   - component: {fileID: 8206243740554859168}
+  - component: {fileID: -8900045833956939111}
   m_Layer: 0
-  m_Name: MarbleDeathCatch
-  m_TagString: Untagged
+  m_Name: DeathCatch
+  m_TagString: wallTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,5 +43,17 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: -3.5, z: 0}
+--- !u!114 &-8900045833956939111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8645087766224602768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bd81d815c2d4e24afd793647f3519f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
