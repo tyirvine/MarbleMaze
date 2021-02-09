@@ -322,6 +322,21 @@ PrefabInstance:
       propertyPath: UI_LevelCounter
       value: 
       objectReference: {fileID: 19044934}
+    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: UI_LivesCounter
+      value: 
+      objectReference: {fileID: 8076443721751820165}
+    - target: {fileID: 3942923127047086806, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: livesToStartWith
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3942923127047086806, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: UI_LivesCounter
+      value: 
+      objectReference: {fileID: 8076443721751820165}
     - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: debugMode
@@ -396,6 +411,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2449104929472379311, guid: 04e55fb629bad4d88bf1900610aa628f,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 2449104929472379311, guid: 04e55fb629bad4d88bf1900610aa628f,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 8076443721768070066, guid: 04e55fb629bad4d88bf1900610aa628f,
         type: 3}
       propertyPath: m_Name
@@ -508,6 +533,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04e55fb629bad4d88bf1900610aa628f, type: 3}
+--- !u!114 &8076443721751820165 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2449104929472379311, guid: 04e55fb629bad4d88bf1900610aa628f,
+    type: 3}
+  m_PrefabInstance: {fileID: 8076443721751820164}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8867217297318685884
 PrefabInstance:
   m_ObjectHideFlags: 0

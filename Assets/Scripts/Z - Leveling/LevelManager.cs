@@ -26,7 +26,7 @@ public class LevelManager : MonoBehaviour
     public ColorManager colorManager;
     [HideInInspector] public PathManager pathManager;
     [HideInInspector] public ShapeManager shapeManager;
-    [HideInInspector] public TextMeshProUGUI UI_LevelCounter;
+    public TextMeshProUGUI UI_LevelCounter;
 
     // Grab references on Awake
     private void Awake()
@@ -40,9 +40,6 @@ public class LevelManager : MonoBehaviour
         shapeManager.hazardBumper.chanceToSpawn = 0;
         shapeManager.hazardLandmine.chanceToSpawn = 0;
         shapeManager.hazardSpike.chanceToSpawn = 0;
-
-        // UI
-        UI_LevelCounter = FindObjectOfType<TextMeshProUGUI>();
     }
 
     /* ------------------------------ State objects ----------------------------- */
