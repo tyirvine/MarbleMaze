@@ -14,7 +14,9 @@ public class StatsManager : MonoBehaviour
     // References
     [Header("References")]
     public CameraFollowPlayer cameraRig;
+    public GameManager gameManager;
     public TextMeshProUGUI UI_LivesCounter;
+    [HideInInspector] public GameObject player;
 
     // TODO: Add Lives UI
     /* ---------------------------- Lives Management ---------------------------- */
@@ -44,13 +46,30 @@ public class StatsManager : MonoBehaviour
         if (livesRemaining < 0)
             GameOver();
         else
-            RespawnPlayer();
+            ActivatePlayerRespawn();
     }
 
     /// <summary>This runs immediately after a life is removed.</summary>
-    void RespawnPlayer()
+    void ActivatePlayerRespawn()
     {
         cameraRig.StopFollowingPlayer();
+        Invoke("RespawnPlayer", cameraRig.timeToRespawn);
+    }
+
+    /// <summary>This is the core functionallity of respawning the player.</summary>
+    void RespawnPlayer()
+    {
+        // Reset board rotation
+        GameObject.FindGameObjectWithTag("boardObjects").transform.rotation = Quaternion.identity;
+
+        // Reset player's position and velocity
+        player.transform.position = gameManager.pathManager.gridPoints.startPointNodeAdjusted + new Vector3Int(0, 1, 0);
+        Rigidbody playerRigidbody = player.GetComponent<Rigidbody>();
+        playerRigidbody.velocity = Vector3.zero;
+        playerRigidbody.angularVelocity = Vector3.zero;
+
+        // Reset camera
+        cameraRig.StartFollowingPlayer();
     }
 
     /// <summary>This runs the entire game over process.</summary>
@@ -74,5 +93,6 @@ public class StatsManager : MonoBehaviour
     private void Awake()
     {
         AddLife(livesToStartWith);
+        player = GameObject.FindObjectOfType<GameManager>().marble;
     }
 }

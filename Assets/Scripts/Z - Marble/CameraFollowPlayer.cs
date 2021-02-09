@@ -8,10 +8,10 @@ public class CameraFollowPlayer : MonoBehaviour
     // Settings
     public float smoothness = 8f;
     public float lastPlayerPositionOffset = 6f;
+    public float timeToRespawn = 0.5f;
 
     // State objects
     [HideInInspector] public bool followPlayer = true;
-    [HideInInspector] public bool stopFollowingPlayer = false;
     bool resetCameraFollow = false;
     Vector3 lastPlayerPosition;
 
@@ -19,7 +19,7 @@ public class CameraFollowPlayer : MonoBehaviour
     void CameraInit()
     {
         followPlayer = true;
-        stopFollowingPlayer = false;
+        // stopFollowingPlayer = false;
         resetCameraFollow = false;
     }
 
@@ -34,23 +34,16 @@ public class CameraFollowPlayer : MonoBehaviour
     public void StartFollowingPlayer()
     {
         resetCameraFollow = true;
-        player = GameObject.FindObjectOfType<GameManager>().marble;
     }
 
     /// <summary>This snaps the camera to the desired position.</summary>
     void StartSmoothCamera()
     {
-        // Run as long as the camera's position hasn't reached the player's
-        if (transform.position != player.transform.position)
-        {
-            Vector3 smoothedPosition = Vector3.Lerp(transform.position, player.transform.position, smoothness * Time.deltaTime);
-            transform.position = smoothedPosition;
-        }
-        // Then reset all values
-        else
-        {
-            CameraInit();
-        }
+        // We increase the smoothness so it returns to the original position faster.
+        // Without this you can see the jump between the smoothing and fixed camera movement.
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, player.transform.position, (smoothness * 1.5f) * Time.deltaTime);
+        transform.position = smoothedPosition;
+        Invoke("CameraInit", timeToRespawn);
     }
 
     /// <summary>This allows the camera to follow smoothly to the player's position.</summary>
@@ -64,7 +57,7 @@ public class CameraFollowPlayer : MonoBehaviour
     }
 
     /// <summary>Just used to delay the end to following the player.</summary>
-    void EndPlayerFollow() => stopFollowingPlayer = true;
+    // void EndPlayerFollow() => stopFollowingPlayer = true;
 
     // Start is called before the first frame update
     void Start()

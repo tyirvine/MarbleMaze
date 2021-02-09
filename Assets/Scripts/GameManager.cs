@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
     {
         DeleteOldBoards();
         pathManager.ConstructPathStack(GetMarblePositionOffset());
-        boardStartPosition = pathManager.gridPoints.startPointNode + new Vector3(0.5f, 0f, 0.5f);
+        boardStartPosition = pathManager.gridPoints.startPointNodeAdjusted;
 
         // Guide marble to new board start position
         newBoardGenerating = true;

@@ -62,6 +62,7 @@ public class PathManager : MonoBehaviour
         public Vector3Int bottomRight;
 
         public Vector3Int startPointNode;
+        public Vector3 startPointNodeAdjusted;
         public Vector3Int endPointNode;
 
         /// <summary>Use this to store the start and end points.</summary>
@@ -325,6 +326,7 @@ public class PathManager : MonoBehaviour
     {
         // Grab current position for starting point
         gridPoints.startPointNode = currentWorldPosition;
+        gridPoints.startPointNodeAdjusted = gridPoints.startPointNode + new Vector3(0.5f, 0f, 0.5f);
 
         // Add the start node to the open points list
         openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, false));
