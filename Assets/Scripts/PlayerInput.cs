@@ -15,18 +15,8 @@ public class PlayerInput : MonoBehaviour
 
     private void Awake()
     {
+        //used as a reference for the marbles position
         gameManager = gameObject.GetComponent<GameManager>();
-    }
-
-    // Used to move the board
-    void OnLook(InputValue _value)
-    {
-        Vector2 temp = _value.Get<Vector2>();
-        boardMovement.x = temp.y;
-        boardMovement.y = temp.x;
-        if (GlobalStaticVariables.Instance.invertX) { boardMovement.y = -boardMovement.y; }
-        if (GlobalStaticVariables.Instance.invertY) { boardMovement.x = -boardMovement.x; }
-
     }
 
     // Update is called once per frame
@@ -34,33 +24,20 @@ public class PlayerInput : MonoBehaviour
     {
         if (boardObjects)
         {
-            boardObjects.transform.Rotate(new Vector3(boardMovement.x, 0, -boardMovement.y) * moveSpeed * Time.fixedDeltaTime);
             Vector3 rotEulers = boardObjects.transform.rotation.eulerAngles;
-            // Debug.Log(rotEulers.ToString());
-            
-            //transform.localEulerAngles = new Vector3(Mathf.Clamp((transform.localEulerAngles.x <= 180) ? transform.localEulerAngles.x : -(360 - transform.localEulerAngles.x), MaxDepression, MaxElevation), transform.localEulerAngles.y, transform.localEulerAngles.z);
-            
-            //boardObjects.transform.eulerAngles = RotateAroundPivot(boardObjects.transform.position, gameManager.marble.transform.position, rotEulers);                
-           
             rotEulers.x = (rotEulers.x <= 180 ? rotEulers.x : -(360 - rotEulers.x));
             rotEulers.x = Mathf.Clamp(rotEulers.x, -boardClamp, boardClamp);
             rotEulers.z = (rotEulers.z <= 180 ? rotEulers.z : -(360 - rotEulers.z));
             rotEulers.z = Mathf.Clamp(rotEulers.z, -boardClamp, boardClamp);
             rotEulers.y = 0;
             boardObjects.transform.eulerAngles = rotEulers;
-            boardObjects.transform.RotateAround(gameManager.marble.transform.position, Vector3.forward, rotEulers.z * Time.fixedDeltaTime);
-            boardObjects.transform.RotateAround(gameManager.marble.transform.position, Vector3.up, rotEulers.x * Time.fixedDeltaTime);
+            boardObjects.transform.RotateAround(gameManager.marble.transform.position, Vector3.right, boardMovement.x * moveSpeed * Time.fixedDeltaTime);
+            boardObjects.transform.RotateAround(gameManager.marble.transform.position, Vector3.forward, -boardMovement.y * moveSpeed * Time.fixedDeltaTime);
         }
         else
         {
             boardObjects = GameObject.FindGameObjectWithTag("boardObjects");
         }
     }
-    Vector3 RotateAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)
-    {
-        Vector3 dir = point - pivot;
-        dir = Quaternion.Euler(angles) * dir;
-        point = dir + pivot;
-        return point;
-    }
+    
 }
