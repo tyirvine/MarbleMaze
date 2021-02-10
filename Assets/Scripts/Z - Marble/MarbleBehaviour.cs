@@ -13,8 +13,8 @@ public class MarbleBehaviour : MonoBehaviour
     public AudioClip deathSound;
 
     [Header("Settings")]
-
     [Range(0.5f, 1.5f)] public float scale = 1.25f;
+    [Range(0.1f, 50f)] public float jumpPower = 14.4f;
 
     // Grab references
     private void Awake()
@@ -63,15 +63,10 @@ public class MarbleBehaviour : MonoBehaviour
         }
     }
 
-    // public void Update()
-    // {
-    //     // Has the player fallen off the board?
-    //     // Run this check in update as its not physics heavy
-    //     if (gameManager.boardPosition != null)
-    //     {
-    //         if (transform.position.y < (gameManager.boardPosition.position.y - fallDistanceToRemoveLife) && !gameManager.marbleIsFalling)
-    //         {
-    //         }
-    //     }
-    // }
+    // Causes the player to jump
+    void OnJump()
+    {
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        rigidbody.AddForceAtPosition(new Vector3(0f, 1f, 0f) * jumpPower, transform.position, ForceMode.Impulse);
+    }
 }

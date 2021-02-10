@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class BumperHazard : MonoBehaviour
@@ -8,10 +7,17 @@ public class BumperHazard : MonoBehaviour
     public float bumperForce = 5f;
     public LayerMask layerToInteract;
     public Animator animator;
+    [HideInInspector] public Collider[] sphereColliders;
+
+    // Get colliders
+    private void Awake()
+    {
+        sphereColliders = GetComponents<SphereCollider>();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if ((layerToInteract.value & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer)
+        if ((layerToInteract.value & 1 << collision.gameObject.layer) == 1 << collision.gameObject.layer && sphereColliders[0] == collision.contacts[0].thisCollider)
         {
             // This causes the animator to run the bumper animation
             animator.SetBool("Bumped", true);
