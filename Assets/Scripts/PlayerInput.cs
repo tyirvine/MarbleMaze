@@ -11,6 +11,13 @@ public class PlayerInput : MonoBehaviour
     Vector2 boardMovement = new Vector2(0, 0);
     public float moveSpeed = 25f;
 
+    GameManager gameManager;
+
+    private void Awake()
+    {
+        gameManager = gameObject.GetComponent<GameManager>();
+    }
+
     // Used to move the board
     void OnLook(InputValue _value)
     {
@@ -30,18 +37,30 @@ public class PlayerInput : MonoBehaviour
             boardObjects.transform.Rotate(new Vector3(boardMovement.x, 0, -boardMovement.y) * moveSpeed * Time.fixedDeltaTime);
             Vector3 rotEulers = boardObjects.transform.rotation.eulerAngles;
             // Debug.Log(rotEulers.ToString());
+            
+            //transform.localEulerAngles = new Vector3(Mathf.Clamp((transform.localEulerAngles.x <= 180) ? transform.localEulerAngles.x : -(360 - transform.localEulerAngles.x), MaxDepression, MaxElevation), transform.localEulerAngles.y, transform.localEulerAngles.z);
+            
+            //boardObjects.transform.eulerAngles = RotateAroundPivot(boardObjects.transform.position, gameManager.marble.transform.position, rotEulers);                
+           
             rotEulers.x = (rotEulers.x <= 180 ? rotEulers.x : -(360 - rotEulers.x));
             rotEulers.x = Mathf.Clamp(rotEulers.x, -boardClamp, boardClamp);
             rotEulers.z = (rotEulers.z <= 180 ? rotEulers.z : -(360 - rotEulers.z));
             rotEulers.z = Mathf.Clamp(rotEulers.z, -boardClamp, boardClamp);
             rotEulers.y = 0;
-            //transform.localEulerAngles = new Vector3(Mathf.Clamp((transform.localEulerAngles.x <= 180) ? transform.localEulerAngles.x : -(360 - transform.localEulerAngles.x), MaxDepression, MaxElevation), transform.localEulerAngles.y, transform.localEulerAngles.z);
             boardObjects.transform.eulerAngles = rotEulers;
-
+            boardObjects.transform.RotateAround(gameManager.marble.transform.position, Vector3.forward, rotEulers.z * Time.fixedDeltaTime);
+            boardObjects.transform.RotateAround(gameManager.marble.transform.position, Vector3.up, rotEulers.x * Time.fixedDeltaTime);
         }
         else
         {
             boardObjects = GameObject.FindGameObjectWithTag("boardObjects");
         }
+    }
+    Vector3 RotateAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)
+    {
+        Vector3 dir = point - pivot;
+        dir = Quaternion.Euler(angles) * dir;
+        point = dir + pivot;
+        return point;
     }
 }
