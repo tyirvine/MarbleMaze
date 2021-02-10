@@ -15,11 +15,14 @@ public class LevelManager : MonoBehaviour
     [Range(0, 1000)] public int startingBumperProbability = 32;
     [Range(0, 1000)] public int startingLandmineProbability = 25;
     [Range(0, 1000)] public int startingSpikeProbability = 15;
+    [Range(0, 1000)] public int startingLifeProbability = 15;
+
     // Hazard spawn rate
     [Header("Spawn Rate")]
     [Range(1, 100)] public int bumperSpawnRate = 3;
     [Range(1, 100)] public int landmineSpawnRate = 2;
     [Range(1, 100)] public int spikeSpawnRate = 1;
+    [Range(1, 100)] public int lifeSpawnRate = 1;
 
     /* --------------------------- Referenced objects --------------------------- */
     [Header("References")]
@@ -105,9 +108,15 @@ public class LevelManager : MonoBehaviour
     {
         // Bumper
         if (currentLevel == 1)
+        {
             shapeManager.hazardBumper.chanceToSpawn = startingBumperProbability;
+            shapeManager.pickupLife.chanceToSpawn = startingLifeProbability;
+        }
         else
+        {
             shapeManager.hazardBumper.chanceToSpawn = CalculateSpawnRate(bumperSpawnRate, shapeManager.hazardBumper.chanceToSpawn);
+            shapeManager.pickupLife.chanceToSpawn = CalculateSpawnRate(lifeSpawnRate, shapeManager.pickupLife.chanceToSpawn);
+        }
 
         // Landmine
         if (currentLevel == 9)

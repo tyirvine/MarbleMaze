@@ -17,7 +17,7 @@ public class ShapeTemplate
     public bool includeInBuild = true;
     public bool rotate = true;
     public int chanceToSpawn = 1000;
-    public bool isHazard = false;
+    public bool porbabilityPiece = false;
 }
 
 ///create a class to store each child point in a shape, this can be done from the child transform, but this method is a little tidier
@@ -36,11 +36,14 @@ public class ShapeManager : MonoBehaviour
     [Header("Shapes")]
     public ShapeTemplate[] shapes;
 
+    // Probability pieces
+    [Header("Probability Pieces")]
     // Hazards
-    [Header("Hazards")]
     public ShapeTemplate hazardBumper;
     public ShapeTemplate hazardSpike;
     public ShapeTemplate hazardLandmine;
+    // Pickups
+    public ShapeTemplate pickupLife;
 
     // Settings
     [Header("Draw Flags of obstacle positions")]
@@ -51,13 +54,16 @@ public class ShapeManager : MonoBehaviour
     // Program
     public void CheckShapes()
     {
-        /* ------------------------------ Hazard Shapes ----------------------------- */
+        /* ------------------------------ Probability Shapes ----------------------------- */
         // Keep in mind these need to be removed at the end
         List<ShapeTemplate> shapesAsList = shapes.ToList();
-        // shapesAsList.RemoveAll(shape => shape.isHazard);
+        // Hazards
         shapesAsList.Add(hazardBumper);
         shapesAsList.Add(hazardSpike);
         shapesAsList.Add(hazardLandmine);
+        // Pickups
+        shapesAsList.Add(pickupLife);
+        // Add them all to shapes
         shapes = shapesAsList.ToArray();
 
         // This simply disables the method from firing
@@ -102,7 +108,7 @@ public class ShapeManager : MonoBehaviour
                 GameObject tempRule = Instantiate(currentShape.rule);
                 foreach (Vector3Int nodePosition in obstaclePositions)
                 {
-                    if (!currentShape.isHazard || SpawnObject(currentShape.chanceToSpawn))
+                    if (!currentShape.porbabilityPiece || SpawnObject(currentShape.chanceToSpawn))
                     {
                         if (!placedPositions.Contains(nodePosition))
                         {
@@ -200,7 +206,10 @@ public class ShapeManager : MonoBehaviour
 
         // Remove all hazards from shapes
         shapesAsList = shapes.ToList();
-        shapesAsList.RemoveAll(shape => shape.isHazard);
+        shapesAsList.Remove(hazardBumper);
+        shapesAsList.Remove(hazardLandmine);
+        shapesAsList.Remove(hazardSpike);
+        shapesAsList.Remove(pickupLife);
         shapes = shapesAsList.ToArray();
     }
 
