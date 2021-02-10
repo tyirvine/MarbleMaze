@@ -16,6 +16,9 @@ public class MarbleBehaviour : MonoBehaviour
     [Range(0.5f, 1.5f)] public float scale = 1.25f;
     [Range(0.1f, 50f)] public float jumpPower = 14.4f;
 
+    // State objects
+    bool isGrounded = false;
+
     // Grab references
     private void Awake()
     {
@@ -28,11 +31,17 @@ public class MarbleBehaviour : MonoBehaviour
         gameObject.transform.localScale = gameObject.transform.localScale * scale;
     }
 
-    public void PlayAudio(AudioClip _clip)
+    /// <summary>This can be used whenever the marble explodes.</summary>
+    public void DeathSequence()
     {
-        audioSource.PlayOneShot(_clip);
+        GetComponent<MeshRenderer>().enabled = false;
+        PlayAudio(deathSound);
     }
 
+    // What does this play?
+    public void PlayAudio(AudioClip _clip) => audioSource.PlayOneShot(_clip);
+
+    // Checks for pickups and level finish
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("pickup"))
@@ -48,6 +57,7 @@ public class MarbleBehaviour : MonoBehaviour
         }
     }
 
+    // Checks if the player is hitting a wall and checks for the collision force. As well it checks if the marble is grounded
     private void OnCollisionEnter(Collision collision)
     {
         Vector3 collisionForce = collision.impulse / Time.fixedDeltaTime;
@@ -56,17 +66,24 @@ public class MarbleBehaviour : MonoBehaviour
             PlayAudio(impact);
         }
 
-        if (collision.gameObject.CompareTag("spike"))
-        {
-            PlayAudio(deathSound);
-            Debug.Log("this is where we lose a life");
-        }
+        isGrounded = true;
     }
 
-    // Causes the player to jump
+    // Checks if the marble is not grounded.
+    private void OnCollisionExit(Collision other)
+    {
+        isGrounded = false;
+    }
+
+    // Causes the player to jump. Assigned for the input manager package
     void OnJump()
     {
-        Rigidbody rigidbody = GetComponent<Rigidbody>();
-        rigidbody.AddForceAtPosition(new Vector3(0f, 1f, 0f) * jumpPower, transform.position, ForceMode.Impulse);
+        // Check to make sure the marble is grounded first
+        if (isGrounded)
+        {
+            // Then add force
+            Rigidbody rigidbody = GetComponent<Rigidbody>();
+            rigidbody.AddForceAtPosition(new Vector3(0f, 1f, 0f) * jumpPower, transform.position, ForceMode.Impulse);
+        }
     }
 }

@@ -4,11 +4,13 @@ public class SpikeHazard : MonoBehaviour
 {
     // References 
     public StatsManager statsManager;
+    [HideInInspector] public MarbleBehaviour marble;
 
     // Grab stats manager
     private void Start()
     {
         statsManager = FindObjectOfType<StatsManager>();
+        marble = FindObjectOfType<MarbleBehaviour>();
     }
 
     // Detect for ball collisions
@@ -16,10 +18,7 @@ public class SpikeHazard : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //might be better to just grab the marble script and do the changes there `getcomponent<marblebehaviour>` and do like "DeathSequence" ?
-            other.GetComponent<MeshRenderer>().enabled = false;
-            //playsound, this might be triggering twice?
-            other.GetComponent<MarbleBehaviour>().PlayAudio(other.GetComponent<MarbleBehaviour>().deathSound);
+            marble.DeathSequence();
             statsManager.RemoveLife();
         }
     }
