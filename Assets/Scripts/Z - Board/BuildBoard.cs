@@ -92,7 +92,7 @@ public class BuildBoard : MonoBehaviour
             else if (n.position != endPointClearance[0] && n.position != endPointClearance[1] && n.position != endPointClearance[2])
                 Instantiate(pathCube, n.position - new Vector3(0, pathCube.transform.localScale.y, 0), pathCube.transform.rotation);
         }
-        
+
 
     }
 
