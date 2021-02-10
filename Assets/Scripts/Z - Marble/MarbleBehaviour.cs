@@ -11,7 +11,7 @@ public class MarbleBehaviour : MonoBehaviour
     public AudioClip impact;
     public AudioClip levelFinish;
     public AudioClip deathSound;
-    
+
     [Header("Settings")]
 
     [Range(0.5f, 1.5f)] public float scale = 1.25f;

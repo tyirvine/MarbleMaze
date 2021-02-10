@@ -72,7 +72,7 @@ public class LandmineHazard : MonoBehaviour
                 rigidbody.AddExplosionForce(explosionForce, gameObject.transform.position, explosionRadius, upwardsModifier, explosionForceMode);
             }
         }
-        if(!exploded)
+        if (!exploded)
         {
             PlayAudio(explodeSound);
             exploded = true;
@@ -82,7 +82,7 @@ public class LandmineHazard : MonoBehaviour
     // This is a detonation trigger for the landmine
     public void DetonateLandmine()
     {
-        
+
         LandmineExplode();
         landmineState = DetonationPhases.Detonating;
     }
