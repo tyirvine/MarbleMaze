@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1f89345e95a4676a73b5c4a7aacdd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredPathLength: 4
+  desiredPathLength: 23
   disablePathFlags: 1
   buildBoard: 1
   buildShapes: 1
@@ -59,7 +59,7 @@ MonoBehaviour:
   endFlag: {fileID: 8970112326771813452, guid: 3a13cb7cf52e0c048be27ed0b089bdad, type: 3}
   obstacleManager: {fileID: 3573442668972672423}
   didPathGenerate: 0
-  currentWorldPosition: {x: 0, y: -99, z: 0}
+  currentWorldPosition: {x: 17, y: -246, z: -22}
 --- !u!114 &3573442668972672423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +105,7 @@ MonoBehaviour:
     type: 3}
   deathCatchPrefab: {fileID: 8645087766224602768, guid: c88ffe855d2e94b64b5067c994f16e52,
     type: 3}
+  deathCatch: {fileID: 0}
 --- !u!114 &3573442668972672345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,15 +167,15 @@ MonoBehaviour:
     unitCount: 7
     includeInBuild: 1
     rotate: 1
-    chanceToSpawn: 10
+    chanceToSpawn: 380
     isHazard: 1
   hazardSpike:
-    rule: {fileID: 0}
-    model: {fileID: 0}
-    unitCount: 0
-    includeInBuild: 0
+    rule: {fileID: 4142884895529112775, guid: f8d2179b2cc5d40e4b7828a0e396aed2, type: 3}
+    model: {fileID: 1601014077680546308, guid: 1c2ed1f7940aa49799948f9006b887eb, type: 3}
+    unitCount: 7
+    includeInBuild: 1
     rotate: 1
-    chanceToSpawn: 0
+    chanceToSpawn: 50
     isHazard: 1
   hazardLandmine:
     rule: {fileID: 5520149041154882132, guid: a4f0e4774307e4ecf91efe9610faea91, type: 3}
@@ -182,7 +183,7 @@ MonoBehaviour:
     unitCount: 3
     includeInBuild: 1
     rotate: 1
-    chanceToSpawn: 0
+    chanceToSpawn: 100
     isHazard: 1
   spawnFlags: 0
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,

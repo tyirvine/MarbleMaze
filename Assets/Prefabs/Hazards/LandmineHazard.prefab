@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4358744378837488232}
   - component: {fileID: 3278821169485474222}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,6 +345,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2661854160540104594, guid: d98b3d84a864042c5be2f6f63bdc373e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: -1381230034200068322, guid: d98b3d84a864042c5be2f6f63bdc373e,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -380,11 +385,21 @@ PrefabInstance:
       propertyPath: m_TagString
       value: wallTile
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d98b3d84a864042c5be2f6f63bdc373e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 3265452804923732344, guid: d98b3d84a864042c5be2f6f63bdc373e,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 30dff1239102b4840963cb71d8208c57, type: 2}
+    - target: {fileID: 7020002396402389250, guid: d98b3d84a864042c5be2f6f63bdc373e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d98b3d84a864042c5be2f6f63bdc373e, type: 3}
 --- !u!1 &7626519919789867184 stripped
