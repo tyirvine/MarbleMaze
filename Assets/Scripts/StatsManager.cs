@@ -18,7 +18,6 @@ public class StatsManager : MonoBehaviour
     public TextMeshProUGUI UI_LivesCounter;
     [HideInInspector] public GameObject player;
 
-    // TODO: Add Lives UI
     /* ---------------------------- Lives Management ---------------------------- */
     /// <summary>The root method for adjusting the life count.</summary>
     public void AdjustLifeCount(int lives = 1)

@@ -358,7 +358,6 @@ public class PathManager : MonoBehaviour
             // Path incremented one position
             pathLengthProgress++;
 
-            // TODO: Rewrite this to account for path length instead
             // Check to see if the current node position is equal to the end or target node's position
             // and log the current position as the end position
             if (pathLengthProgress >= desiredPathLength)
@@ -465,13 +464,8 @@ public class PathManager : MonoBehaviour
         if (errorCaught) Debug.Log("Error resolved - Loop Completed!");
 
         // Build walls
-        // TODO: This is causing errors
         if (buildShapes) gameObject.GetComponent<ShapeManager>().CheckShapes();
         if (buildBoard) gameObject.GetComponent<BuildBoard>().GetBoardSize();
-
-        // TODO: Do we need this? - Ty @bubzy-coding
-        //	GameObject.FindGameObjectWithTag("shapeManager").GetComponent<ShapeManager>().gameObject.SetActive(true); //heckShapesAgainstObstacles();
-        //Instantiate(shapeManager, transform.position, Quaternion.identity);
 
 #if UNITY_EDITOR
         // Path construction finished
