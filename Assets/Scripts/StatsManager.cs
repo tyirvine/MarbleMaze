@@ -68,6 +68,9 @@ public class StatsManager : MonoBehaviour
         playerRigidbody.velocity = Vector3.zero;
         playerRigidbody.angularVelocity = Vector3.zero;
 
+        // Reset player's mesh renderer
+        player.GetComponent<MeshRenderer>().enabled = true;
+
         // Reset camera
         cameraRig.StartFollowingPlayer();
     }
@@ -93,7 +96,8 @@ public class StatsManager : MonoBehaviour
     /* -------------------------------------------------------------------------- */
 
     // Start the player with a designated number of lives
-    private void Awake()
+    // ! DO NOT CHANGE TO AWAKE, IT CAN ONLY GRAB REFERENCE ON START !
+    private void Start()
     {
         AddLife(livesToStartWith);
         player = GameObject.FindObjectOfType<GameManager>().marble;

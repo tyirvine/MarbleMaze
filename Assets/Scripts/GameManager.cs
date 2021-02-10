@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     // State objects
     [HideInInspector] public bool newBoardGenerating = true;
     bool marbleIsReparented = false;
-    bool marbleHasDied = false;
     bool isStarted = true;
     [HideInInspector] public GameObject oldBoard;
 

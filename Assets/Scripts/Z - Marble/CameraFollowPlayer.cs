@@ -7,7 +7,11 @@ public class CameraFollowPlayer : MonoBehaviour
 
     // Settings
     public float smoothness = 8f;
-    public float lastPlayerPositionOffset = 6f;
+
+    /// <summary>This is the multiplier for the velocity vector position.</summary>
+    [Range(0.01f, 0.5f)] public float lastPlayerPositionOffset = 0.1f;
+
+    /// <summary>The reason we adjust the time to respawn here is because of how closely the camera is linked to the respawn process.</summary>
     public float timeToRespawn = 0.5f;
 
     // State objects
@@ -19,7 +23,6 @@ public class CameraFollowPlayer : MonoBehaviour
     void CameraInit()
     {
         followPlayer = true;
-        // stopFollowingPlayer = false;
         resetCameraFollow = false;
     }
 
@@ -27,7 +30,10 @@ public class CameraFollowPlayer : MonoBehaviour
     public void StopFollowingPlayer()
     {
         followPlayer = false;
-        lastPlayerPosition = player.transform.position + (player.GetComponent<Rigidbody>().velocity.normalized * lastPlayerPositionOffset);
+
+        // Calculate how far ahead to move the camera
+        Vector3 velocity = player.GetComponent<Rigidbody>().velocity;
+        lastPlayerPosition = player.transform.position + (velocity.normalized * velocity.magnitude * lastPlayerPositionOffset);
     }
 
     /// <summary>Used to reset camera following.</summary>
@@ -55,9 +61,6 @@ public class CameraFollowPlayer : MonoBehaviour
         // Assign the smoothed position
         transform.position = smoothedPosition;
     }
-
-    /// <summary>Just used to delay the end to following the player.</summary>
-    // void EndPlayerFollow() => stopFollowingPlayer = true;
 
     // Start is called before the first frame update
     void Start()

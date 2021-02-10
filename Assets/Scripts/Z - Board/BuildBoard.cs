@@ -125,7 +125,7 @@ public class BuildBoard : MonoBehaviour
         float furthestPoint = (pathManager.gridPoints.endPointNode - pathManager.gridPoints.startPointNode).sqrMagnitude;
 
         // Adjust radius
-        wallEviscerator.GetComponent<SphereCollider>().radius = furthestPoint;
+        wallEviscerator.GetComponent<SphereCollider>().radius = furthestPoint + 100f;
     }
 
     /// <summary>This method adds the death catch under the board, which detects if the player died form falling off the board.</summary>
