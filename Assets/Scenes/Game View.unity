@@ -386,6 +386,11 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 35
       objectReference: {fileID: 0}
+    - target: {fileID: 7683857431610325323, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325326, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: m_Name
