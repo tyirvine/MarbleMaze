@@ -37,11 +37,11 @@ public class PlayerInput : MonoBehaviour
             boardObjects.transform.Rotate(new Vector3(boardMovement.x, 0, -boardMovement.y) * moveSpeed * Time.fixedDeltaTime);
             Vector3 rotEulers = boardObjects.transform.rotation.eulerAngles;
             // Debug.Log(rotEulers.ToString());
-            
+
             //transform.localEulerAngles = new Vector3(Mathf.Clamp((transform.localEulerAngles.x <= 180) ? transform.localEulerAngles.x : -(360 - transform.localEulerAngles.x), MaxDepression, MaxElevation), transform.localEulerAngles.y, transform.localEulerAngles.z);
-            
+
             //boardObjects.transform.eulerAngles = RotateAroundPivot(boardObjects.transform.position, gameManager.marble.transform.position, rotEulers);                
-           
+
             rotEulers.x = (rotEulers.x <= 180 ? rotEulers.x : -(360 - rotEulers.x));
             rotEulers.x = Mathf.Clamp(rotEulers.x, -boardClamp, boardClamp);
             rotEulers.z = (rotEulers.z <= 180 ? rotEulers.z : -(360 - rotEulers.z));
