@@ -65,6 +65,9 @@ public class PathManager : MonoBehaviour
         public Vector3 startPointNodeAdjusted;
         public Vector3Int endPointNode;
 
+        public Vector3 originalBoardPosition;
+        public Quaternion originalBoardRotation;
+
         /// <summary>Use this to store the start and end points.</summary>
         public List<Vector3Int> placedPoints;
     }

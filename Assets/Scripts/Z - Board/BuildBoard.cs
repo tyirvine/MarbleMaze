@@ -71,6 +71,10 @@ public class BuildBoard : MonoBehaviour
         GroupObjects("floorTile");
         GroupObjects("wallTile");
         MoveWallEviscerator();
+
+        // Store original transform
+        pathManager.gridPoints.originalBoardPosition = boardObjects.transform.position;
+        pathManager.gridPoints.originalBoardRotation = boardObjects.transform.rotation;
     }
 
     /// <summary>This creates the floor for the board.</summary>
@@ -92,7 +96,6 @@ public class BuildBoard : MonoBehaviour
             else if (n.position != endPointClearance[0] && n.position != endPointClearance[1] && n.position != endPointClearance[2])
                 Instantiate(pathCube, n.position - new Vector3(0, pathCube.transform.localScale.y, 0), pathCube.transform.rotation);
         }
-
 
     }
 

@@ -17,6 +17,7 @@ public class StatsManager : MonoBehaviour
     public GameManager gameManager;
     public TextMeshProUGUI UI_LivesCounter;
     [HideInInspector] public GameObject player;
+    [HideInInspector] public GameObject board;
 
     /* ---------------------------- Lives Management ---------------------------- */
     /// <summary>The root method for adjusting the life count.</summary>
@@ -58,8 +59,10 @@ public class StatsManager : MonoBehaviour
     /// <summary>This is the core functionallity of respawning the player.</summary>
     void RespawnPlayer()
     {
-        // Reset board rotation
-        GameObject.FindGameObjectWithTag("boardObjects").transform.rotation = Quaternion.identity;
+        // Reset board rotation - current - this does work
+        board = GameObject.FindGameObjectWithTag("boardObjects");
+        board.transform.position = gameManager.pathManager.gridPoints.originalBoardPosition;
+        board.transform.rotation = gameManager.pathManager.gridPoints.originalBoardRotation;
 
         // Reset player's position and velocity
         player.transform.position = gameManager.pathManager.gridPoints.startPointNodeAdjusted + new Vector3Int(0, 1, 0);
