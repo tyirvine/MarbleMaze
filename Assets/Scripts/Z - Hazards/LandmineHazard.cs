@@ -32,6 +32,12 @@ public class LandmineHazard : MonoBehaviour
     public Animator buttonAnimator;
     public GameObject wallEviscerator;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip explodeSound;
+    public AudioClip beepTimerSound;
+    bool exploded = false;
+
     // Detonation phases
     enum DetonationPhases
     {
@@ -66,11 +72,17 @@ public class LandmineHazard : MonoBehaviour
                 rigidbody.AddExplosionForce(explosionForce, gameObject.transform.position, explosionRadius, upwardsModifier, explosionForceMode);
             }
         }
+        if(!exploded)
+        {
+            PlayAudio(explodeSound);
+            exploded = true;
+        }
     }
 
     // This is a detonation trigger for the landmine
     public void DetonateLandmine()
     {
+        
         LandmineExplode();
         landmineState = DetonationPhases.Detonating;
     }
@@ -94,6 +106,8 @@ public class LandmineHazard : MonoBehaviour
             {
                 fadeRate = detonationFadeRate;
                 Invoke("DetonateLandmine", 1.3f);
+                PlayAudio(beepTimerSound);
+                landmineTrigger = false;
             }
 
             // Calculate current time
@@ -128,5 +142,10 @@ public class LandmineHazard : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         buttonAnimator.SetBool("Pressed", false);
+    }
+
+    public void PlayAudio(AudioClip _clip)
+    {
+        audioSource.PlayOneShot(_clip);
     }
 }
