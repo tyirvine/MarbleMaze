@@ -39,5 +39,5 @@ public class PlayerInput : MonoBehaviour
             boardObjects = GameObject.FindGameObjectWithTag("boardObjects");
         }
     }
-    
+
 }
