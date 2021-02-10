@@ -16,6 +16,9 @@ public class MarbleBehaviour : MonoBehaviour
     [Range(0.5f, 1.5f)] public float scale = 1.25f;
     [Range(0.1f, 50f)] public float jumpPower = 14.4f;
 
+    // References
+    float marbleRadius;
+
     // State objects
     bool isGrounded = false;
 
@@ -26,6 +29,7 @@ public class MarbleBehaviour : MonoBehaviour
         colliders = gameObject.GetComponents<SphereCollider>();
         gameManager = GameObject.FindObjectOfType<GameManager>();
         audioSource = GetComponent<AudioSource>();
+        marbleRadius = GetComponent<SphereCollider>().radius;
 
         // Set scale
         gameObject.transform.localScale = gameObject.transform.localScale * scale;
@@ -57,7 +61,7 @@ public class MarbleBehaviour : MonoBehaviour
         }
     }
 
-    // Checks if the player is hitting a wall and checks for the collision force. As well it checks if the marble is grounded
+    // Checks if the player is hitting a wall and checks for the collision force
     private void OnCollisionEnter(Collision collision)
     {
         Vector3 collisionForce = collision.impulse / Time.fixedDeltaTime;
@@ -65,21 +69,15 @@ public class MarbleBehaviour : MonoBehaviour
         {
             PlayAudio(impact);
         }
-
-        isGrounded = true;
-    }
-
-    // Checks if the marble is not grounded.
-    private void OnCollisionExit(Collision other)
-    {
-        isGrounded = false;
     }
 
     // Causes the player to jump. Assigned for the input manager package
     void OnJump()
     {
         // Check to make sure the marble is grounded first
-        if (isGrounded)
+        RaycastHit hit;
+        Vector3 rayDirection = (transform.position - new Vector3(0f, 1f, 0f)).normalized;
+        if (Physics.SphereCast(transform.position, marbleRadius, rayDirection, out hit, 1f))
         {
             // Then add force
             Rigidbody rigidbody = GetComponent<Rigidbody>();
