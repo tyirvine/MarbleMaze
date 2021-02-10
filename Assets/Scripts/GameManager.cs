@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
         Vector3 marbleHorizontalPosition = new Vector3(marble.transform.position.x, 0, marble.transform.position.z);
         Vector3 boardHorizontalPosition = new Vector3(boardStartPosition.x, 0, boardStartPosition.z);
 
+
         // Disable if the marble is near the board
         int verticalTriggerPadding = 5;
         if (marble.transform.position.y < boardStartPosition.y + verticalTriggerPadding && marble.transform.position.y > boardStartPosition.y - verticalTriggerPadding)
