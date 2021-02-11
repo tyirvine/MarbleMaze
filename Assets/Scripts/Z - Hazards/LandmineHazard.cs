@@ -33,9 +33,10 @@ public class LandmineHazard : MonoBehaviour
     public GameObject wallEviscerator;
 
     [Header("Audio")]
-    public AudioSource audioSource;
-    public AudioClip explodeSound;
-    public AudioClip beepTimerSound;
+    public AudioSource explodeSound;
+    public AudioSource beepTimerSound;
+    // public AudioClip explodeSound;
+    // public AudioClip beepTimerSound;
     bool exploded = false;
 
     // Detonation phases
@@ -74,7 +75,7 @@ public class LandmineHazard : MonoBehaviour
         }
         if (!exploded)
         {
-            PlayAudio(explodeSound);
+            explodeSound.Play();
             exploded = true;
         }
     }
@@ -82,9 +83,15 @@ public class LandmineHazard : MonoBehaviour
     // This is a detonation trigger for the landmine
     public void DetonateLandmine()
     {
-
         LandmineExplode();
         landmineState = DetonationPhases.Detonating;
+    }
+
+    // Assign each landmine a unique pitch
+    private void Start()
+    {
+        float randomPitch = Random.Range(-0.0005f, 0.0005f);
+        beepTimerSound.pitch += randomPitch;
     }
 
     // Fade the light in and out
@@ -97,6 +104,13 @@ public class LandmineHazard : MonoBehaviour
             fadewave_light = FadeLerp(lightMin, lightMax);
             fadewave_color = Color.Lerp(materialMin, materialMax, fadeCurve.Evaluate(time));
 
+            // Play sound based on lerp
+            if (fadeCurve.Evaluate(time) >= 0.9f && fadeRate == detonationFadeRate)
+            {
+                // beepTimerSound.pitch += randomPitch;
+                beepTimerSound.Play();
+            }
+
             // Plug lerp calc.s into objects
             buttonLight.range = fadewave_light;
             buttonRenderer.material.SetColor("_EmissionColor", fadewave_color);
@@ -106,7 +120,6 @@ public class LandmineHazard : MonoBehaviour
             {
                 fadeRate = detonationFadeRate;
                 Invoke("DetonateLandmine", 1.3f);
-                PlayAudio(beepTimerSound);
                 landmineTrigger = false;
             }
 
@@ -142,10 +155,5 @@ public class LandmineHazard : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         buttonAnimator.SetBool("Pressed", false);
-    }
-
-    public void PlayAudio(AudioClip _clip)
-    {
-        audioSource.PlayOneShot(_clip);
     }
 }

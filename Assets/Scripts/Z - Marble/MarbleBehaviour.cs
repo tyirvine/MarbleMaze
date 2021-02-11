@@ -19,9 +19,6 @@ public class MarbleBehaviour : MonoBehaviour
     // References
     float marbleRadius;
 
-    // State objects
-    bool isGrounded = false;
-
     // Grab references
     private void Awake()
     {

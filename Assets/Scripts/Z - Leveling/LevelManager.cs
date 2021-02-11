@@ -107,7 +107,7 @@ public class LevelManager : MonoBehaviour
     public void IncrementHazardProbability()
     {
         // Bumper
-        if (currentLevel == 1)
+        if (currentLevel <= 1)
         {
             shapeManager.hazardBumper.chanceToSpawn = startingBumperProbability;
             shapeManager.pickupLife.chanceToSpawn = startingLifeProbability;
