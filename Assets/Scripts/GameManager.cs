@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     int debugLevelTrack = 0;
 
     // High Score
-    
+
     public int highScore = 0;
 
 
@@ -130,8 +130,8 @@ public class GameManager : MonoBehaviour
         //high score section;
         if (levelManager.currentLevel > highScore) highScore = levelManager.currentLevel;
         Debug.Log("High Score! " + highScore); //replace this with some UI magic!
-        //move this to when the player dies or quits!
-        
+                                               //move this to when the player dies or quits!
+
 
     }
 
