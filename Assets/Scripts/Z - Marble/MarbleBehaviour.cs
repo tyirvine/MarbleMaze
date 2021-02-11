@@ -24,9 +24,6 @@ public class MarbleBehaviour : MonoBehaviour
     float marbleRadius;
     Rigidbody myRigidbody;
 
-    // State objects
-    bool isGrounded = false;
-
     // Grab references
     private void Awake()
     {
