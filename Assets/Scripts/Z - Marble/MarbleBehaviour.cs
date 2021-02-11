@@ -73,7 +73,7 @@ public class MarbleBehaviour : MonoBehaviour
         {
             PlayAudio(impact);
         }
-        if(collision.transform.CompareTag("floorTile") && !isGrounded)
+        if (collision.transform.CompareTag("floorTile") && !isGrounded)
         {
             isGrounded = true;
             Debug.Log("HitGround");

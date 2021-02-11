@@ -17,7 +17,7 @@ public class PlayerInput : MonoBehaviour
     private void Awake()
     {
         gameManager = gameObject.GetComponent<GameManager>();
-        
+
     }
 
     private void Start()
@@ -39,7 +39,7 @@ public class PlayerInput : MonoBehaviour
     void OnJump()
     {
         //if(marbleBehaviour == null) marbleBehaviour = gameManager.marble.GetComponent<MarbleBehaviour>();
-        marbleBehaviour.Jump(); 
+        marbleBehaviour.Jump();
     }
 
 
