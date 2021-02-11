@@ -90,8 +90,8 @@ public class LandmineHazard : MonoBehaviour
     // Assign each landmine a unique pitch
     private void Start()
     {
-        float randomPitch = Random.Range(-0.0005f, 0.0005f);
-        beepTimerSound.pitch += randomPitch;
+        // float randomPitch = Random.Range(-0.0005f, 0.0005f);
+        // beepTimerSound.pitch += randomPitch;
     }
 
     // Fade the light in and out

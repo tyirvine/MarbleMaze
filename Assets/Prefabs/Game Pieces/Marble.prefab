@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 6165861870575303010}
   - component: {fileID: 5120002643263573056}
   - component: {fileID: 3385145518625604854}
-  - component: {fileID: -6005378864667422246}
   m_Layer: 8
   m_Name: Marble
   m_TagString: Player
@@ -145,7 +144,7 @@ MonoBehaviour:
   levelFinish: {fileID: 8300000, guid: fe81b06e5232fba4d86b6048ef392bb5, type: 3}
   deathSound: {fileID: 8300000, guid: 86e69b5f4bd6f534fbc390b8a2411b60, type: 3}
   scale: 1.25
-  jumpPower: 14.4
+  jumpPower: 19
   jumpCooldown: 0.444
 --- !u!82 &3385145518625604854
 AudioSource:
@@ -243,94 +242,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &-6005378864667422246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4670614603540532265}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 5debeef29e67b164089554bbbe289ede,
-    type: 3}
-  m_NotificationBehavior: 1
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9068794f-fcc7-4f78-9517-4038870ff96f
-    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7b789b8d-4883-4335-97a8-65514302287a
-    m_ActionName: Player/Look[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f6c80aae-e766-4eec-afef-a6064a7a0e6b
-    m_ActionName: Player/Fire[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7b0c2e94-4a0e-4f52-869e-daaaf415787c
-    m_ActionName: Player/Debug[/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: dc41ad4d-6fd6-4b00-aba5-8670a035f631
-    m_ActionName: Player/Jump[/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f53efda0-fc38-4f36-aafe-0872aae6ec62
-    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ce2e897e-eebd-47b8-82fb-1f4b467e9ba9
-    m_ActionName: UI/Submit[/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e1311f91-61bb-4046-bd76-633713767ec0
-    m_ActionName: UI/Cancel[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9c9628ca-c073-4fd6-b9f3-39f7a5442aab
-    m_ActionName: UI/Point[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: a595ee68-1951-4774-88e0-4ebbe6ce99db
-    m_ActionName: UI/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: af2709ef-265b-4b04-9cb5-f2bf0a2d8b6e
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b1e2c5da-d448-4a75-b7e5-db974967b47e
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: e52cafd9-cefc-4068-a841-9725e7a5ee75
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 198dbb61-cef9-4fc2-9137-1af648e6fd2a
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 679a8de5-c88e-43cd-a45b-3d21b232065b
-    m_ActionName: UI/TrackedDeviceOrientation
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
