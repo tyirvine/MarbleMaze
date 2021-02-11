@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class MarbleBehaviour : MonoBehaviour
 {
@@ -17,14 +18,15 @@ public class MarbleBehaviour : MonoBehaviour
     [Range(0.1f, 50f)] public float jumpPower = 14.4f;
     [Range(0.1f, 1f)] public float jumpCooldown = 0.1f;
 
-    //Timer Stuff
+    // State Objects
     float currentTime;
+    bool isGrounded;
 
     // References
     float marbleRadius;
     Rigidbody myRigidbody;
+    MeshRenderer marbleRenderer;
 
-    bool isGrounded;
     // Grab references
     private void Awake()
     {
@@ -34,17 +36,22 @@ public class MarbleBehaviour : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         marbleRadius = GetComponent<SphereCollider>().radius;
         myRigidbody = GetComponent<Rigidbody>();
+        marbleRenderer = GetComponent<MeshRenderer>();
+
         // Set scale
         gameObject.transform.localScale = gameObject.transform.localScale * scale;
         currentTime = Time.time + jumpCooldown;
     }
 
-    /// <summary>This can be used whenever the marble explodes.</summary>
-    public void DeathSequence()
+    /// <summary>This can be used whenever the marble explodes. Control how long it takes the explosion to happen with delay.</summary>
+    public void DeathSequenceExplode()
     {
-        GetComponent<MeshRenderer>().enabled = false;
         PlayAudio(deathSound);
+        marbleRenderer.enabled = false;
     }
+
+    /// <summary>An alternate to DeathSequenceExplode where the marble doesn't explode.</summary>
+    public void DeathSequence() => PlayAudio(deathSound);
 
     // What does this play?
     public void PlayAudio(AudioClip _clip) => audioSource.PlayOneShot(_clip);
@@ -73,26 +80,19 @@ public class MarbleBehaviour : MonoBehaviour
         {
             PlayAudio(impact);
         }
-        if (collision.transform.CompareTag("floorTile") && !isGrounded)
-        {
-            isGrounded = true;
-            Debug.Log("HitGround");
-        }
     }
 
     // Causes the player to jump. Assigned for the input manager package
     public void Jump()
     {
-        /*   // Check to make sure the marble is grounded first
-           RaycastHit hit;
-           Vector3 rayDirection = (transform.position - new Vector3(0f, 1f, 0f)).normalized;
-           if (Physics.SphereCast(transform.position, marbleRadius, rayDirection, out hit, 1f))
-           {
-               // Then add force
-               Rigidbody rigidbody = GetComponent<Rigidbody>();
-               rigidbody.AddForceAtPosition(new Vector3(0f, 1f, 0f) * jumpPower, transform.position, ForceMode.Impulse);
-           }
-        */
+        // Check to make sure the marble is grounded first
+        // @bubzy-coding The reason I changed it back to a sphere cast is because the OnCollisionEnter sometimes doesn't
+        // correctly identify ground which leaves the player stuck and unable to jump. - @tyirvine
+        RaycastHit hit;
+        Vector3 rayDirection = (transform.position - new Vector3(0f, 1f, 0f)).normalized;
+        if (Physics.SphereCast(transform.position, marbleRadius, rayDirection, out hit, 1f))
+            isGrounded = true;
+
         // Then add force
         if (isGrounded && Time.time > currentTime)
         {
@@ -101,6 +101,5 @@ public class MarbleBehaviour : MonoBehaviour
             myRigidbody.AddForceAtPosition(new Vector3(0f, 1f, 0f) * jumpPower, transform.position, ForceMode.Impulse);
         }
     }
-
 
 }

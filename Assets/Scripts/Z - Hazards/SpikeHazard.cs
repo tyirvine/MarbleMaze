@@ -18,7 +18,7 @@ public class SpikeHazard : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            marble.DeathSequence();
+            marble.DeathSequenceExplode();
             statsManager.RemoveLife();
         }
     }
