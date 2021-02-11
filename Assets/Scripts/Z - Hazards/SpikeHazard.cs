@@ -3,7 +3,7 @@
 public class SpikeHazard : MonoBehaviour
 {
     // References 
-    public StatsManager statsManager;
+    [HideInInspector] public StatsManager statsManager;
     [HideInInspector] public MarbleBehaviour marble;
 
     // Grab stats manager
