@@ -70,8 +70,8 @@ public class StatsManager : MonoBehaviour
         playerRigidbody.velocity = Vector3.zero;
         playerRigidbody.angularVelocity = Vector3.zero;
 
-        // Reset player's mesh renderer
-        player.GetComponent<MeshRenderer>().enabled = true;
+        // Reset player's condition
+        player.GetComponent<MarbleBehaviour>().RespawnSequence();
 
         // Reset camera
         cameraRig.StartFollowingPlayer();
@@ -104,8 +104,5 @@ public class StatsManager : MonoBehaviour
         AddLife(livesToStartWith);
         player = GameObject.FindObjectOfType<GameManager>().marble;
     }
-
-
-
 
 }

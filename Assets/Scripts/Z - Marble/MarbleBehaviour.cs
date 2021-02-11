@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class MarbleBehaviour : MonoBehaviour
 {
-    [HideInInspector] public Collider[] colliders;
-    [HideInInspector] public GameManager gameManager;
 
+    // Audio
     [Header("Audio")]
     AudioSource audioSource;
     public float audioTriggerSpeed;
@@ -13,6 +12,7 @@ public class MarbleBehaviour : MonoBehaviour
     public AudioClip levelFinish;
     public AudioClip deathSound;
 
+    // Settings
     [Header("Settings")]
     [Range(0.5f, 1.5f)] public float scale = 1.25f;
     [Range(0.1f, 50f)] public float jumpPower = 14.4f;
@@ -22,10 +22,16 @@ public class MarbleBehaviour : MonoBehaviour
     float currentTime;
     bool isGrounded;
 
-    // References
+    // Public References
+    [Header("References")]
+    public ParticleSystem particle;
+
+    // Private References
     float marbleRadius;
     Rigidbody myRigidbody;
     MeshRenderer marbleRenderer;
+    [HideInInspector] public Collider[] colliders;
+    [HideInInspector] public GameManager gameManager;
 
     // Grab references
     private void Awake()
@@ -46,12 +52,24 @@ public class MarbleBehaviour : MonoBehaviour
     /// <summary>This can be used whenever the marble explodes. Control how long it takes the explosion to happen with delay.</summary>
     public void DeathSequenceExplode()
     {
+        // Death effects
         PlayAudio(deathSound);
+        particle.Play();
         marbleRenderer.enabled = false;
+
+        // Freeze rigidbody
+        myRigidbody.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     /// <summary>An alternate to DeathSequenceExplode where the marble doesn't explode.</summary>
     public void DeathSequence() => PlayAudio(deathSound);
+
+    /// <summary>Triggered when the player respawns.</summary>
+    public void RespawnSequence()
+    {
+        marbleRenderer.enabled = true;
+        myRigidbody.constraints = RigidbodyConstraints.None;
+    }
 
     // What does this play?
     public void PlayAudio(AudioClip _clip) => audioSource.PlayOneShot(_clip);

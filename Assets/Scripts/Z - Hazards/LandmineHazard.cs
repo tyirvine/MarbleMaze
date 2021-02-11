@@ -31,13 +31,11 @@ public class LandmineHazard : MonoBehaviour
     public Renderer buttonRenderer;
     public Animator buttonAnimator;
     public GameObject wallEviscerator;
+    public ParticleSystem particle;
 
     [Header("Audio")]
     public AudioSource explodeSound;
     public AudioSource beepTimerSound;
-    // public AudioClip explodeSound;
-    // public AudioClip beepTimerSound;
-    bool exploded = false;
 
     // Detonation phases
     enum DetonationPhases
@@ -53,6 +51,7 @@ public class LandmineHazard : MonoBehaviour
     float time = 0.0f;
     bool landmineTrigger = false;
     DetonationPhases landmineState = DetonationPhases.PreDetonated;
+    bool exploded = false;
 
     /// <summary>This function provides a lerp based on a provided min/max.</summary>
     float FadeLerp(float min, float max) => Mathf.Lerp(min, max, fadeCurve.Evaluate(time));
@@ -76,6 +75,7 @@ public class LandmineHazard : MonoBehaviour
         if (!exploded)
         {
             explodeSound.Play();
+            particle.Play();
             exploded = true;
         }
     }
@@ -85,13 +85,6 @@ public class LandmineHazard : MonoBehaviour
     {
         LandmineExplode();
         landmineState = DetonationPhases.Detonating;
-    }
-
-    // Assign each landmine a unique pitch
-    private void Start()
-    {
-        // float randomPitch = Random.Range(-0.0005f, 0.0005f);
-        // beepTimerSound.pitch += randomPitch;
     }
 
     // Fade the light in and out
