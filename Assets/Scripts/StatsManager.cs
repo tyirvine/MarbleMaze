@@ -25,7 +25,7 @@ public class StatsManager : MonoBehaviour
     {
         // Adjust count
         livesRemaining += lives;
-
+        
         // Adjust UI
         string livesFormatted = "Lives x " + livesRemaining;
         UI_LivesCounter.text = livesFormatted;
@@ -104,4 +104,8 @@ public class StatsManager : MonoBehaviour
         AddLife(livesToStartWith);
         player = GameObject.FindObjectOfType<GameManager>().marble;
     }
+
+
+
+
 }

@@ -15,9 +15,14 @@ public class MarbleBehaviour : MonoBehaviour
     [Header("Settings")]
     [Range(0.5f, 1.5f)] public float scale = 1.25f;
     [Range(0.1f, 50f)] public float jumpPower = 14.4f;
+    [Range(0.1f, 1f)] public float jumpCooldown = 0.1f;
+
+    //Timer Stuff
+    float currentTime;
 
     // References
     float marbleRadius;
+    Rigidbody myRigidbody;
 
     // State objects
     bool isGrounded = false;
@@ -30,9 +35,10 @@ public class MarbleBehaviour : MonoBehaviour
         gameManager = GameObject.FindObjectOfType<GameManager>();
         audioSource = GetComponent<AudioSource>();
         marbleRadius = GetComponent<SphereCollider>().radius;
-
+        myRigidbody = GetComponent<Rigidbody>();
         // Set scale
         gameObject.transform.localScale = gameObject.transform.localScale * scale;
+        currentTime = Time.time + jumpCooldown;
     }
 
     /// <summary>This can be used whenever the marble explodes.</summary>
@@ -69,19 +75,34 @@ public class MarbleBehaviour : MonoBehaviour
         {
             PlayAudio(impact);
         }
+        if(collision.transform.CompareTag("floorTile") && !isGrounded)
+        {
+            isGrounded = true;
+            Debug.Log("HitGround");
+        }
     }
 
     // Causes the player to jump. Assigned for the input manager package
-    void OnJump()
+    public void Jump()
     {
-        // Check to make sure the marble is grounded first
-        RaycastHit hit;
-        Vector3 rayDirection = (transform.position - new Vector3(0f, 1f, 0f)).normalized;
-        if (Physics.SphereCast(transform.position, marbleRadius, rayDirection, out hit, 1f))
+        /*   // Check to make sure the marble is grounded first
+           RaycastHit hit;
+           Vector3 rayDirection = (transform.position - new Vector3(0f, 1f, 0f)).normalized;
+           if (Physics.SphereCast(transform.position, marbleRadius, rayDirection, out hit, 1f))
+           {
+               // Then add force
+               Rigidbody rigidbody = GetComponent<Rigidbody>();
+               rigidbody.AddForceAtPosition(new Vector3(0f, 1f, 0f) * jumpPower, transform.position, ForceMode.Impulse);
+           }
+        */
+        // Then add force
+        if (isGrounded && Time.time > currentTime)
         {
-            // Then add force
-            Rigidbody rigidbody = GetComponent<Rigidbody>();
-            rigidbody.AddForceAtPosition(new Vector3(0f, 1f, 0f) * jumpPower, transform.position, ForceMode.Impulse);
+            isGrounded = false;
+            currentTime = Time.time + jumpCooldown;
+            myRigidbody.AddForceAtPosition(new Vector3(0f, 1f, 0f) * jumpPower, transform.position, ForceMode.Impulse);
         }
     }
+
+
 }

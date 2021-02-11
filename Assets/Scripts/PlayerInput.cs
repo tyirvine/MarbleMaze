@@ -12,10 +12,17 @@ public class PlayerInput : MonoBehaviour
     public float moveSpeed = 25f;
 
     GameManager gameManager;
+    MarbleBehaviour marbleBehaviour;
 
     private void Awake()
     {
         gameManager = gameObject.GetComponent<GameManager>();
+        
+    }
+
+    private void Start()
+    {
+        marbleBehaviour = gameManager.marble.GetComponent<MarbleBehaviour>();
     }
 
     // Used to move the board
@@ -28,6 +35,13 @@ public class PlayerInput : MonoBehaviour
         if (GlobalStaticVariables.Instance.invertY) { boardMovement.x = -boardMovement.x; }
 
     }
+
+    void OnJump()
+    {
+        //if(marbleBehaviour == null) marbleBehaviour = gameManager.marble.GetComponent<MarbleBehaviour>();
+        marbleBehaviour.Jump(); 
+    }
+
 
     // Update is called once per frame
     void FixedUpdate()

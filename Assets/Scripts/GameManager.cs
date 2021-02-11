@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+[System.Serializable]
 public class GameManager : MonoBehaviour
 {
 
@@ -30,6 +30,11 @@ public class GameManager : MonoBehaviour
     public int debugJumpToLevel = 0;
     int debugLevelTrack = 0;
 
+    // High Score
+    
+    public int highScore = 0;
+
+
     // References
     [Header("References")]
     public PlayerInput playerInput;
@@ -37,6 +42,7 @@ public class GameManager : MonoBehaviour
     public PathManager pathManager;
     public LevelManager levelManager;
     public StatsManager statsManager;
+
 
     /* -------------------------------------------------------------------------- */
     /*                           Marble Related Methods                           */
@@ -120,6 +126,13 @@ public class GameManager : MonoBehaviour
 
         // Call new board
         Invoke("NewBoard", spawnNewBoardTiming);
+
+        //high score section;
+        if (levelManager.currentLevel > highScore) highScore = levelManager.currentLevel;
+        Debug.Log("High Score! " + highScore); //replace this with some UI magic!
+        //move this to when the player dies or quits!
+        
+
     }
 
     /// <summary>This method generates a new board and anything else that needs to happen.</summary>

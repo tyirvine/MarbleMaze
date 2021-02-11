@@ -47,7 +47,7 @@ public class LevelManager : MonoBehaviour
 
     /* ------------------------------ State objects ----------------------------- */
     /// <summary>This keeps track of the current playthrough level count.</summary>
-    int currentLevel = 0;
+    public int currentLevel = 0;
     int currentStage = 1;
 
     /* --------------------------- Persistence objects -------------------------- */
@@ -138,5 +138,8 @@ public class LevelManager : MonoBehaviour
         // else return input;
         return input + spawnrate;
     }
+
+
+
 
 }
