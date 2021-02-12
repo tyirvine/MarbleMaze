@@ -7,9 +7,6 @@ ModelImporter:
       74: 6013807518609174471
     second: Heart|HazardBumper
   - first:
-      74: 888818777234065249
-    second: Heart|HazardBumperSpring
-  - first:
       74: -6358996673175547499
     second: Heart|Landmine-Button-Idle
   - first:
@@ -21,6 +18,9 @@ ModelImporter:
   - first:
       74: 1154174331091487033
     second: Heart|Pickup - Life - Idle
+  - first:
+      74: 4160019001708678851
+    second: Heart|Pickup - Life - Idle.001
   externalObjects: {}
   materials:
     materialImportMode: 1

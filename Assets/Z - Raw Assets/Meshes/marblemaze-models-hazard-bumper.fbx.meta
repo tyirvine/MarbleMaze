@@ -1,8 +1,44 @@
 fileFormatVersion: 2
-guid: e3ff733a7f0e14ecca3990e564b7a11f
+guid: cde1c29db2e554bbd808ff32f872fc38
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -6362480333998318950
+    second: HazardBumper|HazardBumper
+  - first:
+      74: 1901685419754492425
+    second: HazardBumper|Landmine-Button-Idle
+  - first:
+      74: 5702766106151888012
+    second: HazardBumper|Landmine-Button-Pop
+  - first:
+      74: -3469170683785698030
+    second: HazardBumper|Landmine-Button-Press
+  - first:
+      74: 8091724038224988716
+    second: HazardBumper|Pickup - Life - Idle
+  - first:
+      74: -2835283626073760392
+    second: HazardBumper|Pickup - Life - Idle.001
+  - first:
+      74: -6419114854467212241
+    second: Spring|HazardBumper
+  - first:
+      74: -3657304356931531808
+    second: Spring|Landmine-Button-Idle
+  - first:
+      74: -3165195007386444031
+    second: Spring|Landmine-Button-Pop
+  - first:
+      74: 8170982551921357304
+    second: Spring|Landmine-Button-Press
+  - first:
+      74: -8980317238129963
+    second: Spring|Pickup - Life - Idle
+  - first:
+      74: -5608419232453851192
+    second: Spring|Pickup - Life - Idle.001
   externalObjects: {}
   materials:
     materialImportMode: 1

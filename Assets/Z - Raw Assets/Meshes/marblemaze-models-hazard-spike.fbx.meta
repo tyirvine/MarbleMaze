@@ -1,17 +1,8 @@
 fileFormatVersion: 2
-guid: c3ffbf4900b9342acaf2b4cbbff267f0
+guid: 25e657cab77e34948b86184f3e440026
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable:
-  - first:
-      74: -6362480333998318950
-    second: HazardBumper|HazardBumper
-  - first:
-      74: 4911786477597288735
-    second: HazardBumper|HazardBumperSpring
-  - first:
-      74: -7529594736378502529
-    second: HazardBumper|SpringAction
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 1
