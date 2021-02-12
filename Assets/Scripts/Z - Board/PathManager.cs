@@ -449,7 +449,7 @@ public class PathManager : MonoBehaviour
         {
             Destroy(floor);
         }
-        foreach(GameObject hazard in hazards)
+        foreach (GameObject hazard in hazards)
         {
             Destroy(hazard);
         }

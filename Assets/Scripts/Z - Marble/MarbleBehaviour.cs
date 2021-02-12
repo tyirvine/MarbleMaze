@@ -43,7 +43,7 @@ public class MarbleBehaviour : MonoBehaviour
     private void Update()
     {
         int layerMask = 1 << 13;
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, hazardActiveRadius,layerMask);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, hazardActiveRadius, layerMask);
         foreach (var hitCollider in hitColliders)
         {
             LandmineHazard haz;
@@ -52,7 +52,7 @@ public class MarbleBehaviour : MonoBehaviour
                 haz.enabled = true;
                 haz.buttonLight.enabled = true;
             }
-            
+
         }
     }
 
@@ -72,7 +72,7 @@ public class MarbleBehaviour : MonoBehaviour
         gameObject.transform.localScale = gameObject.transform.localScale * scale;
         currentTime = Time.time + jumpCooldown;
 
-        
+
     }
     public void LevelStart()
     {
@@ -81,15 +81,15 @@ public class MarbleBehaviour : MonoBehaviour
         GameObject[] hazards = GameObject.FindGameObjectsWithTag("hazardObject");
         landmineHazards = new LandmineHazard[hazards.Length];
         int count = 0;
-        for(int i = 0; i < hazards.Length; i++)
+        for (int i = 0; i < hazards.Length; i++)
         {
-            if (hazards[i].GetComponent<LandmineHazard>()!=null)
+            if (hazards[i].GetComponent<LandmineHazard>() != null)
             {
                 landmineHazards[count] = hazards[i].GetComponent<LandmineHazard>();
                 objects.Add(hazards[i].transform, landmineHazards[count]);
                 count++;
             }
-            
+
         }
         Debug.Log("hazards : " + hazards.Length);
         Debug.Log("landmines : " + count);
@@ -143,7 +143,7 @@ public class MarbleBehaviour : MonoBehaviour
         marbleRenderer.enabled = true;
         myRigidbody.constraints = RigidbodyConstraints.None;
         ///test 12/02/21
-     
+
     }
 
     // What does this play? 

@@ -71,7 +71,7 @@ public class BuildBoard : MonoBehaviour
         GroupObjects("hazardObject");
         GroupObjects("floorTile");
         GroupObjects("wallTile");
-        
+
         MoveWallEviscerator();
 
         // Store original transform
