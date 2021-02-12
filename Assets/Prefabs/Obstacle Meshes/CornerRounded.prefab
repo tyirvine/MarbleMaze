@@ -46,7 +46,17 @@ PrefabInstance:
     - target: {fileID: 2270388903238783883, guid: 6036937e197184127a50f15558fc0cd3,
         type: 3}
       propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2270388903238783883, guid: 6036937e197184127a50f15558fc0cd3,
+        type: 3}
+      propertyPath: m_Center.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2270388903238783883, guid: 6036937e197184127a50f15558fc0cd3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3103671855338359193, guid: 6036937e197184127a50f15558fc0cd3,
         type: 3}
@@ -61,7 +71,27 @@ PrefabInstance:
     - target: {fileID: 4219535144258195778, guid: 6036937e197184127a50f15558fc0cd3,
         type: 3}
       propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4219535144258195778, guid: 6036937e197184127a50f15558fc0cd3,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4219535144258195778, guid: 6036937e197184127a50f15558fc0cd3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4219535144258195778, guid: 6036937e197184127a50f15558fc0cd3,
+        type: 3}
+      propertyPath: m_Center.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4219535144258195778, guid: 6036937e197184127a50f15558fc0cd3,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5797562385197686234, guid: 6036937e197184127a50f15558fc0cd3,
         type: 3}
@@ -81,22 +111,22 @@ PrefabInstance:
     - target: {fileID: 5797562385197686234, guid: 6036937e197184127a50f15558fc0cd3,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5797562385197686234, guid: 6036937e197184127a50f15558fc0cd3,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5797562385197686234, guid: 6036937e197184127a50f15558fc0cd3,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5797562385197686234, guid: 6036937e197184127a50f15558fc0cd3,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5797562385197686234, guid: 6036937e197184127a50f15558fc0cd3,
         type: 3}
@@ -106,7 +136,7 @@ PrefabInstance:
     - target: {fileID: 5797562385197686234, guid: 6036937e197184127a50f15558fc0cd3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90.00001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5797562385197686234, guid: 6036937e197184127a50f15558fc0cd3,
         type: 3}
@@ -116,17 +146,27 @@ PrefabInstance:
     - target: {fileID: 5797562385197686234, guid: 6036937e197184127a50f15558fc0cd3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -90.00001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7560937649137204488, guid: 6036937e197184127a50f15558fc0cd3,
         type: 3}
       propertyPath: m_Center.z
-      value: 0.5
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7560937649137204488, guid: 6036937e197184127a50f15558fc0cd3,
         type: 3}
       propertyPath: m_Size.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560937649137204488, guid: 6036937e197184127a50f15558fc0cd3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7560937649137204488, guid: 6036937e197184127a50f15558fc0cd3,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7769522165951995750, guid: 6036937e197184127a50f15558fc0cd3,
         type: 3}
