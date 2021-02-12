@@ -68,8 +68,10 @@ public class BuildBoard : MonoBehaviour
         /* -------------------------- Assembly happens here ------------------------- */
         FillGround();
         CreateDeathCatch();
+        GroupObjects("hazardObject");
         GroupObjects("floorTile");
         GroupObjects("wallTile");
+        
         MoveWallEviscerator();
 
         // Store original transform

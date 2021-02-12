@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 3998530113462598331}
   - component: {fileID: 6293450318232923676}
   - component: {fileID: 489640740001288832}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: SpikeHazard
-  m_TagString: wallTile
+  m_TagString: hazardObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

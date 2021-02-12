@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
-
+using System.Collections.Generic;
+using System.Linq;
 public class MarbleBehaviour : MonoBehaviour
 {
 
@@ -34,6 +35,26 @@ public class MarbleBehaviour : MonoBehaviour
     [HideInInspector] public Collider[] colliders;
     [HideInInspector] public GameManager gameManager;
     [HideInInspector] public StatsManager statsManager;
+    Dictionary<Transform, LandmineHazard> objects = new Dictionary<Transform, LandmineHazard>();
+    List<LandmineHazard> activeHazards = new List<LandmineHazard>();
+    LandmineHazard[] landmineHazards;
+    public float hazardActiveRadius = 10f;
+
+    private void Update()
+    {
+        int layerMask = 1 << 13;
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, hazardActiveRadius,layerMask);
+        foreach (var hitCollider in hitColliders)
+        {
+            LandmineHazard haz;
+            if (objects.TryGetValue(hitCollider.transform, out haz))
+            {
+                haz.enabled = true;
+                haz.buttonLight.enabled = true;
+            }
+            
+        }
+    }
 
     // Grab references
     private void Awake()
@@ -50,8 +71,39 @@ public class MarbleBehaviour : MonoBehaviour
         // Set scale
         gameObject.transform.localScale = gameObject.transform.localScale * scale;
         currentTime = Time.time + jumpCooldown;
-    }
 
+        
+    }
+    public void LevelStart()
+    {
+
+        if (activeHazards.Count > 0) activeHazards.Clear();
+        GameObject[] hazards = GameObject.FindGameObjectsWithTag("hazardObject");
+        landmineHazards = new LandmineHazard[hazards.Length];
+        int count = 0;
+        for(int i = 0; i < hazards.Length; i++)
+        {
+            if (hazards[i].GetComponent<LandmineHazard>()!=null)
+            {
+                landmineHazards[count] = hazards[i].GetComponent<LandmineHazard>();
+                objects.Add(hazards[i].transform, landmineHazards[count]);
+                count++;
+            }
+            
+        }
+        Debug.Log("hazards : " + hazards.Length);
+        Debug.Log("landmines : " + count);
+        foreach (LandmineHazard hazard in landmineHazards)
+        {
+            if (hazard != null)
+            {
+                hazard.buttonLight.enabled = false;
+                hazard.enabled = false;
+            }
+        }
+        activeHazards = landmineHazards.ToList();
+
+    }
     /// <summary>This can be used whenever the marble explodes. Control how long it takes the explosion to happen with delay.</summary>
     public void DeathSequenceExplode(float delay = 0f)
     {
@@ -90,9 +142,12 @@ public class MarbleBehaviour : MonoBehaviour
     {
         marbleRenderer.enabled = true;
         myRigidbody.constraints = RigidbodyConstraints.None;
+        ///test 12/02/21
+     
     }
 
-    // What does this play?
+    // What does this play? 
+    // the audio clip selected, its just a wrapper
     public void PlayAudio(AudioClip _clip) => audioSource.PlayOneShot(_clip);
 
     // Checks for pickups and level finish

@@ -71,6 +71,24 @@ public class LevelManager : MonoBehaviour
         UI_UpdateLevelCounter();
     }
 
+    public void NewLevel(int level)
+    {
+        for (int i = 0; i < level; i++)
+        {
+            IncrementPathLength();
+            IncrementHazardProbability();
+
+            // Increments level count
+            currentLevel++;
+            if (currentLevel % 10 == 0) NewStage();
+
+            // Updates the ui for the level count
+            UI_UpdateLevelCounter();
+        }
+    }
+
+
+
     /// <summary>This is sort of like an extension to new level. This just runs code after entering a new stage.</summary>
     public void NewStage()
     {

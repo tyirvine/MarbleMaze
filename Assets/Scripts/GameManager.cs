@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour
     {
         marble = Instantiate(marblePrefab, pathManager.gridPoints.startPointNode, Quaternion.identity);
         marbleRigidbody = marble.gameObject.GetComponent<Rigidbody>();
+        
     }
 
     /// <summary>Returns the marble's position offset on the y.</summary>
@@ -118,7 +119,8 @@ public class GameManager : MonoBehaviour
     {
         // Pre-deletion ⤵︎
         marble.transform.SetParent(null);
-        levelManager.NewLevel();
+        if(debugMode) levelManager.NewLevel(debugJumpToLevel);
+        else levelManager.NewLevel();
 
         // Delete death catch so we don't get false deaths on level completion
         GameObject deathCatch = pathManager.GetComponent<BuildBoard>().deathCatch;
@@ -132,7 +134,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("High Score! " + highScore); //replace this with some UI magic!
                                                //move this to when the player dies or quits!
 
-
+        
     }
 
     /// <summary>This method generates a new board and anything else that needs to happen.</summary>
@@ -188,6 +190,7 @@ public class GameManager : MonoBehaviour
         // TODO: Remove this from the production build!
         if (!debugMode)
             CallForNewBoard();
+        
     }
 
     // TODO: Remove this from the production build!
@@ -197,8 +200,9 @@ public class GameManager : MonoBehaviour
         {
             if (debugMode && debugLevelTrack < debugJumpToLevel)
             {
+                debugLevelTrack = debugJumpToLevel;
                 CallForNewBoard();
-                debugLevelTrack++;
+                
             }
             else
                 isStarted = false;

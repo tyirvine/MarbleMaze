@@ -63,13 +63,16 @@ public class LandmineHazard : MonoBehaviour
         Collider[] hitObjects = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (var hitObject in hitObjects)
         {
-            // Check to make sure there's a rigidbody first
-            if (hitObject.tag == "wallTile" && hitObject.gameObject.GetComponent<Rigidbody>() != null)
+            // Check to make sure there's a rigidbody first 
+            // added tags for hazards now so the getcomponent may be redundant as all walltiles have a rigidbody
+            // added tags for hazards now so the getcomponent may be redundant as all walltiles have a rigidbody
+            if (hitObject.tag == "wallTile" || hitObject.tag =="hazardObject" && hitObject.gameObject.GetComponent<Rigidbody>() != null)
             {
                 Rigidbody rigidbody = hitObject.gameObject.GetComponent<Rigidbody>();
                 rigidbody.isKinematic = false;
                 rigidbody.useGravity = true;
                 rigidbody.AddExplosionForce(explosionForce, gameObject.transform.position, explosionRadius, upwardsModifier, explosionForceMode);
+                Destroy(hitObject, 2);
             }
         }
         if (!exploded)

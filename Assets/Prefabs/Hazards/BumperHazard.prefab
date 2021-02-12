@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5832218731093598754}
   - component: {fileID: 3242924310554179356}
   - component: {fileID: 6560440923878976427}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: HazardBumper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,9 +93,9 @@ GameObject:
   - component: {fileID: 226174231326928114}
   - component: {fileID: 8092646744925966446}
   - component: {fileID: 7203065860375297932}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BumperHazard
-  m_TagString: wallTile
+  m_TagString: hazardObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 2737632821357135411}
   - component: {fileID: 3526782892645742676}
   - component: {fileID: 8773526369676460553}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: HazardBumperBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 380930331610983307}
   - component: {fileID: 7819159545043574127}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Spring
   m_TagString: Untagged
   m_Icon: {fileID: 0}

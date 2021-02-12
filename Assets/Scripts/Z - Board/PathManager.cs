@@ -440,6 +440,7 @@ public class PathManager : MonoBehaviour
         // Destroy all shapes
         GameObject[] walls = GameObject.FindGameObjectsWithTag("wallTile");
         GameObject[] floors = GameObject.FindGameObjectsWithTag("floorTile");
+        GameObject[] hazards = GameObject.FindGameObjectsWithTag("hazardObject");
         foreach (GameObject wall in walls)
         {
             Destroy(wall);
@@ -447,6 +448,10 @@ public class PathManager : MonoBehaviour
         foreach (GameObject floor in floors)
         {
             Destroy(floor);
+        }
+        foreach(GameObject hazard in hazards)
+        {
+            Destroy(hazard);
         }
 
         // This catch is looking for a `No sequence` error that can occur when the path can't go from start to finish
@@ -469,6 +474,8 @@ public class PathManager : MonoBehaviour
         // Build walls
         if (buildShapes) gameObject.GetComponent<ShapeManager>().CheckShapes();
         if (buildBoard) gameObject.GetComponent<BuildBoard>().GetBoardSize();
+        GameObject marble = GameObject.FindGameObjectWithTag("Player");
+        marble.GetComponent<MarbleBehaviour>().LevelStart();
 
 #if UNITY_EDITOR
         // Path construction finished
