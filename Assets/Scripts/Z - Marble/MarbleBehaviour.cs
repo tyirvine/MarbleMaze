@@ -8,6 +8,7 @@ public class MarbleBehaviour : MonoBehaviour
     [Header("Audio")]
     AudioSource audioSource;
     public float audioTriggerSpeed;
+    public AudioSource spikeDeath;
     public AudioClip impact;
     public AudioClip levelFinish;
     public AudioClip deathSound;
@@ -32,6 +33,7 @@ public class MarbleBehaviour : MonoBehaviour
     MeshRenderer marbleRenderer;
     [HideInInspector] public Collider[] colliders;
     [HideInInspector] public GameManager gameManager;
+    [HideInInspector] public StatsManager statsManager;
 
     // Grab references
     private void Awake()
@@ -39,6 +41,7 @@ public class MarbleBehaviour : MonoBehaviour
         // Find references
         colliders = gameObject.GetComponents<SphereCollider>();
         gameManager = GameObject.FindObjectOfType<GameManager>();
+        statsManager = GameObject.FindObjectOfType<StatsManager>();
         audioSource = GetComponent<AudioSource>();
         marbleRadius = GetComponent<SphereCollider>().radius;
         myRigidbody = GetComponent<Rigidbody>();
@@ -50,17 +53,35 @@ public class MarbleBehaviour : MonoBehaviour
     }
 
     /// <summary>This can be used whenever the marble explodes. Control how long it takes the explosion to happen with delay.</summary>
-    public void DeathSequenceExplode()
+    public void DeathSequenceExplode(float delay = 0f)
+    {
+        // Remove player's life
+        statsManager.RemoveLife();
+
+        Invoke("DeathSequenceEffects", delay);
+
+        // // Death effects
+        // spikeDeath.Play();
+        // particle.Play();
+        // marbleRenderer.enabled = false;
+
+        // // Freeze rigidbody
+        // myRigidbody.constraints = RigidbodyConstraints.FreezeAll;
+    }
+
+    void DeathSequenceEffects()
     {
         // Death effects
-        PlayAudio(deathSound);
+        spikeDeath.Play();
         particle.Play();
         marbleRenderer.enabled = false;
 
         // Freeze rigidbody
         myRigidbody.constraints = RigidbodyConstraints.FreezeAll;
+
     }
 
+    // TODO: Consider deprecating
     /// <summary>An alternate to DeathSequenceExplode where the marble doesn't explode.</summary>
     public void DeathSequence() => PlayAudio(deathSound);
 

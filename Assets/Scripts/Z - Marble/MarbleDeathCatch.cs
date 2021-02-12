@@ -3,13 +3,11 @@
 public class MarbleDeathCatch : MonoBehaviour
 {
     // References
-    StatsManager statsManager;
     MarbleBehaviour marble;
 
     // Grab references
     private void Awake()
     {
-        statsManager = FindObjectOfType<StatsManager>();
         marble = FindObjectOfType<MarbleBehaviour>();
     }
 
@@ -18,8 +16,7 @@ public class MarbleDeathCatch : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            statsManager.RemoveLife();
-            marble.DeathSequence();
+            marble.DeathSequenceExplode(0.35f);
         }
     }
 }

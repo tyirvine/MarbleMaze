@@ -3,13 +3,11 @@
 public class SpikeHazard : MonoBehaviour
 {
     // References 
-    [HideInInspector] public StatsManager statsManager;
     [HideInInspector] public MarbleBehaviour marble;
 
     // Grab stats manager
     private void Start()
     {
-        statsManager = FindObjectOfType<StatsManager>();
         marble = FindObjectOfType<MarbleBehaviour>();
     }
 
@@ -19,7 +17,6 @@ public class SpikeHazard : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             marble.DeathSequenceExplode();
-            statsManager.RemoveLife();
         }
     }
 }

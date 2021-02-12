@@ -379,7 +379,7 @@ PrefabInstance:
     - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: debugMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
@@ -695,6 +695,11 @@ PrefabInstance:
         type: 3}
       propertyPath: lastPlayerPositionOffset
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: timeToRespawn
+      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef72a49885dee49d6af6e3acb4751037, type: 3}
