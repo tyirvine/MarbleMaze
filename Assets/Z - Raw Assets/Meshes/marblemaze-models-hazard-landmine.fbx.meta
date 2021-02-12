@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d98b3d84a864042c5be2f6f63bdc373e
+guid: baeb4bd4c07594b149ec3e4c7bd91729
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
@@ -7,20 +7,44 @@ ModelImporter:
       74: 2966473815741224333
     second: Landmine-Button|HazardBumper
   - first:
-      74: 7192258987941335188
-    second: Landmine-Button|HazardBumperSpring
-  - first:
       74: -1826426804362998745
     second: Landmine-Button|Landmine-Button-Idle
   - first:
       74: -8616611238310462017
     second: Landmine-Button|Landmine-Button-Pop
   - first:
+      74: -5850185412515140852
+    second: Landmine-Button|Landmine-Button-Pop.001
+  - first:
       74: -3187955741436244590
     second: Landmine-Button|Landmine-Button-Press
   - first:
       74: 7644897260754230583
     second: Landmine-Button|Pickup - Life - Idle
+  - first:
+      74: -31621844322772870
+    second: Landmine-Button|Pickup - Life - Idle.001
+  - first:
+      74: 129193794432527577
+    second: Landmine-Button.001|HazardBumper
+  - first:
+      74: 6797332311165373587
+    second: Landmine-Button.001|Landmine-Button-Idle
+  - first:
+      74: 4526617851752394395
+    second: Landmine-Button.001|Landmine-Button-Pop
+  - first:
+      74: 1156895838589092008
+    second: Landmine-Button.001|Landmine-Button-Pop.001
+  - first:
+      74: -2087283545593682829
+    second: Landmine-Button.001|Landmine-Button-Press
+  - first:
+      74: 1701375190639515313
+    second: Landmine-Button.001|Pickup - Life - Idle
+  - first:
+      74: -1758178785833878915
+    second: Landmine-Button.001|Pickup - Life - Idle.001
   externalObjects: {}
   materials:
     materialImportMode: 1
