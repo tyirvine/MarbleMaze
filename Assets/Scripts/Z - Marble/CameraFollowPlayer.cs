@@ -5,11 +5,11 @@ public class CameraFollowPlayer : MonoBehaviour
 {
     // References
     GameObject player;
-    
-    
+
+
     // Settings
     public float smoothness = 8f;
-    
+
     float shakeMagnitude = 2; //how much is the camera moving by while shaking
     bool shaking = false; //is the camera shaking?
     float currentShakeTime = 0;
@@ -97,12 +97,12 @@ public class CameraFollowPlayer : MonoBehaviour
     }
     public void Update()
     {
-  
+
     }
     public void CameraShake(float time, float magnitude)
     {
         currentShakeTime = Time.time + time;
-        Gamepad.current.SetMotorSpeeds(magnitude/2, magnitude);
+        Gamepad.current.SetMotorSpeeds(magnitude / 2, magnitude);
         shakeMagnitude = magnitude;
         shaking = true;
     }
