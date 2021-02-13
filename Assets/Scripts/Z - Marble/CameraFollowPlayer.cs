@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraFollowPlayer : MonoBehaviour
 {
     // References
     GameObject player;
-
+    
+    
     // Settings
     public float smoothness = 8f;
+    
+    float shakeMagnitude = 2; //how much is the camera moving by while shaking
+    bool shaking = false; //is the camera shaking?
+    float currentShakeTime = 0;
 
     /// <summary>This is the multiplier for the velocity vector position.</summary>
     [Range(0.01f, 0.5f)] public float lastPlayerPositionOffset = 0.1f;
@@ -77,6 +83,28 @@ public class CameraFollowPlayer : MonoBehaviour
             StartSmoothCamera();
         else
             EndSmoothCamera();
+        if (shaking)
+        {
+            transform.position += Random.insideUnitSphere * shakeMagnitude;
 
+            if (Time.time > currentShakeTime)
+            {
+                Debug.Log("now");
+                Gamepad.current.SetMotorSpeeds(0, 0);
+                shaking = false;
+            }
+        }
     }
+    public void Update()
+    {
+  
+    }
+    public void CameraShake(float time, float magnitude)
+    {
+        currentShakeTime = Time.time + time;
+        Gamepad.current.SetMotorSpeeds(magnitude/2, magnitude);
+        shakeMagnitude = magnitude;
+        shaking = true;
+    }
+
 }

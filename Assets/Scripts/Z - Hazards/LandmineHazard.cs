@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LandmineHazard : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class LandmineHazard : MonoBehaviour
     public Animator buttonAnimator;
     public GameObject wallEviscerator;
     public ParticleSystem particle;
+    CameraFollowPlayer cameraControl;
 
     [Header("Audio")]
     public AudioSource explodeSound;
@@ -83,10 +85,17 @@ public class LandmineHazard : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        cameraControl = Camera.main.transform.parent.GetComponent<CameraFollowPlayer>();
+    }
+
     // This is a detonation trigger for the landmine
     public void DetonateLandmine()
     {
         LandmineExplode();
+        cameraControl.CameraShake(0.5f,0.5f);
+        
         landmineState = DetonationPhases.Detonating;
     }
 
