@@ -89,7 +89,6 @@ public class CameraFollowPlayer : MonoBehaviour
 
             if (Time.time > currentShakeTime)
             {
-                Debug.Log("now");
                 Gamepad.current.SetMotorSpeeds(0, 0);
                 shaking = false;
             }
