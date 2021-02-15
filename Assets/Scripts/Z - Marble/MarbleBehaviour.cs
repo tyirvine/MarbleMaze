@@ -19,7 +19,8 @@ public class MarbleBehaviour : MonoBehaviour
     [Range(0.5f, 1.5f)] public float scale = 1.25f;
     [Range(0.1f, 50f)] public float jumpPower = 14.4f;
     [Range(0.1f, 1f)] public float jumpCooldown = 0.1f;
-
+    [Range(0.1f, 2f)] public float physicsResetTime = 1f;
+    [Range(1f, 8f)] public float yAxisSpeedReduction = 4f;
     // State Objects
     float currentTime;
     bool isGrounded;
@@ -27,6 +28,7 @@ public class MarbleBehaviour : MonoBehaviour
     // Public References
     [Header("References")]
     public ParticleSystem particle;
+    
 
     // Private References
     float marbleRadius;
@@ -163,7 +165,13 @@ public class MarbleBehaviour : MonoBehaviour
         {
             PlayAudio(levelFinish);
             gameManager.CallForNewBoard();
+            Invoke("ResetRigidBody", physicsResetTime);
         }
+    }
+
+    void ResetRigidBody()
+    {
+        myRigidbody.velocity = new Vector3(0, myRigidbody.velocity.y / yAxisSpeedReduction, 0);
     }
 
     // Checks if the player is hitting a wall and checks for the collision force
