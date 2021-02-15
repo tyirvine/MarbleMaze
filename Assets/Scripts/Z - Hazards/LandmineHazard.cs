@@ -94,8 +94,8 @@ public class LandmineHazard : MonoBehaviour
     public void DetonateLandmine()
     {
         LandmineExplode();
-        cameraControl.CameraShake(0.5f,0.5f);
-        
+        cameraControl.CameraShake(0.5f, 0.5f);
+
         landmineState = DetonationPhases.Detonating;
     }
 
