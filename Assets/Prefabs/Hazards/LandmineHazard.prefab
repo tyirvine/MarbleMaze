@@ -253,8 +253,8 @@ MonoBehaviour:
   explosionForceMode: 1
   shakeMagnitude: 0.5
   shakeTime: 0.2
-  lightMin: 1
-  lightMax: 5
+  lightRangeMin: 1
+  lightRangeMax: 3
   materialMin: {r: 0, g: 0, b: 0, a: 0}
   materialMax: {r: 1, g: 0, b: 0, a: 1}
   buttonLight: {fileID: 8798498924243801169}
@@ -266,6 +266,7 @@ MonoBehaviour:
   particle: {fileID: 8674205844696223467}
   explodeSound: {fileID: 585926142214432841}
   beepTimerSound: {fileID: 970701162864644428}
+  landmineState: 0
 --- !u!1 &4903281879332295988
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +283,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6222169700864210243
 Transform:
@@ -5405,7 +5406,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5310615347368688424
 Transform:
@@ -5539,6 +5540,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8635483451534611262, guid: c6cbbf5c7209c3943842a60e4635fa89,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6cbbf5c7209c3943842a60e4635fa89, type: 3}

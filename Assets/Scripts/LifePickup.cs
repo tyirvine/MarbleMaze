@@ -26,7 +26,7 @@ public class LifePickup : MonoBehaviour
         {
             stats.AddLife();
             //pickupSound.Play();
-            Debug.Log("Audio Players here");
+            // Debug.Log("Audio Players here");
 
             meshRenderer.enabled = false;
 
@@ -39,6 +39,5 @@ public class LifePickup : MonoBehaviour
     {
         particle.Play();
         particle.loop = false;
-
     }
 }

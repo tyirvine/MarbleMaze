@@ -4988,7 +4988,7 @@ MonoBehaviour:
   scale: 1.25
   jumpPower: 19
   jumpCooldown: 0.444
-  physicsResetTime: 1
+  physicsResetTime: 0.5
   yAxisSpeedReduction: 1
   particle: {fileID: 3458464538005014338}
   colliders: []

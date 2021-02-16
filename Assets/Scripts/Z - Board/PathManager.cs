@@ -475,7 +475,7 @@ public class PathManager : MonoBehaviour
         if (buildShapes) gameObject.GetComponent<ShapeManager>().CheckShapes();
         if (buildBoard) gameObject.GetComponent<BuildBoard>().GetBoardSize();
         GameObject marble = GameObject.FindGameObjectWithTag("Player");
-        marble.GetComponent<MarbleBehaviour>().LevelStart();
+        // marble.GetComponent<MarbleBehaviour>().LevelStart();
 
 #if UNITY_EDITOR
         // Path construction finished
