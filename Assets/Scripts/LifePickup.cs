@@ -27,19 +27,19 @@ public class LifePickup : MonoBehaviour
         {
             stats.AddLife();
             pickupSound.Play();
-            marbleState();
-            particleState();
+            MarbleState();
+            ParticleState();
             Destroy(gameObject, time);
         }
     }
 
-    private void particleState()
+    private void ParticleState()
     {
         particle.Play();
         particle.loop = false;
     }
 
-    private void marbleState()
+    private void MarbleState()
     {
         meshRenderer.enabled = false;
         collider.enabled = false;
