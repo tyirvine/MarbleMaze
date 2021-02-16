@@ -18,6 +18,11 @@ public class LandmineHazard : MonoBehaviour
     [Range(0.0f, 100.0f)] public float upwardsModifier;
     public ForceMode explosionForceMode = ForceMode.Impulse;
 
+    // Camera shake
+    [Header("Camera Shake")]
+    public float shakeMagnitude = 0.5f;
+    public float shakeTime = 0.5f;
+
     // Min / max values
     [Header("Min/Max Values")]
     public float lightMin = 0.0f;
@@ -94,7 +99,7 @@ public class LandmineHazard : MonoBehaviour
     public void DetonateLandmine()
     {
         LandmineExplode();
-        cameraControl.CameraShake(0.5f, 0.5f);
+        cameraControl.CameraShake(shakeTime, shakeMagnitude);
 
         landmineState = DetonationPhases.Detonating;
     }
