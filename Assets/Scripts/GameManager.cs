@@ -131,6 +131,7 @@ public class GameManager : MonoBehaviour
 
         //high score section;
         if (levelManager.currentLevel > highScore) highScore = levelManager.currentLevel;
+        PlayerPrefs.SetInt("HighScore", highScore);
         Debug.Log("High Score! " + highScore); //replace this with some UI magic!
                                                //move this to when the player dies or quits!
 
@@ -164,6 +165,7 @@ public class GameManager : MonoBehaviour
 
         // Marble
         PlaceMarble();
+        Debug.Log(PlayerPrefs.GetInt("played"));
     }
 
     void FixedUpdate()
@@ -188,6 +190,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // TODO: Remove this from the production build!
+        // get high score
+        highScore = PlayerPrefs.GetInt("HighScore");
         if (!debugMode)
             CallForNewBoard();
 

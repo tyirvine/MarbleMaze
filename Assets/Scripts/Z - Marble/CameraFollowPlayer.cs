@@ -6,7 +6,6 @@ public class CameraFollowPlayer : MonoBehaviour
     // References
     GameObject player;
 
-
     // Settings
     public float smoothness = 8f;
 
@@ -24,6 +23,13 @@ public class CameraFollowPlayer : MonoBehaviour
     [HideInInspector] public bool followPlayer = true;
     bool resetCameraFollow = false;
     Vector3 lastPlayerPosition;
+
+    /// <summary>Checks to make sure a gamepad is available first.</summary>
+    void SetGamepadRumble(float lowFrequency, float highFrequency)
+    {
+        if (Gamepad.current != null)
+            Gamepad.current.SetMotorSpeeds(lowFrequency, highFrequency);
+    }
 
     /// <summary>Resets all state objects.</summary>
     void CameraInit()
@@ -89,8 +95,7 @@ public class CameraFollowPlayer : MonoBehaviour
 
             if (Time.time > currentShakeTime)
             {
-                Debug.Log("now");
-                Gamepad.current.SetMotorSpeeds(0, 0);
+                SetGamepadRumble(0f, 0f);
                 shaking = false;
             }
         }
@@ -102,9 +107,10 @@ public class CameraFollowPlayer : MonoBehaviour
     public void CameraShake(float time, float magnitude)
     {
         currentShakeTime = Time.time + time;
-        Gamepad.current.SetMotorSpeeds(magnitude / 2, magnitude);
         shakeMagnitude = magnitude;
         shaking = true;
+
+        SetGamepadRumble(magnitude / 2, magnitude);
     }
 
 }
