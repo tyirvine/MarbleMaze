@@ -7,7 +7,7 @@ public class LifePickup : MonoBehaviour
     StatsManager stats;
     public ParticleSystem particle;
     public MeshRenderer meshRenderer;
-    [Range (0f,10f)] public float time; 
+    [Range(0f, 10f)] public float time;
 
     // Audio Settings 
     [Header("Audio")]
@@ -27,9 +27,9 @@ public class LifePickup : MonoBehaviour
             stats.AddLife();
             //pickupSound.Play();
             Debug.Log("Audio Players here");
-            
-            meshRenderer.enabled = false; 
-            
+
+            meshRenderer.enabled = false;
+
             particleState();
             Destroy(gameObject, time);
         }
@@ -39,6 +39,6 @@ public class LifePickup : MonoBehaviour
     {
         particle.Play();
         particle.loop = false;
-    
+
     }
 }
