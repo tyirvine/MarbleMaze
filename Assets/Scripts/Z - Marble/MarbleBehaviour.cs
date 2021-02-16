@@ -176,7 +176,7 @@ public class MarbleBehaviour : MonoBehaviour
     void ResetRigidBody()
     {
         myRigidbody.velocity = new Vector3(0, myRigidbody.velocity.y / yAxisSpeedReduction, 0);
-        
+
     }
 
     // Checks if the player is hitting a wall and checks for the collision force
@@ -187,11 +187,11 @@ public class MarbleBehaviour : MonoBehaviour
         {
             PlayAudio(impact);
         }
-       
+
     }
     private void FixedUpdate()
     {
-        if(myRigidbody.velocity.y < -30)
+        if (myRigidbody.velocity.y < -30)
         {
             falling = true;
         }
@@ -199,7 +199,7 @@ public class MarbleBehaviour : MonoBehaviour
         Vector3 rayDirection = (transform.position - new Vector3(0f, 1f, 0f)).normalized;
         if (Physics.SphereCast(transform.position, marbleRadius, rayDirection, out hit, 1f))
         {
-         if(hit.transform.CompareTag("floorTile")&&falling)
+            if (hit.transform.CompareTag("floorTile") && falling)
             {
                 gameManager.playerInput.enabled = true;
                 falling = false;
@@ -217,7 +217,7 @@ public class MarbleBehaviour : MonoBehaviour
         if (Physics.SphereCast(transform.position, marbleRadius, rayDirection, out hit, 1f))
         {
             isGrounded = true;
-            
+
         }
 
         // Then add force

@@ -180,7 +180,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            
+
             ReparentMarble();
         }
     }
@@ -195,7 +195,7 @@ public class GameManager : MonoBehaviour
         highScore = PlayerPrefs.GetInt("HighScore");
         if (!debugMode)
             CallForNewBoard();
-        
+
     }
 
     // TODO: Remove this from the production build!
