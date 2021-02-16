@@ -462,18 +462,80 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &968575611 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-    type: 3}
-  m_PrefabInstance: {fileID: 7683857432142559876}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6f9b5e6cbeb55b42885d692e19c3c95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+--- !u!1001 &1397076607
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 162873350464570991, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -383.96472
+      objectReference: {fileID: 0}
+    - target: {fileID: 162873350464570991, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 272.2937
+      objectReference: {fileID: 0}
+    - target: {fileID: 162873350464570991, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1035.1364
+      objectReference: {fileID: 0}
+    - target: {fileID: 162873350464570991, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 162873350464570991, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 162873350464570991, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 162873350464570991, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 162873350464570991, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 162873350464570991, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 162873350464570991, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 162873350464570991, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6949792835556498799, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242441453330005970, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_Name
+      value: UI System
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e5266fed9e6b2466f8a14aa8ca6c9370, type: 3}
 --- !u!1 &1907422991
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,51 +592,6 @@ PrefabInstance:
       propertyPath: UI_LevelCounter
       value: 
       objectReference: {fileID: 19044934}
-    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: UI_LivesCounter
-      value: 
-      objectReference: {fileID: 8076443721751820165}
-    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: startingLifeProbability
-      value: 379
-      objectReference: {fileID: 0}
-    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: startingSpikeProbability
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: startingBumperProbability
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: startingLandmineProbability
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: landmineSpawnRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: lifeSpawnRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3942923127047086806, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: livesToStartWith
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3942923127047086806, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: UI_LivesCounter
-      value: 
-      objectReference: {fileID: 8076443721751820165}
     - target: {fileID: 3942923127047086806, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: cameraRig
@@ -582,39 +599,9 @@ PrefabInstance:
       objectReference: {fileID: 506331869}
     - target: {fileID: 3942923127047086806, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
-      propertyPath: gameManager
+      propertyPath: UI_LivesCounter
       value: 
-      objectReference: {fileID: 968575611}
-    - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: debugMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: debugJumpToLevel
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: spawnNewBoardTiming
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7683857431610325322, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: moveSpeed
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 7683857431610325323, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: m_DefaultControlScheme
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7683857431610325323, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
-        type: 3}
-      propertyPath: m_NotificationBehavior
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8076443721751820165}
     - target: {fileID: 7683857431610325326, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: m_Name
@@ -698,6 +685,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameViewCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8076443721768070066, guid: 04e55fb629bad4d88bf1900610aa628f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8076443721768070078, guid: 04e55fb629bad4d88bf1900610aa628f,
         type: 3}
