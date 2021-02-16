@@ -68,7 +68,7 @@ public class LandmineHazard : MonoBehaviour
             // Check to make sure there's a rigidbody first 
             // added tags for hazards now so the getcomponent may be redundant as all walltiles have a rigidbody
             // added tags for hazards now so the getcomponent may be redundant as all walltiles have a rigidbody
-            if (hitObject.tag == "wallTile" || hitObject.tag == "hazardObject" && hitObject.gameObject.GetComponent<Rigidbody>() != null)
+            if ((hitObject.CompareTag("wallTile") || hitObject.CompareTag("hazardObject")) && hitObject.gameObject.GetComponent<Rigidbody>() != null)
             {
                 Rigidbody rigidbody = hitObject.gameObject.GetComponent<Rigidbody>();
                 rigidbody.isKinematic = false;

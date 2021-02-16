@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
 
         // Call new board
         Invoke("NewBoard", spawnNewBoardTiming);
-
+        //playerInput.enabled = true;
         //high score section;
         if (levelManager.currentLevel > highScore) highScore = levelManager.currentLevel;
         PlayerPrefs.SetInt("HighScore", highScore);
@@ -180,7 +180,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            playerInput.enabled = true;
+            
             ReparentMarble();
         }
     }
@@ -191,10 +191,11 @@ public class GameManager : MonoBehaviour
     {
         // TODO: Remove this from the production build!
         // get high score
+        playerInput.enabled = false;
         highScore = PlayerPrefs.GetInt("HighScore");
         if (!debugMode)
             CallForNewBoard();
-
+        
     }
 
     // TODO: Remove this from the production build!

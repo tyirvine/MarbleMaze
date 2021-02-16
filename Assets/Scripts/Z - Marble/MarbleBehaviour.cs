@@ -41,7 +41,7 @@ public class MarbleBehaviour : MonoBehaviour
     List<LandmineHazard> activeHazards = new List<LandmineHazard>();
     LandmineHazard[] landmineHazards;
     public float hazardActiveRadius = 10f;
-
+    bool falling = false;
     private void Update()
     {
         int layerMask = 1 << 13;
@@ -88,8 +88,11 @@ public class MarbleBehaviour : MonoBehaviour
             if (hazards[i].GetComponent<LandmineHazard>() != null)
             {
                 landmineHazards[count] = hazards[i].GetComponent<LandmineHazard>();
-                objects.Add(hazards[i].transform, landmineHazards[count]);
-                count++;
+                if (!objects.ContainsKey(hazards[i].transform))
+                {
+                    objects.Add(hazards[i].transform, landmineHazards[count]);
+                    count++;
+                }
             }
 
         }
@@ -163,6 +166,7 @@ public class MarbleBehaviour : MonoBehaviour
 
         if (other.CompareTag("LevelFinish"))
         {
+            gameManager.playerInput.enabled = false;
             PlayAudio(levelFinish);
             gameManager.CallForNewBoard();
             Invoke("ResetRigidBody", physicsResetTime);
@@ -172,6 +176,7 @@ public class MarbleBehaviour : MonoBehaviour
     void ResetRigidBody()
     {
         myRigidbody.velocity = new Vector3(0, myRigidbody.velocity.y / yAxisSpeedReduction, 0);
+        
     }
 
     // Checks if the player is hitting a wall and checks for the collision force
@@ -182,8 +187,25 @@ public class MarbleBehaviour : MonoBehaviour
         {
             PlayAudio(impact);
         }
+       
     }
-
+    private void FixedUpdate()
+    {
+        if(myRigidbody.velocity.y < -30)
+        {
+            falling = true;
+        }
+        RaycastHit hit;
+        Vector3 rayDirection = (transform.position - new Vector3(0f, 1f, 0f)).normalized;
+        if (Physics.SphereCast(transform.position, marbleRadius, rayDirection, out hit, 1f))
+        {
+         if(hit.transform.CompareTag("floorTile")&&falling)
+            {
+                gameManager.playerInput.enabled = true;
+                falling = false;
+            }
+        }
+    }
     // Causes the player to jump. Assigned for the input manager package
     public void Jump()
     {
@@ -193,7 +215,10 @@ public class MarbleBehaviour : MonoBehaviour
         RaycastHit hit;
         Vector3 rayDirection = (transform.position - new Vector3(0f, 1f, 0f)).normalized;
         if (Physics.SphereCast(transform.position, marbleRadius, rayDirection, out hit, 1f))
+        {
             isGrounded = true;
+            
+        }
 
         // Then add force
         if (isGrounded && Time.time > currentTime)
