@@ -4681,8 +4681,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 294e1e12e9f2a4d78b19be94333d5382, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -4864,8 +4864,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particle: {fileID: 2808003717424369550}
   meshRenderer: {fileID: 6761586650608598948}
+  collider: {fileID: 6041639408496930763}
   time: 5.25
-  pickupSound: {fileID: 0}
+  pickupSound: {fileID: -3411159246823848272}
 --- !u!1001 &5338013066735837984
 PrefabInstance:
   m_ObjectHideFlags: 0
