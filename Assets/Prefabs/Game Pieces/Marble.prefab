@@ -4988,6 +4988,8 @@ MonoBehaviour:
   scale: 1.25
   jumpPower: 19
   jumpCooldown: 0.444
+  physicsResetTime: 1
+  yAxisSpeedReduction: 4
   particle: {fileID: 3458464538005014338}
   colliders: []
   gameManager: {fileID: 0}
@@ -5002,7 +5004,8 @@ AudioSource:
   m_GameObject: {fileID: 4670614603540532265}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8272252412143508136, guid: 19fc47d118cd58746805941cc1db548b,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -5098,7 +5101,8 @@ AudioSource:
   m_GameObject: {fileID: 4670614603540532265}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8272252412143508136, guid: 19fc47d118cd58746805941cc1db548b,
+    type: 2}
   m_audioClip: {fileID: 8300000, guid: 01fc31884c71749d2baf3e682c71c601, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.4
