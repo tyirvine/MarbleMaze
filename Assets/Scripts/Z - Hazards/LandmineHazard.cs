@@ -150,7 +150,7 @@ public class LandmineHazard : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             landmineTrigger = true;
             buttonAnimator.SetBool("Pressed", landmineTrigger);

@@ -333,7 +333,9 @@ public class PathManager : MonoBehaviour
 
         // Add the start node to the open points list
         openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, false));
-
+        
+        List<NodeObject> alternativePath = new List<NodeObject>();
+        
         // This object contains the current node being investigated
         NodeObject currentNode = new NodeObject(gridPoints.startPointNode);
 
@@ -354,7 +356,20 @@ public class PathManager : MonoBehaviour
                 closedNodes.Add(currentNode);
                 // Randomly pick the next node out of the open nodes and assign that as the new current
                 int randomOpenNode = Random.Range(0, openNodes.Count());
-                currentNode = openNodes[randomOpenNode];
+                if (openNodes.Count > 0)
+                {
+                    currentNode = openNodes[randomOpenNode];
+                }
+                if (openNodes.Count == 0) 
+                {
+                    //Initialize();
+                    // GeneratePath();
+                    // break;
+                    int newNode = Random.Range(0, alternativePath.Count);
+                    currentNode = alternativePath[newNode];
+                    alternativePath.RemoveAt(newNode);
+                }
+                
                 // Empty out open nodes list
                 openNodes.Clear();
             }
@@ -385,7 +400,10 @@ public class PathManager : MonoBehaviour
             new NodeObject(FindNodePosition(3, 0, currentNode: currentNode), 0, 0, 0,false),
             new NodeObject(FindNodePosition(0, -3, currentNode: currentNode), 0, 0, 0,false)
             };
-
+            if (neighbourNodes.Length >=3)
+            {
+                alternativePath.Add(currentNode);
+            }
             // Loop through all neighbours
             foreach (NodeObject node in neighbourNodes)
             {
