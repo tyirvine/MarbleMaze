@@ -29,7 +29,6 @@ public class MarbleBehaviour : MonoBehaviour
     [Header("References")]
     public ParticleSystem particle;
 
-
     // Private References
     float marbleRadius;
     Rigidbody myRigidbody;
@@ -73,12 +72,11 @@ public class MarbleBehaviour : MonoBehaviour
         // Set scale
         gameObject.transform.localScale = gameObject.transform.localScale * scale;
         currentTime = Time.time + jumpCooldown;
-
-
     }
+
     public void LevelStart()
     {
-
+        // Add hazards to dictionary
         if (activeHazards.Count > 0) activeHazards.Clear();
         GameObject[] hazards = GameObject.FindGameObjectsWithTag("hazardObject");
         landmineHazards = new LandmineHazard[hazards.Length];
@@ -91,10 +89,11 @@ public class MarbleBehaviour : MonoBehaviour
                 objects.Add(hazards[i].transform, landmineHazards[count]);
                 count++;
             }
-
         }
+
         Debug.Log("hazards : " + hazards.Length);
         Debug.Log("landmines : " + count);
+
         foreach (LandmineHazard hazard in landmineHazards)
         {
             if (hazard != null)
@@ -104,8 +103,8 @@ public class MarbleBehaviour : MonoBehaviour
             }
         }
         activeHazards = landmineHazards.ToList();
-
     }
+
     /// <summary>This can be used whenever the marble explodes. Control how long it takes the explosion to happen with delay.</summary>
     public void DeathSequenceExplode(float delay = 0f)
     {
@@ -113,14 +112,6 @@ public class MarbleBehaviour : MonoBehaviour
         statsManager.RemoveLife();
 
         Invoke("DeathSequenceEffects", delay);
-
-        // // Death effects
-        // spikeDeath.Play();
-        // particle.Play();
-        // marbleRenderer.enabled = false;
-
-        // // Freeze rigidbody
-        // myRigidbody.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     void DeathSequenceEffects()
@@ -171,7 +162,7 @@ public class MarbleBehaviour : MonoBehaviour
 
     void ResetRigidBody()
     {
-        myRigidbody.velocity = new Vector3(0, myRigidbody.velocity.y / yAxisSpeedReduction, 0);
+        // myRigidbody.velocity = new Vector3(0, myRigidbody.velocity.y / yAxisSpeedReduction, 0);
     }
 
     // Checks if the player is hitting a wall and checks for the collision force

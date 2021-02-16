@@ -4989,12 +4989,12 @@ MonoBehaviour:
   jumpPower: 19
   jumpCooldown: 0.444
   physicsResetTime: 1
-  yAxisSpeedReduction: 4
+  yAxisSpeedReduction: 1
   particle: {fileID: 3458464538005014338}
   colliders: []
   gameManager: {fileID: 0}
   statsManager: {fileID: 0}
-  hazardActiveRadius: 4.97
+  hazardActiveRadius: 10
 --- !u!82 &3385145518625604854
 AudioSource:
   m_ObjectHideFlags: 0
