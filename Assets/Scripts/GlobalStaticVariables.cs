@@ -60,7 +60,7 @@ public class GlobalStaticVariables : MonoBehaviour
             writer.WriteLine(str);
         }
         writer.Close();
-  //          PlayerPrefs.SetInt("played", 110);
+        //          PlayerPrefs.SetInt("played", 110);
     }
     public void WriteDebug()
     {
@@ -71,7 +71,7 @@ public class GlobalStaticVariables : MonoBehaviour
             writer.WriteLine(str);
         }
         writer.Close();
-//        PlayerPrefs.SetInt("played", 110);
+        //        PlayerPrefs.SetInt("played", 110);
     }
     /// <summary>This function formats a log to the debug.log file into a [Timestamp + Log] format.</summary>
     public void DebugLogEntry(string log)
