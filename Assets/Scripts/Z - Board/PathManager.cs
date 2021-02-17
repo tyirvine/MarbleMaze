@@ -362,13 +362,8 @@ public class PathManager : MonoBehaviour
                 }
                 if (openNodes.Count == 0) 
                 {
-                    //Initialize();
-                    // GeneratePath();
-                    // break;
-                    //int newNode = Random.Range(0, alternativePath.Count);
-                    currentNode = alternativePath[alternativePath.Count / 2 ];
-                    //alternativePath.RemoveAt(alternativePath.Count-1);
-                    alternativePath.RemoveAt(alternativePath.Count / 2);
+                    currentNode = alternativePath[alternativePath.Count/2];
+                //    alternativePath.RemoveAt(alternativePath.Count/2);
                 }
                 
                 // Empty out open nodes list
