@@ -31,9 +31,7 @@ public class GameManager : MonoBehaviour
     int debugLevelTrack = 0;
 
     // High Score
-
     public int highScore = 0;
-
 
     // References
     [Header("References")]
@@ -42,7 +40,6 @@ public class GameManager : MonoBehaviour
     public PathManager pathManager;
     public LevelManager levelManager;
     public StatsManager statsManager;
-
 
     /* -------------------------------------------------------------------------- */
     /*                           Marble Related Methods                           */
@@ -69,7 +66,6 @@ public class GameManager : MonoBehaviour
     {
         Vector3 marbleHorizontalPosition = new Vector3(marble.transform.position.x, 0, marble.transform.position.z);
         Vector3 boardHorizontalPosition = new Vector3(boardStartPosition.x, 0, boardStartPosition.z);
-
 
         // Disable if the marble is near the board
         int verticalTriggerPadding = 5;
@@ -134,7 +130,6 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("HighScore", highScore);
         Debug.Log("High Score! " + highScore); //replace this with some UI magic!
                                                //move this to when the player dies or quits!
-
 
     }
 
@@ -207,7 +202,6 @@ public class GameManager : MonoBehaviour
             {
                 debugLevelTrack = debugJumpToLevel;
                 CallForNewBoard();
-
             }
             else
                 isStarted = false;

@@ -18,10 +18,15 @@ public class LandmineHazard : MonoBehaviour
     [Range(0.0f, 100.0f)] public float upwardsModifier;
     public ForceMode explosionForceMode = ForceMode.Impulse;
 
+    // Camera shake
+    [Header("Camera Shake")]
+    public float shakeMagnitude = 0.5f;
+    public float shakeTime = 0.5f;
+
     // Min / max values
     [Header("Min/Max Values")]
-    public float lightMin = 0.0f;
-    public float lightMax = 1.0f;
+    public float lightRangeMin = 0.0f;
+    public float lightRangeMax = 1.0f;
     public Color materialMin;
     public Color materialMax;
 
@@ -40,8 +45,9 @@ public class LandmineHazard : MonoBehaviour
     public AudioSource beepTimerSound;
 
     // Detonation phases
-    enum DetonationPhases
+    public enum DetonationPhases
     {
+        Disabled,
         PreDetonated,
         Detonating,
         PostDetonation
@@ -52,7 +58,7 @@ public class LandmineHazard : MonoBehaviour
     Color fadewave_color;
     float time = 0.0f;
     bool landmineTrigger = false;
-    DetonationPhases landmineState = DetonationPhases.PreDetonated;
+    public DetonationPhases landmineState = DetonationPhases.Disabled;
     bool exploded = false;
 
     /// <summary>This function provides a lerp based on a provided min/max.</summary>
@@ -94,7 +100,7 @@ public class LandmineHazard : MonoBehaviour
     public void DetonateLandmine()
     {
         LandmineExplode();
-        cameraControl.CameraShake(0.5f, 0.5f);
+        cameraControl.CameraShake(shakeTime, shakeMagnitude);
 
         landmineState = DetonationPhases.Detonating;
     }
@@ -106,7 +112,7 @@ public class LandmineHazard : MonoBehaviour
         {
 
             // Calculate current wave value based on time
-            fadewave_light = FadeLerp(lightMin, lightMax);
+            fadewave_light = FadeLerp(lightRangeMin, lightRangeMax);
             fadewave_color = Color.Lerp(materialMin, materialMax, fadeCurve.Evaluate(time));
 
             // Play sound based on lerp
@@ -140,14 +146,13 @@ public class LandmineHazard : MonoBehaviour
         else if (landmineState == DetonationPhases.Detonating)
         {
             // After detonation set the landmine to a rest state
-            buttonLight.range = lightMin;
+            buttonLight.range = lightRangeMin;
             buttonRenderer.material.SetColor("_EmissionColor", materialMin);
             landmineState = DetonationPhases.PostDetonation;
         }
     }
 
     // When the landmine is triggered set the land mine to a state of inactivity
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -160,5 +165,18 @@ public class LandmineHazard : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         buttonAnimator.SetBool("Pressed", false);
+    }
+
+    // Disables landmine's fade script based on visibility
+    private void LateUpdate()
+    {
+        if (buttonRenderer.isVisible)
+        {
+            landmineState = LandmineHazard.DetonationPhases.PreDetonated;
+        }
+        else
+        {
+            landmineState = LandmineHazard.DetonationPhases.Disabled;
+        }
     }
 }
