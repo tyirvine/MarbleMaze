@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public Vector3 boardStartPosition;
     [HideInInspector] public Transform boardPosition;
     PhysicMaterial material;
+    bool start = true;
 
     // State objects
     [HideInInspector] public bool newBoardGenerating = true;
@@ -72,6 +73,7 @@ public class GameManager : MonoBehaviour
         if (marble.transform.position.y < boardStartPosition.y + verticalTriggerPadding && marble.transform.position.y > boardStartPosition.y - verticalTriggerPadding)
         {
             newBoardGenerating = false;
+            start = false;
         }
 
         // Adjust marble's horizontal position
@@ -87,7 +89,6 @@ public class GameManager : MonoBehaviour
     {
         marble = Instantiate(marblePrefab, pathManager.gridPoints.startPointNode, Quaternion.identity);
         marbleRigidbody = marble.gameObject.GetComponent<Rigidbody>();
-
     }
 
     /// <summary>Returns the marble's position offset on the y.</summary>
@@ -166,11 +167,17 @@ public class GameManager : MonoBehaviour
     void FixedUpdate()
     {
         // This starts off true
-        if (newBoardGenerating)
+        if (newBoardGenerating && !start)
         {
             // Added to stop the board from rotating while the marble is falling
             playerInput.enabled = false;
             marbleRigidbody.AddForce(Vector3.up * marbleFallingSpeed, ForceMode.Force);
+            MoveMarbleIntoBoard();
+        }
+        else if (start)
+        {
+            playerInput.enabled = false;
+            marbleRigidbody.AddForce(Vector3.up * (marbleFallingSpeed / 2f), ForceMode.Force);
             MoveMarbleIntoBoard();
         }
         else

@@ -83,7 +83,7 @@ public class CameraFollowPlayer : MonoBehaviour
     // Update is called once per frame : Dictates whether or not the camera movement is being smoothed
     void LateUpdate()
     {
-        if (followPlayer)
+        if (followPlayer && player != null)
             transform.position = player.transform.position;
         else if (resetCameraFollow)
             StartSmoothCamera();

@@ -8,9 +8,11 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector] public GameObject boardObjects;
     [HideInInspector] public UIManager uiManager;
 
+    // State objects
     public float boardClamp = 20f;
     Vector2 boardMovement = new Vector2(0, 0);
     public float moveSpeed = 25f;
+    bool pauseState = false;
 
     GameManager gameManager;
     MarbleBehaviour marbleBehaviour;
@@ -38,11 +40,26 @@ public class PlayerInput : MonoBehaviour
 
         // Hide user interface
         uiManager.StartMenu(false);
+        uiManager.GameMenu(true);
+    }
+
+    void OnPause()
+    {
+        if (!uiManager.pauseMenu.state)
+        {
+            uiManager.pauseMenu.state = true;
+            uiManager.PauseMenu(uiManager.pauseMenu.state);
+        }
+        else
+        {
+            uiManager.pauseMenu.state = false;
+            uiManager.PauseMenu(uiManager.pauseMenu.state);
+        }
+
     }
 
     void OnJump()
     {
-        //if(marbleBehaviour == null) marbleBehaviour = gameManager.marble.GetComponent<MarbleBehaviour>();
         marbleBehaviour.Jump();
     }
 

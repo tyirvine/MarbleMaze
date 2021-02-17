@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ToMenuTransition : MonoBehaviour
 {
@@ -10,6 +9,7 @@ public class ToMenuTransition : MonoBehaviour
     public Color startingColor;
     public Color targetColor;
     public float transitionTime = 1f;
+    public AnimationCurve curve;
     bool engageLerp = false;
     float time = 0f;
 
@@ -25,10 +25,14 @@ public class ToMenuTransition : MonoBehaviour
     {
         if (engageLerp)
         {
-            transitionPanel.color = Color.Lerp(startingColor, targetColor, time);
+            transitionPanel.color = Color.Lerp(startingColor, targetColor, curve.Evaluate(time));
             time += Time.deltaTime;
 
-            if (time > transitionTime) engageLerp = false;
+            if (time > transitionTime)
+            {
+                engageLerp = false;
+                SceneManager.LoadScene("Game View");
+            }
         }
     }
 }

@@ -87,8 +87,6 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-
-
     /// <summary>This is sort of like an extension to new level. This just runs code after entering a new stage.</summary>
     public void NewStage()
     {
@@ -111,7 +109,8 @@ public class LevelManager : MonoBehaviour
         string counterFormatted = stage + " - " + level;
 
         // Update text
-        UI_LevelCounter.text = counterFormatted;
+        if (UI_LevelCounter != null)
+            UI_LevelCounter.text = counterFormatted;
     }
 
     /// <summary>Currently increments the path every 2 levels so by level 100 you have a path 50 units long.</summary>
@@ -156,8 +155,5 @@ public class LevelManager : MonoBehaviour
         // else return input;
         return input + spawnrate;
     }
-
-
-
 
 }

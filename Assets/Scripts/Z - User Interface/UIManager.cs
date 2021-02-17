@@ -11,12 +11,14 @@ public class UIManager : MonoBehaviour
     {
         public Canvas canvas;
         public bool isActiveOnStart = false;
+        public bool state = false;
 
         // Constructor
         public void CanvasSet() => canvas.enabled = isActiveOnStart;
     }
 
     /* ------------------------------ Menu Control ----------------------------- */
+    public UIMenu gameMenu;
     public UIMenu startMenu;
     public UIMenu gameoverMenu;
     public UIMenu pauseMenu;
@@ -66,6 +68,18 @@ public class UIManager : MonoBehaviour
     // Pause menu
     public void PauseMenu(bool state)
     {
+        // Freeze time
+        if (state)
+        {
+            pauseMenu.state = true;
+            Time.timeScale = 0f;
+        }
+        // Unfreeze time
+        else
+        {
+            pauseMenu.state = false;
+            Time.timeScale = 1f;
+        }
         MenuControl(pauseMenu, state);
     }
 
@@ -73,6 +87,12 @@ public class UIManager : MonoBehaviour
     public void CreditsMenu(bool state)
     {
         MenuControl(creditsMenu, state);
+    }
+
+    // Game view menu
+    public void GameMenu(bool state)
+    {
+        MenuControl(gameMenu, state);
     }
 
     /* ------------------------------ Miscellaneous ----------------------------- */

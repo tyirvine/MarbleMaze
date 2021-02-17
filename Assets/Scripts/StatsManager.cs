@@ -29,7 +29,9 @@ public class StatsManager : MonoBehaviour
 
         // Adjust UI
         string livesFormatted = "Lives x " + livesRemaining;
-        UI_LivesCounter.text = livesFormatted;
+
+        if (UI_LivesCounter != null)
+            UI_LivesCounter.text = livesFormatted;
     }
     /// <summary>Optionally, you can add multiple lives.</summary>
     public void AddLife(int lives = 1)
