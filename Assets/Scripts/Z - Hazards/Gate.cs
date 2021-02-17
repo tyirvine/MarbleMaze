@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Gate : MonoBehaviour
 {
-   public void GotKey()
+    public void GotKey()
     {
         Destroy(gameObject);
     }
