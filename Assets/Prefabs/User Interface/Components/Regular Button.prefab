@@ -70,7 +70,7 @@ PrefabInstance:
     - target: {fileID: 2539496643080013813, guid: 869f2ceab042e4394aef462df729c7ba,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 177.89996
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 2539496643080013813, guid: 869f2ceab042e4394aef462df729c7ba,
         type: 3}
@@ -80,7 +80,7 @@ PrefabInstance:
     - target: {fileID: 2539496643080013813, guid: 869f2ceab042e4394aef462df729c7ba,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 167.12973
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 2539496643080013813, guid: 869f2ceab042e4394aef462df729c7ba,
         type: 3}
@@ -115,7 +115,7 @@ PrefabInstance:
     - target: {fileID: 3275614504954103368, guid: 869f2ceab042e4394aef462df729c7ba,
         type: 3}
       propertyPath: m_Name
-      value: Base Button
+      value: Regular Button
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 869f2ceab042e4394aef462df729c7ba, type: 3}

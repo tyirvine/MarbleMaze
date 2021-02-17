@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -8,25 +9,41 @@ public class UIManager : MonoBehaviour
     [Serializable]
     public class UIMenu
     {
-        public GameObject canvas;
-        bool isActive { get => canvas.activeInHierarchy; }
+        public Canvas canvas;
+        public bool isActiveOnStart = false;
 
         // Constructor
-        public UIMenu(bool isActive)
-        {
-            this.canvas.SetActive(false);
-        }
+        public void CanvasSet() => canvas.enabled = isActiveOnStart;
     }
 
     /* ------------------------------ Menu Control ----------------------------- */
-    public UIMenu startMenu = new UIMenu(true);
+    public UIMenu startMenu;
     public UIMenu gameoverMenu;
     public UIMenu pauseMenu;
     public UIMenu creditsMenu;
     public UIMenu optionsMenu;
 
+    List<UIMenu> menus = new List<UIMenu>();
+
+    // Disable all menus
+    private void Awake()
+    {
+        menus = new List<UIMenu>{
+            startMenu,
+            gameoverMenu,
+            pauseMenu,
+            creditsMenu,
+            optionsMenu
+        };
+
+        foreach (UIMenu menu in menus)
+        {
+            menu.CanvasSet();
+        }
+    }
+
     /// <summary>Opens up a specified menu object.</summary>
-    public void MenuControl(UIMenu menu, bool state) => menu.canvas.SetActive(state);
+    public void MenuControl(UIMenu menu, bool state) => menu.canvas.enabled = state;
 
     // Start menu
     public void StartMenu(bool state)
