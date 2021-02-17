@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21033c2309bb84369b14d8ec7f014966, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  key: {fileID: 3772451765282293270, guid: 927b26ab0a14b514184e18f121232446, type: 3}
   shapes:
   - rule: {fileID: 5520149041154882132, guid: c592313622366433cb40f605d5dafe97, type: 3}
     model: {fileID: 1414435072253065291, guid: 52d2af09a056d49cf9ce791f6596950b, type: 3}
@@ -223,7 +224,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
