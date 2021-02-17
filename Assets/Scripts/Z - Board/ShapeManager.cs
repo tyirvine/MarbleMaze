@@ -215,24 +215,24 @@ public class ShapeManager : MonoBehaviour
         int keyLocation = UnityEngine.Random.Range(0, walkNodes.Count);
         Vector3 keyPosition = CheckPathNeighbours(walkNodes[keyLocation], walkNodes);
         Vector3 keyOffset = Vector3.zero;
-        Instantiate(key,  keyPosition, Quaternion.identity);
+        Instantiate(key, keyPosition, Quaternion.identity);
     }
 
-    Vector3 CheckPathNeighbours(Vector3 keyLoc,List<Vector3> walkers)
+    Vector3 CheckPathNeighbours(Vector3 keyLoc, List<Vector3> walkers)
     {
         List<Vector3> locations = new List<Vector3>();
-        for(int x = -1; x <= 1; x++)
+        for (int x = -1; x <= 1; x++)
         {
-            for(int y = -1; y <=1; y++)
+            for (int y = -1; y <= 1; y++)
             {
-                if(walkers.Contains(keyLoc + new Vector3(x, 0 ,y)))
+                if (walkers.Contains(keyLoc + new Vector3(x, 0, y)))
                 {
                     locations.Add(keyLoc + new Vector3(x, 0, y));
                 }
             }
         }
         keyLoc = Vector3.zero;
-        foreach(Vector3 v in locations)
+        foreach (Vector3 v in locations)
         {
             keyLoc += v;
         }
