@@ -214,12 +214,35 @@ public class ShapeManager : MonoBehaviour
         shapesAsList.Remove(pickupLife);
         shapes = shapesAsList.ToArray();
 
-        int keyLocation = UnityEngine.Random.Range(0, walkNodes.Count);
-        Vector3 keyPosition = CheckPathNeighbours(walkNodes[keyLocation], walkNodes);
-        Vector3 keyOffset = Vector3.zero;
-        Instantiate(key, keyPosition, Quaternion.identity);
-    }
+
+        spawnKey(walkNodes);
         
+    }
+
+    void spawnKey(List<Vector3> walkNodes)
+    {
+        List<Vector3Int> deadEnds = new List<Vector3Int>();
+        deadEnds.AddRange(gameObject.GetComponent<PathManager>().deadEnds);
+        if (deadEnds.Count > 0)
+        {
+            int keyLocation = UnityEngine.Random.Range(0, deadEnds.Count);
+            //Debug.Log(deadEnds.Count + " deadends");
+            Vector3 keyPosition = CheckPathNeighbours(deadEnds[keyLocation], walkNodes);
+            Vector3Int keyOffset = Vector3Int.zero;
+            Instantiate(key, keyPosition, Quaternion.identity);
+        }
+        else
+        {
+            int keyLocation = UnityEngine.Random.Range(0, walkNodes.Count);
+            //Debug.Log(deadEnds.Count + " deadends");
+            Vector3 keyPosition = CheckPathNeighbours(walkNodes[keyLocation], walkNodes);
+            Vector3Int keyOffset = Vector3Int.zero;
+            Instantiate(key, keyPosition, Quaternion.identity);
+        }
+
+    }
+
+
 
     Vector3 CheckPathNeighbours(Vector3 keyLoc, List<Vector3> walkers)
     {
