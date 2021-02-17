@@ -216,7 +216,7 @@ public class ShapeManager : MonoBehaviour
 
 
         spawnKey(walkNodes);
-        
+
     }
 
     void spawnKey(List<Vector3> walkNodes)

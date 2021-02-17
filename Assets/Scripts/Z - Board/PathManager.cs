@@ -337,9 +337,9 @@ public class PathManager : MonoBehaviour
 
         // Add the start node to the open points list
         openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, false));
-        
+
         List<NodeObject> alternativePath = new List<NodeObject>();
-        
+
         // This object contains the current node being investigated
         NodeObject currentNode = new NodeObject(gridPoints.startPointNode);
 
@@ -351,13 +351,13 @@ public class PathManager : MonoBehaviour
         int loopEmergencyBrakeCap = 5000;
         int tempCount = 0;
         int pathDiverge = 4;
-        
+
         //Vector3Int furthestPoint = Vector3Int.zero;
         //float furthestPointDistance = 0;
         // This loops until a path is generated from the start node to the end node
         while (loopEmergencyBrake < loopEmergencyBrakeCap)
         {
-            
+
             if (pathLengthProgress > 0)
             {
                 // Add previous node (known as current) to the closed nodes
@@ -366,7 +366,7 @@ public class PathManager : MonoBehaviour
                 int randomOpenNode = Random.Range(0, openNodes.Count());
                 if (openNodes.Count > 0)
                 {
-                    currentNode = openNodes[randomOpenNode];                    
+                    currentNode = openNodes[randomOpenNode];
                 }
                 if (openNodes.Count == 0)
                 {
@@ -374,11 +374,11 @@ public class PathManager : MonoBehaviour
                     currentNode = alternativePath[0];   //pick a random point to start pathfinding from again./
                     alternativePath.RemoveAt(0);
                 }
-              
+
                 // Empty out open nodes list
                 openNodes.Clear();
             }
-       
+
             // Path incremented one position
             pathLengthProgress++;
 
@@ -406,8 +406,8 @@ public class PathManager : MonoBehaviour
             new NodeObject(FindNodePosition(3, 0, currentNode: currentNode), 0, 0, 0,false),
             new NodeObject(FindNodePosition(0, -3, currentNode: currentNode), 0, 0, 0,false)
             };
-            
-            
+
+
             // Loop through all neighbours
             foreach (NodeObject node in neighbourNodes)
             {
@@ -416,20 +416,20 @@ public class PathManager : MonoBehaviour
                 {
                     continue;
                 }
-                
-                    // Otherwise add that node to a list of possible directions to take
-                    node.parent = currentNode;
-                    openNodes.Add(node);
-             
+
+                // Otherwise add that node to a list of possible directions to take
+                node.parent = currentNode;
+                openNodes.Add(node);
+
             }
-            
+
             if (openNodes.Count >= 3)
             {
                 alternativePath.Add(currentNode);
             }
             // Acts as an emergency break for this loop
             loopEmergencyBrake++;
-         
+
         }
         // Reports if this loop is functioning correctly or not
         if (loopEmergencyBrake > loopEmergencyBrakeCap) Debug.LogError("Path generation loop broken!");
