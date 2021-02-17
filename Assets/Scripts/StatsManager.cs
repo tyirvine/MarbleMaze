@@ -18,6 +18,7 @@ public class StatsManager : MonoBehaviour
     public TextMeshProUGUI UI_LivesCounter;
     [HideInInspector] public GameObject player;
     [HideInInspector] public GameObject board;
+    [HideInInspector] public UIManager uiManager;
 
     /* ---------------------------- Lives Management ---------------------------- */
     /// <summary>The root method for adjusting the life count.</summary>
@@ -80,10 +81,14 @@ public class StatsManager : MonoBehaviour
     /// <summary>This runs the entire game over process.</summary>
     public void GameOver()
     {
-        Debug.Log("Heres where we trigger the gameover stuff");
-
         // Stop following the player
         cameraRig.StopFollowingPlayer();
+
+        // Pull up game over ui
+        if (uiManager != null)
+        {
+            uiManager.GameoverMenu(true);
+        }
     }
 
     /* ---------------------------- Score Management ---------------------------- */
@@ -103,6 +108,7 @@ public class StatsManager : MonoBehaviour
     {
         AddLife(livesToStartWith);
         player = GameObject.FindObjectOfType<GameManager>().marble;
+        uiManager = GameObject.FindObjectOfType<UIManager>();
     }
 
 }

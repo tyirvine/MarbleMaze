@@ -322,12 +322,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!223 &554865838 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 3679223795881589632, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
-    type: 3}
-  m_PrefabInstance: {fileID: 1166890564}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &556293079
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,15 +524,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3485653456803778963, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+    - target: {fileID: 3620605489008367577, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
-      propertyPath: gameoverMenu.canvas
-      value: 
-      objectReference: {fileID: 554865838}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3679223795881589632, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116045401635229437, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7242441453330005970, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
       propertyPath: m_Name
       value: UI System
+      objectReference: {fileID: 0}
+    - target: {fileID: 8641091305348380533, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8992151597256863313, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5266fed9e6b2466f8a14aa8ca6c9370, type: 3}
@@ -608,6 +622,11 @@ PrefabInstance:
       propertyPath: UI_LivesCounter
       value: 
       objectReference: {fileID: 8076443721751820165}
+    - target: {fileID: 3942923127047086806, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: livesToStartWith
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325326, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: m_Name
@@ -695,7 +714,7 @@ PrefabInstance:
     - target: {fileID: 8076443721768070066, guid: 04e55fb629bad4d88bf1900610aa628f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8076443721768070078, guid: 04e55fb629bad4d88bf1900610aa628f,
         type: 3}

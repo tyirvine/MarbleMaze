@@ -4,8 +4,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
-    [HideInInspector]
-    public GameObject boardObjects;
+    // References
+    [HideInInspector] public GameObject boardObjects;
+    [HideInInspector] public UIManager uiManager;
 
     public float boardClamp = 20f;
     Vector2 boardMovement = new Vector2(0, 0);
@@ -17,7 +18,7 @@ public class PlayerInput : MonoBehaviour
     private void Awake()
     {
         gameManager = gameObject.GetComponent<GameManager>();
-
+        uiManager = GameObject.FindObjectOfType<UIManager>();
     }
 
     private void Start()
@@ -28,12 +29,15 @@ public class PlayerInput : MonoBehaviour
     // Used to move the board
     void OnLook(InputValue _value)
     {
+        // Calculate board move
         Vector2 temp = _value.Get<Vector2>();
         boardMovement.x = temp.y;
         boardMovement.y = temp.x;
         if (GlobalStaticVariables.Instance.invertX) { boardMovement.y = -boardMovement.y; }
         if (GlobalStaticVariables.Instance.invertY) { boardMovement.x = -boardMovement.x; }
 
+        // Hide user interface
+        uiManager.StartMenu(false);
     }
 
     void OnJump()
@@ -41,7 +45,6 @@ public class PlayerInput : MonoBehaviour
         //if(marbleBehaviour == null) marbleBehaviour = gameManager.marble.GetComponent<MarbleBehaviour>();
         marbleBehaviour.Jump();
     }
-
 
     // Update is called once per frame
     void FixedUpdate()
