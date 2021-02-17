@@ -219,7 +219,7 @@ public class ShapeManager : MonoBehaviour
         Vector3 keyOffset = Vector3.zero;
         Instantiate(key, keyPosition, Quaternion.identity);
     }
-        
+
 
     Vector3 CheckPathNeighbours(Vector3 keyLoc, List<Vector3> walkers)
     {

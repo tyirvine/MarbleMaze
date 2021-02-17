@@ -333,9 +333,9 @@ public class PathManager : MonoBehaviour
 
         // Add the start node to the open points list
         openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, false));
-        
+
         List<NodeObject> alternativePath = new List<NodeObject>();
-        
+
         // This object contains the current node being investigated
         NodeObject currentNode = new NodeObject(gridPoints.startPointNode);
 
@@ -360,12 +360,12 @@ public class PathManager : MonoBehaviour
                 {
                     currentNode = openNodes[randomOpenNode];
                 }
-                if (openNodes.Count == 0) 
+                if (openNodes.Count == 0)
                 {
-                    currentNode = alternativePath[alternativePath.Count/2];
-                //    alternativePath.RemoveAt(alternativePath.Count/2);
+                    currentNode = alternativePath[alternativePath.Count / 2];
+                    //    alternativePath.RemoveAt(alternativePath.Count/2);
                 }
-                
+
                 // Empty out open nodes list
                 openNodes.Clear();
             }
@@ -396,7 +396,7 @@ public class PathManager : MonoBehaviour
             new NodeObject(FindNodePosition(3, 0, currentNode: currentNode), 0, 0, 0,false),
             new NodeObject(FindNodePosition(0, -3, currentNode: currentNode), 0, 0, 0,false)
             };
-            if (neighbourNodes.Length >=3)
+            if (neighbourNodes.Length >= 3)
             {
                 alternativePath.Add(currentNode);
             }
