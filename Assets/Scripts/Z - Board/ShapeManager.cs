@@ -46,6 +46,8 @@ public class ShapeManager : MonoBehaviour
     public ShapeTemplate hazardLandmine;
     // Pickups
     public ShapeTemplate pickupLife;
+    public ShapeTemplate shieldPickup;
+    public ShapeTemplate invisibilityPickup;
 
     // Settings
     [Header("Draw Flags of obstacle positions")]
@@ -65,6 +67,8 @@ public class ShapeManager : MonoBehaviour
         shapesAsList.Add(hazardLandmine);
         // Pickups
         shapesAsList.Add(pickupLife);
+        shapesAsList.Add(shieldPickup);
+        //shapesAsList.Add(invisibilityPickup);
         // Add them all to shapes
         shapes = shapesAsList.ToArray();
 

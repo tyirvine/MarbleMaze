@@ -4,45 +4,26 @@ using UnityEngine;
 
 public class ShieldPickup : MonoBehaviour
 {
-    // References
-    StatsManager stats;
-    public SpikeHazard SpikeHazard;
-    public ParticleSystem particle;
-    public MeshRenderer meshRenderer;
-    public Collider collider;
-    [Range(0f, 10f)] public float time;
+    [Range (1,10)]int time;
+    [HideInInspector] public MarbleBehaviour marble;
 
-    // Audio Settings 
-    [Header("Audio")]
-    public AudioSource pickupSound;
-
-    // Grab stats object
-    private void Start()
+    public void Start()
     {
-        stats = FindObjectOfType<StatsManager>();
+        marble = FindObjectOfType<MarbleBehaviour>();
     }
 
-    // Add life when the player touches self (Add Life, Turn off Mesh, Play Audio, Run Particle State, Destroy)
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if(other.tag == "Player")
         {
-            stats.AddLife();
-            pickupSound.Play();
-            MarbleState();
-            ParticleState();
-            Destroy(gameObject, time);
+            marble.shieldPickup = true;
+            Invoke("TurnOffShield", time);
         }
     }
 
-    private void ParticleState()
+    private void TurnOffShield()
     {
-        particle.Play();
-        particle.loop = false;
+        marble.shieldPickup = false;
     }
 
-    private void MarbleState()
-    {
-        SpikeHazard.marble.DeathSequenceExplode(0f);
-    }
 }

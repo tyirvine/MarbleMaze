@@ -16,6 +16,8 @@ public class LevelManager : MonoBehaviour
     [Range(0, 1000)] public int startingLandmineProbability = 25;
     [Range(0, 1000)] public int startingSpikeProbability = 15;
     [Range(0, 1000)] public int startingLifeProbability = 15;
+    [Range(0, 1000)] public int startingShieldProbability = 15;
+    [Range(0, 1000)] public int startingInvisibilityProbability = 15;
 
     // Hazard spawn rate
     [Header("Spawn Rate")]
@@ -23,6 +25,9 @@ public class LevelManager : MonoBehaviour
     [Range(1, 100)] public int landmineSpawnRate = 2;
     [Range(1, 100)] public int spikeSpawnRate = 1;
     [Range(1, 100)] public int lifeSpawnRate = 1;
+    [Range(1, 100)] public int shieldSpawnRate = 1;
+    [Range(1, 100)] public int InvisibilityRate = 1;
+
 
     /* --------------------------- Referenced objects --------------------------- */
     [Header("References")]
@@ -129,11 +134,13 @@ public class LevelManager : MonoBehaviour
         {
             shapeManager.hazardBumper.chanceToSpawn = startingBumperProbability;
             shapeManager.pickupLife.chanceToSpawn = startingLifeProbability;
+            shapeManager.shieldPickup.chanceToSpawn = startingShieldProbability;
         }
         else
         {
             shapeManager.hazardBumper.chanceToSpawn = CalculateSpawnRate(bumperSpawnRate, shapeManager.hazardBumper.chanceToSpawn);
             shapeManager.pickupLife.chanceToSpawn = CalculateSpawnRate(lifeSpawnRate, shapeManager.pickupLife.chanceToSpawn);
+            shapeManager.shieldPickup.chanceToSpawn = CalculateSpawnRate(shieldSpawnRate, shapeManager.shieldPickup.chanceToSpawn);
         }
 
         // Landmine
@@ -147,6 +154,7 @@ public class LevelManager : MonoBehaviour
             shapeManager.hazardSpike.chanceToSpawn = startingSpikeProbability;
         else if (currentLevel >= 20)
             shapeManager.hazardSpike.chanceToSpawn = CalculateSpawnRate(spikeSpawnRate, shapeManager.hazardSpike.chanceToSpawn);
+
     }
 
     /// <summary>This calculates how often the hazard should be spawning.</summary>

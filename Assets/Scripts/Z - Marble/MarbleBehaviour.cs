@@ -25,6 +25,10 @@ public class MarbleBehaviour : MonoBehaviour
     float currentTime;
     bool isGrounded;
 
+    //Powerups
+    [HideInInspector] public bool shieldPickup = false;
+    //[HideInInspector] public bool invisibiityPickup;
+
     // Public References
     [Header("References")]
     public ParticleSystem particle;
