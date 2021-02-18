@@ -1,4 +1,5 @@
-﻿
+﻿using System.Collections;
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class UIManager : MonoBehaviour
     public class UIMenu
     {
         public Canvas canvas;
+        public GameObject shade;
         public bool isActiveOnStart = false;
         public bool state = false;
 
@@ -18,10 +20,10 @@ public class UIManager : MonoBehaviour
     }
 
     /* ------------------------------- References ------------------------------- */
-    public PlayerInput playerInput;
+    [HideInInspector] public PlayerInput playerInput;
 
     /* ------------------------------ Menu Control ----------------------------- */
-    public UIMenu gameMenu;
+    public UIMenu statsMenu;
     public UIMenu startMenu;
     public UIMenu gameoverMenu;
     public UIMenu pauseMenu;
@@ -51,8 +53,34 @@ public class UIManager : MonoBehaviour
         playerInput = FindObjectOfType<PlayerInput>();
     }
 
+    /// <summary>Sets state for menu. Used for delaying menu open or close.</summary>
+    public IEnumerator DelayMenuControl(UIMenu menu, bool state)
+    {
+        yield return new WaitForSeconds(0.1f);
+        menu.canvas.enabled = state;
+    }
+
     /// <summary>Opens up a specified menu object.</summary>
-    public void MenuControl(UIMenu menu, bool state) => menu.canvas.enabled = state;
+    public void MenuControl(UIMenu menu, bool state)
+    {
+        // Animate
+        if (menu.shade != null)
+        {
+            // Setup coroutine
+            IEnumerator coroutine = DelayMenuControl(menu, state);
+            // Open menu
+            if (state)
+                menu.canvas.enabled = state;
+            else
+                StartCoroutine(coroutine);
+
+            // Animate
+            menu.shade.GetComponent<UIAnimateOnWake>().SetAnimation(state);
+        }
+        // Nothing to animate
+        else
+            menu.canvas.enabled = state;
+    }
 
     // Start menu
     public void StartMenu(bool state)
@@ -99,9 +127,9 @@ public class UIManager : MonoBehaviour
     }
 
     // Game view menu
-    public void GameMenu(bool state)
+    public void StatsMenu(bool state)
     {
-        MenuControl(gameMenu, state);
+        MenuControl(statsMenu, state);
     }
 
     /* ------------------------------ Miscellaneous ----------------------------- */
