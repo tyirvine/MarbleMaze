@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     {
         public Canvas canvas;
         public GameObject shade;
+        public GameObject scaler;
         public bool isActiveOnStart = false;
         public bool state = false;
 
@@ -64,7 +65,7 @@ public class UIManager : MonoBehaviour
     public void MenuControl(UIMenu menu, bool state)
     {
         // Animate
-        if (menu.shade != null)
+        if (menu.shade != null && menu.scaler != null)
         {
             // Setup coroutine
             IEnumerator coroutine = DelayMenuControl(menu, state);
@@ -76,6 +77,7 @@ public class UIManager : MonoBehaviour
 
             // Animate
             menu.shade.GetComponent<UIAnimateOnWake>().SetAnimation(state);
+            menu.scaler.GetComponent<UIAnimateOnWake>().SetAnimation(state);
         }
         // Nothing to animate
         else
