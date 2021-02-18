@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShieldPickup : MonoBehaviour
 {
-    [Range (1,10)]int time;
+    [Range(1, 10)] int time;
     [HideInInspector] public MarbleBehaviour marble;
 
     public void Start()
@@ -14,7 +14,7 @@ public class ShieldPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             marble.shieldPickup = true;
             Invoke("TurnOffShield", time);
