@@ -28,24 +28,31 @@ public class PlayerInput : MonoBehaviour
         marbleBehaviour = gameManager.marble.GetComponent<MarbleBehaviour>();
     }
 
+    /// <summary>A script to pause the controls when needed.</summary>
+    public void PauseControls(bool pause) => pauseState = pause;
+
     // Used to move the board
     void OnLook(InputValue _value)
     {
-        // Calculate board move
-        Vector2 temp = _value.Get<Vector2>();
-        boardMovement.x = temp.y;
-        boardMovement.y = temp.x;
-        if (GlobalStaticVariables.Instance.invertX) { boardMovement.y = -boardMovement.y; }
-        if (GlobalStaticVariables.Instance.invertY) { boardMovement.x = -boardMovement.x; }
+        if (!pauseState)
+        {
+            // Calculate board move
+            Vector2 temp = _value.Get<Vector2>();
+            boardMovement.x = temp.y;
+            boardMovement.y = temp.x;
+            if (GlobalStaticVariables.Instance.invertX) { boardMovement.y = -boardMovement.y; }
+            if (GlobalStaticVariables.Instance.invertY) { boardMovement.x = -boardMovement.x; }
 
-        // Hide user interface
-        uiManager.StartMenu(false);
-        uiManager.GameMenu(true);
+            // Hide user interface
+            uiManager.StartMenu(false);
+            uiManager.GameMenu(true);
+        }
     }
 
+    /// <summary>Pauses the whole game using time.</summary>
     void OnPause()
     {
-        if (!uiManager.pauseMenu.state)
+        if (!uiManager.pauseMenu.state && !uiManager.startMenu.state)
         {
             uiManager.pauseMenu.state = true;
             uiManager.PauseMenu(uiManager.pauseMenu.state);
@@ -55,7 +62,6 @@ public class PlayerInput : MonoBehaviour
             uiManager.pauseMenu.state = false;
             uiManager.PauseMenu(uiManager.pauseMenu.state);
         }
-
     }
 
     void OnJump()
@@ -66,7 +72,7 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (boardObjects)
+        if (boardObjects && !pauseState)
         {
             Vector3 rotEulers = boardObjects.transform.rotation.eulerAngles;
             rotEulers.x = (rotEulers.x <= 180 ? rotEulers.x : -(360 - rotEulers.x));
@@ -78,7 +84,7 @@ public class PlayerInput : MonoBehaviour
             boardObjects.transform.RotateAround(gameManager.marble.transform.position, Vector3.right, boardMovement.x * moveSpeed * Time.fixedDeltaTime);
             boardObjects.transform.RotateAround(gameManager.marble.transform.position, Vector3.forward, -boardMovement.y * moveSpeed * Time.fixedDeltaTime);
         }
-        else
+        else if (boardObjects == null)
         {
             boardObjects = GameObject.FindGameObjectWithTag("boardObjects");
         }

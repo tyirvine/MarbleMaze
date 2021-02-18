@@ -158,7 +158,6 @@ public class MarbleBehaviour : MonoBehaviour
             PlayAudio(levelFinish);
             gameManager.CallForNewBoard();
             Invoke("ResetRigidBody", physicsResetTime);
-            Debug.Log("Activation");
         }
     }
 

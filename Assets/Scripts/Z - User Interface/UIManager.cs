@@ -17,6 +17,9 @@ public class UIManager : MonoBehaviour
         public void CanvasSet() => canvas.enabled = isActiveOnStart;
     }
 
+    /* ------------------------------- References ------------------------------- */
+    public PlayerInput playerInput;
+
     /* ------------------------------ Menu Control ----------------------------- */
     public UIMenu gameMenu;
     public UIMenu startMenu;
@@ -30,6 +33,7 @@ public class UIManager : MonoBehaviour
     // Disable all menus
     private void Awake()
     {
+        // Initialize menus
         menus = new List<UIMenu>{
             startMenu,
             gameoverMenu,
@@ -42,6 +46,9 @@ public class UIManager : MonoBehaviour
         {
             menu.CanvasSet();
         }
+
+        // Find references
+        playerInput = FindObjectOfType<PlayerInput>();
     }
 
     /// <summary>Opens up a specified menu object.</summary>
@@ -50,12 +57,14 @@ public class UIManager : MonoBehaviour
     // Start menu
     public void StartMenu(bool state)
     {
+        startMenu.state = state;
         MenuControl(startMenu, state);
     }
 
     // Options menu
     public void OptionsMenu(bool state)
     {
+        playerInput.PauseControls(state);
         MenuControl(optionsMenu, state);
     }
 
