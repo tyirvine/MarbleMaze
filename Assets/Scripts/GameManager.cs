@@ -20,10 +20,12 @@ public class GameManager : MonoBehaviour
     // Settings
     [Header("Settings")]
     [Range(0.1f, 3.0f)] public float spawnNewBoardTiming = 1.0f;
+    public float startingNewBoardTiming = 0f;
+    public float runtimeNewBoardTiming = 1f;
     public int boardOffsetFromMarble = 30;
+    public int startingBoardOffset = 0;
+    public int runtimeBoardOffset = 30;
     public float marbleFallingSpeed = 50f;
-    /// <summary>How far from the board does the marble fall before triggering a death event.</summary>
-    public int fallDistanceToDeath = 10;
 
     // Debug Settings
     [Header("Debug Settings")]
@@ -41,6 +43,8 @@ public class GameManager : MonoBehaviour
     public PathManager pathManager;
     public LevelManager levelManager;
     public StatsManager statsManager;
+    public CameraFollowPlayer cameraManager;
+    public UIManager uiManager;
 
     /* -------------------------------------------------------------------------- */
     /*                           Marble Related Methods                           */
@@ -124,7 +128,7 @@ public class GameManager : MonoBehaviour
         if (deathCatch != null) Destroy(deathCatch.gameObject);
 
         // Call new board
-        Invoke("NewBoard", spawnNewBoardTiming);
+        Invoke(nameof(NewBoard), spawnNewBoardTiming);
 
         //high score section;
         if (levelManager.currentLevel > highScore) highScore = levelManager.currentLevel;
@@ -191,15 +195,35 @@ public class GameManager : MonoBehaviour
     // @AlexMPester @bubzy-coding I think the entire game can run from here tbh
     void Start()
     {
-        // TODO: Remove this from the production build!
-        // get high score
+        // Initial board creation
+        boardOffsetFromMarble = startingBoardOffset;
+        spawnNewBoardTiming = startingNewBoardTiming;
+
+        // Setup User Interface
+        uiManager.StartMenu(true);
+
+        // Camera setup
+        Vector3 cameraStart = cameraManager.gameObject.transform.position;
+        Vector3 cameraTarget = marble.transform.position;
+        cameraManager.StartSmoothToTarget(cameraStart, cameraTarget, cameraManager.startToTransition);
+
+        // ! TODO: Remove this from the production build!
+        // Get high score
         highScore = PlayerPrefs.GetInt("HighScore");
         if (!debugMode)
             CallForNewBoard();
-
     }
 
-    // TODO: Remove this from the production build!
+    /// <summary>Used to configure board generation for runtime.
+    /// This is called then the player first moves.</summary>
+    public void ConfigureForRuntime()
+    {
+        boardOffsetFromMarble = runtimeBoardOffset;
+        spawnNewBoardTiming = runtimeNewBoardTiming;
+        cameraManager.StartFollowingPlayer();
+    }
+
+    // ! TODO: Remove this from the production build!
     void Update()
     {
         if (isStarted)

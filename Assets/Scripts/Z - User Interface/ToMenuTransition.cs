@@ -33,7 +33,7 @@ public class ToMenuTransition : MonoBehaviour
         // Shift camera
         Vector3 cameraStart = cameraManager.gameObject.transform.position;
         Vector3 cameraTarget = cameraStart - new Vector3(0f, cameraYShift, 0f);
-        cameraManager.StartSmoothToTarget(cameraStart, cameraTarget);
+        cameraManager.StartSmoothToTarget(cameraStart, cameraTarget, cameraManager.menuAwayTransition);
 
         // Shift colour
         colorManager.changeColor = ColorManager.ChangeColor.Revert;

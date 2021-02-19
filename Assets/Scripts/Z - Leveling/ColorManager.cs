@@ -155,7 +155,7 @@ public class ColorManager : MonoBehaviour
         hue_accent = new HueObject(mat_accent);
 
         // Establish ui colour
-        UpdateUIColor();
+        // UpdateUIColor();
     }
 
     // Update is called once per frame
@@ -170,7 +170,7 @@ public class ColorManager : MonoBehaviour
                     ChangeMaterial(hue_background);
                     ChangeMaterial(hue_foreground);
                     ChangeMaterial(hue_accent);
-                    UpdateUIColor();
+                    // UpdateUIColor();
                     time += Time.deltaTime;
                 }
                 else

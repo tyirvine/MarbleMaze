@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CameraFollowPlayer : MonoBehaviour
@@ -10,9 +11,17 @@ public class CameraFollowPlayer : MonoBehaviour
     [Header("Smoothness")]
     public float smoothness = 8f;
 
+    /// <summary>Used to store settings for different transitions.</summary>
+    [System.Serializable]
+    public class TargetSmoothSettings
+    {
+        public float smoothnessToTarget = 5f;
+        public AnimationCurve smoothnessToTargetCurve;
+    }
+
     [Header("Smoothness To Target")]
-    public float smoothnessToTarget = 5f;
-    public AnimationCurve smoothnessToTargetCurve;
+    public TargetSmoothSettings menuAwayTransition = new TargetSmoothSettings();
+    public TargetSmoothSettings startToTransition = new TargetSmoothSettings();
 
     float shakeMagnitude = 2; //how much is the camera moving by while shaking
     bool shaking = false; //is the camera shaking?
@@ -26,12 +35,13 @@ public class CameraFollowPlayer : MonoBehaviour
 
     // State objects
     [HideInInspector] public bool followPlayer = true;
+    bool resetCameraFollow = false;
     CameraTarget cameraTarget = CameraTarget.Player;
     Vector3 lastPlayerPosition;
     Vector3 targetPosition;
     Vector3 startPosition;
-    bool resetCameraFollow = false;
     float time = 0f;
+    TargetSmoothSettings currentTargetSettings;
 
     /// <summary>Simplifies the switch for following the player or smoothing to a target.</summary>
     enum CameraTarget
@@ -67,6 +77,7 @@ public class CameraFollowPlayer : MonoBehaviour
     /// <summary>Used to reset camera following.</summary>
     public void StartFollowingPlayer()
     {
+        cameraTarget = CameraTarget.Player;
         resetCameraFollow = true;
     }
 
@@ -82,19 +93,23 @@ public class CameraFollowPlayer : MonoBehaviour
 
     /// <summary>This is used to initialize the smoothing to target. It's because SmoothToTarget is called in update
     /// so it needs to be started somehow. Used for transitions.</summary>
-    public void StartSmoothToTarget(Vector3 start, Vector3 target)
+    public void StartSmoothToTarget(Vector3 start, Vector3 target, TargetSmoothSettings targetSettings)
     {
+        followPlayer = false;
+
+        // Target position
         cameraTarget = CameraTarget.Position;
         startPosition = start;
         targetPosition = target;
+        currentTargetSettings = targetSettings;
     }
 
     /// <summary>This actually smooths the camera to the target position.</summary>
     void SmoothToTarget()
     {
-        Vector3 smoothedPosition = Vector3.Lerp(startPosition, targetPosition, smoothnessToTargetCurve.Evaluate(time));
+        Vector3 smoothedPosition = Vector3.Lerp(startPosition, targetPosition, currentTargetSettings.smoothnessToTargetCurve.Evaluate(time));
         transform.position = smoothedPosition;
-        time += Time.deltaTime * smoothnessToTarget;
+        time += Time.deltaTime * currentTargetSettings.smoothnessToTarget;
     }
 
     /// <summary>This allows the camera to follow smoothly to the player's position.</summary>

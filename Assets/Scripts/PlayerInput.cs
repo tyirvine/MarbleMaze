@@ -46,6 +46,7 @@ public class PlayerInput : MonoBehaviour
             // Hide user interface
             uiManager.StartMenu(false);
             uiManager.StatsMenu(true);
+            gameManager.ConfigureForRuntime();
         }
     }
 
