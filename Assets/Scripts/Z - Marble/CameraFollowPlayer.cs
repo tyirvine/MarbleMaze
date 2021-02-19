@@ -7,7 +7,12 @@ public class CameraFollowPlayer : MonoBehaviour
     GameObject player;
 
     // Settings
+    [Header("Smoothness")]
     public float smoothness = 8f;
+
+    [Header("Smoothness To Target")]
+    public float smoothnessToTarget = 5f;
+    public AnimationCurve smoothnessToTargetCurve;
 
     float shakeMagnitude = 2; //how much is the camera moving by while shaking
     bool shaking = false; //is the camera shaking?
@@ -21,8 +26,19 @@ public class CameraFollowPlayer : MonoBehaviour
 
     // State objects
     [HideInInspector] public bool followPlayer = true;
-    bool resetCameraFollow = false;
+    CameraTarget cameraTarget = CameraTarget.Player;
     Vector3 lastPlayerPosition;
+    Vector3 targetPosition;
+    Vector3 startPosition;
+    bool resetCameraFollow = false;
+    float time = 0f;
+
+    /// <summary>Simplifies the switch for following the player or smoothing to a target.</summary>
+    enum CameraTarget
+    {
+        Player,
+        Position
+    }
 
     /// <summary>Checks to make sure a gamepad is available first.</summary>
     void SetGamepadRumble(float lowFrequency, float highFrequency)
@@ -64,6 +80,23 @@ public class CameraFollowPlayer : MonoBehaviour
         Invoke("CameraInit", timeToRespawn);
     }
 
+    /// <summary>This is used to initialize the smoothing to target. It's because SmoothToTarget is called in update
+    /// so it needs to be started somehow. Used for transitions.</summary>
+    public void StartSmoothToTarget(Vector3 start, Vector3 target)
+    {
+        cameraTarget = CameraTarget.Position;
+        startPosition = start;
+        targetPosition = target;
+    }
+
+    /// <summary>This actually smooths the camera to the target position.</summary>
+    void SmoothToTarget()
+    {
+        Vector3 smoothedPosition = Vector3.Lerp(startPosition, targetPosition, smoothnessToTargetCurve.Evaluate(time));
+        transform.position = smoothedPosition;
+        time += Time.deltaTime * smoothnessToTarget;
+    }
+
     /// <summary>This allows the camera to follow smoothly to the player's position.</summary>
     void EndSmoothCamera()
     {
@@ -83,12 +116,27 @@ public class CameraFollowPlayer : MonoBehaviour
     // Update is called once per frame : Dictates whether or not the camera movement is being smoothed
     void LateUpdate()
     {
-        if (followPlayer && player != null)
-            transform.position = player.transform.position;
-        else if (resetCameraFollow)
-            StartSmoothCamera();
-        else
-            EndSmoothCamera();
+        // Follow player or smooth to a different vector
+        switch (cameraTarget)
+        {
+            case CameraTarget.Player:
+                // Follow player
+                if (followPlayer && player != null)
+                    transform.position = player.transform.position;
+                else if (resetCameraFollow)
+                    StartSmoothCamera();
+                else
+                    EndSmoothCamera();
+                break;
+
+            case CameraTarget.Position:
+                SmoothToTarget();
+                break;
+
+            default: break;
+        }
+
+        // Camera shake
         if (shaking)
         {
             transform.position += Random.insideUnitSphere * shakeMagnitude;
@@ -100,10 +148,8 @@ public class CameraFollowPlayer : MonoBehaviour
             }
         }
     }
-    public void Update()
-    {
 
-    }
+    /// <summary>Shakes the camera using the specified time and magnitude. Called on hazards like the landmine.</summary>
     public void CameraShake(float time, float magnitude)
     {
         currentShakeTime = Time.time + time;

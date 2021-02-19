@@ -93,7 +93,7 @@ public class LevelManager : MonoBehaviour
         currentStage++;
 
         // Change colours
-        colorManager.changeColor = true;
+        colorManager.changeColor = ColorManager.ChangeColor.Enabled;
     }
 
     /* -------------------------------------------------------------------------- */

@@ -430,6 +430,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4130421409275091386, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: cameraYShift
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7242441453330005970, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
       propertyPath: m_Name
@@ -706,6 +711,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
         type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
       propertyPath: smoothness
       value: 7
       objectReference: {fileID: 0}
@@ -723,6 +733,121 @@ PrefabInstance:
         type: 3}
       propertyPath: timeToRespawn
       value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTarget
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[1].inSlope
+      value: 3.7462776
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[1].outSlope
+      value: 3.7462776
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[1].inWeight
+      value: 0.12898934
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[0].inSlope
+      value: Infinity
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[0].outSlope
+      value: 0.016563145
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[0].outWeight
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[0].tangentMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[0].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[0].weightedMode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[1].weightedMode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[1].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[2].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[2].inSlope
+      value: 5.9420366
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[2].outSlope
+      value: 5.9420366
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[2].weightedMode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: smoothnessToTargetCurve.m_Curve.Array.data[2].inWeight
+      value: 0.093641594
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef72a49885dee49d6af6e3acb4751037, type: 3}
