@@ -322,6 +322,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &973286059 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1465090644642785978, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+    type: 3}
+  m_PrefabInstance: {fileID: 1166890564}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1166890564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -388,6 +394,16 @@ PrefabInstance:
         type: 3}
       propertyPath: startMenu.state
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485653456803778963, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: startMenu.scaler
+      value: 
+      objectReference: {fileID: 973286059}
+    - target: {fileID: 3485653456803778963, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: statsMenu.scaler
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3620605489008367577, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
@@ -622,6 +638,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297428167614, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.62352943
       objectReference: {fileID: 0}
     - target: {fileID: 8867217297914238853, guid: ef72a49885dee49d6af6e3acb4751037,
         type: 3}

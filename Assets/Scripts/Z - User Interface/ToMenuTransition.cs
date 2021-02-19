@@ -16,6 +16,9 @@ public class ToMenuTransition : MonoBehaviour
     // Makes a transition to black then reloads the scene
     public void MakeTransition()
     {
+        // Unpause game
+        Time.timeScale = 1f;
+
         transitionPanel.gameObject.SetActive(true);
         engageLerp = true;
     }

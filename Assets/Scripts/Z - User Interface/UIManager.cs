@@ -13,11 +13,7 @@ public class UIManager : MonoBehaviour
         public Canvas canvas;
         public GameObject shade;
         public GameObject scaler;
-        public bool isActiveOnStart = false;
-        public bool state = false;
-
-        // Constructor
-        public void CanvasSet() => canvas.enabled = isActiveOnStart;
+        [HideInInspector] public bool state = false;
     }
 
     /* ------------------------------- References ------------------------------- */
@@ -33,25 +29,23 @@ public class UIManager : MonoBehaviour
 
     List<UIMenu> menus = new List<UIMenu>();
 
-    // Disable all menus
+    // Find references
     private void Awake()
     {
-        // Initialize menus
-        menus = new List<UIMenu>{
-            startMenu,
-            gameoverMenu,
-            pauseMenu,
-            creditsMenu,
-            optionsMenu
-        };
-
-        foreach (UIMenu menu in menus)
-        {
-            menu.CanvasSet();
-        }
-
-        // Find references
         playerInput = FindObjectOfType<PlayerInput>();
+    }
+
+    /// <summary>Used to delay the opening of start menu.</summary>
+    IEnumerator OpenStartMenu()
+    {
+        yield return new WaitForSeconds(2f);
+        StartMenu(true);
+    }
+
+    private void Start()
+    {
+        IEnumerator coroutine = OpenStartMenu();
+        StartCoroutine(coroutine);
     }
 
     /// <summary>Sets state for menu. Used for delaying menu open or close.</summary>
@@ -65,7 +59,7 @@ public class UIManager : MonoBehaviour
     public void MenuControl(UIMenu menu, bool state)
     {
         // Animate
-        if (menu.shade != null && menu.scaler != null)
+        if (menu.shade != null || menu.scaler != null)
         {
             // Setup coroutine
             IEnumerator coroutine = DelayMenuControl(menu, state);
@@ -76,8 +70,8 @@ public class UIManager : MonoBehaviour
                 StartCoroutine(coroutine);
 
             // Animate
-            menu.shade.GetComponent<UIAnimateOnWake>().SetAnimation(state);
-            menu.scaler.GetComponent<UIAnimateOnWake>().SetAnimation(state);
+            if (menu.shade != null) menu.shade.GetComponent<UIAnimateOnWake>().SetAnimation(state);
+            if (menu.scaler != null) menu.scaler.GetComponent<UIAnimateOnWake>().SetAnimation(state);
         }
         // Nothing to animate
         else
