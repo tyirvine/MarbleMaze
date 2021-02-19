@@ -420,6 +420,21 @@ PrefabInstance:
       propertyPath: landmineSpawnRate
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: InvisibilityRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: shieldSpawnRate
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: startingShieldProbability
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 3942923127047086806, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: livesToStartWith
@@ -448,11 +463,16 @@ PrefabInstance:
     - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: debugJumpToLevel
-      value: 150
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: spawnNewBoardTiming
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325322, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
