@@ -102,6 +102,7 @@ public class CameraFollowPlayer : MonoBehaviour
         startPosition = start;
         targetPosition = target;
         currentTargetSettings = targetSettings;
+        time = 0f;
     }
 
     /// <summary>This actually smooths the camera to the target position.</summary>

@@ -26,6 +26,14 @@ public class ToMenuTransition : MonoBehaviour
         // Unpause game
         Time.timeScale = 1f;
 
+        // Shift camera
+        Vector3 cameraStart = cameraManager.gameObject.transform.position;
+        Vector3 cameraTarget = cameraStart - new Vector3(0f, cameraYShift, 0f);
+        cameraManager.StartSmoothToTarget(cameraStart, cameraTarget, cameraManager.menuAwayTransition);
+
+        // Shift colour
+        colorManager.changeColor = ColorManager.ChangeColor.Revert;
+
         // Close menu
         uiManager.StatsMenu(false);
         uiManager.GameoverMenu(false);
@@ -34,14 +42,6 @@ public class ToMenuTransition : MonoBehaviour
         // Initiate end transition
         IEnumerator coroutine = EndTransition();
         StartCoroutine(coroutine);
-
-        // Shift camera
-        Vector3 cameraStart = cameraManager.gameObject.transform.position;
-        Vector3 cameraTarget = cameraStart - new Vector3(0f, cameraYShift, 0f);
-        cameraManager.StartSmoothToTarget(cameraStart, cameraTarget, cameraManager.menuAwayTransition);
-
-        // Shift colour
-        colorManager.changeColor = ColorManager.ChangeColor.Revert;
     }
 
     // This is the coroutine that actually runs the transition

@@ -322,12 +322,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &973286059 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1465090644642785978, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
-    type: 3}
-  m_PrefabInstance: {fileID: 1166890564}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1166890564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -399,7 +393,7 @@ PrefabInstance:
         type: 3}
       propertyPath: startMenu.scaler
       value: 
-      objectReference: {fileID: 973286059}
+      objectReference: {fileID: 0}
     - target: {fileID: 3485653456803778963, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
       propertyPath: statsMenu.scaler
@@ -433,7 +427,12 @@ PrefabInstance:
     - target: {fileID: 4130421409275091386, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
       propertyPath: cameraYShift
-      value: 25
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4130421409275091386, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: transitionTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7242441453330005970, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
@@ -587,6 +586,11 @@ PrefabInstance:
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 1204235050}
+    - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: debugJumpToLevel
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325326, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: m_Name
@@ -884,7 +888,7 @@ PrefabInstance:
     - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
         type: 3}
       propertyPath: menuAwayTransition.smoothnessToTarget
-      value: 1.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8867217297914238855, guid: ef72a49885dee49d6af6e3acb4751037,
         type: 3}
