@@ -13,6 +13,7 @@ public class PlayerInput : MonoBehaviour
     Vector2 boardMovement = new Vector2(0, 0);
     public float moveSpeed = 25f;
     bool pauseState = false;
+    bool isStart = true;
 
     GameManager gameManager;
     MarbleBehaviour marbleBehaviour;
@@ -36,17 +37,21 @@ public class PlayerInput : MonoBehaviour
     {
         if (!pauseState)
         {
+            if (isStart)
+            {
+                // Hide user interface
+                gameManager.ConfigureForRuntime();
+                uiManager.StartMenu(false);
+                uiManager.StatsMenu(true);
+                isStart = false;
+            }
+
             // Calculate board move
             Vector2 temp = _value.Get<Vector2>();
             boardMovement.x = temp.y;
             boardMovement.y = temp.x;
             if (GlobalStaticVariables.Instance.invertX) { boardMovement.y = -boardMovement.y; }
             if (GlobalStaticVariables.Instance.invertY) { boardMovement.x = -boardMovement.x; }
-
-            // Hide user interface
-            uiManager.StartMenu(false);
-            uiManager.StatsMenu(true);
-            gameManager.ConfigureForRuntime();
         }
     }
 

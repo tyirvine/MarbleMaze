@@ -38,7 +38,7 @@ public class CameraFollowPlayer : MonoBehaviour
     bool resetCameraFollow = false;
     CameraTarget cameraTarget = CameraTarget.Player;
     Vector3 lastPlayerPosition;
-    Vector3 targetPosition;
+    GameObject target;
     Vector3 startPosition;
     float time = 0f;
     TargetSmoothSettings currentTargetSettings;
@@ -88,19 +88,24 @@ public class CameraFollowPlayer : MonoBehaviour
         // Without this you can see the jump between the smoothing and fixed camera movement.
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, player.transform.position, (smoothness * 1.5f) * Time.deltaTime);
         transform.position = smoothedPosition;
-        Invoke("CameraInit", timeToRespawn);
+
+        // Once the camera is close enough, switch to fixed handling
+        if (Vector3.Distance(transform.position, player.transform.position) <= 1f)
+        {
+            CameraInit();
+        }
     }
 
     /// <summary>This is used to initialize the smoothing to target. It's because SmoothToTarget is called in update
     /// so it needs to be started somehow. Used for transitions.</summary>
-    public void StartSmoothToTarget(Vector3 start, Vector3 target, TargetSmoothSettings targetSettings)
+    public void StartSmoothToTarget(Vector3 start, GameObject target, TargetSmoothSettings targetSettings)
     {
         followPlayer = false;
 
         // Target position
         cameraTarget = CameraTarget.Position;
         startPosition = start;
-        targetPosition = target;
+        this.target = target;
         currentTargetSettings = targetSettings;
         time = 0f;
     }
@@ -108,7 +113,7 @@ public class CameraFollowPlayer : MonoBehaviour
     /// <summary>This actually smooths the camera to the target position.</summary>
     void SmoothToTarget()
     {
-        Vector3 smoothedPosition = Vector3.Lerp(startPosition, targetPosition, currentTargetSettings.smoothnessToTargetCurve.Evaluate(time));
+        Vector3 smoothedPosition = Vector3.Lerp(startPosition, target.transform.position, currentTargetSettings.smoothnessToTargetCurve.Evaluate(time));
         transform.position = smoothedPosition;
         time += Time.deltaTime * currentTargetSettings.smoothnessToTarget;
     }
