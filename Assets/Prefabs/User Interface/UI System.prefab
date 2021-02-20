@@ -121,11 +121,11 @@ MonoBehaviour:
   statsMenu:
     canvas: {fileID: 3917683289798312970}
     shade: {fileID: 0}
-    scaler: {fileID: 1465090644642785978}
+    scaler: {fileID: 0}
     state: 0
   startMenu:
     canvas: {fileID: 965691096407196158}
-    shade: {fileID: 0}
+    shade: {fileID: 6850895033657398084}
     scaler: {fileID: 0}
     state: 1
   gameoverMenu:
@@ -161,8 +161,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionTime: 1
+  cameraYShift: 30
   cameraManager: {fileID: 0}
   colorManager: {fileID: 0}
+  uiManager: {fileID: 0}
 --- !u!1 &7782362031138880649
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,12 +922,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ea6470f6c1e74a99b6cfea32437beff, type: 3}
---- !u!1 &1465090644642785978 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3336957209758355573, guid: 7ea6470f6c1e74a99b6cfea32437beff,
-    type: 3}
-  m_PrefabInstance: {fileID: 4186743239228603087}
-  m_PrefabAsset: {fileID: 0}
 --- !u!223 &965691096407196158 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 3998244449873754929, guid: 7ea6470f6c1e74a99b6cfea32437beff,
@@ -935,6 +931,12 @@ Canvas:
 --- !u!224 &6949792835556498799 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6514688892742625184, guid: 7ea6470f6c1e74a99b6cfea32437beff,
+    type: 3}
+  m_PrefabInstance: {fileID: 4186743239228603087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6850895033657398084 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7280359581851462027, guid: 7ea6470f6c1e74a99b6cfea32437beff,
     type: 3}
   m_PrefabInstance: {fileID: 4186743239228603087}
   m_PrefabAsset: {fileID: 0}

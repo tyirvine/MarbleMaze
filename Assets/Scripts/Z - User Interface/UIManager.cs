@@ -35,23 +35,10 @@ public class UIManager : MonoBehaviour
         playerInput = FindObjectOfType<PlayerInput>();
     }
 
-    // /// <summary>Used to delay the opening of start menu.</summary>
-    // IEnumerator OpenStartMenu()
-    // {
-    //     yield return new WaitForSeconds(2f);
-    //     StartMenu(true);
-    // }
-
-    // private void Start()
-    // {
-    //     IEnumerator coroutine = OpenStartMenu();
-    //     StartCoroutine(coroutine);
-    // }
-
     /// <summary>Sets state for menu. Used for delaying menu open or close.</summary>
     public IEnumerator DelayMenuControl(UIMenu menu, bool state)
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1f);
         menu.canvas.enabled = state;
     }
 
