@@ -26,6 +26,11 @@ public class ToMenuTransition : MonoBehaviour
         // Unpause game
         Time.timeScale = 1f;
 
+        // Close menu
+        uiManager.StatsMenu(false);
+        uiManager.GameoverMenu(false);
+        uiManager.PauseMenu(false);
+
         // Initiate end transition
         IEnumerator coroutine = EndTransition();
         StartCoroutine(coroutine);
@@ -37,10 +42,6 @@ public class ToMenuTransition : MonoBehaviour
 
         // Shift colour
         colorManager.changeColor = ColorManager.ChangeColor.Revert;
-
-        // Close menu
-        uiManager.GameoverMenu(false);
-        uiManager.PauseMenu(false);
     }
 
     // This is the coroutine that actually runs the transition
