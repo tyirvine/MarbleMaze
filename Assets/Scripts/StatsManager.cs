@@ -16,6 +16,7 @@ public class StatsManager : MonoBehaviour
     public CameraFollowPlayer cameraRig;
     public GameManager gameManager;
     public TextMeshProUGUI UI_LivesCounter;
+    public PlayerInput playerInput;
     [HideInInspector] public GameObject player;
     [HideInInspector] public GameObject board;
     [HideInInspector] public UIManager uiManager;
@@ -76,8 +77,19 @@ public class StatsManager : MonoBehaviour
         // Reset player's condition
         player.GetComponent<MarbleBehaviour>().RespawnSequence();
 
+        // Unlatch controls
+        // TODO: FINISH ⤵︎
+        Invoke(nameof(UnlatchControls), 0.1f);
+        // UnlatchControls();
+
         // Reset camera
         cameraRig.StartFollowingPlayer();
+    }
+
+    /// <summary>Used to delay the unlatching of controls. There's a bug if there's no delay taken</summary>
+    void UnlatchControls()
+    {
+        playerInput.PauseControls(false);
     }
 
     /// <summary>This runs the entire game over process.</summary>

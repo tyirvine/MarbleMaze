@@ -8,8 +8,11 @@ public class CameraFollowPlayer : MonoBehaviour
     GameObject player;
 
     // Settings
-    [Header("Smoothness")]
-    public float smoothness = 8f;
+    [Header("Smoothness To Player")]
+    public float smoothnessToPlayer = 8f;
+    public float smoothnessFromPlayer = 8f;
+    public AnimationCurve playerCurve;
+    public AnimationCurve playerAwayCurve;
 
     /// <summary>Used to store settings for different transitions.</summary>
     [System.Serializable]
@@ -62,12 +65,16 @@ public class CameraFollowPlayer : MonoBehaviour
     {
         followPlayer = true;
         resetCameraFollow = false;
+        time = 0f;
     }
 
     /// <summary>Used to stop following the player and trigger EndSmoothCamera().</summary>
     public void StopFollowingPlayer()
     {
+        // Jumps the switch to EndSmoothCamera()
         followPlayer = false;
+        resetCameraFollow = false;
+        time = 0f;
 
         // Calculate how far ahead to move the camera
         Vector3 velocity = player.GetComponent<Rigidbody>().velocity;
@@ -77,8 +84,10 @@ public class CameraFollowPlayer : MonoBehaviour
     /// <summary>Used to reset camera following.</summary>
     public void StartFollowingPlayer()
     {
+        // Jumps the switch to StartSmoothCamera()
         cameraTarget = CameraTarget.Player;
         resetCameraFollow = true;
+        time = 0f;
     }
 
     /// <summary>This snaps the camera to the desired position.</summary>
@@ -86,11 +95,11 @@ public class CameraFollowPlayer : MonoBehaviour
     {
         // We increase the smoothness so it returns to the original position faster.
         // Without this you can see the jump between the smoothing and fixed camera movement.
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, player.transform.position, (smoothness * 1.5f) * Time.deltaTime);
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, player.transform.position, playerCurve.Evaluate(time));
         transform.position = smoothedPosition;
-
+        time += Time.deltaTime * smoothnessToPlayer;
         // Once the camera is close enough, switch to fixed handling
-        if (Vector3.Distance(transform.position, player.transform.position) <= 1f)
+        if (Vector3.Distance(transform.position, player.transform.position) <= 0.001f)
         {
             CameraInit();
         }
@@ -122,8 +131,7 @@ public class CameraFollowPlayer : MonoBehaviour
     void EndSmoothCamera()
     {
         // Calculate camera smoothing
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, lastPlayerPosition, smoothness * Time.deltaTime);
-
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, lastPlayerPosition, smoothnessFromPlayer * Time.deltaTime);
         // Assign the smoothed position
         transform.position = smoothedPosition;
     }

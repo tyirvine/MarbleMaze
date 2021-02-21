@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1f89345e95a4676a73b5c4a7aacdd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredPathLength: 24
+  desiredPathLength: 4
   disablePathFlags: 1
   buildBoard: 1
   buildShapes: 1
@@ -59,7 +59,7 @@ MonoBehaviour:
   endFlag: {fileID: 8970112326771813452, guid: 3a13cb7cf52e0c048be27ed0b089bdad, type: 3}
   obstacleManager: {fileID: 3573442668972672423}
   didPathGenerate: 0
-  currentWorldPosition: {x: 0, y: -178, z: 0}
+  currentWorldPosition: {x: 0, y: -1, z: 0}
 --- !u!114 &3573442668972672423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,8 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapes:
-  - rule: {fileID: 5520149041154882132, guid: c592313622366433cb40f605d5dafe97, type: 3}
-    model: {fileID: 1414435072253065291, guid: 52d2af09a056d49cf9ce791f6596950b, type: 3}
+  - rule: {fileID: 5520149041154882132, guid: 160ebb87b1a78410c834ef9758b02fe5, type: 3}
+    model: {fileID: 1414435072253065291, guid: 30f74cf16a534440b92386dcb8ca0a57, type: 3}
     unitCount: 4
     includeInBuild: 1
     rotate: 1
@@ -133,8 +133,8 @@ MonoBehaviour:
     rotate: 1
     chanceToSpawn: 1000
     porbabilityPiece: 0
-  - rule: {fileID: 5520149041154882132, guid: 160ebb87b1a78410c834ef9758b02fe5, type: 3}
-    model: {fileID: 1414435072253065291, guid: 30f74cf16a534440b92386dcb8ca0a57, type: 3}
+  - rule: {fileID: 5520149041154882132, guid: c592313622366433cb40f605d5dafe97, type: 3}
+    model: {fileID: 1414435072253065291, guid: 52d2af09a056d49cf9ce791f6596950b, type: 3}
     unitCount: 4
     includeInBuild: 1
     rotate: 1
@@ -167,7 +167,7 @@ MonoBehaviour:
     unitCount: 7
     includeInBuild: 1
     rotate: 1
-    chanceToSpawn: 390
+    chanceToSpawn: 200
     porbabilityPiece: 1
   hazardSpike:
     rule: {fileID: 4142884895529112775, guid: f8d2179b2cc5d40e4b7828a0e396aed2, type: 3}
@@ -175,7 +175,7 @@ MonoBehaviour:
     unitCount: 7
     includeInBuild: 1
     rotate: 1
-    chanceToSpawn: 55
+    chanceToSpawn: 0
     porbabilityPiece: 1
   hazardLandmine:
     rule: {fileID: 5520149041154882132, guid: a4f0e4774307e4ecf91efe9610faea91, type: 3}
@@ -183,7 +183,7 @@ MonoBehaviour:
     unitCount: 3
     includeInBuild: 1
     rotate: 1
-    chanceToSpawn: 105
+    chanceToSpawn: 0
     porbabilityPiece: 1
   pickupLife:
     rule: {fileID: 4142884895529112775, guid: b7e5d6308f1d443829406146cb1fc5e7, type: 3}
@@ -191,7 +191,7 @@ MonoBehaviour:
     unitCount: 7
     includeInBuild: 1
     rotate: 1
-    chanceToSpawn: 19
+    chanceToSpawn: 0
     porbabilityPiece: 1
   spawnFlags: 0
   obstacleFlag: {fileID: 7725049824937204858, guid: b4dbb57bc2bbf454b88b1670378bd194,
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3573442668972672420}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -223,7 +223,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
