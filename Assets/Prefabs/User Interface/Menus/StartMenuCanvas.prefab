@@ -486,6 +486,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: Credits Button
       objectReference: {fileID: 0}
+    - target: {fileID: 4901611023745391992, guid: b9ced15ebb966451b9202eeafeaeac02,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3485653456803778963, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+    - target: {fileID: 4901611023745391992, guid: b9ced15ebb966451b9202eeafeaeac02,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CreditsMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901611023745391992, guid: b9ced15ebb966451b9202eeafeaeac02,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4901611023745391992, guid: b9ced15ebb966451b9202eeafeaeac02,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5549961175789973557, guid: b9ced15ebb966451b9202eeafeaeac02,
         type: 3}
       propertyPath: m_Sprite

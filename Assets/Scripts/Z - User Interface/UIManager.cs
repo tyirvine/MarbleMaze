@@ -11,8 +11,9 @@ public class UIManager : MonoBehaviour
     public class UIMenu
     {
         public Canvas canvas;
-        public GameObject shade;
-        public GameObject scaler;
+        public GameObject animationOne;
+        public GameObject animationTwo;
+        public GameObject animationThree;
         [HideInInspector] public bool state = false;
     }
 
@@ -46,7 +47,7 @@ public class UIManager : MonoBehaviour
     public void MenuControl(UIMenu menu, bool state)
     {
         // Animate
-        if (menu.shade != null || menu.scaler != null)
+        if (menu.animationOne != null || menu.animationTwo != null)
         {
             // Setup coroutine
             IEnumerator coroutine = DelayMenuControl(menu, state);
@@ -57,8 +58,9 @@ public class UIManager : MonoBehaviour
                 StartCoroutine(coroutine);
 
             // Animate
-            if (menu.shade != null) menu.shade.GetComponent<UIAnimateOnWake>().SetAnimation(state);
-            if (menu.scaler != null) menu.scaler.GetComponent<UIAnimateOnWake>().SetAnimation(state);
+            if (menu.animationOne != null) menu.animationOne.GetComponent<UIAnimateOnWake>().SetAnimation(state);
+            if (menu.animationTwo != null) menu.animationTwo.GetComponent<UIAnimateOnWake>().SetAnimation(state);
+            if (menu.animationThree != null) menu.animationThree.GetComponent<UIAnimateOnWake>().SetAnimation(state);
         }
         // Nothing to animate
         else

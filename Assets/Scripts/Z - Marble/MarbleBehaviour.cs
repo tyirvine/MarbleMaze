@@ -58,38 +58,6 @@ public class MarbleBehaviour : MonoBehaviour
         currentTime = Time.time + jumpCooldown;
     }
 
-    // public void LevelStart()
-    // {
-    //     // Add hazards to dictionary
-    //     if (activeHazards.Count > 0) activeHazards.Clear();
-    //     GameObject[] hazards = GameObject.FindGameObjectsWithTag("hazardObject");
-    //     landmineHazards = new LandmineHazard[hazards.Length];
-    //     int count = 0;
-    //     for (int i = 0; i < hazards.Length; i++)
-    //     {
-    //         if (hazards[i].GetComponent<LandmineHazard>() != null)
-    //         {
-    //             landmineHazards[count] = hazards[i].GetComponent<LandmineHazard>();
-    //             objects.Add(hazards[i].transform, landmineHazards[count]);
-    //             count++;
-    //         }
-    //     }
-
-    //     Debug.Log("hazards : " + hazards.Length);
-    //     Debug.Log("landmines : " + count);
-
-    //     // 
-    //     foreach (LandmineHazard hazard in landmineHazards)
-    //     {
-    //         if (hazard != null)
-    //         {
-    //             hazard.buttonLight.enabled = false;
-    //             hazard.enabled = false;
-    //         }
-    //     }
-    //     activeHazards = landmineHazards.ToList();
-    // }
-
     /// <summary>This can be used whenever the marble explodes. Control how long it takes the explosion to happen with delay.</summary>
     public void DeathSequenceExplode(float delay = 0f)
     {
@@ -120,8 +88,6 @@ public class MarbleBehaviour : MonoBehaviour
     {
         marbleRenderer.enabled = true;
         myRigidbody.constraints = RigidbodyConstraints.None;
-        ///test 12/02/21
-
     }
 
     // What does this play? 

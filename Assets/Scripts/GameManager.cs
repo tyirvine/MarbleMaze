@@ -81,6 +81,13 @@ public class GameManager : MonoBehaviour
             newBoardGenerating = false;
             start = false;
         }
+
+        // Move marble's horizontal position. Runs until the marble is in good alignment.
+        if ((marbleHorizontalPosition - boardHorizontalPosition).magnitude >= 0.1)
+        {
+            Vector3 positionDifference = boardHorizontalPosition - marbleHorizontalPosition;
+            marble.transform.position += positionDifference;
+        }
     }
 
     /// <summary>Just a simple script to spawn the marble.</summary>
