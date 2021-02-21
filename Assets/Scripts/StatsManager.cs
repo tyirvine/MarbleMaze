@@ -78,9 +78,7 @@ public class StatsManager : MonoBehaviour
         player.GetComponent<MarbleBehaviour>().RespawnSequence();
 
         // Unlatch controls
-        // TODO: FINISH ⤵︎
         Invoke(nameof(UnlatchControls), 0.1f);
-        // UnlatchControls();
 
         // Reset camera
         cameraRig.StartFollowingPlayer();

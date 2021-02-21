@@ -18,7 +18,7 @@ public class MarbleBehaviour : MonoBehaviour
     [Header("Settings")]
     [Range(0.5f, 1.5f)] public float scale = 1.25f;
     [Range(0.1f, 50f)] public float jumpPower = 14.4f;
-    [Range(0.1f, 1f)] public float jumpCooldown = 0.1f;
+    [Range(0.01f, 1f)] public float jumpCooldown = 0.1f;
     [Range(0.1f, 2f)] public float physicsResetTime = 1f;
     [Range(1f, 8f)] public float yAxisSpeedReduction = 4f;
     // State Objects
@@ -40,22 +40,6 @@ public class MarbleBehaviour : MonoBehaviour
     List<LandmineHazard> activeHazards = new List<LandmineHazard>();
     LandmineHazard[] landmineHazards;
     public float hazardActiveRadius = 10f;
-
-    // private void Update()
-    // {
-    //     int layerMask = 1 << 13;
-    //     Collider[] hitColliders = Physics.OverlapSphere(transform.position, hazardActiveRadius, layerMask);
-    //     foreach (var hitCollider in hitColliders)
-    //     {
-    //         LandmineHazard haz;
-    //         if (objects.TryGetValue(hitCollider.transform, out haz))
-    //         {
-    //             haz.enabled = true;
-    //             haz.buttonLight.enabled = true;
-    //         }
-
-    //     }
-    // }
 
     // Grab references
     private void Awake()

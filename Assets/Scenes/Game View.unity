@@ -613,6 +613,11 @@ PrefabInstance:
       propertyPath: runtimeBoardOffset
       value: 75
       objectReference: {fileID: 0}
+    - target: {fileID: 7683857431610325322, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325326, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: m_Name
@@ -696,6 +701,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BackGroundColor.b
       value: 0.62352943
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867217297428167614, guid: ef72a49885dee49d6af6e3acb4751037,
+        type: 3}
+      propertyPath: m_OcclusionCulling
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8867217297914238853, guid: ef72a49885dee49d6af6e3acb4751037,
         type: 3}

@@ -81,13 +81,6 @@ public class GameManager : MonoBehaviour
             newBoardGenerating = false;
             start = false;
         }
-
-        // Adjust marble's horizontal position
-        if (marbleHorizontalPosition != boardHorizontalPosition)
-        {
-            Vector3 positionDifference = boardHorizontalPosition - marbleHorizontalPosition;
-            marble.transform.position += positionDifference;
-        }
     }
 
     /// <summary>Just a simple script to spawn the marble.</summary>
