@@ -4864,7 +4864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particle: {fileID: 2808003717424369550}
   meshRenderer: {fileID: 6761586650608598948}
-  collider: {fileID: 6041639408496930763}
+  pickupCollider: {fileID: 6041639408496930763}
   time: 5.25
   pickupSound: {fileID: -3411159246823848272}
 --- !u!1001 &5338013066735837984

@@ -151,6 +151,11 @@ PrefabInstance:
       propertyPath: m_ReferenceResolution.y
       value: 1693
       objectReference: {fileID: 0}
+    - target: {fileID: 2387143383749491761, guid: 2445bb9611eea4867b2fdc00981a2a36,
+        type: 3}
+      propertyPath: m_ReferencePixelsPerUnit
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3843478342410231280, guid: 2445bb9611eea4867b2fdc00981a2a36,
         type: 3}
       propertyPath: m_Enabled
@@ -474,6 +479,11 @@ PrefabInstance:
       propertyPath: m_ReferenceResolution.y
       value: 1693
       objectReference: {fileID: 0}
+    - target: {fileID: 7973841310333039916, guid: 907dbeab042a54510b8aa044bebc5670,
+        type: 3}
+      propertyPath: m_ReferencePixelsPerUnit
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8332937406172193035, guid: 907dbeab042a54510b8aa044bebc5670,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -561,6 +571,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ReferenceResolution.y
       value: 1693
+      objectReference: {fileID: 0}
+    - target: {fileID: 2524988142284298992, guid: 7ea6470f6c1e74a99b6cfea32437beff,
+        type: 3}
+      propertyPath: m_ReferencePixelsPerUnit
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3998244449873754929, guid: 7ea6470f6c1e74a99b6cfea32437beff,
         type: 3}
@@ -733,6 +748,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ReferenceResolution.y
       value: 1693
+      objectReference: {fileID: 0}
+    - target: {fileID: 8076443721768070076, guid: 04e55fb629bad4d88bf1900610aa628f,
+        type: 3}
+      propertyPath: m_ReferencePixelsPerUnit
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8076443721768070077, guid: 04e55fb629bad4d88bf1900610aa628f,
         type: 3}
@@ -1051,6 +1071,11 @@ PrefabInstance:
       propertyPath: m_ReferenceResolution.y
       value: 1693
       objectReference: {fileID: 0}
+    - target: {fileID: 8722658711823283291, guid: c9ce554f2b2834db19017a9e2b395202,
+        type: 3}
+      propertyPath: m_ReferencePixelsPerUnit
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9ce554f2b2834db19017a9e2b395202, type: 3}
 --- !u!224 &6008182848136180386 stripped
@@ -1229,6 +1254,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ReferenceResolution.y
       value: 1693
+      objectReference: {fileID: 0}
+    - target: {fileID: 5379377030797778815, guid: af8fd9cc5051842aaa01b3fe952953f5,
+        type: 3}
+      propertyPath: m_ReferencePixelsPerUnit
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6317194510280543064, guid: af8fd9cc5051842aaa01b3fe952953f5,
         type: 3}

@@ -206,7 +206,6 @@ public class PathManager : MonoBehaviour
         pathShapeNodes = new List<NodeObject>();
         deadEnds = new List<Vector3Int>();
 
-
         // Obstacle manager
         obstacleManager.obstaclePositions = new List<Vector3Int>();
 
@@ -349,8 +348,6 @@ public class PathManager : MonoBehaviour
         // Loop Emergency Break
         int loopEmergencyBrake = 0;
         int loopEmergencyBrakeCap = 5000;
-        int tempCount = 0;
-        int pathDiverge = 4;
 
         //Vector3Int furthestPoint = Vector3Int.zero;
         //float furthestPointDistance = 0;
@@ -406,7 +403,6 @@ public class PathManager : MonoBehaviour
             new NodeObject(FindNodePosition(3, 0, currentNode: currentNode), 0, 0, 0,false),
             new NodeObject(FindNodePosition(0, -3, currentNode: currentNode), 0, 0, 0,false)
             };
-
 
             // Loop through all neighbours
             foreach (NodeObject node in neighbourNodes)

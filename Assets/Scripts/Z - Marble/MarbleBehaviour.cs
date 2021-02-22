@@ -21,9 +21,11 @@ public class MarbleBehaviour : MonoBehaviour
     [Range(0.01f, 1f)] public float jumpCooldown = 0.1f;
     [Range(0.1f, 2f)] public float physicsResetTime = 1f;
     [Range(1f, 8f)] public float yAxisSpeedReduction = 4f;
+
     // State Objects
     float currentTime;
     bool isGrounded;
+    [HideInInspector] public bool shieldPickup = false;
 
     // Public References
     [Header("References")]

@@ -176,13 +176,13 @@ public class GameManager : MonoBehaviour
         if (newBoardGenerating && !start)
         {
             // Added to stop the board from rotating while the marble is falling
-            playerInput.enabled = false;
+            // playerInput.enabled = false;
             marbleRigidbody.AddForce(Vector3.up * marbleFallingSpeed, ForceMode.Force);
             MoveMarbleIntoBoard();
         }
         else if (start)
         {
-            playerInput.enabled = false;
+            // playerInput.enabled = false;
             marbleRigidbody.AddForce(Vector3.up * (marbleFallingSpeed / 2f), ForceMode.Force);
             MoveMarbleIntoBoard();
         }

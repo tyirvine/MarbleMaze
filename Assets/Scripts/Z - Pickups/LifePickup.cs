@@ -7,7 +7,7 @@ public class LifePickup : MonoBehaviour
     StatsManager stats;
     public ParticleSystem particle;
     public MeshRenderer meshRenderer;
-    public Collider collider;
+    public Collider pickupCollider;
     [Range(0f, 10f)] public float time;
 
     // Audio Settings 
@@ -42,6 +42,6 @@ public class LifePickup : MonoBehaviour
     private void MarbleState()
     {
         meshRenderer.enabled = false;
-        collider.enabled = false;
+        pickupCollider.enabled = false;
     }
 }
