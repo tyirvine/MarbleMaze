@@ -212,12 +212,12 @@ public class ShapeManager : MonoBehaviour
 
         // Remove all hazards from shapes
         shapesAsList = shapes.ToList();
-        shapesAsList.Remove(hazardBumper);
-        shapesAsList.Remove(hazardLandmine);
-        shapesAsList.Remove(hazardSpike);
-        shapesAsList.Remove(pickupLife);
-        shapes = shapesAsList.ToArray();
 
+        // Loop through and pull any objects that are probability pieces from the shapes array
+        shapesAsList.RemoveAll((piece) => piece.porbabilityPiece == true);
+
+        // Convert the filtered list back into an array
+        shapes = shapesAsList.ToArray();
 
         spawnKey(walkNodes);
 
@@ -245,8 +245,6 @@ public class ShapeManager : MonoBehaviour
         }
 
     }
-
-
 
     Vector3 CheckPathNeighbours(Vector3 keyLoc, List<Vector3> walkers)
     {

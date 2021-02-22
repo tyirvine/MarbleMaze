@@ -384,6 +384,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1107082355357490784, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -312.29688
+      objectReference: {fileID: 0}
+    - target: {fileID: 1107082355357490784, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 177.90234
+      objectReference: {fileID: 0}
     - target: {fileID: 1223652367505987616, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
       propertyPath: m_ReferenceResolution.x
@@ -419,6 +429,11 @@ PrefabInstance:
       propertyPath: m_ReferenceResolution.x
       value: 3000
       objectReference: {fileID: 0}
+    - target: {fileID: 3426117853571735366, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 177.90234
+      objectReference: {fileID: 0}
     - target: {fileID: 3485653456803778963, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
       propertyPath: startMenu.state
@@ -449,6 +464,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3883106623372844219, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 166.10156
+      objectReference: {fileID: 0}
+    - target: {fileID: 3883106623372844219, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 177.90234
+      objectReference: {fileID: 0}
     - target: {fileID: 3917683289696174710, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -457,7 +482,7 @@ PrefabInstance:
     - target: {fileID: 3917683289696174710, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -114.3999
+      value: -114.399414
       objectReference: {fileID: 0}
     - target: {fileID: 3917683289798312965, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
@@ -503,6 +528,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8909216401490276692, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -434.0996
       objectReference: {fileID: 0}
     - target: {fileID: 8992151597256863313, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
@@ -628,6 +658,26 @@ PrefabInstance:
       propertyPath: startingLifeProbability
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: startingShieldProbability
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: shieldSpawnRate
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: startingSpikeProbability
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: spikeSpawnRate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3942923127047086806, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: cameraRig
@@ -651,7 +701,7 @@ PrefabInstance:
     - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: debugMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
@@ -666,7 +716,7 @@ PrefabInstance:
     - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: debugJumpToLevel
-      value: 25
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}

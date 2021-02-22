@@ -81,7 +81,6 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Debug.Log(pauseState);
         if (boardObjects && !pauseState && inputValue.magnitude >= 0f)
         {
             // Setup input influence on board movement
