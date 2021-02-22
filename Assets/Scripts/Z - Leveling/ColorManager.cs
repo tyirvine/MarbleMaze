@@ -9,8 +9,16 @@ public class ColorManager : MonoBehaviour
     public AnimationCurve lerpCurve;
 
     // State objects
-    [HideInInspector] public bool changeColor = false;
+    [HideInInspector] public ChangeColor changeColor = ChangeColor.Disabled;
     float time = 0.0f;
+
+    /// <summary>Simplifies changeColor states.</summary>
+    public enum ChangeColor
+    {
+        Disabled,
+        Enabled,
+        Revert
+    }
 
     // Materials
     /// <summary>The floor of a board.</summary>
@@ -105,6 +113,29 @@ public class ColorManager : MonoBehaviour
             hueObject.camera.backgroundColor = Color.Lerp(hueObject.startColor, hueObject.endColor, lerpCurve.Evaluate(time));
     }
 
+    /// <summary>This shifts the colours back to the starting hue.</summary>
+    public void RevertMaterial(HueObject hueObject)
+    {
+        if (time == 0f)
+        {
+            if (hueObject.material != null)
+            {
+                hueObject.startColor = hueObject.material.color;
+                hueObject.endColor = ShiftHue(hueObject.material.color, startingHue);
+            }
+            else if (hueObject.camera != null)
+            {
+                hueObject.startColor = hueObject.camera.backgroundColor;
+                hueObject.endColor = ShiftHue(hueObject.camera.backgroundColor, startingHue);
+            }
+        }
+
+        if (hueObject.material != null)
+            hueObject.material.color = Color.Lerp(hueObject.startColor, hueObject.endColor, lerpCurve.Evaluate(time));
+        else if (hueObject.camera != null)
+            hueObject.camera.backgroundColor = Color.Lerp(hueObject.startColor, hueObject.endColor, lerpCurve.Evaluate(time));
+    }
+
     // Assign materials initially
     void Awake()
     {
@@ -130,21 +161,43 @@ public class ColorManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (changeColor)
+        switch (changeColor)
         {
-            if (time < transitionInSeconds)
-            {
-                ChangeMaterial(hue_background);
-                ChangeMaterial(hue_foreground);
-                ChangeMaterial(hue_accent);
-                UpdateUIColor();
-                time += Time.deltaTime;
-            }
-            else
-            {
-                changeColor = false;
-                time = 0.0f;
-            }
+            // Normal color shift
+            case ChangeColor.Enabled:
+                if (time < transitionInSeconds)
+                {
+                    ChangeMaterial(hue_background);
+                    ChangeMaterial(hue_foreground);
+                    ChangeMaterial(hue_accent);
+                    UpdateUIColor();
+                    time += Time.deltaTime;
+                }
+                else
+                {
+                    changeColor = ChangeColor.Disabled;
+                    time = 0f;
+                }
+                break;
+
+            // Revert colors to starting hue
+            case ChangeColor.Revert:
+                if (time < transitionInSeconds)
+                {
+                    RevertMaterial(hue_background);
+                    RevertMaterial(hue_foreground);
+                    RevertMaterial(hue_accent);
+                    time += Time.deltaTime;
+                }
+                else
+                {
+                    changeColor = ChangeColor.Disabled;
+                    time = 0f;
+                }
+                break;
+
+            default:
+                break;
         }
     }
 }

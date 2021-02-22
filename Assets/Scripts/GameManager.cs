@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public Vector3 boardStartPosition;
     [HideInInspector] public Transform boardPosition;
     PhysicMaterial material;
+    bool start = true;
 
     // State objects
     [HideInInspector] public bool newBoardGenerating = true;
@@ -18,11 +19,15 @@ public class GameManager : MonoBehaviour
 
     // Settings
     [Header("Settings")]
-    [Range(0.1f, 3.0f)] public float spawnNewBoardTiming = 1.0f;
-    public int boardOffsetFromMarble = 30;
+    [HideInInspector] public float spawnNewBoardTiming = 1.0f;
+    [Range(0.0f, 3.0f)] public float startingNewBoardTiming = 0f;
+    [Range(0.0f, 3.0f)] public float runtimeNewBoardTiming = 1f;
+
+    // Offset
+    [HideInInspector] public int boardOffsetFromMarble = 30;
+    public int startingBoardOffset = 0;
+    public int runtimeBoardOffset = 30;
     public float marbleFallingSpeed = 50f;
-    /// <summary>How far from the board does the marble fall before triggering a death event.</summary>
-    public int fallDistanceToDeath = 10;
 
     // Debug Settings
     [Header("Debug Settings")]
@@ -40,6 +45,8 @@ public class GameManager : MonoBehaviour
     public PathManager pathManager;
     public LevelManager levelManager;
     public StatsManager statsManager;
+    public CameraFollowPlayer cameraManager;
+    public UIManager uiManager;
 
     /* -------------------------------------------------------------------------- */
     /*                           Marble Related Methods                           */
@@ -72,10 +79,11 @@ public class GameManager : MonoBehaviour
         if (marble.transform.position.y < boardStartPosition.y + verticalTriggerPadding && marble.transform.position.y > boardStartPosition.y - verticalTriggerPadding)
         {
             newBoardGenerating = false;
+            start = false;
         }
 
-        // Adjust marble's horizontal position
-        if (marbleHorizontalPosition != boardHorizontalPosition)
+        // Move marble's horizontal position. Runs until the marble is in good alignment.
+        if ((marbleHorizontalPosition - boardHorizontalPosition).magnitude >= 0.1)
         {
             Vector3 positionDifference = boardHorizontalPosition - marbleHorizontalPosition;
             marble.transform.position += positionDifference;
@@ -85,9 +93,8 @@ public class GameManager : MonoBehaviour
     /// <summary>Just a simple script to spawn the marble.</summary>
     public void PlaceMarble()
     {
-        marble = Instantiate(marblePrefab, pathManager.gridPoints.startPointNode, Quaternion.identity);
+        marble = Instantiate(marblePrefab, Vector3.zero, Quaternion.identity);
         marbleRigidbody = marble.gameObject.GetComponent<Rigidbody>();
-
     }
 
     /// <summary>Returns the marble's position offset on the y.</summary>
@@ -123,8 +130,8 @@ public class GameManager : MonoBehaviour
         if (deathCatch != null) Destroy(deathCatch.gameObject);
 
         // Call new board
-        Invoke("NewBoard", spawnNewBoardTiming);
-        //playerInput.enabled = true;
+        Invoke(nameof(NewBoard), spawnNewBoardTiming);
+
         //high score section;
         if (levelManager.currentLevel > highScore) highScore = levelManager.currentLevel;
         PlayerPrefs.SetInt("HighScore", highScore);
@@ -166,11 +173,17 @@ public class GameManager : MonoBehaviour
     void FixedUpdate()
     {
         // This starts off true
-        if (newBoardGenerating)
+        if (newBoardGenerating && !start)
         {
             // Added to stop the board from rotating while the marble is falling
             playerInput.enabled = false;
             marbleRigidbody.AddForce(Vector3.up * marbleFallingSpeed, ForceMode.Force);
+            MoveMarbleIntoBoard();
+        }
+        else if (start)
+        {
+            playerInput.enabled = false;
+            marbleRigidbody.AddForce(Vector3.up * (marbleFallingSpeed / 2f), ForceMode.Force);
             MoveMarbleIntoBoard();
         }
         else
@@ -184,16 +197,38 @@ public class GameManager : MonoBehaviour
     // @AlexMPester @bubzy-coding I think the entire game can run from here tbh
     void Start()
     {
-        // TODO: Remove this from the production build!
-        // get high score
-        playerInput.enabled = false;
+        // Initial board creation
+        boardOffsetFromMarble = startingBoardOffset;
+        spawnNewBoardTiming = startingNewBoardTiming;
+
+        // Setup User Interface
+        uiManager.StartMenu(true);
+
+        // Camera setup
+        GameObject temp_marble = FindObjectOfType<MarbleBehaviour>().gameObject;
+        Vector3 cameraStart = cameraManager.gameObject.transform.position;
+        cameraManager.StartSmoothToTarget(cameraStart, temp_marble, cameraManager.startToTransition);
+
+        // ! TODO: Remove this from the production build!
+        // Get high score
         highScore = PlayerPrefs.GetInt("HighScore");
         if (!debugMode)
             CallForNewBoard();
 
+        // Configure for runtime without player action
+        // Invoke(nameof(ConfigureForRuntime), 3f);
     }
 
-    // TODO: Remove this from the production build!
+    /// <summary>Used to configure board generation for runtime.
+    /// This is called then the player first moves.</summary>
+    public void ConfigureForRuntime()
+    {
+        cameraManager.StartFollowingPlayer();
+        boardOffsetFromMarble = runtimeBoardOffset;
+        spawnNewBoardTiming = runtimeNewBoardTiming;
+    }
+
+    // ! TODO: Remove this from the production build!
     void Update()
     {
         if (isStarted)

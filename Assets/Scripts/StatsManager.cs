@@ -16,8 +16,10 @@ public class StatsManager : MonoBehaviour
     public CameraFollowPlayer cameraRig;
     public GameManager gameManager;
     public TextMeshProUGUI UI_LivesCounter;
+    public PlayerInput playerInput;
     [HideInInspector] public GameObject player;
     [HideInInspector] public GameObject board;
+    [HideInInspector] public UIManager uiManager;
 
     /* ---------------------------- Lives Management ---------------------------- */
     /// <summary>The root method for adjusting the life count.</summary>
@@ -28,7 +30,9 @@ public class StatsManager : MonoBehaviour
 
         // Adjust UI
         string livesFormatted = "Lives x " + livesRemaining;
-        UI_LivesCounter.text = livesFormatted;
+
+        if (UI_LivesCounter != null)
+            UI_LivesCounter.text = livesFormatted;
     }
     /// <summary>Optionally, you can add multiple lives.</summary>
     public void AddLife(int lives = 1)
@@ -73,17 +77,30 @@ public class StatsManager : MonoBehaviour
         // Reset player's condition
         player.GetComponent<MarbleBehaviour>().RespawnSequence();
 
+        // Unlatch controls
+        Invoke(nameof(UnlatchControls), 0.1f);
+
         // Reset camera
         cameraRig.StartFollowingPlayer();
+    }
+
+    /// <summary>Used to delay the unlatching of controls. There's a bug if there's no delay taken</summary>
+    void UnlatchControls()
+    {
+        playerInput.PauseControls(false);
     }
 
     /// <summary>This runs the entire game over process.</summary>
     public void GameOver()
     {
-        Debug.Log("Heres where we trigger the gameover stuff");
-
         // Stop following the player
         cameraRig.StopFollowingPlayer();
+
+        // Pull up game over ui
+        if (uiManager != null)
+        {
+            uiManager.GameoverMenu(true);
+        }
     }
 
     /* ---------------------------- Score Management ---------------------------- */
@@ -103,6 +120,7 @@ public class StatsManager : MonoBehaviour
     {
         AddLife(livesToStartWith);
         player = GameObject.FindObjectOfType<GameManager>().marble;
+        uiManager = GameObject.FindObjectOfType<UIManager>();
     }
 
 }
