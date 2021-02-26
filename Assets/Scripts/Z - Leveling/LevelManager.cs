@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
     [Range(0, 1000)] public int startingLifeProbability = 15;
     [Range(0, 1000)] public int startingShieldProbability = 15;
     [Range(0, 1000)] public int startingInvisibilityProbability = 15;
+    [Range(0, 1000)] public int startingKeyProbability = 0;
 
     // Hazard spawn rate
     [Header("Spawn Rate")]
@@ -26,8 +27,8 @@ public class LevelManager : MonoBehaviour
     [Range(1, 100)] public int spikeSpawnRate = 1;
     [Range(1, 100)] public int lifeSpawnRate = 1;
     [Range(1, 100)] public int shieldSpawnRate = 1;
-    [Range(1, 100)] public int InvisibilityRate = 1;
-
+    [Range(1, 100)] public int invisibilitySpawnRate = 1;
+    [Range(1, 100)] public int keySpawnRate = 1;
 
     /* --------------------------- Referenced objects --------------------------- */
     [Header("References")]
@@ -154,6 +155,11 @@ public class LevelManager : MonoBehaviour
         else if (currentLevel >= 20)
             shapeManager.hazardSpike.chanceToSpawn = CalculateSpawnRate(spikeSpawnRate, shapeManager.hazardSpike.chanceToSpawn);
 
+        // Key
+        if (currentLevel == 29)
+            shapeManager.hazardKey.chanceToSpawn = startingKeyProbability;
+        else if (currentLevel <= 29)
+            shapeManager.hazardKey.chanceToSpawn = CalculateSpawnRate(keySpawnRate, shapeManager.hazardKey.chanceToSpawn);
     }
 
     /// <summary>This calculates how often the hazard should be spawning.</summary>

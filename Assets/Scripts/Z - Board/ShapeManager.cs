@@ -31,8 +31,6 @@ public class ShapePoints
 
 public class ShapeManager : MonoBehaviour
 {
-    //unlock level exit
-    public GameObject key;
 
     // Shapes
     [Header("Shapes")]
@@ -44,10 +42,16 @@ public class ShapeManager : MonoBehaviour
     public ShapeTemplate hazardBumper;
     public ShapeTemplate hazardSpike;
     public ShapeTemplate hazardLandmine;
+    public ShapeTemplate hazardKey;
     // Pickups
     public ShapeTemplate pickupLife;
     public ShapeTemplate shieldPickup;
     public ShapeTemplate invisibilityPickup;
+
+    // One off obstacles
+    [Header("Spawn Once")]
+    public GameObject key;
+    public GameObject gate;
 
     // Settings
     [Header("Draw Flags of obstacle positions")]
@@ -219,31 +223,44 @@ public class ShapeManager : MonoBehaviour
         // Convert the filtered list back into an array
         shapes = shapesAsList.ToArray();
 
-        spawnKey(walkNodes);
-
+        /* ---------------------------- One off obstacles --------------------------- */
+        // Checks to see if the hazard key can spawn based on it's probability
+        if (SpawnObject(hazardKey.chanceToSpawn))
+            SpawnKeyHazard(walkNodes);
     }
 
-    void spawnKey(List<Vector3> walkNodes)
+    /// <summary>Spawns a gate over the finish hole. Called by [SpawnKeyHazard].</summary>
+    void SpawnKeyHazardGate()
+    {
+        // Find finish hole position
+        Vector3 finishHolePosition = GetComponent<PathManager>().gridPoints.endPointNode;
+        finishHolePosition += new Vector3(0.5f, -0.25f, 0.5f);
+
+        // Spawn gate at position
+        Instantiate(gate, finishHolePosition, Quaternion.identity);
+    }
+
+    /// <summary>Works out where to spawn a key hazard in the level.</summary>
+    void SpawnKeyHazard(List<Vector3> walkNodes)
     {
         List<Vector3Int> deadEnds = new List<Vector3Int>();
         deadEnds.AddRange(gameObject.GetComponent<PathManager>().deadEnds);
         if (deadEnds.Count > 0)
         {
             int keyLocation = UnityEngine.Random.Range(0, deadEnds.Count);
-            //Debug.Log(deadEnds.Count + " deadends");
             Vector3 keyPosition = CheckPathNeighbours(deadEnds[keyLocation], walkNodes);
             Vector3Int keyOffset = Vector3Int.zero;
             Instantiate(key, keyPosition, Quaternion.identity);
+            SpawnKeyHazardGate();
         }
         else
         {
             int keyLocation = UnityEngine.Random.Range(0, walkNodes.Count);
-            //Debug.Log(deadEnds.Count + " deadends");
             Vector3 keyPosition = CheckPathNeighbours(walkNodes[keyLocation], walkNodes);
             Vector3Int keyOffset = Vector3Int.zero;
             Instantiate(key, keyPosition, Quaternion.identity);
+            SpawnKeyHazardGate();
         }
-
     }
 
     Vector3 CheckPathNeighbours(Vector3 keyLoc, List<Vector3> walkers)
@@ -259,6 +276,7 @@ public class ShapeManager : MonoBehaviour
                 }
             }
         }
+
         keyLoc = Vector3.zero;
         foreach (Vector3 v in locations)
         {
@@ -271,12 +289,10 @@ public class ShapeManager : MonoBehaviour
     public bool SpawnObject(int pct)
     {
         int rnd = UnityEngine.Random.Range(1, 1000);
-        // rnd *= difficulty;
-        // if (rnd <= pct * difficulty)
+
         if (rnd <= pct)
             return true;
         else
             return false;
-
     }
 }

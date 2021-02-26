@@ -1,18 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class Key : MonoBehaviour
 {
     Gate gate;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-
-    }
-    private void Update()
+    // Finds reference to the gate
+    private void Start()
     {
         if (gate == null)
         {
@@ -20,6 +14,7 @@ public class Key : MonoBehaviour
         }
     }
 
+    // Destroys the gate
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
