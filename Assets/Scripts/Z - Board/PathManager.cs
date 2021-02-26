@@ -30,6 +30,8 @@ public class PathManager : MonoBehaviour
     public GameObject startFlag;
     public GameObject endFlag;
 
+    public List<Vector3Int> deadEnds = new List<Vector3Int>();
+
     // Reference to the obstacle manager for linking up the obstacle position list and generating obstacle maps
     [Header("Script References")]
     public ObstacleManager obstacleManager;
@@ -202,6 +204,7 @@ public class PathManager : MonoBehaviour
         pathNodes = new List<NodeObject>();
         clearanceNodes = new List<NodeObject>();
         pathShapeNodes = new List<NodeObject>();
+        deadEnds = new List<Vector3Int>();
 
         // Obstacle manager
         obstacleManager.obstaclePositions = new List<Vector3Int>();
@@ -334,6 +337,8 @@ public class PathManager : MonoBehaviour
         // Add the start node to the open points list
         openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, false));
 
+        List<NodeObject> alternativePath = new List<NodeObject>();
+
         // This object contains the current node being investigated
         NodeObject currentNode = new NodeObject(gridPoints.startPointNode);
 
@@ -344,6 +349,8 @@ public class PathManager : MonoBehaviour
         int loopEmergencyBrake = 0;
         int loopEmergencyBrakeCap = 5000;
 
+        //Vector3Int furthestPoint = Vector3Int.zero;
+        //float furthestPointDistance = 0;
         // This loops until a path is generated from the start node to the end node
         while (loopEmergencyBrake < loopEmergencyBrakeCap)
         {
@@ -354,10 +361,21 @@ public class PathManager : MonoBehaviour
                 closedNodes.Add(currentNode);
                 // Randomly pick the next node out of the open nodes and assign that as the new current
                 int randomOpenNode = Random.Range(0, openNodes.Count());
-                currentNode = openNodes[randomOpenNode];
+                if (openNodes.Count > 0)
+                {
+                    currentNode = openNodes[randomOpenNode];
+                }
+                if (openNodes.Count == 0)
+                {
+                    deadEnds.Add(currentNode.position); //add this to the list of dead ends, for key spawning
+                    currentNode = alternativePath[0];   //pick a random point to start pathfinding from again./
+                    alternativePath.RemoveAt(0);
+                }
+
                 // Empty out open nodes list
                 openNodes.Clear();
             }
+
             // Path incremented one position
             pathLengthProgress++;
 
@@ -398,9 +416,16 @@ public class PathManager : MonoBehaviour
                 // Otherwise add that node to a list of possible directions to take
                 node.parent = currentNode;
                 openNodes.Add(node);
+
+            }
+
+            if (openNodes.Count >= 3)
+            {
+                alternativePath.Add(currentNode);
             }
             // Acts as an emergency break for this loop
             loopEmergencyBrake++;
+
         }
         // Reports if this loop is functioning correctly or not
         if (loopEmergencyBrake > loopEmergencyBrakeCap) Debug.LogError("Path generation loop broken!");
@@ -475,7 +500,7 @@ public class PathManager : MonoBehaviour
         if (buildShapes) gameObject.GetComponent<ShapeManager>().CheckShapes();
         if (buildBoard) gameObject.GetComponent<BuildBoard>().GetBoardSize();
         GameObject marble = GameObject.FindGameObjectWithTag("Player");
-        marble.GetComponent<MarbleBehaviour>().LevelStart();
+        // marble.GetComponent<MarbleBehaviour>().LevelStart();
 
 #if UNITY_EDITOR
         // Path construction finished

@@ -16,6 +16,9 @@ public class LevelManager : MonoBehaviour
     [Range(0, 1000)] public int startingLandmineProbability = 25;
     [Range(0, 1000)] public int startingSpikeProbability = 15;
     [Range(0, 1000)] public int startingLifeProbability = 15;
+    [Range(0, 1000)] public int startingShieldProbability = 15;
+    [Range(0, 1000)] public int startingInvisibilityProbability = 15;
+    [Range(0, 1000)] public int startingKeyProbability = 0;
 
     // Hazard spawn rate
     [Header("Spawn Rate")]
@@ -23,6 +26,9 @@ public class LevelManager : MonoBehaviour
     [Range(1, 100)] public int landmineSpawnRate = 2;
     [Range(1, 100)] public int spikeSpawnRate = 1;
     [Range(1, 100)] public int lifeSpawnRate = 1;
+    [Range(1, 100)] public int shieldSpawnRate = 1;
+    [Range(1, 100)] public int invisibilitySpawnRate = 1;
+    [Range(1, 100)] public int keySpawnRate = 1;
 
     /* --------------------------- Referenced objects --------------------------- */
     [Header("References")]
@@ -87,15 +93,13 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-
-
     /// <summary>This is sort of like an extension to new level. This just runs code after entering a new stage.</summary>
     public void NewStage()
     {
         currentStage++;
 
         // Change colours
-        colorManager.changeColor = true;
+        colorManager.changeColor = ColorManager.ChangeColor.Enabled;
     }
 
     /* -------------------------------------------------------------------------- */
@@ -111,7 +115,8 @@ public class LevelManager : MonoBehaviour
         string counterFormatted = stage + " - " + level;
 
         // Update text
-        UI_LevelCounter.text = counterFormatted;
+        if (UI_LevelCounter != null)
+            UI_LevelCounter.text = counterFormatted;
     }
 
     /// <summary>Currently increments the path every 2 levels so by level 100 you have a path 50 units long.</summary>
@@ -129,11 +134,13 @@ public class LevelManager : MonoBehaviour
         {
             shapeManager.hazardBumper.chanceToSpawn = startingBumperProbability;
             shapeManager.pickupLife.chanceToSpawn = startingLifeProbability;
+            shapeManager.shieldPickup.chanceToSpawn = startingShieldProbability;
         }
         else
         {
             shapeManager.hazardBumper.chanceToSpawn = CalculateSpawnRate(bumperSpawnRate, shapeManager.hazardBumper.chanceToSpawn);
             shapeManager.pickupLife.chanceToSpawn = CalculateSpawnRate(lifeSpawnRate, shapeManager.pickupLife.chanceToSpawn);
+            shapeManager.shieldPickup.chanceToSpawn = CalculateSpawnRate(shieldSpawnRate, shapeManager.shieldPickup.chanceToSpawn);
         }
 
         // Landmine
@@ -147,6 +154,12 @@ public class LevelManager : MonoBehaviour
             shapeManager.hazardSpike.chanceToSpawn = startingSpikeProbability;
         else if (currentLevel >= 20)
             shapeManager.hazardSpike.chanceToSpawn = CalculateSpawnRate(spikeSpawnRate, shapeManager.hazardSpike.chanceToSpawn);
+
+        // Key
+        if (currentLevel == 29)
+            shapeManager.hazardKey.chanceToSpawn = startingKeyProbability;
+        else if (currentLevel <= 29)
+            shapeManager.hazardKey.chanceToSpawn = CalculateSpawnRate(keySpawnRate, shapeManager.hazardKey.chanceToSpawn);
     }
 
     /// <summary>This calculates how often the hazard should be spawning.</summary>
@@ -156,8 +169,5 @@ public class LevelManager : MonoBehaviour
         // else return input;
         return input + spawnrate;
     }
-
-
-
 
 }

@@ -11,7 +11,7 @@ public class Bomb : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach (var hitCollider in hitColliders)
         {
-            if (hitCollider.tag == "wallTile")
+            if (hitCollider.CompareTag("wallTile"))
             {
                 Rigidbody rigidbody = hitCollider.gameObject.GetComponent<Rigidbody>();
                 rigidbody.isKinematic = false;

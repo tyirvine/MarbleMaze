@@ -4963,7 +4963,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4670614603540532265}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eac0bc7d18fdf4b88a63a8b3dee564d9, type: 3}
   m_Name: 
@@ -4987,14 +4987,14 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: 86e69b5f4bd6f534fbc390b8a2411b60, type: 3}
   scale: 1.25
   jumpPower: 19
-  jumpCooldown: 0.444
-  physicsResetTime: 1
-  yAxisSpeedReduction: 4
+  jumpCooldown: 0.01
+  physicsResetTime: 0.5
+  yAxisSpeedReduction: 1
   particle: {fileID: 3458464538005014338}
   colliders: []
   gameManager: {fileID: 0}
   statsManager: {fileID: 0}
-  hazardActiveRadius: 4.97
+  hazardActiveRadius: 10
 --- !u!82 &3385145518625604854
 AudioSource:
   m_ObjectHideFlags: 0

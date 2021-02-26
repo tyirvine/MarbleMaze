@@ -21,7 +21,6 @@ public class GlobalStaticVariables : MonoBehaviour
     public bool invertY = false;
     public bool invertX = false;
 
-
     [Header("Debug Options")]
     public bool debugMode;
     public bool collectFlags;
@@ -83,15 +82,15 @@ public class GlobalStaticVariables : MonoBehaviour
     public void Awake()
     {
         // This allows the gsv to persist between scenes
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        // if (Instance == null)
+        // {
+        Instance = this;
+        //     DontDestroyOnLoad(gameObject);
+        // }
+        // else
+        // {
+        //     Destroy(gameObject);
+        // }
 
         // Creates a directory for the debug log if it doesn't exist
         if (!Directory.Exists(Application.streamingAssetsPath))

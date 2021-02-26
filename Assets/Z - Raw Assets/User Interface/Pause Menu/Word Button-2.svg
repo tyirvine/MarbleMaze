@@ -1,0 +1,27 @@
+<svg width="209" height="85" viewBox="0 0 209 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="10" y="10" width="189" height="65" fill="#EB8683"/>
+<line x1="10" y1="77.5" x2="199" y2="77.5" stroke="white" stroke-width="5"/>
+<line x1="10" y1="7.5" x2="199" y2="7.5" stroke="white" stroke-width="5"/>
+<line x1="201.521" y1="10" x2="201.521" y2="75" stroke="white" stroke-width="5"/>
+<line x1="7.52075" y1="10" x2="7.52075" y2="75" stroke="white" stroke-width="5"/>
+<rect x="194" y="10" width="5" height="5" fill="white"/>
+<rect x="199" y="7" width="3" height="3" fill="white"/>
+<rect x="194" y="12" width="3" height="3" fill="#EB8683"/>
+<rect x="199" y="75" width="3" height="3" fill="white"/>
+<rect x="7" y="7" width="3" height="3" fill="white"/>
+<rect x="7" y="75" width="3" height="3" fill="white"/>
+<rect x="194" y="70" width="5" height="5" fill="white"/>
+<rect x="10" y="10" width="5" height="5" fill="white"/>
+<rect x="10" y="70" width="5" height="5" fill="white"/>
+<rect x="12" y="12" width="3" height="3" fill="#EB8683"/>
+<rect x="10" y="61" width="6" height="9" fill="#D67774"/>
+<rect x="193" y="61" width="6" height="9" fill="#D67774"/>
+<rect x="15" y="67" width="179" height="8" fill="#D67774"/>
+<rect x="194" y="70" width="3" height="3" fill="#D67774"/>
+<rect x="190" y="64" width="3" height="3" fill="#D67774"/>
+<rect x="196" y="58" width="3" height="3" fill="#D67774"/>
+<rect x="12" y="70" width="3" height="3" fill="#D67774"/>
+<rect x="16" y="64" width="3" height="3" fill="#D67774"/>
+<rect x="10" y="58" width="3" height="3" fill="#D67774"/>
+<path d="M73.842 25.9412H71.6067V23.7059H49.2538V25.9412H51.4891V28.1765H49.2538V30.4118H47.0185V28.1765H44.7832V50.5294H47.0185V52.7647H49.2538V55H60.4303V57.2353H62.6656V59.4706H71.6067V52.7647H73.842V50.5294H76.0773V28.1765H73.842V25.9412ZM60.4303 46.0588V30.4118H67.1361V46.0588H60.4303ZM109.615 23.7059H102.91V25.9412H100.674V46.0588H96.2037V25.9412H93.9684V23.7059H82.7919V25.9412H87.2625V28.1765H85.0272V30.4118H82.7919V25.9412H80.5566V50.5294H82.7919V52.7647H85.0272V55H107.38V52.7647H109.615V50.5294H111.851V25.9412H109.615V23.7059ZM129.742 23.7059H118.565V25.9412H123.036V28.1765H120.801V30.4118H118.565V25.9412H116.33V52.7647H118.565V55H129.742V52.7647H131.977V25.9412H129.742V23.7059ZM165.502 23.7059H138.679V25.9412H143.149V28.1765H140.914V30.4118H138.679V32.6471H145.385V52.7647H147.62V55H156.561V52.7647H158.796V32.6471H165.502V30.4118H167.737V25.9412H165.502V23.7059ZM138.679 25.9412H136.443V30.4118H138.679V25.9412Z" fill="white"/>
+</svg>

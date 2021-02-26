@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 4333750601387259410}
   - component: {fileID: 1892356563077937349}
   - component: {fileID: -4517698573502941109}
+  - component: {fileID: -1525195223573943264}
   m_Layer: 11
   m_Name: Base Wall Piece
   m_TagString: wallTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2442348750420310649
 Transform:
@@ -96,3 +97,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-1525195223573943264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6522222031241883194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5184f00a622134d4aaa179091d550f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

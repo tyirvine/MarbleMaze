@@ -18,17 +18,18 @@ public class MarbleBehaviour : MonoBehaviour
     [Header("Settings")]
     [Range(0.5f, 1.5f)] public float scale = 1.25f;
     [Range(0.1f, 50f)] public float jumpPower = 14.4f;
-    [Range(0.1f, 1f)] public float jumpCooldown = 0.1f;
+    [Range(0.01f, 1f)] public float jumpCooldown = 0.1f;
     [Range(0.1f, 2f)] public float physicsResetTime = 1f;
     [Range(1f, 8f)] public float yAxisSpeedReduction = 4f;
+
     // State Objects
     float currentTime;
     bool isGrounded;
+    [HideInInspector] public bool shieldPickup = false;
 
     // Public References
     [Header("References")]
     public ParticleSystem particle;
-
 
     // Private References
     float marbleRadius;
@@ -41,22 +42,6 @@ public class MarbleBehaviour : MonoBehaviour
     List<LandmineHazard> activeHazards = new List<LandmineHazard>();
     LandmineHazard[] landmineHazards;
     public float hazardActiveRadius = 10f;
-
-    private void Update()
-    {
-        int layerMask = 1 << 13;
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, hazardActiveRadius, layerMask);
-        foreach (var hitCollider in hitColliders)
-        {
-            LandmineHazard haz;
-            if (objects.TryGetValue(hitCollider.transform, out haz))
-            {
-                haz.enabled = true;
-                haz.buttonLight.enabled = true;
-            }
-
-        }
-    }
 
     // Grab references
     private void Awake()
@@ -73,39 +58,8 @@ public class MarbleBehaviour : MonoBehaviour
         // Set scale
         gameObject.transform.localScale = gameObject.transform.localScale * scale;
         currentTime = Time.time + jumpCooldown;
-
-
     }
-    public void LevelStart()
-    {
 
-        if (activeHazards.Count > 0) activeHazards.Clear();
-        GameObject[] hazards = GameObject.FindGameObjectsWithTag("hazardObject");
-        landmineHazards = new LandmineHazard[hazards.Length];
-        int count = 0;
-        for (int i = 0; i < hazards.Length; i++)
-        {
-            if (hazards[i].GetComponent<LandmineHazard>() != null)
-            {
-                landmineHazards[count] = hazards[i].GetComponent<LandmineHazard>();
-                objects.Add(hazards[i].transform, landmineHazards[count]);
-                count++;
-            }
-
-        }
-        Debug.Log("hazards : " + hazards.Length);
-        Debug.Log("landmines : " + count);
-        foreach (LandmineHazard hazard in landmineHazards)
-        {
-            if (hazard != null)
-            {
-                hazard.buttonLight.enabled = false;
-                hazard.enabled = false;
-            }
-        }
-        activeHazards = landmineHazards.ToList();
-
-    }
     /// <summary>This can be used whenever the marble explodes. Control how long it takes the explosion to happen with delay.</summary>
     public void DeathSequenceExplode(float delay = 0f)
     {
@@ -113,14 +67,6 @@ public class MarbleBehaviour : MonoBehaviour
         statsManager.RemoveLife();
 
         Invoke("DeathSequenceEffects", delay);
-
-        // // Death effects
-        // spikeDeath.Play();
-        // particle.Play();
-        // marbleRenderer.enabled = false;
-
-        // // Freeze rigidbody
-        // myRigidbody.constraints = RigidbodyConstraints.FreezeAll;
     }
 
     void DeathSequenceEffects()
@@ -144,8 +90,6 @@ public class MarbleBehaviour : MonoBehaviour
     {
         marbleRenderer.enabled = true;
         myRigidbody.constraints = RigidbodyConstraints.None;
-        ///test 12/02/21
-
     }
 
     // What does this play? 
@@ -169,9 +113,12 @@ public class MarbleBehaviour : MonoBehaviour
         }
     }
 
-    void ResetRigidBody()
+    public void ResetRigidBody()
     {
-        myRigidbody.velocity = new Vector3(0, myRigidbody.velocity.y / yAxisSpeedReduction, 0);
+        myRigidbody.velocity = new Vector3(0f, myRigidbody.velocity.y / yAxisSpeedReduction, 0f);
+
+        // This will drop the marble perfectly, but it's almost too perfect
+        // myRigidbody.angularVelocity = Vector3.zero;
     }
 
     // Checks if the player is hitting a wall and checks for the collision force
