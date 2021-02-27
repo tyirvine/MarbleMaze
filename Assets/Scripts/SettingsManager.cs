@@ -1,11 +1,20 @@
-﻿
+﻿using System.Collections.Generic;
+
 using UnityEngine;
 using TMPro;
 using System;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using UnityEngine.Audio;
 
 public class SettingsManager : MonoBehaviour
 {
+
+    // Actuation references
+    [Header("Actuation References")]
+    public AudioMixer audioMixer;
+    public UnityEngine.InputSystem.PlayerInput playerInput;
+
     // UI References
     [Serializable]
     public class Setting
@@ -63,10 +72,21 @@ public class SettingsManager : MonoBehaviour
             setting.textMeshPro.text = setting.rootText + " " + setting.options[setting.value];
         else
             setting.textMeshPro.text = setting.options[setting.value];
+
+        SetControls();
     }
 
     /// <summary>Update the slider's ui by outputting a percentage.</summary>
-    public void UpdateSliderUI(SliderSetting slider) => slider.textMeshPro.text = slider.rootText + " " + (int)(slider.slider.value * 100f) + "%";
+    public void UpdateSliderUI(SliderSetting slider)
+    {
+        // Update value
+        slider.value = slider.slider.value;
+
+        // Update UI
+        slider.textMeshPro.text = slider.rootText + " " + (int)(slider.value * 100f) + "%";
+
+        SetControls();
+    }
 
     // These functions are neccessary for ui onclick events to work
     public void IncrementControls() => Increment(controls);
@@ -86,6 +106,10 @@ public class SettingsManager : MonoBehaviour
         graphics.value = PlayerPrefs.GetInt(nameof(graphics), graphics.value);
         resolution.value = PlayerPrefs.GetInt(nameof(resolution), resolution.value);
         fullscreen.value = PlayerPrefs.GetInt(nameof(fullscreen), fullscreen.value);
+
+        // Sound
+        sound.value = PlayerPrefs.GetFloat(nameof(sound), sound.value);
+        music.value = PlayerPrefs.GetFloat(nameof(music), music.value);
 
         // Update controls
         IncrementControls();
@@ -112,5 +136,40 @@ public class SettingsManager : MonoBehaviour
 
         // Save to disk
         PlayerPrefs.Save();
+
+        // Apply graphics choice
+        QualitySettings.SetQualityLevel(graphics.value);
     }
+
+    /* -------------------------------- Actuation ------------------------------- */
+    /// <summary>This function matches the ui controls to the actual controls in the game.</summary>
+    public void SetControls()
+    {
+        // Sound - Calculate sound levels
+        float musicVolume = (1 - music.value) * -80f;
+        float soundVolume = (1 - sound.value) * -80f;
+
+        audioMixer.SetFloat("musicVolume", musicVolume);
+        audioMixer.SetFloat("sfxVolume", soundVolume);
+
+        // Controls
+        playerInput.defaultControlScheme = controls.options[controls.value];
+
+        // Screen - Find resolution
+        Dictionary<int, int[]> resolutionDictionary = new Dictionary<int, int[]>();
+        resolutionDictionary.Add(0, new int[] { 1280, 720 });
+        resolutionDictionary.Add(1, new int[] { 1920, 1080 });
+        resolutionDictionary.Add(2, new int[] { 2560, 1440 });
+        resolutionDictionary.Add(3, new int[] { 3840, 2160 });
+
+        // Find full screen
+        FullScreenMode fullScreenMode = FullScreenMode.Windowed;
+        if (fullscreen.value == 0)
+            fullScreenMode = FullScreenMode.Windowed;
+        else
+            fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+
+        Screen.SetResolution(resolutionDictionary[resolution.value][0], resolutionDictionary[resolution.value][1], fullScreenMode);
+    }
+
 }
