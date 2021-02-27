@@ -161,7 +161,7 @@ public class LevelManager : MonoBehaviour
     {
         // if (currentLevel % spawnrate == 0) return input + 1;
         // else return input;
-        return input + spawnrate;
+        return (int)((input + spawnrate) * 0.9);
     }
 
 }
