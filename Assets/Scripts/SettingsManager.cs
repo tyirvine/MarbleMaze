@@ -64,10 +64,16 @@ public class SettingsManager : MonoBehaviour
     /// <summary>The root incrementing method.</summary>
     void Increment(Setting setting)
     {
+        // Cap max setting value
         if (setting.value < setting.options.Length - 1 && setting.value >= 0) setting.value++;
         else setting.value = 0;
 
-        // Update text
+        UpdateIncrementUI(setting);
+    }
+
+    /// <summary>Strictly for updating the ui and nothing else.</summary>
+    void UpdateIncrementUI(Setting setting)
+    {
         if (!setting.justShowValue)
             setting.textMeshPro.text = setting.rootText + " " + setting.options[setting.value];
         else
@@ -76,15 +82,18 @@ public class SettingsManager : MonoBehaviour
         SetControls();
     }
 
+    /// <summary>This updates the actual slider value.</summary>
+    void Slider(SliderSetting slider)
+    {
+        slider.value = slider.slider.value;
+        UpdateSliderUI(slider);
+    }
+
     /// <summary>Update the slider's ui by outputting a percentage.</summary>
     public void UpdateSliderUI(SliderSetting slider)
     {
-        // Update value
-        slider.value = slider.slider.value;
-
-        // Update UI
+        slider.slider.value = slider.value;
         slider.textMeshPro.text = slider.rootText + " " + (int)(slider.value * 100f) + "%";
-
         SetControls();
     }
 
@@ -95,8 +104,8 @@ public class SettingsManager : MonoBehaviour
     public void IncrementFullscreen() => Increment(fullscreen);
 
     // Sliders
-    public void UpdateSound() => UpdateSliderUI(sound);
-    public void UpdateMusic() => UpdateSliderUI(music);
+    public void UpdateSound() => Slider(sound);
+    public void UpdateMusic() => Slider(music);
 
     // Set values on awake
     private void Awake()
@@ -112,16 +121,16 @@ public class SettingsManager : MonoBehaviour
         music.value = PlayerPrefs.GetFloat(nameof(music), music.value);
 
         // Update controls
-        IncrementControls();
-        IncrementGraphics();
-        IncrementResolution();
-        IncrementFullscreen();
-        UpdateSound();
-        UpdateMusic();
+        UpdateIncrementUI(controls);
+        UpdateIncrementUI(graphics);
+        UpdateIncrementUI(resolution);
+        UpdateIncrementUI(fullscreen);
+        UpdateSliderUI(sound);
+        UpdateSliderUI(music);
     }
 
     /* ------------------------------- Persistence ------------------------------ */
-    /// <summary>Save all values.</summary>
+    /// <summary>Save all values. Happens when the player selects done on settings.</summary>
     public void SavePlayerPreferences()
     {
         // Integers
@@ -139,21 +148,6 @@ public class SettingsManager : MonoBehaviour
 
         // Apply graphics choice
         QualitySettings.SetQualityLevel(graphics.value);
-    }
-
-    /* -------------------------------- Actuation ------------------------------- */
-    /// <summary>This function matches the ui controls to the actual controls in the game.</summary>
-    public void SetControls()
-    {
-        // Sound - Calculate sound levels
-        float musicVolume = (1 - music.value) * -80f;
-        float soundVolume = (1 - sound.value) * -80f;
-
-        audioMixer.SetFloat("musicVolume", musicVolume);
-        audioMixer.SetFloat("sfxVolume", soundVolume);
-
-        // Controls
-        playerInput.defaultControlScheme = controls.options[controls.value];
 
         // Screen - Find resolution
         Dictionary<int, int[]> resolutionDictionary = new Dictionary<int, int[]>();
@@ -170,6 +164,21 @@ public class SettingsManager : MonoBehaviour
             fullScreenMode = FullScreenMode.ExclusiveFullScreen;
 
         Screen.SetResolution(resolutionDictionary[resolution.value][0], resolutionDictionary[resolution.value][1], fullScreenMode);
+    }
+
+    /* -------------------------------- Actuation ------------------------------- */
+    /// <summary>This function matches the ui controls to the actual controls in the game.</summary>
+    public void SetControls()
+    {
+        // Sound - Calculate sound levels
+        float musicVolume = (1 - music.value) * -80f;
+        float soundVolume = (1 - sound.value) * -80f;
+
+        audioMixer.SetFloat("musicVolume", musicVolume);
+        audioMixer.SetFloat("sfxVolume", soundVolume);
+
+        // Controls
+        playerInput.defaultControlScheme = controls.options[controls.value];
     }
 
 }
