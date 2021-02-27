@@ -88,6 +88,7 @@ public class LandmineHazard : MonoBehaviour
             explodeSound.Play();
             particle.Play();
             exploded = true;
+            Destroy(gameObject, 1.2f);
         }
     }
 
