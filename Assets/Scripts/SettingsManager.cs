@@ -57,7 +57,7 @@ public class SettingsManager : MonoBehaviour
     /// <summary>Resets all score history.</summary>
     public void ResetScore()
     {
-        // Reset score here
+        PlayerPrefs.SetInt("HighScore", 0);
     }
 
     /* ----------------------------- Incrementation ----------------------------- */
