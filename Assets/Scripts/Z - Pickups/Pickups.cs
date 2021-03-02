@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Pickups : MonoBehaviour
@@ -14,13 +13,11 @@ public class Pickups : MonoBehaviour
         {
             StartCoroutine(Pickup(other));
         }
-
     }
 
     IEnumerator Pickup(Collider player)
     {
         Instantiate(pickupEffect, transform.position, transform.rotation); // Create Effect
-
 
         // Different Pick ups start here
         player.transform.localScale *= multiplier; // Makes Player Size Change
