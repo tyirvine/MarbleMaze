@@ -328,7 +328,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1166890564}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &649750116
+--- !u!114 &649750120
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -428,7 +428,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 649750116}
+      objectReference: {fileID: 649750120}
     - target: {fileID: 296269567940490264, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -918,6 +918,16 @@ PrefabInstance:
         type: 3}
       propertyPath: moveSpeed
       value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 7683857431610325323, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Keyboard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7683857431610325323, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: m_NotificationBehavior
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325326, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
