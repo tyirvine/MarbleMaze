@@ -14,7 +14,7 @@ public class ShieldPickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             marble.shieldPickup = true;
             Invoke("TurnOffShield", time);
