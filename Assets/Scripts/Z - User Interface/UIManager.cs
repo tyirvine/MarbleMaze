@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
 
     /* ------------------------------- References ------------------------------- */
     [HideInInspector] public PlayerInput playerInput;
+    public GameOver gameOver;
 
     /* ------------------------------ Menu Control ----------------------------- */
     public UIMenu statsMenu;
@@ -84,6 +85,7 @@ public class UIManager : MonoBehaviour
     // Game over menu
     public void GameoverMenu(bool state)
     {
+        gameOver.UpdateGameOverScore();
         MenuControl(gameoverMenu, state);
     }
 
