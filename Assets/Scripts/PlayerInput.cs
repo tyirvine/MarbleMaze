@@ -73,6 +73,7 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    // Causes player to jump
     void OnJump()
     {
         marbleBehaviour.Jump();

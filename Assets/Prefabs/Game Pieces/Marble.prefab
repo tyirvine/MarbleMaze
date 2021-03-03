@@ -4990,6 +4990,7 @@ MonoBehaviour:
   jumpCooldown: 0.01
   physicsResetTime: 0.5
   yAxisSpeedReduction: 1
+  shieldPickup: 0
   particle: {fileID: 3458464538005014338}
   colliders: []
   gameManager: {fileID: 0}
@@ -5006,7 +5007,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -8272252412143508136, guid: 19fc47d118cd58746805941cc1db548b,
     type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: a9944a1df7ad12d48920041a18a66152, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1.21

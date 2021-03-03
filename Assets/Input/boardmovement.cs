@@ -223,7 +223,7 @@ public class @Boardmovement : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Just Keyboard"",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -750,6 +750,17 @@ public class @Boardmovement : IInputActionCollection, IDisposable
             ]
         },
         {
+            ""name"": ""Joystick"",
+            ""bindingGroup"": ""Joystick"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Joystick>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
             ""name"": ""XR"",
             ""bindingGroup"": ""XR"",
             ""devices"": [
@@ -761,8 +772,8 @@ public class @Boardmovement : IInputActionCollection, IDisposable
             ]
         },
         {
-            ""name"": ""Just Keyboard"",
-            ""bindingGroup"": ""Just Keyboard"",
+            ""name"": ""Keyboard"",
+            ""bindingGroup"": ""Keyboard"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
@@ -1016,6 +1027,15 @@ public class @Boardmovement : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_TouchSchemeIndex];
         }
     }
+    private int m_JoystickSchemeIndex = -1;
+    public InputControlScheme JoystickScheme
+    {
+        get
+        {
+            if (m_JoystickSchemeIndex == -1) m_JoystickSchemeIndex = asset.FindControlSchemeIndex("Joystick");
+            return asset.controlSchemes[m_JoystickSchemeIndex];
+        }
+    }
     private int m_XRSchemeIndex = -1;
     public InputControlScheme XRScheme
     {
@@ -1025,13 +1045,13 @@ public class @Boardmovement : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_XRSchemeIndex];
         }
     }
-    private int m_JustKeyboardSchemeIndex = -1;
-    public InputControlScheme JustKeyboardScheme
+    private int m_KeyboardSchemeIndex = -1;
+    public InputControlScheme KeyboardScheme
     {
         get
         {
-            if (m_JustKeyboardSchemeIndex == -1) m_JustKeyboardSchemeIndex = asset.FindControlSchemeIndex("Just Keyboard");
-            return asset.controlSchemes[m_JustKeyboardSchemeIndex];
+            if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
+            return asset.controlSchemes[m_KeyboardSchemeIndex];
         }
     }
     public interface IPlayerActions

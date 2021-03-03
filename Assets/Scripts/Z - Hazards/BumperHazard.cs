@@ -9,6 +9,8 @@ public class BumperHazard : MonoBehaviour
     public Animator animator;
     [HideInInspector] public Collider[] sphereColliders;
 
+    [Header("Audio")]
+    public AudioSource bumperSound;
     // Get colliders
     private void Awake()
     {
@@ -21,7 +23,7 @@ public class BumperHazard : MonoBehaviour
         {
             // This causes the animator to run the bumper animation
             animator.SetBool("Bumped", true);
-
+            bumperSound.Play();
             foreach (ContactPoint contact in collision.contacts)
             {
                 contact.otherCollider.attachedRigidbody.AddForce((-1 * contact.normal) * bumperForce, ForceMode.Impulse);

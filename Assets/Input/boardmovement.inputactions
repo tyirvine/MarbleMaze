@@ -210,7 +210,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Just Keyboard",
+                    "groups": "Keyboard",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -737,6 +737,17 @@
             ]
         },
         {
+            "name": "Joystick",
+            "bindingGroup": "Joystick",
+            "devices": [
+                {
+                    "devicePath": "<Joystick>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
             "name": "XR",
             "bindingGroup": "XR",
             "devices": [
@@ -748,8 +759,8 @@
             ]
         },
         {
-            "name": "Just Keyboard",
-            "bindingGroup": "Just Keyboard",
+            "name": "Keyboard",
+            "bindingGroup": "Keyboard",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
