@@ -902,6 +902,11 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 70
       objectReference: {fileID: 0}
+    - target: {fileID: 7683857431610325322, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: playerInput
+      value: 
+      objectReference: {fileID: 932740648}
     - target: {fileID: 7683857431610325323, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: m_DefaultControlScheme

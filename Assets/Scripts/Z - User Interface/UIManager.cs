@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
     /// <summary>Sets state for menu. Used for delaying menu open or close.</summary>
     public IEnumerator DelayMenuControl(UIMenu menu, bool state)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(0.3f);
         menu.canvas.enabled = state;
     }
 

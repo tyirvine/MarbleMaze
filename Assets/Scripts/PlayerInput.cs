@@ -70,6 +70,7 @@ public class PlayerInput : MonoBehaviour
         {
             uiManager.pauseMenu.state = false;
             uiManager.PauseMenu(uiManager.pauseMenu.state);
+            uiManager.OptionsMenu(uiManager.pauseMenu.state);
         }
     }
 

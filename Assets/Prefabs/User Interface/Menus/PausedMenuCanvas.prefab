@@ -177,7 +177,7 @@ PrefabInstance:
     - target: {fileID: 1365251864829280686, guid: 4e2976ba04fcb4bb09b510f549002ca9,
         type: 3}
       propertyPath: m_Name
-      value: Quit Button
+      value: Menu
       objectReference: {fileID: 0}
     - target: {fileID: 2069705166313619475, guid: 4e2976ba04fcb4bb09b510f549002ca9,
         type: 3}
@@ -247,7 +247,7 @@ PrefabInstance:
     - target: {fileID: 2069705166313619475, guid: 4e2976ba04fcb4bb09b510f549002ca9,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 422.44043
+      value: 446.06
       objectReference: {fileID: 0}
     - target: {fileID: 2069705166313619475, guid: 4e2976ba04fcb4bb09b510f549002ca9,
         type: 3}
@@ -299,6 +299,12 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2232610003159369510, guid: 4e2976ba04fcb4bb09b510f549002ca9,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3286163911610860551, guid: 9eb2af75fcfa64135b9f441e4be03d2a,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e2976ba04fcb4bb09b510f549002ca9, type: 3}
 --- !u!1001 &3915526299155139276
@@ -506,7 +512,7 @@ PrefabInstance:
     - target: {fileID: 8100641357902019966, guid: 2353864b91c974937819dd6788a0f231,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 449.45093
+      value: 575.92
       objectReference: {fileID: 0}
     - target: {fileID: 8100641357902019966, guid: 2353864b91c974937819dd6788a0f231,
         type: 3}
@@ -562,7 +568,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 3286163911610860551, guid: 9eb2af75fcfa64135b9f441e4be03d2a,
+      objectReference: {fileID: 3286163911610860551, guid: 00afdcac3e8864582af5b269aea1c833,
         type: 3}
     - target: {fileID: 8875161609398392582, guid: 2353864b91c974937819dd6788a0f231,
         type: 3}
@@ -582,7 +588,7 @@ PrefabInstance:
     - target: {fileID: 9088275941425855683, guid: 2353864b91c974937819dd6788a0f231,
         type: 3}
       propertyPath: m_Name
-      value: Menu
+      value: Options
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2353864b91c974937819dd6788a0f231, type: 3}
