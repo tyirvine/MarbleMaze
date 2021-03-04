@@ -157,7 +157,7 @@ PrefabInstance:
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
       propertyPath: InitialModule.startSpeed.scalar
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
@@ -167,7 +167,7 @@ PrefabInstance:
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
       propertyPath: ShapeModule.arc.mode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
@@ -197,12 +197,12 @@ PrefabInstance:
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
       propertyPath: moveWithTransform
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
@@ -353,6 +353,11 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.a
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
+        type: 3}
+      propertyPath: LightsModule.enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2952693776489508012, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
