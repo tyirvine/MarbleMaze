@@ -117,7 +117,7 @@ PrefabInstance:
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
@@ -137,7 +137,7 @@ PrefabInstance:
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
       propertyPath: looping
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
@@ -162,7 +162,7 @@ PrefabInstance:
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
       propertyPath: InitialModule.maxNumParticles
-      value: 1000
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
@@ -247,12 +247,12 @@ PrefabInstance:
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
       propertyPath: ShapeModule.type
-      value: 4
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
       propertyPath: lengthInSec
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
@@ -262,17 +262,17 @@ PrefabInstance:
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
       propertyPath: InitialModule.startSize.minMaxState
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
       propertyPath: InitialModule.startSizeY.minMaxState
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
       propertyPath: InitialModule.startSizeZ.minMaxState
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
@@ -343,6 +343,11 @@ PrefabInstance:
         type: 3}
       propertyPath: SizeBySpeedModule.range.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
+        type: 3}
+      propertyPath: ShapeModule.arc.value
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 2952693776489508012, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
