@@ -898,7 +898,7 @@ PrefabInstance:
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: shieldSpawnRate
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
@@ -913,12 +913,12 @@ PrefabInstance:
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: keySpawnRate
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: startingKeyProbability
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3942923127047086806, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
@@ -968,7 +968,7 @@ PrefabInstance:
     - target: {fileID: 7683857431610325322, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: moveSpeed
-      value: 70
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325322, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
