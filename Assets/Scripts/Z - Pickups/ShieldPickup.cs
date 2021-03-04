@@ -24,12 +24,12 @@ public class ShieldPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            marble.shieldPickup = true; 
+            marble.shieldPickup = true;
             pickupSound.Play();
             foreach (MeshRenderer mesh in meshRenderers)
-                {
+            {
                 mesh.enabled = false;
-                 }; 
+            };
             sphereCollider.enabled = false;
             ParticleState();
             Invoke("TurnOffShield", time);
