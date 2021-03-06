@@ -54,7 +54,7 @@ public class LevelManager : MonoBehaviour
     /* ------------------------------ State objects ----------------------------- */
     /// <summary>This keeps track of the current playthrough level count.</summary>
     public int currentLevel = 0;
-    int currentStage = 1;
+    public int currentStage = 1;
 
     /* --------------------------- Persistence objects -------------------------- */
     // TODO: Save high score

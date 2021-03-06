@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 3843478342410231280}
   - component: {fileID: 2387143383749491761}
   - component: {fileID: 3718209829431843202}
+  - component: {fileID: 2850448030560549865}
   m_Layer: 5
   m_Name: GameoverMenuCanvas
   m_TagString: Untagged
@@ -167,6 +168,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2850448030560549865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7431873298217832266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe8a2c7427b2e4e38bcf77d696ed09b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2771318978990142585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -800,7 +813,7 @@ PrefabInstance:
     - target: {fileID: 5030947774205810477, guid: a300136b7f99140bbb61d19d83dddc52,
         type: 3}
       propertyPath: m_Name
-      value: Gameover Text
+      value: Current Score Text
       objectReference: {fileID: 0}
     - target: {fileID: 6572509905912139959, guid: a300136b7f99140bbb61d19d83dddc52,
         type: 3}

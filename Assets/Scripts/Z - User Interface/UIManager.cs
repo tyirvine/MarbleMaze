@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
 
     /* ------------------------------- References ------------------------------- */
     [HideInInspector] public PlayerInput playerInput;
+    public GameOver gameOver;
 
     /* ------------------------------ Menu Control ----------------------------- */
     public UIMenu statsMenu;
@@ -39,7 +40,7 @@ public class UIManager : MonoBehaviour
     /// <summary>Sets state for menu. Used for delaying menu open or close.</summary>
     public IEnumerator DelayMenuControl(UIMenu menu, bool state)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(0.3f);
         menu.canvas.enabled = state;
     }
 
@@ -84,6 +85,7 @@ public class UIManager : MonoBehaviour
     // Game over menu
     public void GameoverMenu(bool state)
     {
+        gameOver.UpdateGameOverScore();
         MenuControl(gameoverMenu, state);
     }
 

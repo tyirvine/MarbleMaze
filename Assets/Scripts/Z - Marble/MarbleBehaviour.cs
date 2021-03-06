@@ -137,23 +137,11 @@ public class MarbleBehaviour : MonoBehaviour
         // Check to make sure the marble is grounded first
         // @bubzy-coding The reason I changed it back to a sphere cast is because the OnCollisionEnter sometimes doesn't
         // correctly identify ground which leaves the player stuck and unable to jump. - @tyirvine
-        RaycastHit hit;
-        Vector3 rayDirection = (transform.position - new Vector3(0f, 2f, 0f)).normalized;
-        if (Physics.SphereCast(transform.position, marbleRadius * 3f, rayDirection, out hit, 1f))
-            isGrounded = true;
-
-        // Then add force
-        // if (isGrounded && Time.time > currentTime)
-        // {
-        //     isGrounded = false;
-        //     currentTime = Time.time + jumpCooldown;
-        //     myRigidbody.AddForceAtPosition(new Vector3(0f, 1f, 0f) * jumpPower, transform.position, ForceMode.Impulse);
-        // }
-
         // @tyirvine - I removed the timer and increased the nearness to the ground so it felt more playful rather than limiting
-        if (isGrounded)
+        RaycastHit hit;
+        Vector3 rayDirection = new Vector3(0f, -1f, 0f);
+        if (Physics.SphereCast(transform.position, marbleRadius * 1f, rayDirection, out hit, 0.5f))
         {
-            Debug.Log("Jumping");
             isGrounded = false;
             currentTime = Time.time + jumpCooldown;
             myRigidbody.AddForceAtPosition(new Vector3(0f, 1f, 0f) * jumpPower, transform.position - new Vector3(0f, 1f, 0f), ForceMode.Impulse);

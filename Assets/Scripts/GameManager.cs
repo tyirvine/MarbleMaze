@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     int debugLevelTrack = 0;
 
     // High Score
-    public int highScore = 0;
+    public int currentScore = 0;
 
     // References
     [Header("References")]
@@ -132,12 +132,7 @@ public class GameManager : MonoBehaviour
         // Call new board
         Invoke(nameof(NewBoard), spawnNewBoardTiming);
 
-        //high score section;
-        if (levelManager.currentLevel > highScore) highScore = levelManager.currentLevel;
-        PlayerPrefs.SetInt("HighScore", highScore);
-        Debug.Log("High Score! " + highScore); //replace this with some UI magic!
-                                               //move this to when the player dies or quits!
-
+        currentScore = levelManager.currentLevel;
     }
 
     /// <summary>This method generates a new board and anything else that needs to happen.</summary>
@@ -210,8 +205,7 @@ public class GameManager : MonoBehaviour
         cameraManager.StartSmoothToTarget(cameraStart, temp_marble, cameraManager.startToTransition);
 
         // ! TODO: Remove this from the production build!
-        // Get high score
-        highScore = PlayerPrefs.GetInt("HighScore");
+
         if (!debugMode)
             CallForNewBoard();
 
