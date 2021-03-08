@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,14 +23,21 @@ public class MarbleBehaviour : MonoBehaviour
     [Range(0.1f, 2f)] public float physicsResetTime = 1f;
     [Range(1f, 8f)] public float yAxisSpeedReduction = 4f;
 
+    // Effects
+    [Header("Effects")]
+    public float invincibleTime = 10f;
+    public float invincibleMaterialTransition = 0.2f;
+
     // State Objects
     float currentTime;
     bool isGrounded;
-    [HideInInspector] public bool shieldPickup = false;
+    [HideInInspector] public bool shieldEnabled = false;
 
     // Public References
     [Header("References")]
     public ParticleSystem particle;
+    public Material materialShield;
+    Material materialBase;
 
     // Private References
     float marbleRadius;
@@ -54,11 +62,38 @@ public class MarbleBehaviour : MonoBehaviour
         marbleRadius = GetComponent<SphereCollider>().radius;
         myRigidbody = GetComponent<Rigidbody>();
         marbleRenderer = GetComponent<MeshRenderer>();
+        materialBase = GetComponent<MeshRenderer>().material;
 
         // Set scale
         gameObject.transform.localScale = gameObject.transform.localScale * scale;
         currentTime = Time.time + jumpCooldown;
     }
+
+    /* ----------------------------- Marble Effects ----------------------------- */
+
+    /// <summary>Makes the marble invincible.</summary>
+    public void MakeInvinicible()
+    {
+        // Set shield to enabled
+        shieldEnabled = true;
+
+        // Change shader
+        // gameObject.GetComponent<MeshRenderer>().material.Lerp(materialBase, materialShield, invincibleMaterialTransition);
+        GetComponent<MeshRenderer>().material = materialShield;
+
+        // Revert all after time
+        Invoke(nameof(DisableInvincible), invincibleTime);
+    }
+
+    /// <summary>Disables the invincibility.</summary>
+    public void DisableInvincible()
+    {
+        shieldEnabled = false;
+        // gameObject.GetComponent<MeshRenderer>().material.Lerp(materialShield, materialBase, invincibleMaterialTransition);
+        GetComponent<MeshRenderer>().material = materialBase;
+    }
+
+    /* ---------------------------- Marble Behaviours --------------------------- */
 
     /// <summary>This can be used whenever the marble explodes. Control how long it takes the explosion to happen with delay.</summary>
     public void DeathSequenceExplode(float delay = 0f)

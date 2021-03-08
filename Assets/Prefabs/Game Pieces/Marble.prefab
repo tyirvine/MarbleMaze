@@ -4990,8 +4990,12 @@ MonoBehaviour:
   jumpCooldown: 0.01
   physicsResetTime: 0.5
   yAxisSpeedReduction: 1
-  shieldPickup: 0
+  invincibleTime: 10
+  invincibleMaterialTransition: 0.2
+  shieldEnabled: 0
   particle: {fileID: 3458464538005014338}
+  materialBase: {fileID: 2100000, guid: d5ac284a3430345a7be1b33071abf78c, type: 2}
+  materialShield: {fileID: 2100000, guid: 9c1f38469e21e46fb9256a4647fb5f94, type: 2}
   colliders: []
   gameManager: {fileID: 0}
   statsManager: {fileID: 0}

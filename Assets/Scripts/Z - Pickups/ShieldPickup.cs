@@ -24,7 +24,7 @@ public class ShieldPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            marble.shieldPickup = true;
+            marble.MakeInvinicible();
             pickupSound.Play();
             foreach (MeshRenderer mesh in meshRenderers)
             {
@@ -32,14 +32,8 @@ public class ShieldPickup : MonoBehaviour
             };
             sphereCollider.enabled = false;
             ParticleState();
-            Invoke("TurnOffShield", time);
             Destroy(gameObject, time);
         }
-    }
-
-    private void TurnOffShield()
-    {
-        marble.shieldPickup = false;
     }
 
     private void ParticleState()
