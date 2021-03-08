@@ -991,7 +991,7 @@ PrefabInstance:
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: startingLifeProbability
-      value: 500
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
@@ -1016,12 +1016,12 @@ PrefabInstance:
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: keySpawnRate
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: startingKeyProbability
-      value: 500
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
@@ -1036,7 +1036,7 @@ PrefabInstance:
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: bumperSpawnRate
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
@@ -1046,12 +1046,17 @@ PrefabInstance:
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: lifeSpawnRate
-      value: 50
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: invisibilitySpawnRate
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: startingBumperProbability
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3942923127047086806, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
@@ -1091,7 +1096,7 @@ PrefabInstance:
     - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: debugJumpToLevel
-      value: 35
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
