@@ -26,7 +26,7 @@ public class MarbleBehaviour : MonoBehaviour
     // Effects
     [Header("Effects")]
     public float invincibleTime = 10f;
-    public float invincibleMaterialTransition = 0.2f;
+    public float shieldTransitionDuration = 0.2f;
 
     // State Objects
     float currentTime;
@@ -36,8 +36,9 @@ public class MarbleBehaviour : MonoBehaviour
     // Public References
     [Header("References")]
     public ParticleSystem particle;
+    public ParticleSystem particleShieldTransition;
     public Material materialShield;
-    Material materialBase;
+    public Material materialBase;
 
     // Private References
     float marbleRadius;
@@ -62,7 +63,6 @@ public class MarbleBehaviour : MonoBehaviour
         marbleRadius = GetComponent<SphereCollider>().radius;
         myRigidbody = GetComponent<Rigidbody>();
         marbleRenderer = GetComponent<MeshRenderer>();
-        materialBase = GetComponent<MeshRenderer>().material;
 
         // Set scale
         gameObject.transform.localScale = gameObject.transform.localScale * scale;
@@ -74,23 +74,30 @@ public class MarbleBehaviour : MonoBehaviour
     /// <summary>Makes the marble invincible.</summary>
     public void MakeInvinicible()
     {
+        // Cancel any disable invokes. This sort of resets the timer
+        CancelInvoke(nameof(DisableInvincible));
+
         // Set shield to enabled
         shieldEnabled = true;
 
         // Change shader
-        // gameObject.GetComponent<MeshRenderer>().material.Lerp(materialBase, materialShield, invincibleMaterialTransition);
-        GetComponent<MeshRenderer>().material = materialShield;
+        particleShieldTransition.Play();
+        Invoke(nameof(ShowShieldMaterial), 0.2f);
 
         // Revert all after time
         Invoke(nameof(DisableInvincible), invincibleTime);
     }
 
+    /// <summary>Used to delay the switch of mateirals.</summary>
+    public void ShowShieldMaterial() => marbleRenderer.material = materialShield;
+    public void HideShieldMaterial() => marbleRenderer.material = materialBase;
+
     /// <summary>Disables the invincibility.</summary>
     public void DisableInvincible()
     {
         shieldEnabled = false;
-        // gameObject.GetComponent<MeshRenderer>().material.Lerp(materialShield, materialBase, invincibleMaterialTransition);
-        GetComponent<MeshRenderer>().material = materialBase;
+        particleShieldTransition.Play();
+        Invoke(nameof(HideShieldMaterial), 0.2f);
     }
 
     /* ---------------------------- Marble Behaviours --------------------------- */
