@@ -11,6 +11,7 @@ public class ShieldPickup : MonoBehaviour
     public AudioSource pickupSound;
     public ParticleSystem particle;
     public SphereCollider sphereCollider;
+    public Behaviour halo;
     public MeshRenderer[] meshRenderers;
 
     public void Start()
@@ -30,6 +31,7 @@ public class ShieldPickup : MonoBehaviour
             {
                 mesh.enabled = false;
             };
+            halo.enabled = false;
             sphereCollider.enabled = false;
             ParticleState();
             Destroy(gameObject, time);
