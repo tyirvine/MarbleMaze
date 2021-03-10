@@ -8,6 +8,7 @@ public class LifePickup : MonoBehaviour
     public ParticleSystem particle;
     public MeshRenderer meshRenderer;
     public Collider pickupCollider;
+    public Behaviour halo;
     [Range(0f, 10f)] public float time;
 
     // Audio Settings 
@@ -27,8 +28,12 @@ public class LifePickup : MonoBehaviour
         {
             stats.AddLife();
             pickupSound.Play();
-            MarbleState();
             ParticleState();
+
+            // Invokes after particles start so it's less noticeable
+            Invoke(nameof(MarbleState), 0.1f);
+
+            // Destroy pickups
             Destroy(gameObject, time);
         }
     }
@@ -41,6 +46,7 @@ public class LifePickup : MonoBehaviour
 
     private void MarbleState()
     {
+        halo.enabled = false;
         meshRenderer.enabled = false;
         pickupCollider.enabled = false;
     }

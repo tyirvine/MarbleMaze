@@ -11,6 +11,7 @@ public class ShieldPickup : MonoBehaviour
     public AudioSource pickupSound;
     public ParticleSystem particle;
     public SphereCollider sphereCollider;
+    public Behaviour halo;
     public MeshRenderer[] meshRenderers;
 
     public void Start()
@@ -24,22 +25,17 @@ public class ShieldPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            marble.shieldPickup = true;
+            marble.MakeInvinicible();
             pickupSound.Play();
             foreach (MeshRenderer mesh in meshRenderers)
             {
                 mesh.enabled = false;
             };
+            halo.enabled = false;
             sphereCollider.enabled = false;
             ParticleState();
-            Invoke("TurnOffShield", time);
             Destroy(gameObject, time);
         }
-    }
-
-    private void TurnOffShield()
-    {
-        marble.shieldPickup = false;
     }
 
     private void ParticleState()

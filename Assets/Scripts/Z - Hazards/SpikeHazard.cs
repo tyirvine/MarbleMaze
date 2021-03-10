@@ -14,7 +14,7 @@ public class SpikeHazard : MonoBehaviour
     // Detect for ball collisions
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !other.GetComponent<MarbleBehaviour>().shieldPickup)
+        if (other.CompareTag("Player") && !other.GetComponent<MarbleBehaviour>().shieldEnabled)
         {
             marble.DeathSequenceExplode();
 
