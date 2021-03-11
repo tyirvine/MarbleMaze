@@ -337,7 +337,7 @@ public class PathManager : MonoBehaviour
         // Add the start node to the open points list
         openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, false));
 
-        List<NodeObject> alternativePath = new List<NodeObject>();
+        // List<NodeObject> alternativePath = new List<NodeObject>();
 
         // This object contains the current node being investigated
         NodeObject currentNode = new NodeObject(gridPoints.startPointNode);
@@ -368,8 +368,8 @@ public class PathManager : MonoBehaviour
                 if (openNodes.Count == 0)
                 {
                     deadEnds.Add(currentNode.position); //add this to the list of dead ends, for key spawning
-                    currentNode = alternativePath[0];   //pick a random point to start pathfinding from again./
-                    alternativePath.RemoveAt(0);
+                    // currentNode = alternativePath[0];   //pick a random point to start pathfinding from again./
+                    // alternativePath.RemoveAt(0);
                 }
 
                 // Empty out open nodes list
@@ -421,7 +421,7 @@ public class PathManager : MonoBehaviour
 
             if (openNodes.Count >= 3)
             {
-                alternativePath.Add(currentNode);
+                // alternativePath.Add(currentNode);
             }
             // Acts as an emergency break for this loop
             loopEmergencyBrake++;

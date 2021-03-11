@@ -1016,12 +1016,12 @@ PrefabInstance:
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: keySpawnRate
-      value: 1
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: startingKeyProbability
-      value: 0
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
