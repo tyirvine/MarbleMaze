@@ -206,6 +206,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &310055271 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3917683289696174709, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+    type: 3}
+  m_PrefabInstance: {fileID: 1166890564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &323294312 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
@@ -807,6 +819,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1450984803 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1527608143, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+    type: 3}
+  m_PrefabInstance: {fileID: 7683857432142559876}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8399f4ae965af40c99ba1570e2318d4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1582460273 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7683857431610325322, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
@@ -875,18 +899,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1961984977 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3917683289696174709, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
-    type: 3}
-  m_PrefabInstance: {fileID: 1166890564}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4290266265526262263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -987,11 +999,11 @@ PrefabInstance:
         type: 3}
       propertyPath: UI_LevelCounter
       value: 
-      objectReference: {fileID: 1961984977}
+      objectReference: {fileID: 310055271}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: startingLifeProbability
-      value: 50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
@@ -1011,17 +1023,17 @@ PrefabInstance:
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: spikeSpawnRate
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: keySpawnRate
-      value: 100
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: startingKeyProbability
-      value: 1000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
@@ -1036,17 +1048,17 @@ PrefabInstance:
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: bumperSpawnRate
-      value: 25
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: landmineSpawnRate
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: lifeSpawnRate
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
@@ -1056,8 +1068,13 @@ PrefabInstance:
     - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: startingBumperProbability
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1299860387565759768, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
+        type: 3}
+      propertyPath: colorManager
+      value: 
+      objectReference: {fileID: 1450984803}
     - target: {fileID: 3942923127047086806, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: cameraRig
@@ -1081,7 +1098,7 @@ PrefabInstance:
     - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
       propertyPath: debugMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7683857431610325321, guid: e4812eac19bba4a7f90f3bebb64f5ffd,
         type: 3}
