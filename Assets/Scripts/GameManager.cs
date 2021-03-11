@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     // State objects
     [HideInInspector] public bool newBoardGenerating = true;
     bool marbleIsReparented = false;
-    bool isStarted = true;
     [HideInInspector] public GameObject oldBoard;
 
     // Settings
@@ -122,8 +121,16 @@ public class GameManager : MonoBehaviour
     {
         // Pre-deletion ⤵︎
         marble.transform.SetParent(null);
-        if (debugMode) levelManager.NewLevel(debugJumpToLevel);
-        else levelManager.NewLevel();
+
+        // ! Remove from production build
+        if (debugMode)
+        {
+            levelManager.NewLevel(debugJumpToLevel);
+        }
+        else
+        {
+            levelManager.NewLevel();
+        }
 
         // Delete death catch so we don't get false deaths on level completion
         GameObject deathCatch = pathManager.GetComponent<BuildBoard>().deathCatch;
@@ -204,10 +211,7 @@ public class GameManager : MonoBehaviour
         Vector3 cameraStart = cameraManager.gameObject.transform.position;
         cameraManager.StartSmoothToTarget(cameraStart, temp_marble, cameraManager.startToTransition);
 
-        // ! TODO: Remove this from the production build!
-
-        if (!debugMode)
-            CallForNewBoard();
+        CallForNewBoard();
 
         // Configure for runtime without player action
         // Invoke(nameof(ConfigureForRuntime), 3f);
@@ -221,20 +225,4 @@ public class GameManager : MonoBehaviour
         boardOffsetFromMarble = runtimeBoardOffset;
         spawnNewBoardTiming = runtimeNewBoardTiming;
     }
-
-    // ! TODO: Remove this from the production build!
-    void Update()
-    {
-        if (isStarted)
-        {
-            if (debugMode && debugLevelTrack < debugJumpToLevel)
-            {
-                debugLevelTrack = debugJumpToLevel;
-                CallForNewBoard();
-            }
-            else
-                isStarted = false;
-        }
-    }
-
 }
