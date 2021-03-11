@@ -321,6 +321,16 @@ public class PathManager : MonoBehaviour
         }
     }
 
+    NodeObject[] ReturnNeighbours(NodeObject currentNode)
+    {
+        NodeObject[] neighbourNodes = new NodeObject[] {
+            new NodeObject(FindNodePosition(-3, 0, currentNode: currentNode), 0, 0, 0,false),
+            new NodeObject(FindNodePosition(0, 3, currentNode: currentNode), 0, 0, 0,false),
+            new NodeObject(FindNodePosition(3, 0, currentNode: currentNode), 0, 0, 0,false),
+            new NodeObject(FindNodePosition(0, -3, currentNode: currentNode), 0, 0, 0,false)
+            };
+        return neighbourNodes;
+    }
     /// <summary>This checks to see if the point collides with any non-pathable positions.</summary>
 
     /* -------------------------------------------------------------------------- */
@@ -337,7 +347,7 @@ public class PathManager : MonoBehaviour
         // Add the start node to the open points list
         openNodes.Add(new NodeObject(gridPoints.startPointNode, 0, 0, 0, false));
 
-        // List<NodeObject> alternativePath = new List<NodeObject>();
+         List<NodeObject> alternativePath = new List<NodeObject>();
 
         // This object contains the current node being investigated
         NodeObject currentNode = new NodeObject(gridPoints.startPointNode);
@@ -348,6 +358,8 @@ public class PathManager : MonoBehaviour
         // Loop Emergency Break
         int loopEmergencyBrake = 0;
         int loopEmergencyBrakeCap = 5000;
+
+        
 
         //Vector3Int furthestPoint = Vector3Int.zero;
         //float furthestPointDistance = 0;
@@ -367,9 +379,18 @@ public class PathManager : MonoBehaviour
                 }
                 if (openNodes.Count == 0)
                 {
-                    deadEnds.Add(currentNode.position); //add this to the list of dead ends, for key spawning
-                    // currentNode = alternativePath[0];   //pick a random point to start pathfinding from again./
-                    // alternativePath.RemoveAt(0);
+                    //      deadEnds.Add(currentNode.position); //add this to the list of dead ends, for key spawning
+                    //    currentNode = alternativePath[0];   //pick a random point to start pathfinding from again./
+                    //  alternativePath.RemoveAt(0);
+                    for(int i =closedNodes.Count-1; i > 0; i--)
+                    {
+                        if(ReturnNeighbours(closedNodes[i]).Length >0)
+                        {
+                            currentNode = closedNodes[i];
+                            break;
+                        }
+                    }
+             
                 }
 
                 // Empty out open nodes list
@@ -383,6 +404,7 @@ public class PathManager : MonoBehaviour
             // and log the current position as the end position
             if (pathLengthProgress >= desiredPathLength)
             {
+                Debug.Log("Path Complete....Retracing");
                 gridPoints.endPointNode = currentNode.position;
                 closedNodes.Add(currentNode);
                 RetracePath(currentNode);
@@ -412,16 +434,14 @@ public class PathManager : MonoBehaviour
                 {
                     continue;
                 }
-
                 // Otherwise add that node to a list of possible directions to take
                 node.parent = currentNode;
                 openNodes.Add(node);
-
             }
 
             if (openNodes.Count >= 3)
             {
-                // alternativePath.Add(currentNode);
+                 alternativePath.Add(currentNode);
             }
             // Acts as an emergency break for this loop
             loopEmergencyBrake++;

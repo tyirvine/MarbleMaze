@@ -171,7 +171,7 @@ public class GameManager : MonoBehaviour
 
         // Marble
         PlaceMarble();
-        Debug.Log(PlayerPrefs.GetInt("played"));
+        Debug.Log(PlayerPrefs.GetInt("played"));                                                                                                
     }
 
     void FixedUpdate()
