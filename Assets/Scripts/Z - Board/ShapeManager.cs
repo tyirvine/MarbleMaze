@@ -245,22 +245,46 @@ public class ShapeManager : MonoBehaviour
     {
         List<Vector3Int> deadEnds = new List<Vector3Int>();
         deadEnds.AddRange(gameObject.GetComponent<PathManager>().deadEnds);
-        if (deadEnds.Count > 0)
+
+        // Spawns based on dead ends
+        // if (deadEnds.Count > 0)
+        // {
+        //     int keyLocation = UnityEngine.Random.Range(0, deadEnds.Count);
+        //     Vector3 keyPosition = CheckPathNeighbours(deadEnds[keyLocation], walkNodes);
+        //     Vector3Int keyOffset = Vector3Int.zero;
+        //     Instantiate(key, keyPosition, Quaternion.identity);
+        //     SpawnKeyHazardGate();
+        // }
+        // else
+        // {
+        //     int keyLocation = UnityEngine.Random.Range(0, walkNodes.Count);
+        //     Vector3 keyPosition = CheckPathNeighbours(walkNodes[keyLocation], walkNodes);
+        //     Vector3Int keyOffset = Vector3Int.zero;
+        //     Instantiate(key, keyPosition, Quaternion.identity);
+        //     SpawnKeyHazardGate();
+        // }
+
+        // Spawn the key at the point furthest away from the player
+        Vector3 furthestNode = Vector3.zero;
+        float furthestNodeScore = 0f;
+
+        // Calculate the position of the furthest point from start on the board
+        foreach (var node in walkNodes)
         {
-            int keyLocation = UnityEngine.Random.Range(0, deadEnds.Count);
-            Vector3 keyPosition = CheckPathNeighbours(deadEnds[keyLocation], walkNodes);
-            Vector3Int keyOffset = Vector3Int.zero;
-            Instantiate(key, keyPosition, Quaternion.identity);
-            SpawnKeyHazardGate();
+            float currentNodeScore = (node - gameObject.GetComponent<PathManager>().gridPoints.startPointNode).magnitude;
+
+            if (currentNodeScore > furthestNodeScore)
+            {
+                furthestNode = node;
+                furthestNodeScore = currentNodeScore;
+                continue;
+            }
         }
-        else
-        {
-            int keyLocation = UnityEngine.Random.Range(0, walkNodes.Count);
-            Vector3 keyPosition = CheckPathNeighbours(walkNodes[keyLocation], walkNodes);
-            Vector3Int keyOffset = Vector3Int.zero;
-            Instantiate(key, keyPosition, Quaternion.identity);
-            SpawnKeyHazardGate();
-        }
+
+        // Once the furthest point is calculated then we can spawn the key at that point
+        Vector3 keyPosition = CheckPathNeighbours(furthestNode, walkNodes);
+        Instantiate(key, keyPosition, Quaternion.identity);
+        SpawnKeyHazardGate();
     }
 
     Vector3 CheckPathNeighbours(Vector3 keyLoc, List<Vector3> walkers)
