@@ -45,8 +45,7 @@ public class ShapeManager : MonoBehaviour
     public ShapeTemplate hazardKey;
     // Pickups
     public ShapeTemplate pickupLife;
-    public ShapeTemplate shieldPickup;
-    public ShapeTemplate invisibilityPickup;
+    public ShapeTemplate pickupShield;
 
     // One off obstacles
     [Header("Spawn Once")]
@@ -71,7 +70,7 @@ public class ShapeManager : MonoBehaviour
         shapesAsList.Add(hazardLandmine);
         // Pickups
         shapesAsList.Add(pickupLife);
-        shapesAsList.Add(shieldPickup);
+        shapesAsList.Add(pickupShield);
         //shapesAsList.Add(invisibilityPickup);
         // Add them all to shapes
         shapes = shapesAsList.ToArray();

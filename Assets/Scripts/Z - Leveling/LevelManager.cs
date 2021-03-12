@@ -42,11 +42,19 @@ public class LevelManager : MonoBehaviour
         pathManager = FindObjectOfType<GameManager>().pathManager;
         pathManager.desiredPathLength = startingPathLength;
 
-        // Shapes
+        // References
         shapeManager = pathManager.GetComponent<ShapeManager>();
+
+        // Reset all probability chances to 0
+        // Hazards
         shapeManager.hazardBumper.chanceToSpawn = 0;
         shapeManager.hazardLandmine.chanceToSpawn = 0;
         shapeManager.hazardSpike.chanceToSpawn = 0;
+        shapeManager.hazardKey.chanceToSpawn = 0;
+
+        // Pickups
+        shapeManager.pickupLife.chanceToSpawn = 0;
+        shapeManager.pickupShield.chanceToSpawn = 0;
     }
 
     /* ------------------------------ State objects ----------------------------- */
@@ -116,13 +124,11 @@ public class LevelManager : MonoBehaviour
         {
             shapeManager.hazardBumper.chanceToSpawn = startingBumperProbability;
             shapeManager.pickupLife.chanceToSpawn = startingLifeProbability;
-            shapeManager.shieldPickup.chanceToSpawn = startingShieldProbability;
         }
         else
         {
             shapeManager.hazardBumper.chanceToSpawn = CalculateSpawnRate(bumperSpawnRate, shapeManager.hazardBumper.chanceToSpawn);
             shapeManager.pickupLife.chanceToSpawn = CalculateSpawnRate(lifeSpawnRate, shapeManager.pickupLife.chanceToSpawn);
-            shapeManager.shieldPickup.chanceToSpawn = CalculateSpawnRate(shieldSpawnRate, shapeManager.shieldPickup.chanceToSpawn);
         }
 
         // Landmine
@@ -139,17 +145,18 @@ public class LevelManager : MonoBehaviour
 
         // Key
         if (currentLevel == 29)
+        {
+            shapeManager.pickupShield.chanceToSpawn = startingShieldProbability;
             shapeManager.hazardKey.chanceToSpawn = startingKeyProbability;
-        else if (currentLevel <= 29)
+        }
+        else if (currentLevel >= 29)
+        {
+            shapeManager.pickupShield.chanceToSpawn = CalculateSpawnRate(shieldSpawnRate, shapeManager.pickupShield.chanceToSpawn);
             shapeManager.hazardKey.chanceToSpawn = CalculateSpawnRate(keySpawnRate, shapeManager.hazardKey.chanceToSpawn);
+        }
     }
 
     /// <summary>This calculates how often the hazard should be spawning.</summary>
-    int CalculateSpawnRate(int spawnrate, int input)
-    {
-        // if (currentLevel % spawnrate == 0) return input + 1;
-        // else return input;
-        return (int)((input + spawnrate) * 0.9);
-    }
+    int CalculateSpawnRate(int spawnrate, int input) => spawnrate + input;
 
 }
