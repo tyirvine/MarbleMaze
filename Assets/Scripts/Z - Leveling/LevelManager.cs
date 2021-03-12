@@ -17,7 +17,6 @@ public class LevelManager : MonoBehaviour
     [Range(0, 1000)] public int startingSpikeProbability = 15;
     [Range(0, 1000)] public int startingLifeProbability = 15;
     [Range(0, 1000)] public int startingShieldProbability = 15;
-    [Range(0, 1000)] public int startingInvisibilityProbability = 15;
     [Range(0, 1000)] public int startingKeyProbability = 0;
 
     // Hazard spawn rate
@@ -27,7 +26,6 @@ public class LevelManager : MonoBehaviour
     [Range(1, 100)] public int spikeSpawnRate = 1;
     [Range(1, 100)] public int lifeSpawnRate = 1;
     [Range(1, 100)] public int shieldSpawnRate = 1;
-    [Range(1, 100)] public int invisibilitySpawnRate = 1;
     [Range(1, 100)] public int keySpawnRate = 1;
 
     /* --------------------------- Referenced objects --------------------------- */

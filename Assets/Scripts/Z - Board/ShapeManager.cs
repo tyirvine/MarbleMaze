@@ -243,46 +243,12 @@ public class ShapeManager : MonoBehaviour
     /// <summary>Works out where to spawn a key hazard in the level.</summary>
     void SpawnKeyHazard(List<Vector3> walkNodes)
     {
-        List<Vector3Int> deadEnds = new List<Vector3Int>();
-        deadEnds.AddRange(gameObject.GetComponent<PathManager>().deadEnds);
-
-        // Spawns based on dead ends
-        // if (deadEnds.Count > 0)
-        // {
-        //     int keyLocation = UnityEngine.Random.Range(0, deadEnds.Count);
-        //     Vector3 keyPosition = CheckPathNeighbours(deadEnds[keyLocation], walkNodes);
-        //     Vector3Int keyOffset = Vector3Int.zero;
-        //     Instantiate(key, keyPosition, Quaternion.identity);
-        //     SpawnKeyHazardGate();
-        // }
-        // else
-        // {
-        //     int keyLocation = UnityEngine.Random.Range(0, walkNodes.Count);
-        //     Vector3 keyPosition = CheckPathNeighbours(walkNodes[keyLocation], walkNodes);
-        //     Vector3Int keyOffset = Vector3Int.zero;
-        //     Instantiate(key, keyPosition, Quaternion.identity);
-        //     SpawnKeyHazardGate();
-        // }
-
-        // Spawn the key at the point furthest away from the player
-        Vector3 furthestNode = Vector3.zero;
-        float furthestNodeScore = 0f;
-
-        // Calculate the position of the furthest point from start on the board
-        foreach (var node in walkNodes)
-        {
-            float currentNodeScore = (node - gameObject.GetComponent<PathManager>().gridPoints.startPointNode).magnitude;
-
-            if (currentNodeScore > furthestNodeScore)
-            {
-                furthestNode = node;
-                furthestNodeScore = currentNodeScore;
-                continue;
-            }
-        }
+        // Spawn the key half way through the path
+        int indexHalfed = (walkNodes.Count() / 3) * 2;
+        Vector3 halfwayNode = walkNodes[indexHalfed];
 
         // Once the furthest point is calculated then we can spawn the key at that point
-        Vector3 keyPosition = CheckPathNeighbours(furthestNode, walkNodes);
+        Vector3 keyPosition = CheckPathNeighbours(halfwayNode, walkNodes);
         Instantiate(key, keyPosition, Quaternion.identity);
         SpawnKeyHazardGate();
     }
