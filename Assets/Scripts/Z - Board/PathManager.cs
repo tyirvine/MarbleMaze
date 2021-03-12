@@ -353,7 +353,7 @@ public class PathManager : MonoBehaviour
         NodeObject currentNode = new NodeObject(gridPoints.startPointNode);
 
         // This variable keeps track of how much progress it's made in getting to the desired path length
-        int pathLengthProgress = 0;
+        int pathLengthProgress = 1;
 
         // Loop Emergency Break
         int loopEmergencyBrake = 0;
@@ -376,6 +376,7 @@ public class PathManager : MonoBehaviour
                 if (openNodes.Count > 0)
                 {
                     currentNode = openNodes[randomOpenNode];
+                    pathLengthProgress++;
                 }
                 if (openNodes.Count == 0)
                 {
@@ -387,6 +388,8 @@ public class PathManager : MonoBehaviour
                         if (ReturnNeighbours(closedNodes[i]).Length > 0)
                         {
                             currentNode = closedNodes[i];
+
+                            pathLengthProgress++;
                             break;
                         }
                     }
@@ -398,7 +401,7 @@ public class PathManager : MonoBehaviour
             }
 
             // Path incremented one position
-            pathLengthProgress++;
+//            pathLengthProgress++;
 
             // Check to see if the current node position is equal to the end or target node's position
             // and log the current position as the end position
