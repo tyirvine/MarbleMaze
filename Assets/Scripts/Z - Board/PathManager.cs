@@ -359,8 +359,6 @@ public class PathManager : MonoBehaviour
         int loopEmergencyBrake = 0;
         int loopEmergencyBrakeCap = 5000;
 
-
-
         //Vector3Int furthestPoint = Vector3Int.zero;
         //float furthestPointDistance = 0;
         // This loops until a path is generated from the start node to the end node
@@ -407,7 +405,6 @@ public class PathManager : MonoBehaviour
             // and log the current position as the end position
             if (pathLengthProgress >= desiredPathLength)
             {
-                Debug.Log("Path Complete....Retracing");
                 gridPoints.endPointNode = currentNode.position;
                 closedNodes.Add(currentNode);
                 RetracePath(currentNode);
