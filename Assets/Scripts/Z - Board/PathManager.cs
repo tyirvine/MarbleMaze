@@ -399,7 +399,7 @@ public class PathManager : MonoBehaviour
             }
 
             // Path incremented one position
-//            pathLengthProgress++;
+            //            pathLengthProgress++;
 
             // Check to see if the current node position is equal to the end or target node's position
             // and log the current position as the end position
