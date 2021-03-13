@@ -321,6 +321,16 @@ public class PathManager : MonoBehaviour
         }
     }
 
+    NodeObject[] ReturnNeighbours(NodeObject currentNode)
+    {
+        NodeObject[] neighbourNodes = new NodeObject[] {
+            new NodeObject(FindNodePosition(-3, 0, currentNode: currentNode), 0, 0, 0,false),
+            new NodeObject(FindNodePosition(0, 3, currentNode: currentNode), 0, 0, 0,false),
+            new NodeObject(FindNodePosition(3, 0, currentNode: currentNode), 0, 0, 0,false),
+            new NodeObject(FindNodePosition(0, -3, currentNode: currentNode), 0, 0, 0,false)
+            };
+        return neighbourNodes;
+    }
     /// <summary>This checks to see if the point collides with any non-pathable positions.</summary>
 
     /* -------------------------------------------------------------------------- */
@@ -343,7 +353,7 @@ public class PathManager : MonoBehaviour
         NodeObject currentNode = new NodeObject(gridPoints.startPointNode);
 
         // This variable keeps track of how much progress it's made in getting to the desired path length
-        int pathLengthProgress = 0;
+        int pathLengthProgress = 1;
 
         // Loop Emergency Break
         int loopEmergencyBrake = 0;
@@ -364,12 +374,24 @@ public class PathManager : MonoBehaviour
                 if (openNodes.Count > 0)
                 {
                     currentNode = openNodes[randomOpenNode];
+                    pathLengthProgress++;
                 }
                 if (openNodes.Count == 0)
                 {
-                    deadEnds.Add(currentNode.position); //add this to the list of dead ends, for key spawning
-                    currentNode = alternativePath[0];   //pick a random point to start pathfinding from again./
-                    alternativePath.RemoveAt(0);
+                    //      deadEnds.Add(currentNode.position); //add this to the list of dead ends, for key spawning
+                    //    currentNode = alternativePath[0];   //pick a random point to start pathfinding from again./
+                    //  alternativePath.RemoveAt(0);
+                    for (int i = closedNodes.Count - 1; i > 0; i--)
+                    {
+                        if (ReturnNeighbours(closedNodes[i]).Length > 0)
+                        {
+                            currentNode = closedNodes[i];
+
+                            pathLengthProgress++;
+                            break;
+                        }
+                    }
+
                 }
 
                 // Empty out open nodes list
@@ -377,7 +399,7 @@ public class PathManager : MonoBehaviour
             }
 
             // Path incremented one position
-            pathLengthProgress++;
+            //            pathLengthProgress++;
 
             // Check to see if the current node position is equal to the end or target node's position
             // and log the current position as the end position
@@ -412,11 +434,9 @@ public class PathManager : MonoBehaviour
                 {
                     continue;
                 }
-
                 // Otherwise add that node to a list of possible directions to take
                 node.parent = currentNode;
                 openNodes.Add(node);
-
             }
 
             if (openNodes.Count >= 3)

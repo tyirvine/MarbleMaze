@@ -17,7 +17,6 @@ public class LevelManager : MonoBehaviour
     [Range(0, 1000)] public int startingSpikeProbability = 15;
     [Range(0, 1000)] public int startingLifeProbability = 15;
     [Range(0, 1000)] public int startingShieldProbability = 15;
-    [Range(0, 1000)] public int startingInvisibilityProbability = 15;
     [Range(0, 1000)] public int startingKeyProbability = 0;
 
     // Hazard spawn rate
@@ -27,7 +26,6 @@ public class LevelManager : MonoBehaviour
     [Range(1, 100)] public int spikeSpawnRate = 1;
     [Range(1, 100)] public int lifeSpawnRate = 1;
     [Range(1, 100)] public int shieldSpawnRate = 1;
-    [Range(1, 100)] public int invisibilitySpawnRate = 1;
     [Range(1, 100)] public int keySpawnRate = 1;
 
     /* --------------------------- Referenced objects --------------------------- */
@@ -44,11 +42,19 @@ public class LevelManager : MonoBehaviour
         pathManager = FindObjectOfType<GameManager>().pathManager;
         pathManager.desiredPathLength = startingPathLength;
 
-        // Shapes
+        // References
         shapeManager = pathManager.GetComponent<ShapeManager>();
+
+        // Reset all probability chances to 0
+        // Hazards
         shapeManager.hazardBumper.chanceToSpawn = 0;
         shapeManager.hazardLandmine.chanceToSpawn = 0;
         shapeManager.hazardSpike.chanceToSpawn = 0;
+        shapeManager.hazardKey.chanceToSpawn = 0;
+
+        // Pickups
+        shapeManager.pickupLife.chanceToSpawn = 0;
+        shapeManager.pickupShield.chanceToSpawn = 0;
     }
 
     /* ------------------------------ State objects ----------------------------- */
@@ -75,22 +81,6 @@ public class LevelManager : MonoBehaviour
 
         // Updates the ui for the level count
         UI_UpdateLevelCounter();
-    }
-
-    public void NewLevel(int level)
-    {
-        for (int i = 0; i < level; i++)
-        {
-            IncrementPathLength();
-            IncrementHazardProbability();
-
-            // Increments level count
-            currentLevel++;
-            if (currentLevel % 10 == 0) NewStage();
-
-            // Updates the ui for the level count
-            UI_UpdateLevelCounter();
-        }
     }
 
     /// <summary>This is sort of like an extension to new level. This just runs code after entering a new stage.</summary>
@@ -134,13 +124,11 @@ public class LevelManager : MonoBehaviour
         {
             shapeManager.hazardBumper.chanceToSpawn = startingBumperProbability;
             shapeManager.pickupLife.chanceToSpawn = startingLifeProbability;
-            shapeManager.shieldPickup.chanceToSpawn = startingShieldProbability;
         }
         else
         {
             shapeManager.hazardBumper.chanceToSpawn = CalculateSpawnRate(bumperSpawnRate, shapeManager.hazardBumper.chanceToSpawn);
             shapeManager.pickupLife.chanceToSpawn = CalculateSpawnRate(lifeSpawnRate, shapeManager.pickupLife.chanceToSpawn);
-            shapeManager.shieldPickup.chanceToSpawn = CalculateSpawnRate(shieldSpawnRate, shapeManager.shieldPickup.chanceToSpawn);
         }
 
         // Landmine
@@ -157,17 +145,18 @@ public class LevelManager : MonoBehaviour
 
         // Key
         if (currentLevel == 29)
+        {
+            shapeManager.pickupShield.chanceToSpawn = startingShieldProbability;
             shapeManager.hazardKey.chanceToSpawn = startingKeyProbability;
-        else if (currentLevel <= 29)
+        }
+        else if (currentLevel >= 29)
+        {
+            shapeManager.pickupShield.chanceToSpawn = CalculateSpawnRate(shieldSpawnRate, shapeManager.pickupShield.chanceToSpawn);
             shapeManager.hazardKey.chanceToSpawn = CalculateSpawnRate(keySpawnRate, shapeManager.hazardKey.chanceToSpawn);
+        }
     }
 
     /// <summary>This calculates how often the hazard should be spawning.</summary>
-    int CalculateSpawnRate(int spawnrate, int input)
-    {
-        // if (currentLevel % spawnrate == 0) return input + 1;
-        // else return input;
-        return (int)((input + spawnrate) * 0.9);
-    }
+    int CalculateSpawnRate(int spawnrate, int input) => spawnrate + input;
 
 }

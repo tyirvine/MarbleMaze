@@ -4677,8 +4677,8 @@ Halo:
   m_Enabled: 1
   m_Color:
     serializedVersion: 2
-    rgba: 4280559918
-  m_Size: 3.78
+    rgba: 4280230696
+  m_Size: 4.77
 --- !u!199 &3664855954849020296
 ParticleSystemRenderer:
   serializedVersion: 6

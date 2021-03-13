@@ -87,16 +87,22 @@ public class BuildBoard : MonoBehaviour
         // Get reference to path manager
         Vector3Int endPoint = gameObject.GetComponent<PathManager>().gridPoints.endPointNode;
         Vector3Int[] endPointClearance = pathManager.FindClearanceNodes(endPoint);
+        bool placedFinish = false;
+
+        // Remove duplicate positions from the list
+        pathNodes.Distinct().ToList();
 
         // Build out floor
-        foreach (NodeObject n in pathNodes)
+        foreach (NodeObject node in pathNodes)
         {
-
             // Don't build on the finishing hole
-            if (n.position == endPoint)
+            if (node.position == endPoint && !placedFinish)
+            {
                 Instantiate(pathFinishHole, endPoint + pathFinishHole.transform.position, pathFinishHole.transform.rotation);
-            else if (n.position != endPointClearance[0] && n.position != endPointClearance[1] && n.position != endPointClearance[2])
-                Instantiate(pathCube, n.position - new Vector3(0, pathCube.transform.localScale.y, 0), pathCube.transform.rotation);
+                placedFinish = true;
+            }
+            else if (node.position != endPointClearance[0] && node.position != endPointClearance[1] && node.position != endPointClearance[2] && node.position != endPoint)
+                Instantiate(pathCube, node.position - new Vector3(0, pathCube.transform.localScale.y, 0), pathCube.transform.rotation);
         }
 
     }

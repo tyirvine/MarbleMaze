@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee1f89345e95a4676a73b5c4a7aacdd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredPathLength: 38
+  desiredPathLength: 5
   disablePathFlags: 1
   buildBoard: 1
   buildShapes: 1
@@ -56,11 +56,10 @@ MonoBehaviour:
   startFlag: {fileID: 4014911049134122452, guid: 9d670d60e092d47a099802f4d445f0c9,
     type: 3}
   endFlag: {fileID: 8970112326771813452, guid: 3a13cb7cf52e0c048be27ed0b089bdad, type: 3}
-  deadEnds:
-  - {x: 9, y: -1, z: 15}
+  deadEnds: []
   obstacleManager: {fileID: 3573442668972672423}
   didPathGenerate: 0
-  currentWorldPosition: {x: 0, y: -1, z: 0}
+  currentWorldPosition: {x: 1, y: -129, z: 1}
 --- !u!114 &3573442668972672423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,8 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shapes:
-  - rule: {fileID: 5520149041154882132, guid: dfee14ae8f119433ca5143d8a704e46b, type: 3}
-    model: {fileID: 1414435072253065291, guid: 50c5dfc8c304140a0b46d07791e00abe, type: 3}
+  - rule: {fileID: 5520149041154882132, guid: 160ebb87b1a78410c834ef9758b02fe5, type: 3}
+    model: {fileID: 1414435072253065291, guid: 30f74cf16a534440b92386dcb8ca0a57, type: 3}
     unitCount: 4
     includeInBuild: 1
     rotate: 1
@@ -134,8 +133,8 @@ MonoBehaviour:
     rotate: 1
     chanceToSpawn: 1000
     porbabilityPiece: 0
-  - rule: {fileID: 5520149041154882132, guid: 160ebb87b1a78410c834ef9758b02fe5, type: 3}
-    model: {fileID: 1414435072253065291, guid: 30f74cf16a534440b92386dcb8ca0a57, type: 3}
+  - rule: {fileID: 5520149041154882132, guid: dfee14ae8f119433ca5143d8a704e46b, type: 3}
+    model: {fileID: 1414435072253065291, guid: 50c5dfc8c304140a0b46d07791e00abe, type: 3}
     unitCount: 4
     includeInBuild: 1
     rotate: 1
@@ -168,7 +167,7 @@ MonoBehaviour:
     unitCount: 7
     includeInBuild: 1
     rotate: 1
-    chanceToSpawn: 90
+    chanceToSpawn: 0
     porbabilityPiece: 1
   hazardSpike:
     rule: {fileID: 4142884895529112775, guid: 716b525de68ad4cd5b0bb26a6ec879f2, type: 3}
@@ -184,7 +183,7 @@ MonoBehaviour:
     unitCount: 3
     includeInBuild: 1
     rotate: 1
-    chanceToSpawn: 9
+    chanceToSpawn: 0
     porbabilityPiece: 1
   hazardKey:
     rule: {fileID: 0}
@@ -192,7 +191,7 @@ MonoBehaviour:
     unitCount: 0
     includeInBuild: 0
     rotate: 0
-    chanceToSpawn: 100
+    chanceToSpawn: 0
     porbabilityPiece: 1
   pickupLife:
     rule: {fileID: 4142884895529112775, guid: b7e5d6308f1d443829406146cb1fc5e7, type: 3}
@@ -202,21 +201,13 @@ MonoBehaviour:
     rotate: 1
     chanceToSpawn: 0
     porbabilityPiece: 1
-  shieldPickup:
+  pickupShield:
     rule: {fileID: 4142884895529112775, guid: 0398a9c2d723242db98f227fcde13a09, type: 3}
     model: {fileID: 1601014077680546308, guid: 457c34b14d61445c49017638eef8ceb7, type: 3}
     unitCount: 7
     includeInBuild: 1
     rotate: 1
-    chanceToSpawn: 867
-    porbabilityPiece: 1
-  invisibilityPickup:
-    rule: {fileID: 0}
-    model: {fileID: 0}
-    unitCount: 0
-    includeInBuild: 1
-    rotate: 1
-    chanceToSpawn: 1000
+    chanceToSpawn: 0
     porbabilityPiece: 1
   key: {fileID: 3772451765282293270, guid: 927b26ab0a14b514184e18f121232446, type: 3}
   gate: {fileID: 6198158581847190021, guid: 17122b656c392410d863d4ec53c26500, type: 3}

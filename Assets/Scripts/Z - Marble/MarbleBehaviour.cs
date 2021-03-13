@@ -12,7 +12,6 @@ public class MarbleBehaviour : MonoBehaviour
     public float audioTriggerSpeed;
     public AudioSource spikeDeath;
     public AudioClip impact;
-    public AudioClip levelFinish;
     public AudioClip deathSound;
 
     // Settings
@@ -145,13 +144,6 @@ public class MarbleBehaviour : MonoBehaviour
         {
             gameManager.statsManager.AddToScore(1);
             Destroy(other.gameObject);
-        }
-
-        if (other.CompareTag("LevelFinish"))
-        {
-            PlayAudio(levelFinish);
-            gameManager.CallForNewBoard();
-            Invoke("ResetRigidBody", physicsResetTime);
         }
     }
 

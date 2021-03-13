@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     // State objects
     [HideInInspector] public bool newBoardGenerating = true;
     bool marbleIsReparented = false;
-    bool isStarted = true;
     [HideInInspector] public GameObject oldBoard;
 
     // Settings
@@ -32,8 +31,7 @@ public class GameManager : MonoBehaviour
     // Debug Settings
     [Header("Debug Settings")]
     public bool debugMode = false;
-    public int debugJumpToLevel = 0;
-    int debugLevelTrack = 0;
+    public int debugJumpToLevel;
 
     // High Score
     public int currentScore = 0;
@@ -120,19 +118,30 @@ public class GameManager : MonoBehaviour
     /// <summary>Calls the new board method after a set number of seconds.</summary>
     public void CallForNewBoard()
     {
-        // Pre-deletion ⤵︎
-        marble.transform.SetParent(null);
-        if (debugMode) levelManager.NewLevel(debugJumpToLevel);
-        else levelManager.NewLevel();
+        // Calls the board. This has been made into a nested function for debugging
+        void BoardCall()
+        {
+            // Pre-deletion ⤵︎
+            marble.transform.SetParent(null);
+            levelManager.NewLevel();
 
-        // Delete death catch so we don't get false deaths on level completion
-        GameObject deathCatch = pathManager.GetComponent<BuildBoard>().deathCatch;
-        if (deathCatch != null) Destroy(deathCatch.gameObject);
+            // Delete death catch so we don't get false deaths on level completion
+            GameObject deathCatch = pathManager.GetComponent<BuildBoard>().deathCatch;
+            if (deathCatch != null) Destroy(deathCatch.gameObject);
 
-        // Call new board
-        Invoke(nameof(NewBoard), spawnNewBoardTiming);
+            // Call new board
+            Invoke(nameof(NewBoard), spawnNewBoardTiming);
 
-        currentScore = levelManager.currentLevel;
+            currentScore = levelManager.currentLevel;
+        }
+
+        // ! Remove from production
+        // Each time a level is beat, if in debug mode, it'll jump the next x number of levels
+        if (debugMode)
+            for (int level = 0; level < debugJumpToLevel; level++)
+                BoardCall();
+        else
+            BoardCall();
     }
 
     /// <summary>This method generates a new board and anything else that needs to happen.</summary>
@@ -204,10 +213,7 @@ public class GameManager : MonoBehaviour
         Vector3 cameraStart = cameraManager.gameObject.transform.position;
         cameraManager.StartSmoothToTarget(cameraStart, temp_marble, cameraManager.startToTransition);
 
-        // ! TODO: Remove this from the production build!
-
-        if (!debugMode)
-            CallForNewBoard();
+        CallForNewBoard();
 
         // Configure for runtime without player action
         // Invoke(nameof(ConfigureForRuntime), 3f);
@@ -221,20 +227,4 @@ public class GameManager : MonoBehaviour
         boardOffsetFromMarble = runtimeBoardOffset;
         spawnNewBoardTiming = runtimeNewBoardTiming;
     }
-
-    // ! TODO: Remove this from the production build!
-    void Update()
-    {
-        if (isStarted)
-        {
-            if (debugMode && debugLevelTrack < debugJumpToLevel)
-            {
-                debugLevelTrack = debugJumpToLevel;
-                CallForNewBoard();
-            }
-            else
-                isStarted = false;
-        }
-    }
-
 }

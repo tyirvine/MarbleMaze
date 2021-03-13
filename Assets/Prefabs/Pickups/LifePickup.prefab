@@ -201,20 +201,20 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 0
-      minColor: {r: 1, g: 1, b: 1, a: 1}
+      minMaxState: 4
+      minColor: {r: 1, g: 0.9518792, b: 0.740566, a: 1}
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
+        key1: {r: 1, g: 0.8590306, b: 0.36320752, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
-        ctime0: 0
+        ctime0: 32382
         ctime1: 65535
         ctime2: 0
         ctime3: 0
@@ -4701,14 +4701,14 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 294e1e12e9f2a4d78b19be94333d5382, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.706
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0.12
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
@@ -4745,7 +4745,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.616
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4924,11 +4924,11 @@ Halo:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7232155806945208165}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Color:
     serializedVersion: 2
-    rgba: 4279837483
-  m_Size: 0.98
+    rgba: 4279440147
+  m_Size: 0.6
 --- !u!1001 &5338013066735837984
 PrefabInstance:
   m_ObjectHideFlags: 0

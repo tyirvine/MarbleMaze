@@ -6,12 +6,15 @@ public class Key : MonoBehaviour
     Gate gate;
     public ParticleSystem particlePickedup;
     public Behaviour halo;
-    public Collider collider;
+    public Collider keyCollider;
     public ParticleSystem particleIdle;
 
     // Finds reference to the gate
     private void Start()
     {
+        // Grab the collider
+        keyCollider = GetComponent<SphereCollider>();
+
         if (gate == null)
         {
             gate = FindObjectOfType<Gate>();
@@ -22,7 +25,7 @@ public class Key : MonoBehaviour
     void DisableMesh()
     {
         halo.enabled = false;
-        collider.enabled = false;
+        keyCollider.enabled = false;
         particleIdle.Stop();
         GetComponent<MeshRenderer>().enabled = false;
     }

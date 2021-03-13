@@ -45,8 +45,7 @@ public class ShapeManager : MonoBehaviour
     public ShapeTemplate hazardKey;
     // Pickups
     public ShapeTemplate pickupLife;
-    public ShapeTemplate shieldPickup;
-    public ShapeTemplate invisibilityPickup;
+    public ShapeTemplate pickupShield;
 
     // One off obstacles
     [Header("Spawn Once")]
@@ -71,7 +70,7 @@ public class ShapeManager : MonoBehaviour
         shapesAsList.Add(hazardLandmine);
         // Pickups
         shapesAsList.Add(pickupLife);
-        shapesAsList.Add(shieldPickup);
+        shapesAsList.Add(pickupShield);
         //shapesAsList.Add(invisibilityPickup);
         // Add them all to shapes
         shapes = shapesAsList.ToArray();
@@ -243,24 +242,14 @@ public class ShapeManager : MonoBehaviour
     /// <summary>Works out where to spawn a key hazard in the level.</summary>
     void SpawnKeyHazard(List<Vector3> walkNodes)
     {
-        List<Vector3Int> deadEnds = new List<Vector3Int>();
-        deadEnds.AddRange(gameObject.GetComponent<PathManager>().deadEnds);
-        if (deadEnds.Count > 0)
-        {
-            int keyLocation = UnityEngine.Random.Range(0, deadEnds.Count);
-            Vector3 keyPosition = CheckPathNeighbours(deadEnds[keyLocation], walkNodes);
-            Vector3Int keyOffset = Vector3Int.zero;
-            Instantiate(key, keyPosition, Quaternion.identity);
-            SpawnKeyHazardGate();
-        }
-        else
-        {
-            int keyLocation = UnityEngine.Random.Range(0, walkNodes.Count);
-            Vector3 keyPosition = CheckPathNeighbours(walkNodes[keyLocation], walkNodes);
-            Vector3Int keyOffset = Vector3Int.zero;
-            Instantiate(key, keyPosition, Quaternion.identity);
-            SpawnKeyHazardGate();
-        }
+        // Spawn the key half way through the path
+        int indexHalfed = (walkNodes.Count() / 3) * 2;
+        Vector3 halfwayNode = walkNodes[indexHalfed];
+
+        // Once the furthest point is calculated then we can spawn the key at that point
+        Vector3 keyPosition = CheckPathNeighbours(halfwayNode, walkNodes);
+        Instantiate(key, keyPosition, Quaternion.identity);
+        SpawnKeyHazardGate();
     }
 
     Vector3 CheckPathNeighbours(Vector3 keyLoc, List<Vector3> walkers)

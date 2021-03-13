@@ -129,6 +129,11 @@ public class SettingsManager : MonoBehaviour
         UpdateSliderUI(music);
     }
 
+    private void Start()
+    {
+        SetControls();
+    }
+
     /* ------------------------------- Persistence ------------------------------ */
     /// <summary>Save all values. Happens when the player selects done on settings.</summary>
     public void SavePlayerPreferences()
