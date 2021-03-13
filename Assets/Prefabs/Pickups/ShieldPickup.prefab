@@ -130,6 +130,61 @@ PrefabInstance:
       propertyPath: m_Volume
       value: 0.904
       objectReference: {fileID: 0}
+    - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
+        type: 3}
+      propertyPath: InitialModule.startColor.minColor.r
+      value: 0.4764151
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
+        type: 3}
+      propertyPath: InitialModule.startColor.minColor.g
+      value: 0.68584913
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
+        type: 3}
+      propertyPath: InitialModule.startColor.minColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
+        type: 3}
+      propertyPath: InitialModule.startColor.minMaxState
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxGradient.ctime1
+      value: 64957
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxGradient.key1.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxGradient.key1.g
+      value: 0.56413555
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxGradient.key1.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxGradient.ctime0
+      value: 29105
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxGradient.key0.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2808003717424369550, guid: 9becbed7367bd4f5f817a230e285c4d5,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxGradient.key0.g
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2952693776489508012, guid: 9becbed7367bd4f5f817a230e285c4d5,
         type: 3}
       propertyPath: m_Controller

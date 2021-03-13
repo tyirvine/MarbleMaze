@@ -10,9 +10,6 @@ public class LevelFinish : MonoBehaviour
     GameManager gameManager;
     MarbleBehaviour marble;
 
-    // State objects
-    public bool disableCollider = false;
-
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -24,16 +21,15 @@ public class LevelFinish : MonoBehaviour
     // Detect marble
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && disableCollider == false)
+        if (other.CompareTag("Player"))
         {
-            disableCollider = true;
             // Make next level
-            // audioLevelFinish.Play();
+            audioLevelFinish.Play();
             gameManager.CallForNewBoard();
-            // Invoke("ResetMarbleRigidBody", marble.physicsResetTime);
+            Invoke("ResetMarbleRigidBody", marble.physicsResetTime);
 
             // Disable collider
-            // finishCollider.enabled = false;
+            finishCollider.enabled = false;
         }
     }
 

@@ -12,7 +12,6 @@ public class MarbleBehaviour : MonoBehaviour
     public float audioTriggerSpeed;
     public AudioSource spikeDeath;
     public AudioClip impact;
-    public AudioClip levelFinish;
     public AudioClip deathSound;
 
     // Settings

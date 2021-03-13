@@ -5651,7 +5651,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.1
+      value: 0.5
       mode: 0
       spread: 0
       speed:
@@ -5770,7 +5770,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 200
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -7481,7 +7481,7 @@ ParticleSystem:
     inWorldSpace: 0
     multiplyDragByParticleSize: 1
     multiplyDragByParticleVelocity: 1
-    dampen: 0.5
+    dampen: 0.88
     drag:
       serializedVersion: 2
       minMaxState: 0
@@ -9747,7 +9747,6 @@ MonoBehaviour:
   audioTriggerSpeed: 194.69
   spikeDeath: {fileID: 2718599477716111612}
   impact: {fileID: 8300000, guid: becb956682217814fb997c8b99c7e6e5, type: 3}
-  levelFinish: {fileID: 8300000, guid: fe81b06e5232fba4d86b6048ef392bb5, type: 3}
   deathSound: {fileID: 8300000, guid: 86e69b5f4bd6f534fbc390b8a2411b60, type: 3}
   scale: 1.25
   jumpPower: 19
