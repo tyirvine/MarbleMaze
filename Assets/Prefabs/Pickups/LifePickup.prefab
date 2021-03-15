@@ -207,7 +207,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 0.8590306, b: 0.36320752, a: 1}
+        key1: {r: 1, g: 0.36470592, b: 0.57054144, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -4924,11 +4924,11 @@ Halo:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7232155806945208165}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Color:
     serializedVersion: 2
-    rgba: 4279440147
-  m_Size: 0.6
+    rgba: 4280551001
+  m_Size: 1.95
 --- !u!1001 &5338013066735837984
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -41,7 +41,6 @@ public class PlayerInput : MonoBehaviour
     // Used to move the board
     void OnLook(InputValue _value)
     {
-
         // Assign input value
         inputValue = _value.Get<Vector2>();
 
