@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 8900000, guid: 1e305e522e3ed4c409fbbd099a6dedc4, type: 3}
   m_Sun: {fileID: 545776925}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -384,6 +384,33 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Quit
       objectReference: {fileID: 0}
+    - target: {fileID: 911125633454948178, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_text
+      value: 'Alex Pester
+
+        Bubzy
+
+        Ty
+
+
+        Alex Pester
+
+        Ty
+
+
+        Alex
+        Pester
+
+        Bubzy
+
+        Ty
+
+
+        Bubzy
+
+        Ty'
+      objectReference: {fileID: 0}
     - target: {fileID: 1107082355357490784, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -620,6 +647,35 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 24100000, guid: 19fc47d118cd58746805941cc1db548b,
         type: 2}
+    - target: {fileID: 5503687259467037089, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
+        type: 3}
+      propertyPath: m_text
+      value: 'Credits
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 6772503697466677166, guid: e5266fed9e6b2466f8a14aa8ca6c9370,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -735,7 +791,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 514d5177b3dae33498a187a00bb4726a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
