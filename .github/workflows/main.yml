@@ -37,23 +37,9 @@ jobs:
         if: "!contains(steps.log.outputs.message, 'skip ci') && steps.check_folder.outputs.files_exists == 'true'"
         run: dotnet tool install -g dotnet-format
 
-      - name: Check format
-        if: "!contains(steps.log.outputs.message, 'skip ci') && steps.check_folder.outputs.files_exists == 'true'"
-        id: check
-        uses: brmenchl/dotnet-format@v1.0.2
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          action: "check"
-          folder: ./Assets/Scripts
-          fail-fast: false
-
-      - name: Run format
-        if: steps.check.outputs.has-changes == 'true'
-        uses: brmenchl/dotnet-format@v1.0.2
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          action: "fix"
-          folder: ./Assets/Scripts
+      - name: Format
+        if: "steps.check_folder.outputs.files_exists == 'true'"
+        run: dotnet format ./Assets/Scripts --folder
 
       - name: Commit files
         if: steps.check.outputs.has-changes == 'true'
