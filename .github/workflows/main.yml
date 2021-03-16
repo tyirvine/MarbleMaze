@@ -44,20 +44,16 @@ jobs:
       - name: Check if there are changes
         id: changes
         uses: UnicornGlobal/has-changes-action@v1.0.12
-        
-      - name: Process changes
-        if: steps.changes.outputs.changed == 1
-        run: echo "Changes exist"
 
       - name: Commit files
-        if: steps.changes.output.changed == 1
+        if: steps.changes.outputs.changed == 1
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -a -m 'Automated dotnet-format update [skip ci]' -m 'Co-authored-by: ${{ github.event.pull_request.user.login }} <${{ github.event.pull_request.user.id }}+${{ github.event.pull_request.user.login }}@users.noreply.github.com>'
           
       - name: Push changes
-        if: steps.changes.output.changed == 1
+        if: steps.changes.outputs.changed == 1
         uses: ad-m/github-push-action@v0.6.0
         with:
           branch: ${{ steps.comment-branch.outputs.ref }}
