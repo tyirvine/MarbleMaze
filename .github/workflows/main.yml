@@ -43,14 +43,14 @@ jobs:
         run: dotnet format ./Assets/Scripts --folder
 
       - name: Commit files
-        if: "steps.check.outputs.has-changes == 'true'"
+        if: "steps.check_folder.outputs.files_exists == 'true'"
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -a -m 'Automated dotnet-format update [skip ci]' -m 'Co-authored-by: ${{ github.event.pull_request.user.login }} <${{ github.event.pull_request.user.id }}+${{ github.event.pull_request.user.login }}@users.noreply.github.com>'
           
       - name: Push changes
-        if: "steps.check.outputs.has-changes == 'true'"
+        if: "steps.check_folder.outputs.files_exists == 'true'"
         uses: ad-m/github-push-action@v0.6.0
         with:
           branch: ${{ steps.comment-branch.outputs.ref }}
