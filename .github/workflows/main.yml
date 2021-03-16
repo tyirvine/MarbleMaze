@@ -33,40 +33,27 @@ jobs:
         with:
           files: "./Assets/Scripts/"
 
-#       - name: Install dotnet-format
-#         if: (!contains(steps.log.outputs.message, 'skip ci') && steps.check_folder.outputs.files_exists == 'true')
-#         run: dotnet tool install -g dotnet-format
+      - name: Install dotnet-format
+        if: (!contains(steps.log.outputs.message, 'skip ci') && steps.check_folder.outputs.files_exists == 'true')
+        run: dotnet tool install -g dotnet-format
 
-#       - name: Format
-#         if: steps.check_folder.outputs.files_exists == 'true'
-#         run: dotnet format ./Assets/Scripts --folder
+      - name: Format
+        if: steps.check_folder.outputs.files_exists == 'true'
+        run: dotnet format ./Assets/Scripts --folder
         
-#       - name: Check if there are changes
-#         id: changes
-#         uses: UnicornGlobal/has-changes-action@v1.0.12
-
-      - name: Restore dotnet tools
-        if: steps.check_folder.outputs.files_exists == 'true'
-        uses: xt0rted/dotnet-tool-restore@v1
-
-      - name: Run dotnet format
-        if: steps.check_folder.outputs.files_exists == 'true'
-        id: format
-        uses: xt0rted/dotnet-format@v1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          action: "fix"
-          only-changed-files: true
+      - name: Check if there are changes
+        id: changes
+        uses: UnicornGlobal/has-changes-action@v1.0.12
 
       - name: Commit files
-        if: steps.format.output.has-changes == 'true'
+        if: steps.changes.output.changed == 1
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -a -m 'Automated dotnet-format update [skip ci]' -m 'Co-authored-by: ${{ github.event.pull_request.user.login }} <${{ github.event.pull_request.user.id }}+${{ github.event.pull_request.user.login }}@users.noreply.github.com>'
           
       - name: Push changes
-        if: steps.format.output.has-changes == 'true'
+        if: steps.changes.output.changed == 1
         uses: ad-m/github-push-action@v0.6.0
         with:
           branch: ${{ steps.comment-branch.outputs.ref }}
