@@ -5,7 +5,8 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class PathManager : MonoBehaviour {
+public class PathManager : MonoBehaviour
+{
 
     // Scaling for the placement of objects on the grid
     Vector3 gridScale;
